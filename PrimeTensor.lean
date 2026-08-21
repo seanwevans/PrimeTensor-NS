@@ -119,15 +119,18 @@ import PrimeTensor.Fluid.Vorticity.H3.Energy.Regularity
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Spatial.Linearity
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Cancellation
+import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.IntegrationByParts.Closure
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.One
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.One.Bound
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.One.Integral
+import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.One.Pairing.Integrability.Closure
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.One.Sum
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.One.Total.Bound
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Expansion
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Gradient.Bound
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Gradient.Energy
+import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Gradient.Integrability.Closure
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Gradient.Integral
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Gradient.Sum
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Gradient.Total.Bound
@@ -139,6 +142,7 @@ import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Interpolation
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Interpolation.Holder.Pairing
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Interpolation.Holder.Real
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Interpolation.Landau.Algebra
+import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Interpolation.Landau.Analytic.Closure
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Interpolation.Landau.Cancel
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Interpolation.Landau.Cauchy
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Interpolation.Landau.Direct.Closure
@@ -152,6 +156,8 @@ import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Interpolation
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Interpolation.Monomials
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Interpolation.Reduction
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Landau.Closure
+import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Pairing.Integrability.Closure
+import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Regularity.Closure
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Split
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Two
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Two.Bound

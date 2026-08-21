@@ -179,6 +179,158 @@ theorem SpatialC1.partialDeriv_eq_fderiv_axisDirection
     ).differentiableAt
 
 /--
+For a `C¹` scalar field on a finite coordinate product, the operator norm of
+the Fréchet derivative is bounded by the sum of the absolute coordinate
+partials.
+
+This is the finite-dimensional bridge needed to pass from PrimeTensor's
+coordinatewise derivative bookkeeping to Mathlib's Fréchet-derivative Sobolev
+API.
+-/
+theorem SpatialC1.norm_fderiv_le_sum_abs_partialDeriv
+    {dim : Depth}
+    {f : PrimeTensor.ScalarField ℝ ℝ dim}
+    (hf : SpatialC1 f)
+    (x : PrimeTensor.Point ℝ dim) :
+    ‖fderiv ℝ f x‖
+      ≤
+    ∑ i : PrimeTensor.Axis dim,
+      abs (partialDeriv i f x) := by
+
+  classical
+
+  apply
+    ContinuousLinearMap.opNorm_le_bound
+      (fderiv ℝ f x)
+      (Finset.sum_nonneg fun i _ =>
+        abs_nonneg (partialDeriv i f x))
+
+  intro y
+
+  have hyDecomp :
+      y =
+        ∑ i : PrimeTensor.Axis dim,
+          Pi.single i (y i) := by
+    ext j
+    simp
+
+  calc
+    ‖(fderiv ℝ f x) y‖
+        =
+      norm
+        (
+          (fderiv ℝ f x)
+            (
+              ∑ i : PrimeTensor.Axis dim,
+                Pi.single i (y i)
+            )
+        ) := by
+        rw [← hyDecomp]
+
+    _ =
+      norm
+        (
+          ∑ i : PrimeTensor.Axis dim,
+            (fderiv ℝ f x)
+              (Pi.single i (y i))
+        ) := by
+        rw [map_sum]
+
+    _ ≤
+      ∑ i : PrimeTensor.Axis dim,
+        norm
+          (
+            (fderiv ℝ f x)
+              (Pi.single i (y i))
+          ) := by
+          exact
+            norm_sum_le
+              Finset.univ
+              (fun i =>
+                (fderiv ℝ f x)
+                  (Pi.single i (y i)))
+
+    _ =
+      ∑ i : PrimeTensor.Axis dim,
+        abs (y i)
+          *
+        abs (partialDeriv i f x) := by
+
+          apply Finset.sum_congr rfl
+
+          intro i hi
+
+          have hSingle :
+              Pi.single i (y i)
+                =
+              (y i) • axisDirection i := by
+
+            ext j
+
+            by_cases hji : j = i
+
+            · subst j
+
+              simp [axisDirection]
+
+            · simp [axisDirection, hji]
+
+          rw [
+            hSingle,
+            map_smul,
+            norm_smul,
+            ← hf.partialDeriv_eq_fderiv_axisDirection x i
+          ]
+
+          simp [Real.norm_eq_abs]
+
+    _ ≤
+      ∑ i : PrimeTensor.Axis dim,
+        ‖y‖
+          *
+        abs (partialDeriv i f x) := by
+
+          apply Finset.sum_le_sum
+
+          intro i hi
+
+          apply
+            mul_le_mul_of_nonneg_right
+              ?_
+              (abs_nonneg (partialDeriv i f x))
+
+          have hyCoord :
+              ‖y i‖ ≤ ‖y‖ := by
+
+            exact
+              (
+                pi_norm_le_iff_of_nonneg
+                  (x := y)
+                  (norm_nonneg y)
+              ).1
+                (le_refl ‖y‖)
+                i
+
+          simpa [Real.norm_eq_abs] using
+            hyCoord
+
+    _ =
+      (
+        ∑ i : PrimeTensor.Axis dim,
+          abs (partialDeriv i f x)
+      )
+        *
+      ‖y‖ := by
+
+        rw [Finset.sum_mul]
+
+        apply Finset.sum_congr rfl
+
+        intro i hi
+
+        rw [mul_comm]
+
+/--
 The first partial field of a `C²` scalar field is globally represented by the
 first Fréchet derivative applied to the corresponding coordinate direction.
 -/

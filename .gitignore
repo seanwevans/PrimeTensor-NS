@@ -3,3 +3,4 @@
 .lake/
 *:Zone.Identifier
 out.txt
+*.zip

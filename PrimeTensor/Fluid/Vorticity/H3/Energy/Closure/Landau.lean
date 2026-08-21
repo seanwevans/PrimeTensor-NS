@@ -26,12 +26,18 @@ open Set
 /--
 Energy-class closure obligation for the explicit Landau transport package.
 
-For every preterminal H³ energy-class state, there is one tail envelope `h`
-for which all order-zero through order-three transport flux, pairing,
-regularity, integrability, and Landau interpolation hypotheses hold uniformly
-on the strict tail.
+This closure obligation now factors into two standard whole-space analytic
+theorems, `WholeSpaceC1FDerivL2ToL6` and
+`WholeSpaceQuarticDerivativeIntegrationByParts`, plus the genuinely
+NS-specific statement that every preterminal H³ energy-class state admits
+one tail envelope `h` with the transport integration-by-parts data at
+orders zero through three.
 -/
 def EnergyClassProducesLandauTransportAnalytic : Prop :=
+  WholeSpaceC1FDerivL2ToL6
+    ∧
+  WholeSpaceQuarticDerivativeIntegrationByParts
+    ∧
   ∀
     (
       u :
@@ -78,8 +84,16 @@ theorem energyClassProducesH3GradientGrowth_of_landauClosure
     hCanonical
       u a T hClass
 
+  have hSobolevFDeriv6 :
+      WholeSpaceC1FDerivL2ToL6 :=
+    hLandau.1
+
+  have hQuarticIBP :
+      WholeSpaceQuarticDerivativeIntegrationByParts :=
+    hLandau.2.1
+
   rcases
-      hLandau
+      hLandau.2.2
         u a T hClass
     with
       ⟨h, hLandauTail⟩
@@ -94,20 +108,15 @@ theorem energyClassProducesH3GradientGrowth_of_landauClosure
 
     rcases hLandauTail t ht with
       ⟨
-        hFlux0,
-        hFlux1,
-        hPairing1,
-        hFlux2,
-        hPairing2,
-        hRegular3,
-        hFlux3,
-        hPairing3,
-        hGradientPairing3,
-        hH3,
-        hAnalytic3
+        hIBP0,
+        hIBP1,
+        hIBP2,
+        hIBP3,
+        hAnalyticCore3
       ⟩
 
-    exact hAnalytic3.2.1
+    simpa [H3OrderThreeInterpolationLandauCoreAnalyticDataAt] using
+      hAnalyticCore3
 
   refine
     ⟨
@@ -126,8 +135,10 @@ theorem energyClassProducesH3GradientGrowth_of_landauClosure
 
   · exact
       h3GradientGrowthInequalityFrom_canonical_of_landauAnalytic
+        hSobolevFDeriv6
+        hQuarticIBP
         hClass
-        hData.2.2
+        hData
         hLandauTail
 
 /--
