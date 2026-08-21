@@ -1,4 +1,4 @@
-import PrimeTensor.ScaleLaws
+import PrimeTensor.Scale.Laws
 
 /-!
 # Intrinsic multiplicative completion

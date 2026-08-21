@@ -1,4 +1,4 @@
-import PrimeTensor.Fluid.CouplingUFD
+import PrimeTensor.Fluid.Coupling.UFD
 import PrimeTensor.Bridge.Rational
 import Mathlib.Analysis.SpecialFunctions.Log.Basic
 

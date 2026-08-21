@@ -1,4 +1,4 @@
-import PrimeTensor.Analysis.PowerGrowth
+import PrimeTensor.Analysis.Power.Growth
 import PrimeTensor.Tensor.Calculus
 
 /-!

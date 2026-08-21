@@ -1,4 +1,4 @@
-import PrimeTensor.Analysis.NearLaws
+import PrimeTensor.Analysis.Near.Laws
 
 /-!
 # First multiplicative calculus rules
