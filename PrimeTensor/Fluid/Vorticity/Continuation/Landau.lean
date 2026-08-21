@@ -1,5 +1,6 @@
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Closure.Landau.Endpoint
 import PrimeTensor.Fluid.Vorticity.Continuation.Frontier
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Lifespan
 
 /-!
 # Landau H³ continuation factorization
@@ -9,13 +10,17 @@ canonical energy estimate, BKM logarithmic endpoint, and scalar Osgood step to
 
     VorticityL1LinfProducesH3Control.
 
-The only remaining independent continuation input is therefore the classical
-tail-H³ continuation implication
+The abstract tail-H³ continuation implication
 
-    H3ControlProducesExtension.
+    H3ControlProducesExtension
 
-This file composes those two pieces using the pre-existing continuation
-factorization theorem.
+is still available as a factorized interface.  The restart-lifespan layer
+sharpens it further to the standard uniform local-existence statement
+
+    UniformH3RealRestartLifespan.
+
+This file exposes both formulations, with the latter as the sharper Landau
+continuation frontier.
 -/
 
 namespace PrimeTensor
@@ -60,6 +65,45 @@ theorem seededVorticityL1LinfProducesExtension_of_landauClosure
         hEndpoint
 
   · exact hH3ToExtension
+
+/--
+The Landau H³ closure plus a uniform local H³ restart lifespan gives the
+honest seeded vorticity `L¹_t L∞_x` continuation criterion.
+
+This eliminates the abstract `H3ControlProducesExtension` hypothesis from the
+Landau-facing statement: the remaining continuation input is the concrete
+uniform-lifespan local well-posedness frontier.
+-/
+theorem seededVorticityL1LinfProducesExtension_of_landauClosure_uniformLifespan
+    (
+      hSmooth :
+        H3SeedProducesEnergyClass
+    )
+    (
+      hCanonical :
+        EnergyClassProducesCanonicalH3Data
+    )
+    (
+      hLandau :
+        EnergyClassProducesLandauTransportAnalytic
+    )
+    (
+      hEndpoint :
+        VorticityControlsGradientLogarithmically
+    )
+    (
+      hUniform :
+        UniformH3RealRestartLifespan
+    ) :
+    SeededVorticityL1LinfProducesExtension := by
+
+  exact
+    seededVorticityL1LinfProducesExtension_of_landauClosure
+      hSmooth
+      hCanonical
+      hLandau
+      hEndpoint
+      (h3ControlProducesExtension_of_uniformLifespan hUniform)
 
 end Euclidean
 end Bridge
