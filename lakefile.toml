@@ -1,0 +1,14 @@
+name = "PrimeTensor"
+version = "0.1.0"
+defaultTargets = ["PrimeTensor", "primetensor"]
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+
+[[lean_lib]]
+name = "PrimeTensor"
+
+[[lean_exe]]
+name = "primetensor"
+root = "Main"
