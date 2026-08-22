@@ -226,3 +226,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.YoungConvol
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.YoungConvolutionPairing
 
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.RawFourierL2
+
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.WeightedConvolutionIntegrand
