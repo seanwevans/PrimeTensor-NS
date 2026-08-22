@@ -102,8 +102,11 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Heat.Fourier
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Heat.Path
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.HeatLeray
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.PathSpace
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.FourierDerivative
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.FourierDerivativeAE
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Plancherel
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Spectral
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Transport
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.WeakDerivative
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.State
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Picard
@@ -205,6 +208,3 @@ import PrimeTensor.Tensor.Basic
 import PrimeTensor.Tensor.Calculus
 import PrimeTensor.Tensor.Contract
 import PrimeTensor.Tensor.Laws
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Transport
-
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.FourierDerivative
