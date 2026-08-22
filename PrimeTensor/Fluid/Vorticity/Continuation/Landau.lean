@@ -1,6 +1,6 @@
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Closure.Landau.Endpoint
 import PrimeTensor.Fluid.Vorticity.Continuation.Frontier
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.EnergyLifespan
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.LocalWellPosedness
 
 /-!
 # Landau H³ continuation factorization
@@ -149,6 +149,45 @@ theorem seededVorticityL1LinfProducesExtension_of_landauClosure_canonicalEnergyL
       hLandau
       hEndpoint
       (uniformH3RealRestartLifespan_of_canonicalEnergy hUniform)
+
+
+/--
+The Landau H³ closure plus the per-energy canonical H³ local-well-posedness
+statement gives the seeded continuation criterion.
+
+This is the Landau-facing form with all choice-function packaging removed from
+the remaining classical input.
+-/
+theorem seededVorticityL1LinfProducesExtension_of_landauClosure_localWellPosedness
+    (
+      hSmooth :
+        H3SeedProducesEnergyClass
+    )
+    (
+      hCanonical :
+        EnergyClassProducesCanonicalH3Data
+    )
+    (
+      hLandau :
+        EnergyClassProducesLandauTransportAnalytic
+    )
+    (
+      hEndpoint :
+        VorticityControlsGradientLogarithmically
+    )
+    (
+      hLocal :
+        CanonicalH3RealLocalWellPosedness
+    ) :
+    SeededVorticityL1LinfProducesExtension := by
+
+  exact
+    seededVorticityL1LinfProducesExtension_of_landauClosure_canonicalEnergyLifespan
+      hSmooth
+      hCanonical
+      hLandau
+      hEndpoint
+      (uniformCanonicalH3RealRestartLifespan_of_localWellPosedness hLocal)
 
 end Euclidean
 end Bridge
