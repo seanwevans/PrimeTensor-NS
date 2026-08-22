@@ -95,6 +95,13 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Handoff
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Lifespan
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Bridge
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Bridge.Energy
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.HeatLeray
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.PathSpace
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.State
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Picard
 import PrimeTensor.Fluid.Vorticity.Coupling.Continuity
 import PrimeTensor.Fluid.Vorticity.Diffusion.Branch
 import PrimeTensor.Fluid.Vorticity.Extension.Locality
@@ -193,15 +200,3 @@ import PrimeTensor.Tensor.Basic
 import PrimeTensor.Tensor.Calculus
 import PrimeTensor.Tensor.Contract
 import PrimeTensor.Tensor.Laws
-
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Picard
-
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild
-
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.HeatLeray
-
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.PathSpace
-
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.State
-
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Bridge
