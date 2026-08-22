@@ -218,3 +218,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.SpectralWei
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.YoungConvolution
 
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.SobolevAlgebra
+
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.YoungConvolutionRepresentatives
