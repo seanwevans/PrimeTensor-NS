@@ -216,3 +216,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.SpectralL1
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.SpectralWeightSplit
 
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.YoungConvolution
+
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.SobolevAlgebra
