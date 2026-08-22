@@ -203,3 +203,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.HeatLeray
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.PathSpace
 
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.State
+
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Bridge
