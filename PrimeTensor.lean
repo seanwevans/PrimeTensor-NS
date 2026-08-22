@@ -203,3 +203,5 @@ import PrimeTensor.Tensor.Laws
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Heat.Fourier
 
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Heat.Path
+
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Spectral
