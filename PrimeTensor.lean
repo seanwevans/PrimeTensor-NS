@@ -197,3 +197,5 @@ import PrimeTensor.Tensor.Laws
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Picard
 
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild
+
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.HeatLeray
