@@ -234,3 +234,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.WeightedCon
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.WeightedConvolutionDomination
 
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.WeightedConvolutionMajorants
+
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.YoungConvolutionReal
