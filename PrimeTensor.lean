@@ -102,15 +102,40 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Heat.Fourier
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Heat.Path
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.HeatLeray
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.PathSpace
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.FinDuhamelBound
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.FinLerayMultiplier
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.FinLeraySymbol
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.FinVelocityKernel
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.FinVorticityFlux
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.FourierCompatibility
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.FourierDerivative
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.FourierDerivativeAE
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.HeatDivergence
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.HeatSmoothing
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.HeatTimeKernel
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Plancherel
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.RawFourierL2
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.SobolevAlgebra
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Spectral
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.SpectralEncoder
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.SpectralL1
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.SpectralWeightSplit
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Transport
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.VorticityFlux
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.WeakDerivative
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.WeightedConvolutionDomination
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.WeightedConvolutionIntegrand
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.WeightedConvolutionL2
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.WeightedConvolutionMajorantLocal
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.WeightedConvolutionMajorantRepresentatives
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.WeightedConvolutionMajorantStates
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.WeightedConvolutionMajorants
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.WeightedConvolutionPointwise
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.YoungConvolution
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.YoungConvolutionDuality
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.YoungConvolutionPairing
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.YoungConvolutionReal
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.YoungConvolutionRepresentatives
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.State
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Picard
 import PrimeTensor.Fluid.Vorticity.Coupling.Continuity
@@ -211,50 +236,6 @@ import PrimeTensor.Tensor.Basic
 import PrimeTensor.Tensor.Calculus
 import PrimeTensor.Tensor.Contract
 import PrimeTensor.Tensor.Laws
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.SpectralL1
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.FinHeatLerayKernel
 
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.SpectralWeightSplit
-
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.YoungConvolution
-
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.SobolevAlgebra
-
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.YoungConvolutionRepresentatives
-
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.YoungConvolutionDuality
-
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.YoungConvolutionPairing
-
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.RawFourierL2
-
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.WeightedConvolutionIntegrand
-
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.WeightedConvolutionPointwise
-
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.WeightedConvolutionDomination
-
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.WeightedConvolutionMajorants
-
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.YoungConvolutionReal
-
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.WeightedConvolutionMajorantStates
-
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.WeightedConvolutionMajorantLocal
-
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.WeightedConvolutionMajorantRepresentatives
-
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.WeightedConvolutionL2
-
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.VorticityFlux
-
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.HeatDivergence
-
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.HeatTimeKernel
-
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.FinVorticityFlux
-
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.FinDuhamelBound
-
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.FinVelocityKernel
-
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.FinLeraySymbol
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.FinHeatLerayDuhamel
