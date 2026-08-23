@@ -230,3 +230,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.RawFourierL
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.WeightedConvolutionIntegrand
 
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.WeightedConvolutionPointwise
+
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.WeightedConvolutionDomination
