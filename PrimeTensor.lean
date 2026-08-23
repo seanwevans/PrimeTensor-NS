@@ -248,3 +248,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.WeightedCon
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.VorticityFlux
 
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.HeatDivergence
+
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.HeatTimeKernel
