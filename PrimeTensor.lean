@@ -246,3 +246,5 @@ import PrimeTensor.Tensor.Laws
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.FinHeatLerayRetardedIntegrability
 
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.PathRealExtension
+
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.SpectralHeatCLM
