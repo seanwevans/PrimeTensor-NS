@@ -248,3 +248,9 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.FinHeatLera
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.PathRealExtension
 
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.SpectralHeatCLM
+
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.SpectralHeatSemigroup
+
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.FinHeatLeraySemigroup
+
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.FinHeatLerayDuhamelRestart
