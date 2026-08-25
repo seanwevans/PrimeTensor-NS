@@ -279,3 +279,7 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.FinHeatLera
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.FinHeatLerayOverlapUniqueness
 
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.FinHeatLerayOverlapPath
+
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.FinHeatLerayMildRestartTail
+
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.FinLerayPDEAlgebra
