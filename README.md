@@ -149,6 +149,13 @@ lake build
 
 The root `PrimeTensor.lean` file is the aggregate import surface.
 
+## Continuous integration
+
+GitHub Actions runs `lake build` for every pull request targeting `main` and
+every push to `main`. The workflow uses the Lean version in `lean-toolchain`,
+the dependency versions in `lake-manifest.json`, and the Mathlib and Lake
+caches provided by `leanprover/lean-action`.
+
 ## Numerical experiments
 
 The maintained probe in
