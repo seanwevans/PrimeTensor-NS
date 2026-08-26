@@ -1,4 +1,4 @@
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.PathSpace
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Path.Space
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Interpolation.Landau.L2.Bridge
 
 /-!

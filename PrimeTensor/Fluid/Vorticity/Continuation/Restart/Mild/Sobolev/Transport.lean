@@ -1,4 +1,4 @@
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.WeakDerivative
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Weak.Derivative
 import PrimeTensor.Bridge.Euclidean.Partials.Third
 import Mathlib.Analysis.Calculus.FDeriv.WithLp
 import Mathlib.Analysis.Normed.Module.FiniteDimension

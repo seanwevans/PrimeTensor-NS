@@ -1,5 +1,5 @@
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Heat.Fourier
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.PathSpace
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Path.Space
 import Mathlib.MeasureTheory.Function.L2Space
 import Mathlib.MeasureTheory.Integral.DominatedConvergence
 
