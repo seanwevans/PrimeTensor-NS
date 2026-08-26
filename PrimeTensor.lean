@@ -99,10 +99,11 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Bridge
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Bridge.Energy
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Heat.Fourier
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Heat.Path
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Heat.Leray
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Heat.Path
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Path.Real.Extension
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Path.Space
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Algebra
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Fin.Duhamel.Bound
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Fin.Heat.Leray.Bilinear
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Fin.Heat.Leray.Continuity
@@ -201,6 +202,7 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Sp
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Spectral.Nonlinear.Forcing.Duhamel.Coordinate.C1
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Spectral.Nonlinear.Forcing.Duhamel.Derivative.Continuity
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Spectral.Nonlinear.Forcing.Duhamel.Frechet.Assembly
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Spectral.Nonlinear.Forcing.Duhamel.Frechet.Time.Integrability
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Spectral.Nonlinear.Forcing.Duhamel.Spatial.Derivative
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Spectral.Nonlinear.Forcing.Heat.C3.Bridge
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Spectral.Nonlinear.Forcing.Heat.Endpoint.Bound
@@ -221,7 +223,6 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Sp
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Spectral.Outer.Product.Physical.Closure
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Spectral.Preterminal.Canonical.Energy.Restart.Closure
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Spectral.Raw.Approximation
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Algebra
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Spectral
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Spectral.Encoder
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Spectral.Heat.CLM
