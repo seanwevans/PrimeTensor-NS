@@ -166,3 +166,22 @@ lake build
 ```
 
 The root `PrimeTensor.lean` file is the aggregate import surface.
+
+## Numerical experiments
+
+The maintained probe in
+`experiments/prime_tensor_diagonal_obstruction.py` demonstrates why the raw
+same-depth finite coupling cannot be used without input-dependent precision
+scheduling. It constructs continued-fraction convergents to
+`log(3) / log(2)` and shows, with arbitrary-precision arithmetic, how atomic
+dyadic rounding errors are amplified on the diagonal. This is a diagnostic
+for the scheduling issue discussed in
+`PrimeTensor/Fluid/Coupling/Tail/Input.lean`; it is not part of the Lean build
+and is not evidence against the intended finite coupling target.
+
+Install the experiment dependency and run the probe from the repository root:
+
+```bash
+python3 -m pip install -r experiments/requirements.txt
+python3 experiments/prime_tensor_diagonal_obstruction.py
+```
