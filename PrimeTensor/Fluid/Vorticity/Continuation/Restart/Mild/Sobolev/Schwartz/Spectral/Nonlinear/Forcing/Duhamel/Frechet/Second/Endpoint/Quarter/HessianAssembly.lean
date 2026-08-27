@@ -1,5 +1,8 @@
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Spectral.Nonlinear.Forcing.Duhamel.Frechet.Assembly
 import Mathlib.Analysis.Normed.Operator.Bilinear
+import Mathlib.Analysis.Normed.Operator.NormedSpace
+import Mathlib.Topology.Algebra.Module.ContinuousLinearMap.PiProd
+import Mathlib.Topology.Algebra.Module.Spaces.ContinuousLinearMap
 
 /-!
 # Finite-dimensional Hessian assembly for the H³ Fourier carrier
@@ -34,6 +37,32 @@ noncomputable local instance axisFintypeH3SchwartzQuarterHessianAssembly
     (d : Depth) :
     Fintype (PrimeTensor.Axis d) :=
   Fintype.ofFinite (PrimeTensor.Axis d)
+
+
+/-!
+Lean's generic `ContinuousLinearMap` additive instances are recursive in the
+codomain topology.  At this second-order nesting depth, typeclass search can
+loop before discovering the two intermediate instances.  Install them
+explicitly for this file.
+-/
+
+local instance h3FirstDerivativeCLMAddCommGroup :
+    AddCommGroup (H3FourierPoint3 →L[ℝ] ℂ) :=
+  ContinuousLinearMap.addCommGroup
+
+local instance h3FirstDerivativeCLMTopologicalAddGroup :
+    IsTopologicalAddGroup (H3FourierPoint3 →L[ℝ] ℂ) :=
+  ContinuousLinearMap.topologicalAddGroup
+
+local instance h3SecondDerivativeCLMAddCommGroup :
+    AddCommGroup
+      (H3FourierPoint3 →L[ℝ] (H3FourierPoint3 →L[ℝ] ℂ)) :=
+  ContinuousLinearMap.addCommGroup
+
+local instance h3SecondDerivativeCLMTopologicalAddGroup :
+    IsTopologicalAddGroup
+      (H3FourierPoint3 →L[ℝ] (H3FourierPoint3 →L[ℝ] ℂ)) :=
+  ContinuousLinearMap.topologicalAddGroup
 
 /-- Rank-two lift of a complex coefficient into a continuous real
 bilinear operator on the H³ Fourier carrier.  The first spatial argument is
@@ -99,6 +128,40 @@ theorem h3AssembleSecondCoordinateDerivative_axis_axis
     M j k := by
   fin_cases j <;> fin_cases k <;>
     simp [h3AssembleSecondCoordinateDerivative_apply, Fin.sum_univ_three]
+
+/-- Continuous coordinate projection from a 3×3 matrix of complex coefficients. -/
+noncomputable def h3SecondCoordinateMatrixEntryCLM
+    (j k : Fin 3) :
+    (Fin 3 → Fin 3 → ℂ) →L[ℝ] ℂ :=
+  (ContinuousLinearMap.proj k : (Fin 3 → ℂ) →L[ℝ] ℂ).comp
+    (ContinuousLinearMap.proj j :
+      (Fin 3 → Fin 3 → ℂ) →L[ℝ] (Fin 3 → ℂ))
+
+@[simp]
+theorem h3SecondCoordinateMatrixEntryCLM_apply
+    (j k : Fin 3)
+    (M : Fin 3 → Fin 3 → ℂ) :
+    h3SecondCoordinateMatrixEntryCLM j k M = M j k := by
+  rfl
+
+/-- The entire Hessian assembler bundled as one continuous real-linear map
+from the nine coefficient entries to the nested continuous-linear-map space. -/
+noncomputable def h3AssembleSecondCoordinateDerivativeCLM :
+    (Fin 3 → Fin 3 → ℂ) →L[ℝ]
+      (H3FourierPoint3 →L[ℝ] (H3FourierPoint3 →L[ℝ] ℂ)) :=
+  ∑ k : Fin 3,
+    ∑ j : Fin 3,
+      (h3FourierSecondCoordinateLiftCLM j k).comp
+        (h3SecondCoordinateMatrixEntryCLM j k)
+
+@[simp]
+theorem h3AssembleSecondCoordinateDerivativeCLM_apply
+    (M : Fin 3 → Fin 3 → ℂ) :
+    h3AssembleSecondCoordinateDerivativeCLM M
+      =
+    h3AssembleSecondCoordinateDerivative M := by
+  simp [h3AssembleSecondCoordinateDerivativeCLM,
+    h3AssembleSecondCoordinateDerivative]
 
 end
 end Euclidean
