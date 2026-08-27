@@ -40,29 +40,30 @@ noncomputable local instance axisFintypeH3SchwartzQuarterHessianAssembly
 
 
 /-!
-Lean's generic `ContinuousLinearMap` additive instances are recursive in the
-codomain topology.  At this second-order nesting depth, typeclass search can
-loop before discovering the two intermediate instances.  Install them
-explicitly for this file.
+At this nesting depth, install the canonical operator-norm structures
+explicitly.  Using bare additive/topological instances here bakes a
+non-normed `ContinuousLinearMap` instance choice into the Hessian types, which
+then fails to unify with Mathlib's Bochner-integral API.  These instances are
+all definitionally the standard `ContinuousLinearMap` normed structures.
 -/
 
-local instance h3FirstDerivativeCLMAddCommGroup :
-    AddCommGroup (H3FourierPoint3 →L[ℝ] ℂ) :=
-  ContinuousLinearMap.addCommGroup
+local instance h3FirstDerivativeCLMNormedAddCommGroup :
+    NormedAddCommGroup (H3FourierPoint3 →L[ℝ] ℂ) :=
+  ContinuousLinearMap.toNormedAddCommGroup
 
-local instance h3FirstDerivativeCLMTopologicalAddGroup :
-    IsTopologicalAddGroup (H3FourierPoint3 →L[ℝ] ℂ) :=
-  ContinuousLinearMap.topologicalAddGroup
+local instance h3FirstDerivativeCLMNormedSpace :
+    NormedSpace ℝ (H3FourierPoint3 →L[ℝ] ℂ) :=
+  ContinuousLinearMap.toNormedSpace
 
-local instance h3SecondDerivativeCLMAddCommGroup :
-    AddCommGroup
+local instance h3SecondDerivativeCLMNormedAddCommGroup :
+    NormedAddCommGroup
       (H3FourierPoint3 →L[ℝ] (H3FourierPoint3 →L[ℝ] ℂ)) :=
-  ContinuousLinearMap.addCommGroup
+  ContinuousLinearMap.toNormedAddCommGroup
 
-local instance h3SecondDerivativeCLMTopologicalAddGroup :
-    IsTopologicalAddGroup
+local instance h3SecondDerivativeCLMNormedSpace :
+    NormedSpace ℝ
       (H3FourierPoint3 →L[ℝ] (H3FourierPoint3 →L[ℝ] ℂ)) :=
-  ContinuousLinearMap.topologicalAddGroup
+  ContinuousLinearMap.toNormedSpace
 
 /-- Rank-two lift of a complex coefficient into a continuous real
 bilinear operator on the H³ Fourier carrier.  The first spatial argument is
