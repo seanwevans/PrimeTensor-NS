@@ -118,7 +118,7 @@ theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2_moment_int
   have hRep :
       ((W : H3FourierComplexL2) : H3FourierPoint3 → ℂ)
         =ᵐ[(volume : Measure H3FourierPoint3)]
-      (fun ξ : H3FourierPoint3 => H ξ + D ξ) := by
+      (fun ξ : H3FourierPoint3 => H ξ - D ξ) := by
     dsimp only [W, H, D]
     exact
       h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2_ae_eq_heat_add_duhamel
@@ -139,11 +139,11 @@ theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2_moment_int
   rw [hξ]
 
   calc
-    h3FourierMomentWeight p ξ * ‖H ξ + D ξ‖
+    h3FourierMomentWeight p ξ * ‖H ξ - D ξ‖
         ≤
       h3FourierMomentWeight p ξ * (‖H ξ‖ + ‖D ξ‖) :=
       mul_le_mul_of_nonneg_left
-        (norm_add_le (H ξ) (D ξ))
+        (norm_sub_le (H ξ) (D ξ))
         hw
     _ =
       h3FourierMomentWeight p ξ * ‖H ξ‖ +
@@ -240,7 +240,7 @@ theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2_moment_int
   have hRep :
       ((W : H3FourierComplexL2) : H3FourierPoint3 → ℂ)
         =ᵐ[(volume : Measure H3FourierPoint3)]
-      (fun ξ : H3FourierPoint3 => H ξ + D ξ) := by
+      (fun ξ : H3FourierPoint3 => H ξ - D ξ) := by
     dsimp only [W, H, D]
     exact
       h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2_ae_eq_heat_add_duhamel
@@ -251,14 +251,14 @@ theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2_moment_int
         h3FourierMomentWeight p ξ * ‖W ξ‖)
         =ᵐ[(volume : Measure H3FourierPoint3)]
       (fun ξ : H3FourierPoint3 =>
-        h3FourierMomentWeight p ξ * ‖H ξ + D ξ‖) := by
+        h3FourierMomentWeight p ξ * ‖H ξ - D ξ‖) := by
     filter_upwards [hRep] with ξ hξ
     rw [hξ]
 
   have hSumInt :
       Integrable
         (fun ξ : H3FourierPoint3 =>
-          h3FourierMomentWeight p ξ * ‖H ξ + D ξ‖)
+          h3FourierMomentWeight p ξ * ‖H ξ - D ξ‖)
         (volume : Measure H3FourierPoint3) :=
     hFull.congr hWeightedRep
 
@@ -272,7 +272,7 @@ theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2_moment_int
 
   have hPoint :
       ∀ ξ : H3FourierPoint3,
-        h3FourierMomentWeight p ξ * ‖H ξ + D ξ‖
+        h3FourierMomentWeight p ξ * ‖H ξ - D ξ‖
           ≤
         h3FourierMomentWeight p ξ * ‖H ξ‖ +
           h3FourierMomentWeight p ξ * ‖D ξ‖ := by
@@ -283,11 +283,11 @@ theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2_moment_int
       h3FourierMomentWeight_nonneg p ξ
 
     calc
-      h3FourierMomentWeight p ξ * ‖H ξ + D ξ‖
+      h3FourierMomentWeight p ξ * ‖H ξ - D ξ‖
           ≤
         h3FourierMomentWeight p ξ * (‖H ξ‖ + ‖D ξ‖) :=
         mul_le_mul_of_nonneg_left
-          (norm_add_le (H ξ) (D ξ))
+          (norm_sub_le (H ξ) (D ξ))
           hw
       _ =
         h3FourierMomentWeight p ξ * ‖H ξ‖ +
@@ -296,7 +296,7 @@ theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2_moment_int
 
   have hMono :
       (∫ ξ : H3FourierPoint3,
-          h3FourierMomentWeight p ξ * ‖H ξ + D ξ‖)
+          h3FourierMomentWeight p ξ * ‖H ξ - D ξ‖)
         ≤
       ∫ ξ : H3FourierPoint3,
         (h3FourierMomentWeight p ξ * ‖H ξ‖ +
@@ -308,7 +308,7 @@ theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2_moment_int
           h3FourierMomentWeight p ξ * ‖W ξ‖)
         =
       ∫ ξ : H3FourierPoint3,
-        h3FourierMomentWeight p ξ * ‖H ξ + D ξ‖ :=
+        h3FourierMomentWeight p ξ * ‖H ξ - D ξ‖ :=
     integral_congr_ae hWeightedRep
 
   have hHeatLe' :
@@ -330,7 +330,7 @@ theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2_moment_int
         h3FourierMomentWeight p ξ * ‖W ξ‖)
         =
       ∫ ξ : H3FourierPoint3,
-        h3FourierMomentWeight p ξ * ‖H ξ + D ξ‖ :=
+        h3FourierMomentWeight p ξ * ‖H ξ - D ξ‖ :=
       hIntegralEq
     _ ≤
       ∫ ξ : H3FourierPoint3,

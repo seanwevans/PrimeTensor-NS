@@ -12,8 +12,8 @@ depending only on the viscosity and the H³ size bound.
 This file joins those two interfaces.  It packages the canonical real restart
 radius as an `NNReal`, defines the corresponding globally indexed selected mild
 extension, and proves that the complete canonical-radius step has the exact
-physical heat-plus-remainder decomposition whose nonlinear remainder is in the
-Schwartz heat--Leray physical-realization set.
+physical heat-minus-remainder decomposition whose positive nonlinear remainder
+is in the Schwartz heat--Leray physical-realization set.
 
 This is the form needed by the uniform-lifespan continuation frontier: the
 elapsed time is no longer an auxiliary small parameter.  It is the concrete
@@ -67,9 +67,9 @@ noncomputable def h3SpectralFinHeatLerayMildSolutionAtRestartRadiusPhysicalExten
     U₀ hA hU₀
     (h3FinHeatLerayRestartRadius_smallness ν hA.le)
 
-/-- The complete canonical-radius mild step has a physical heat-plus-remainder
-representation, and its nonlinear remainder is realized by the Schwartz
-heat--Leray closure constructed above. -/
+/-- The complete canonical-radius mild step has a physical
+heat-minus-remainder representation, and its positive nonlinear remainder is
+realized by the Schwartz heat--Leray closure constructed above. -/
 theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadiusPhysicalExtension_fullStep_realized
     {ν A : ℝ}
     (hν : 0 < ν)
@@ -85,7 +85,7 @@ theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadiusPhysicalExtension_fullS
         ν 0 hν W W T
     h3SpectralFinVectorDecodeComplexL2 (W (T : ℝ))
         = h3ComplexPhysicalVelocityHeatApplyNN ν hν.le T (W 0)
-          + h3SpectralFinVectorDecodeComplexL2 R
+          - h3SpectralFinVectorDecodeComplexL2 R
       ∧
     h3SpectralFinVectorDecodeComplexL2 R
         ∈ H3SchwartzHeatLerayDuhamelPhysicalRealization

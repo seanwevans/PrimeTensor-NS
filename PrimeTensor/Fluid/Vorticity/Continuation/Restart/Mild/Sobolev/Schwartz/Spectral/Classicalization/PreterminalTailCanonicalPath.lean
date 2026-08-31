@@ -125,7 +125,7 @@ theorem h3PreterminalSpectralOverlapWitnessAt_of_tailCanonicalPath
               ht
               (canonicalH3TailDataFrom_at_anchor
                 ht hTail).1)
-          +
+          -
         h3SpectralFinHeatLerayDuhamel
             ν
             (h3PhysicalTime τ s)

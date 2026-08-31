@@ -4,20 +4,28 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Sp
 /-!
 # Physical restart closure for the selected mild path
 
-The canonical restart remainder is mesh-independent, physically realized, and
-satisfies a two-interval semigroup law.  This file packages those facts directly
-with the selected mild path.
+The canonical positive restart remainder is mesh-independent, physically
+realized, and satisfies a two-interval semigroup law.  This file packages
+those facts directly with the selected mild path.
 
 For two successive positive elapsed times `b` and `c`, the selected path has a
-physical restart equation on the first leg, on the fresh second leg, and on the
-single combined leg `b + c`.  The three nonlinear remainders are physically
-realized by Schwartz heat--Leray anchors, and the combined decoded remainder is
-exactly the heat advance of the first decoded remainder plus the fresh decoded
-remainder.
+signed physical restart equation on the first leg, on the fresh second leg,
+and on the single combined leg `b + c`.  The three positive nonlinear
+remainders are physically realized by Schwartz heat--Leray anchors, and the
+combined decoded remainder is exactly the heat advance of the first decoded
+remainder plus the fresh decoded remainder.
+
+Thus the selected solution evolves by
+
+    W(a+t) = H_t W(a) - R(a,t),
+
+while the positive remainders themselves retain the semigroup law
+
+    R(a,b+c) = H_c R(a,b) + R(a+b,c).
 
 This is a continuation-facing closure statement: downstream arguments may
-advance by two restart steps or by their combined elapsed time without carrying
-a partition witness or reopening the Duhamel construction.
+advance by two restart steps or by their combined elapsed time without
+carrying a partition witness or reopening the Duhamel construction.
 -/
 
 namespace PrimeTensor
@@ -59,18 +67,18 @@ theorem h3SpectralFinHeatLerayMildSolutionPhysicalExtension_restart_physical_clo
         ν a hν W W (b + c)
     h3SpectralFinVectorDecodeComplexL2 (W (a + (b : ℝ)))
         = h3ComplexPhysicalVelocityHeatApplyNN ν hν.le b (W a)
-          + h3SpectralFinVectorDecodeComplexL2 Rb
+          - h3SpectralFinVectorDecodeComplexL2 Rb
       ∧
     h3SpectralFinVectorDecodeComplexL2
         (W (((b : ℝ) + a) + (c : ℝ)))
         = h3ComplexPhysicalVelocityHeatApplyNN
             ν hν.le c (W ((b : ℝ) + a))
-          + h3SpectralFinVectorDecodeComplexL2 Rc
+          - h3SpectralFinVectorDecodeComplexL2 Rc
       ∧
     h3SpectralFinVectorDecodeComplexL2
         (W (a + ((b + c : NNReal) : ℝ)))
         = h3ComplexPhysicalVelocityHeatApplyNN ν hν.le (b + c) (W a)
-          + h3SpectralFinVectorDecodeComplexL2 Rbc
+          - h3SpectralFinVectorDecodeComplexL2 Rbc
       ∧
     h3SpectralFinVectorDecodeComplexL2 Rb
         ∈ H3SchwartzHeatLerayDuhamelPhysicalRealization ν (b : ℝ) hν
@@ -122,7 +130,7 @@ theorem h3SpectralFinHeatLerayMildSolutionPhysicalExtension_restart_physical_clo
   have hB :
       h3SpectralFinVectorDecodeComplexL2 (W (a + (b : ℝ)))
           = h3ComplexPhysicalVelocityHeatApplyNN ν hν.le b (W a)
-            + h3SpectralFinVectorDecodeComplexL2 Rb
+            - h3SpectralFinVectorDecodeComplexL2 Rb
         ∧
       h3SpectralFinVectorDecodeComplexL2 Rb
           ∈ H3SchwartzHeatLerayDuhamelPhysicalRealization
@@ -138,7 +146,7 @@ theorem h3SpectralFinHeatLerayMildSolutionPhysicalExtension_restart_physical_clo
           (W (((b : ℝ) + a) + (c : ℝ)))
           = h3ComplexPhysicalVelocityHeatApplyNN
               ν hν.le c (W ((b : ℝ) + a))
-            + h3SpectralFinVectorDecodeComplexL2 Rc
+            - h3SpectralFinVectorDecodeComplexL2 Rc
         ∧
       h3SpectralFinVectorDecodeComplexL2 Rc
           ∈ H3SchwartzHeatLerayDuhamelPhysicalRealization
@@ -154,7 +162,7 @@ theorem h3SpectralFinHeatLerayMildSolutionPhysicalExtension_restart_physical_clo
           (W (a + ((b + c : NNReal) : ℝ)))
           = h3ComplexPhysicalVelocityHeatApplyNN
               ν hν.le (b + c) (W a)
-            + h3SpectralFinVectorDecodeComplexL2 Rbc
+            - h3SpectralFinVectorDecodeComplexL2 Rbc
         ∧
       h3SpectralFinVectorDecodeComplexL2 Rbc
           ∈ H3SchwartzHeatLerayDuhamelPhysicalRealization

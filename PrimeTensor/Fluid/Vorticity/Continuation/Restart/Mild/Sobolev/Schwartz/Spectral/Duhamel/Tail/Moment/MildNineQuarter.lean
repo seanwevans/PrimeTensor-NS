@@ -18,7 +18,7 @@ This file combines those two facts at the quotient-safe `L²` level.  For every
 
 the exact selected mild equation
 
-    W(t) = H_t U₀ + D(t)
+    W(t) = H_t U₀ - D(t)
 
 is pushed through coordinate projection and exact H³ deweighting.  The
 pointwise triangle inequality then transfers the `9/4` Fourier moment from the
@@ -196,7 +196,7 @@ theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2_nineQuarte
   have hRep :
       ((W : H3FourierComplexL2) : H3FourierPoint3 → ℂ)
         =ᵐ[(volume : Measure H3FourierPoint3)]
-      (fun ξ : H3FourierPoint3 => H ξ + D ξ) := by
+      (fun ξ : H3FourierPoint3 => H ξ - D ξ) := by
     dsimp only [W, H, D]
     exact
       h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2_ae_eq_heat_add_duhamel
@@ -219,11 +219,11 @@ theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2_nineQuarte
   rw [hξ]
 
   calc
-    h3FourierNineQuarterWeight ξ * ‖H ξ + D ξ‖
+    h3FourierNineQuarterWeight ξ * ‖H ξ - D ξ‖
         ≤
       h3FourierNineQuarterWeight ξ * (‖H ξ‖ + ‖D ξ‖) :=
       mul_le_mul_of_nonneg_left
-        (norm_add_le (H ξ) (D ξ))
+        (norm_sub_le (H ξ) (D ξ))
         hw
     _ =
       h3FourierNineQuarterWeight ξ * ‖H ξ‖ +

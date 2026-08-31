@@ -503,7 +503,7 @@ theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2_fourthMome
   have hRep :
       ((W : H3FourierComplexL2) : H3FourierPoint3 → ℂ)
         =ᵐ[(volume : Measure H3FourierPoint3)]
-      (fun ξ : H3FourierPoint3 => H ξ + D ξ) := by
+      (fun ξ : H3FourierPoint3 => H ξ - D ξ) := by
     dsimp only [W, H, D]
     exact
       h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2_ae_eq_heat_add_duhamel
@@ -514,14 +514,14 @@ theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2_fourthMome
         ‖ξ‖ ^ 4 * ‖W ξ‖)
         =ᵐ[(volume : Measure H3FourierPoint3)]
       (fun ξ : H3FourierPoint3 =>
-        ‖ξ‖ ^ 4 * ‖H ξ + D ξ‖) := by
+        ‖ξ‖ ^ 4 * ‖H ξ - D ξ‖) := by
     filter_upwards [hRep] with ξ hξ
     rw [hξ]
 
   have hSumInt :
       Integrable
         (fun ξ : H3FourierPoint3 =>
-          ‖ξ‖ ^ 4 * ‖H ξ + D ξ‖)
+          ‖ξ‖ ^ 4 * ‖H ξ - D ξ‖)
         (volume : Measure H3FourierPoint3) :=
     hFullInt.congr hWeightedRep
 
@@ -535,7 +535,7 @@ theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2_fourthMome
 
   have hPoint :
       ∀ ξ : H3FourierPoint3,
-        ‖ξ‖ ^ 4 * ‖H ξ + D ξ‖
+        ‖ξ‖ ^ 4 * ‖H ξ - D ξ‖
           ≤
         ‖ξ‖ ^ 4 * ‖H ξ‖ +
           ‖ξ‖ ^ 4 * ‖D ξ‖ := by
@@ -546,11 +546,11 @@ theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2_fourthMome
       pow_nonneg (norm_nonneg ξ) 4
 
     calc
-      ‖ξ‖ ^ 4 * ‖H ξ + D ξ‖
+      ‖ξ‖ ^ 4 * ‖H ξ - D ξ‖
           ≤
         ‖ξ‖ ^ 4 * (‖H ξ‖ + ‖D ξ‖) :=
         mul_le_mul_of_nonneg_left
-          (norm_add_le (H ξ) (D ξ))
+          (norm_sub_le (H ξ) (D ξ))
           hw
       _ =
         ‖ξ‖ ^ 4 * ‖H ξ‖ +
@@ -559,7 +559,7 @@ theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2_fourthMome
 
   have hMono :
       (∫ ξ : H3FourierPoint3,
-          ‖ξ‖ ^ 4 * ‖H ξ + D ξ‖)
+          ‖ξ‖ ^ 4 * ‖H ξ - D ξ‖)
         ≤
       ∫ ξ : H3FourierPoint3,
         (‖ξ‖ ^ 4 * ‖H ξ‖ +
@@ -633,7 +633,7 @@ theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2_fourthMome
           ‖ξ‖ ^ 4 * ‖W ξ‖)
         =
       ∫ ξ : H3FourierPoint3,
-        ‖ξ‖ ^ 4 * ‖H ξ + D ξ‖ :=
+        ‖ξ‖ ^ 4 * ‖H ξ - D ξ‖ :=
     integral_congr_ae hWeightedRep
 
   unfold h3SelectedMildFourthMomentUniformEnvelope
@@ -643,7 +643,7 @@ theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2_fourthMome
         ‖ξ‖ ^ 4 * ‖W ξ‖)
         =
       ∫ ξ : H3FourierPoint3,
-        ‖ξ‖ ^ 4 * ‖H ξ + D ξ‖ :=
+        ‖ξ‖ ^ 4 * ‖H ξ - D ξ‖ :=
       hIntegralEq
     _ ≤
       ∫ ξ : H3FourierPoint3,

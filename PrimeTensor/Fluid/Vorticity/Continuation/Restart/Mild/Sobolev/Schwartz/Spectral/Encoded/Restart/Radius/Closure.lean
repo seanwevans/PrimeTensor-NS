@@ -16,9 +16,9 @@ facts at the canonical positive restart radius:
 * the initial real decoder is exactly the transported physical velocity slice;
 * every selected physical-time slice is genuinely real, not merely projected
   to its real part;
-* the complete canonical-radius step has the exact physical heat-plus-remainder
-  decomposition, with the nonlinear remainder in the Schwartz heat--Leray
-  physical-realization set.
+* the complete canonical-radius step has the exact physical heat-minus-remainder
+  decomposition, with the positive nonlinear remainder in the Schwartz
+  heat--Leray physical-realization set.
 
 Thus the remaining continuation frontier is no longer spectral realization.
 It is the passage from this decoded real `L²` mild path to the classical real
@@ -94,7 +94,8 @@ theorem h3SpectralEncodedRestartRadius_allSlices_real
       q j
 
 /-- The full canonical-radius restart step for an encoded real H³ snapshot has
-both exact initial decoding and a physically realized nonlinear remainder. -/
+both exact initial decoding and a physically realized positive nonlinear
+remainder entering with the Navier--Stokes minus sign. -/
 theorem h3SpectralEncodedRestartRadius_fullStep_realized
     {ν A : ℝ}
     (hν : 0 < ν)
@@ -123,7 +124,7 @@ theorem h3SpectralEncodedRestartRadius_fullStep_realized
     (
       h3SpectralFinVectorDecodeComplexL2 (W (T : ℝ))
           = h3ComplexPhysicalVelocityHeatApplyNN ν hν.le T (W 0)
-            + h3SpectralFinVectorDecodeComplexL2 R
+            - h3SpectralFinVectorDecodeComplexL2 R
         ∧
       h3SpectralFinVectorDecodeComplexL2 R
           ∈ H3SchwartzHeatLerayDuhamelPhysicalRealization

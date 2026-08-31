@@ -187,7 +187,7 @@ hypotheses of the classical uniform restart-lifespan interface.
 
 The theorem returns the automatically generated measurability and Fourier
 compatibility witnesses together with the full canonical-radius physically
-realized mild step. -/
+realized signed mild step. -/
 theorem h3SpectralPreterminalCanonicalEnergyRestart_fullStep_realized
     {ν E : ℝ}
     (hν : 0 < ν)
@@ -221,7 +221,7 @@ theorem h3SpectralPreterminalCanonicalEnergyRestart_fullStep_realized
       (
         h3SpectralFinVectorDecodeComplexL2 (W (R : ℝ))
             = h3ComplexPhysicalVelocityHeatApplyNN ν hν.le R (W 0)
-              + h3SpectralFinVectorDecodeComplexL2 D
+              - h3SpectralFinVectorDecodeComplexL2 D
           ∧
         h3SpectralFinVectorDecodeComplexL2 D
             ∈ H3SchwartzHeatLerayDuhamelPhysicalRealization

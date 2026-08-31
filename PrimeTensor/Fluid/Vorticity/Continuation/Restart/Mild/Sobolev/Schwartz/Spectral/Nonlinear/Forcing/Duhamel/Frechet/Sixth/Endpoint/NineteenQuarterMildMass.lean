@@ -605,7 +605,7 @@ theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2_nineteenQu
   have hRep :
       ((W : H3FourierComplexL2) : H3FourierPoint3 → ℂ)
         =ᵐ[(volume : Measure H3FourierPoint3)]
-      (fun ξ : H3FourierPoint3 => H ξ + D ξ) := by
+      (fun ξ : H3FourierPoint3 => H ξ - D ξ) := by
     dsimp only [W, H, D]
     exact
       h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2_ae_eq_heat_add_duhamel
@@ -627,11 +627,11 @@ theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2_nineteenQu
   rw [hξ]
 
   calc
-    h3FourierNineteenQuarterWeight ξ * ‖H ξ + D ξ‖
+    h3FourierNineteenQuarterWeight ξ * ‖H ξ - D ξ‖
         ≤
       h3FourierNineteenQuarterWeight ξ * (‖H ξ‖ + ‖D ξ‖) :=
       mul_le_mul_of_nonneg_left
-        (norm_add_le (H ξ) (D ξ))
+        (norm_sub_le (H ξ) (D ξ))
         hw
     _ =
       h3FourierNineteenQuarterWeight ξ * ‖H ξ‖ +
@@ -701,7 +701,7 @@ theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2_nineteenQu
   have hRep :
       ((W : H3FourierComplexL2) : H3FourierPoint3 → ℂ)
         =ᵐ[(volume : Measure H3FourierPoint3)]
-      (fun ξ : H3FourierPoint3 => H ξ + D ξ) := by
+      (fun ξ : H3FourierPoint3 => H ξ - D ξ) := by
     dsimp only [W, H, D]
     exact
       h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2_ae_eq_heat_add_duhamel
@@ -712,14 +712,14 @@ theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2_nineteenQu
         h3FourierNineteenQuarterWeight ξ * ‖W ξ‖)
         =ᵐ[(volume : Measure H3FourierPoint3)]
       (fun ξ : H3FourierPoint3 =>
-        h3FourierNineteenQuarterWeight ξ * ‖H ξ + D ξ‖) := by
+        h3FourierNineteenQuarterWeight ξ * ‖H ξ - D ξ‖) := by
     filter_upwards [hRep] with ξ hξ
     rw [hξ]
 
   have hSumInt :
       Integrable
         (fun ξ : H3FourierPoint3 =>
-          h3FourierNineteenQuarterWeight ξ * ‖H ξ + D ξ‖)
+          h3FourierNineteenQuarterWeight ξ * ‖H ξ - D ξ‖)
         (volume : Measure H3FourierPoint3) :=
     hFullInt.congr hWeightedRep
 
@@ -733,7 +733,7 @@ theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2_nineteenQu
 
   have hPoint :
       ∀ ξ : H3FourierPoint3,
-        h3FourierNineteenQuarterWeight ξ * ‖H ξ + D ξ‖
+        h3FourierNineteenQuarterWeight ξ * ‖H ξ - D ξ‖
           ≤
         h3FourierNineteenQuarterWeight ξ * ‖H ξ‖ +
           h3FourierNineteenQuarterWeight ξ * ‖D ξ‖ := by
@@ -745,11 +745,11 @@ theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2_nineteenQu
       exact Real.rpow_nonneg (norm_nonneg ξ) _
 
     calc
-      h3FourierNineteenQuarterWeight ξ * ‖H ξ + D ξ‖
+      h3FourierNineteenQuarterWeight ξ * ‖H ξ - D ξ‖
           ≤
         h3FourierNineteenQuarterWeight ξ * (‖H ξ‖ + ‖D ξ‖) :=
         mul_le_mul_of_nonneg_left
-          (norm_add_le (H ξ) (D ξ))
+          (norm_sub_le (H ξ) (D ξ))
           hw
       _ =
         h3FourierNineteenQuarterWeight ξ * ‖H ξ‖ +
@@ -758,7 +758,7 @@ theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2_nineteenQu
 
   have hMono :
       (∫ ξ : H3FourierPoint3,
-          h3FourierNineteenQuarterWeight ξ * ‖H ξ + D ξ‖)
+          h3FourierNineteenQuarterWeight ξ * ‖H ξ - D ξ‖)
         ≤
       ∫ ξ : H3FourierPoint3,
         (h3FourierNineteenQuarterWeight ξ * ‖H ξ‖ +
@@ -792,7 +792,7 @@ theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2_nineteenQu
           h3FourierNineteenQuarterWeight ξ * ‖W ξ‖)
         =
       ∫ ξ : H3FourierPoint3,
-        h3FourierNineteenQuarterWeight ξ * ‖H ξ + D ξ‖ :=
+        h3FourierNineteenQuarterWeight ξ * ‖H ξ - D ξ‖ :=
     integral_congr_ae hWeightedRep
 
   unfold h3SelectedMildNineteenQuarterMomentEnvelope
@@ -802,7 +802,7 @@ theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2_nineteenQu
         h3FourierNineteenQuarterWeight ξ * ‖W ξ‖)
         =
       ∫ ξ : H3FourierPoint3,
-        h3FourierNineteenQuarterWeight ξ * ‖H ξ + D ξ‖ :=
+        h3FourierNineteenQuarterWeight ξ * ‖H ξ - D ξ‖ :=
       hIntegralEq
     _ ≤
       ∫ ξ : H3FourierPoint3,

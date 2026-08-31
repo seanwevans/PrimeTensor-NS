@@ -153,7 +153,7 @@ theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadius_satisfies_mild
           hν.le
           (h3FinHeatLerayRestartRadius_pos ν hA).le
           U₀
-        +
+        -
       h3SpectralFinHeatLerayDuhamelPathOperator
         hν
         (h3FinHeatLerayRestartRadius_pos ν hA).le

@@ -76,6 +76,23 @@ theorem h3SpectralFinVectorDecodeComplexL2_velocityHeatApplyNN
       (h3SpectralScalarDecodeComplexL2 (U j))
   exact h3SpectralScalarDecodeComplexL2_heatApplyNN ν hν t (U j)
 
+/-- Exact finite-vector subtraction linearity of the complex decoder. -/
+theorem h3SpectralFinVectorDecodeComplexL2_sub_realization
+    (G H : H3SpectralFinVectorState) :
+    h3SpectralFinVectorDecodeComplexL2 (G - H)
+      =
+    h3SpectralFinVectorDecodeComplexL2 G
+      -
+    h3SpectralFinVectorDecodeComplexL2 H := by
+  funext j
+  change
+    h3SpectralScalarDecodeComplexL2 (G j - H j)
+      =
+    h3SpectralScalarDecodeComplexL2 (G j)
+      -
+    h3SpectralScalarDecodeComplexL2 (H j)
+  exact h3SpectralScalarDecodeComplexL2_sub (G j) (H j)
+
 /-- The globally clamped selected mild path is continuous and uniformly
 bounded by `2A`.  This packages the hypotheses needed by the automatic
 Duhamel physical-realization theorem. -/
@@ -136,7 +153,7 @@ theorem h3SpectralFinHeatLerayPhysicalMildSolution_decodeComplexL2_exists_realiz
         =
       h3ComplexPhysicalVelocityHeatApplyNN
           ν hν.le (h3PhysicalTimePointNN q) U₀
-        + R := by
+        - R := by
   let U : ℝ → H3SpectralFinVectorState :=
     h3SpectralFinHeatLerayMildSolutionPhysicalExtension
       hν hτ U₀ hA hU₀ hsmall
@@ -174,7 +191,7 @@ theorem h3SpectralFinHeatLerayPhysicalMildSolution_decodeComplexL2_exists_realiz
   have hDecoded :=
     congrArg h3SpectralFinVectorDecodeComplexL2 hMild
 
-  rw [h3SpectralFinVectorDecodeComplexL2_add] at hDecoded
+  rw [h3SpectralFinVectorDecodeComplexL2_sub_realization] at hDecoded
   rw [h3SpectralFinVectorDecodeComplexL2_velocityHeatApplyNN] at hDecoded
   dsimp [R, U]
   exact hDecoded.symm
@@ -206,7 +223,7 @@ theorem exists_h3SpectralFinHeatLerayPhysicalMildSolution_schwartz_convexHull_di
             hν hτ U₀ hA hU₀ hsmall q))
         (h3ComplexPhysicalVelocityHeatApplyNN
             ν hν.le (h3PhysicalTimePointNN q) U₀
-          + (q : ℝ) • v)
+          - (q : ℝ) • v)
         < ε := by
   let U : ℝ → H3SpectralFinVectorState :=
     h3SpectralFinHeatLerayMildSolutionPhysicalExtension
@@ -246,7 +263,7 @@ theorem exists_h3SpectralFinHeatLerayPhysicalMildSolution_schwartz_convexHull_di
       hν hτ U₀ hA hU₀ hsmall q
   have hDecoded :=
     congrArg h3SpectralFinVectorDecodeComplexL2 hMild
-  rw [h3SpectralFinVectorDecodeComplexL2_add] at hDecoded
+  rw [h3SpectralFinVectorDecodeComplexL2_sub_realization] at hDecoded
   rw [h3SpectralFinVectorDecodeComplexL2_velocityHeatApplyNN] at hDecoded
 
   have hEq :
@@ -256,14 +273,38 @@ theorem exists_h3SpectralFinHeatLerayPhysicalMildSolution_schwartz_convexHull_di
         =
       h3ComplexPhysicalVelocityHeatApplyNN
           ν hν.le (h3PhysicalTimePointNN q) U₀
-        +
+        -
       h3SpectralFinVectorDecodeComplexL2
         (h3SpectralFinHeatLerayDuhamel
           ν (q : ℝ) hν U U) := by
     simpa only [U] using hDecoded.symm
 
   rw [hEq]
-  simpa only [dist_add_left] using hvdist
+  rw [dist_eq_norm] at hvdist ⊢
+
+  have hDifference :
+      (h3ComplexPhysicalVelocityHeatApplyNN
+            ν hν.le (h3PhysicalTimePointNN q) U₀
+          -
+        h3SpectralFinVectorDecodeComplexL2
+          (h3SpectralFinHeatLerayDuhamel
+            ν (q : ℝ) hν U U))
+        -
+      (h3ComplexPhysicalVelocityHeatApplyNN
+            ν hν.le (h3PhysicalTimePointNN q) U₀
+          -
+        (q : ℝ) • v)
+        =
+      -(
+        h3SpectralFinVectorDecodeComplexL2
+          (h3SpectralFinHeatLerayDuhamel
+            ν (q : ℝ) hν U U)
+          -
+        (q : ℝ) • v) := by
+    abel
+
+  rw [hDifference, norm_neg]
+  exact hvdist
 
 end
 

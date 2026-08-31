@@ -210,7 +210,7 @@ theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRestrictPhysical_satisf
         ν hν.le
         (h3PhysicalTimeNN τ hτ.le s)
         U₀
-      +
+      -
     h3SpectralFinHeatLerayDuhamel
         ν
         (h3PhysicalTime τ s)
@@ -331,7 +331,7 @@ theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRestrictPhysical_satisf
         ν hν.le
         (h3PhysicalTimeNN τ hτ.le s)
         U₀
-      +
+      -
     h3SpectralFinHeatLerayDuhamel
         ν
         (h3PhysicalTime τ s)
@@ -346,7 +346,7 @@ theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRestrictPhysical_satisf
         ν hν.le
         (h3PhysicalTimeNN τ hτ.le s)
         U₀
-      +
+      -
     h3SpectralFinHeatLerayDuhamel
         ν
         (h3PhysicalTime τ s)
@@ -362,7 +362,7 @@ theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRestrictPhysical_satisf
           ν hν.le
           (h3PhysicalTimeNN τ hτ.le s)
           U₀
-        +
+        -
       h3SpectralFinHeatLerayDuhamel
           ν
           (h3PhysicalTime τ s)

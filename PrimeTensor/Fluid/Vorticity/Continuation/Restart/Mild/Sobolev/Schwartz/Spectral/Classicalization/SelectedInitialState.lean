@@ -123,7 +123,7 @@ theorem h3SpectralFinHeatLerayMildSolutionPhysicalExtension_zero
   have hAtZero :
       h3SpectralVelocityHeatApplyNN
           ν hν.le 0 U₀
-        +
+        -
       h3SpectralFinHeatLerayDuhamel
           ν 0 hν
           (h3SpectralFinHeatLerayMildSolutionPhysicalExtension

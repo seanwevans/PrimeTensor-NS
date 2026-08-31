@@ -7,13 +7,13 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Sp
 
 At positive base time `t`, the selected mild solution has the exact splitting
 
-    W(t) = H_t U₀ + D_t(W,W).
+    W(t) = H_t U₀ - D_t(W,W).
 
 The free heat increment is quarter-Hölder by `Quarter.Heat.State` (with its
 coefficient factored through `Quarter.Heat.Orbit`), while the nonlinear
 Duhamel increment is quarter-Hölder by `Quarter.Duhamel.Increment`.
 
-Adding those two estimates closes a quarter-power modulus for the actual
+Combining those two estimates closes a quarter-power modulus for the actual
 selected mild path on every admissible positive substep of the canonical
 restart interval.
 -/
@@ -106,7 +106,7 @@ theorem norm_h3SpectralFinHeatLerayMildSolutionAtRestartRadiusPhysicalExtension_
     rfl
   rw [hqtNN] at hMildT0
   have hMildT :
-      h3SpectralVelocityHeatApplyNN ν hν.le tNN U₀ + D₀ = W t := by
+      h3SpectralVelocityHeatApplyNN ν hν.le tNN U₀ - D₀ = W t := by
     simpa only [W, D₀, qt,
       h3SpectralFinHeatLerayMildSolutionAtRestartRadiusPhysicalExtension,
       h3SpectralFinHeatLerayPhysicalMildSolution_apply] using hMildT0
@@ -124,7 +124,7 @@ theorem norm_h3SpectralFinHeatLerayMildSolutionAtRestartRadiusPhysicalExtension_
     rfl
   rw [hqthNN, hthNN] at hMildTH0
   have hMildTH :
-      h3SpectralVelocityHeatApplyNN ν hν.le (tNN + h) U₀ + D₁
+      h3SpectralVelocityHeatApplyNN ν hν.le (tNN + h) U₀ - D₁
         = W (t + (h : ℝ)) := by
     simpa only [W, D₁, qth,
       h3SpectralFinHeatLerayMildSolutionAtRestartRadiusPhysicalExtension,
@@ -182,24 +182,24 @@ theorem norm_h3SpectralFinHeatLerayMildSolutionAtRestartRadiusPhysicalExtension_
   rw [← hMildTH, ← hMildT]
 
   have hDecomp :
-      (h3SpectralVelocityHeatApplyNN ν hν.le (tNN + h) U₀ + D₁) -
-          (h3SpectralVelocityHeatApplyNN ν hν.le tNN U₀ + D₀)
+      (h3SpectralVelocityHeatApplyNN ν hν.le (tNN + h) U₀ - D₁) -
+          (h3SpectralVelocityHeatApplyNN ν hν.le tNN U₀ - D₀)
         =
       (h3SpectralVelocityHeatApplyNN ν hν.le (tNN + h) U₀ -
-          h3SpectralVelocityHeatApplyNN ν hν.le tNN U₀) +
+          h3SpectralVelocityHeatApplyNN ν hν.le tNN U₀) -
         (D₁ - D₀) := by
     abel
   rw [hDecomp]
 
   calc
     ‖(h3SpectralVelocityHeatApplyNN ν hν.le (tNN + h) U₀ -
-          h3SpectralVelocityHeatApplyNN ν hν.le tNN U₀) +
+          h3SpectralVelocityHeatApplyNN ν hν.le tNN U₀) -
         (D₁ - D₀)‖
         ≤
       ‖h3SpectralVelocityHeatApplyNN ν hν.le (tNN + h) U₀ -
           h3SpectralVelocityHeatApplyNN ν hν.le tNN U₀‖ +
         ‖D₁ - D₀‖ :=
-      norm_add_le _ _
+      norm_sub_le _ _
     _ ≤
       (h3HeatQuarterOrbitCoefficient ν t * A) *
           (h : ℝ) ^ ((1 : ℝ) / 4) +

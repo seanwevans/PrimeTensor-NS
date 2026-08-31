@@ -118,7 +118,7 @@ theorem h3SpectralEndpointQuarterHolderOn_selectedRestart
     rfl
   rw [hqsNN] at hMildS0
   have hMildS :
-      h3SpectralVelocityHeatApplyNN ν hν.le sNN U₀ + Ds = W s := by
+      h3SpectralVelocityHeatApplyNN ν hν.le sNN U₀ - Ds = W s := by
     simpa only [W, Ds, qs,
       h3SpectralFinHeatLerayMildSolutionAtRestartRadiusPhysicalExtension,
       h3SpectralFinHeatLerayPhysicalMildSolution_apply] using hMildS0
@@ -135,7 +135,7 @@ theorem h3SpectralEndpointQuarterHolderOn_selectedRestart
     rfl
   rw [hqtNN] at hMildT0
   have hMildT :
-      h3SpectralVelocityHeatApplyNN ν hν.le tNN U₀ + Dt = W t := by
+      h3SpectralVelocityHeatApplyNN ν hν.le tNN U₀ - Dt = W t := by
     simpa only [W, Dt, qt,
       h3SpectralFinHeatLerayMildSolutionAtRestartRadiusPhysicalExtension,
       h3SpectralFinHeatLerayPhysicalMildSolution_apply] using hMildT0
@@ -206,24 +206,24 @@ theorem h3SpectralEndpointQuarterHolderOn_selectedRestart
   rw [← hMildS, ← hMildT]
 
   have hDecomp :
-      (h3SpectralVelocityHeatApplyNN ν hν.le sNN U₀ + Ds) -
-          (h3SpectralVelocityHeatApplyNN ν hν.le tNN U₀ + Dt)
+      (h3SpectralVelocityHeatApplyNN ν hν.le sNN U₀ - Ds) -
+          (h3SpectralVelocityHeatApplyNN ν hν.le tNN U₀ - Dt)
         =
       (h3SpectralVelocityHeatApplyNN ν hν.le sNN U₀ -
-          h3SpectralVelocityHeatApplyNN ν hν.le tNN U₀) +
+          h3SpectralVelocityHeatApplyNN ν hν.le tNN U₀) -
         (Ds - Dt) := by
     abel
   rw [hDecomp]
 
   calc
     ‖(h3SpectralVelocityHeatApplyNN ν hν.le sNN U₀ -
-          h3SpectralVelocityHeatApplyNN ν hν.le tNN U₀) +
+          h3SpectralVelocityHeatApplyNN ν hν.le tNN U₀) -
         (Ds - Dt)‖
         ≤
       ‖h3SpectralVelocityHeatApplyNN ν hν.le sNN U₀ -
           h3SpectralVelocityHeatApplyNN ν hν.le tNN U₀‖ +
         ‖Ds - Dt‖ :=
-      norm_add_le _ _
+      norm_sub_le _ _
     _ ≤
       (h3HeatQuarterOrbitCoefficient ν a * A) *
           (t - s) ^ ((1 : ℝ) / 4) +

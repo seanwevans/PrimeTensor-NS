@@ -11,7 +11,7 @@ bound `‖U₀‖ ≤ A`.  The spectral encoder already proves the exact identit
 This file converts that identity into the sup-norm bound needed by the finite
 heat--Leray solver.  Consequently a canonical H³ energy ceiling `E ≥ 1`
 automatically supplies the solver bound with `A = E`, and hence the positive
-restart radius and the full physically realized mild step.
+restart radius and the full physically realized signed mild step.
 
 This removes one more hypothesis between the project's canonical-energy local
 well-posedness frontier and the spectral restart construction.
@@ -109,7 +109,7 @@ theorem h3SpectralEncodedCanonicalEnergyRestart_fullStep_realized
     (
       h3SpectralFinVectorDecodeComplexL2 (W (T : ℝ))
           = h3ComplexPhysicalVelocityHeatApplyNN ν hν.le T (W 0)
-            + h3SpectralFinVectorDecodeComplexL2 R
+            - h3SpectralFinVectorDecodeComplexL2 R
         ∧
       h3SpectralFinVectorDecodeComplexL2 R
           ∈ H3SchwartzHeatLerayDuhamelPhysicalRealization

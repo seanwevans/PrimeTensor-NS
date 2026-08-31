@@ -190,7 +190,7 @@ theorem h3SpectralFinHeatLerayPhysicalMildSolution_satisfies_mild_at
     (q : Set.Icc (0 : ℝ) τ) :
     h3SpectralVelocityHeatApplyNN
         ν hν.le (h3PhysicalTimePointNN q) U₀
-      +
+      -
     h3SpectralFinHeatLerayDuhamel
         ν (q : ℝ) hν
         (h3SpectralFinHeatLerayMildSolutionPhysicalExtension
@@ -212,7 +212,7 @@ theorem h3SpectralFinHeatLerayPhysicalMildSolution_satisfies_mild_at
     h3SpectralVelocityHeatFreePath
         ν τ hν.le hτ U₀
         (h3ClampUnitTime ((q : ℝ) / τ))
-      +
+      -
     h3SpectralFinHeatLerayDuhamelPathOperator
         hν hτ
         (h3SpectralFinHeatLerayMildSolution

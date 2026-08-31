@@ -19,7 +19,7 @@ For every
 
 the exact selected mild equation
 
-    W(t) = H_t U₀ + D(t)
+    W(t) = H_t U₀ - D(t)
 
 is pushed through coordinate projection and exact H³ deweighting.  The
 pointwise triangle inequality then transfers the order-two Fourier moment from
@@ -175,7 +175,7 @@ theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadiusPhysicalExtension_eq_he
       =
     h3SpectralVelocityHeatApplyNN
         ν hν.le (NNReal.mk t ht.le) U₀
-      +
+      -
     h3SpectralFinHeatLerayDuhamel
         ν t hν W W := by
   dsimp only
@@ -202,7 +202,7 @@ theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadiusPhysicalExtension_eq_he
   have hMild' :
       h3SpectralVelocityHeatApplyNN
           ν hν.le (NNReal.mk t ht.le) U₀
-        +
+        -
       h3SpectralFinHeatLerayDuhamel
           ν t hν
           (h3SpectralFinHeatLerayMildSolutionAtRestartRadiusPhysicalExtension
@@ -235,7 +235,7 @@ noncomputable def h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2
     (h3SpectralFinHeatLerayMildSolutionAtRestartRadiusPhysicalExtension
       hν U₀ hA hU₀ t)
 
-/-- Exact heat-plus-Duhamel decomposition after coordinate projection and H³
+/-- Exact heat-minus-Duhamel decomposition after coordinate projection and H³
 deweighting. -/
 theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2_eq_heat_add_duhamel
     {ν A t : ℝ}
@@ -251,7 +251,7 @@ theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2_eq_heat_ad
       =
     h3SpectralFinHeatLeraySelectedInitialHeatRawFourierL2
         hν U₀ ht i
-      +
+      -
     h3SpectralFinHeatLerayDuhamelSelectedRawFourierL2
         (t := t) hν U₀ hA hU₀ i := by
   have hMild :=
@@ -263,7 +263,7 @@ theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2_eq_heat_ad
       (h3SpectralFinCoordinateRawFourierL2CLM i)
       hMild
 
-  rw [map_add] at hMap
+  rw [map_sub] at hMap
   rw [h3SpectralFinCoordinateRawFourierL2CLM_velocityHeatApplyNN] at hMap
 
   simpa only [
@@ -274,7 +274,7 @@ theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2_eq_heat_ad
   ] using hMap
 
 /-- The coercion of the selected mild-state raw Fourier `L²` class agrees
-almost everywhere with the pointwise sum of its heat and Duhamel pieces. -/
+almost everywhere with the pointwise difference of its heat and Duhamel pieces. -/
 theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2_ae_eq_heat_add_duhamel
     {ν A t : ℝ}
     (hν : 0 < ν)
@@ -292,7 +292,7 @@ theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2_ae_eq_heat
       ((h3SpectralFinHeatLeraySelectedInitialHeatRawFourierL2
           hν U₀ ht i : H3FourierComplexL2) :
         H3FourierPoint3 → ℂ) ξ
-        +
+        -
       ((h3SpectralFinHeatLerayDuhamelSelectedRawFourierL2
           (t := t) hν U₀ hA hU₀ i : H3FourierComplexL2) :
         H3FourierPoint3 → ℂ) ξ) := by
@@ -302,7 +302,7 @@ theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2_ae_eq_heat
   ]
 
   exact
-    MeasureTheory.Lp.coeFn_add
+    MeasureTheory.Lp.coeFn_sub
       (h3SpectralFinHeatLeraySelectedInitialHeatRawFourierL2
         hν U₀ ht i)
       (h3SpectralFinHeatLerayDuhamelSelectedRawFourierL2
@@ -378,7 +378,7 @@ theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2_secondMome
   have hRep :
       ((W : H3FourierComplexL2) : H3FourierPoint3 → ℂ)
         =ᵐ[(volume : Measure H3FourierPoint3)]
-      (fun ξ : H3FourierPoint3 => H ξ + D ξ) := by
+      (fun ξ : H3FourierPoint3 => H ξ - D ξ) := by
     dsimp only [W, H, D]
     exact
       h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2_ae_eq_heat_add_duhamel
@@ -399,11 +399,11 @@ theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2_secondMome
   rw [hξ]
 
   calc
-    ‖ξ‖ ^ 2 * ‖H ξ + D ξ‖
+    ‖ξ‖ ^ 2 * ‖H ξ - D ξ‖
         ≤
       ‖ξ‖ ^ 2 * (‖H ξ‖ + ‖D ξ‖) :=
       mul_le_mul_of_nonneg_left
-        (norm_add_le (H ξ) (D ξ))
+        (norm_sub_le (H ξ) (D ξ))
         hw
     _ =
       ‖ξ‖ ^ 2 * ‖H ξ‖ +

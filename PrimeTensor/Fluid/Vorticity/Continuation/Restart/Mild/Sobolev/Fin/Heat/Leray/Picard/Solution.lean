@@ -2,24 +2,20 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Fin.Heat.Le
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Path.Space
 
 /-!
-# Concrete Banach-selected spectral heat--Leray mild solution
+# Concrete Banach-selected spectral Navier--Stokes mild solution
 
-The analytic work is now packaged in
-`h3SpectralFinHeatLerayEstimateData`.  This file performs the final fixed-point
-wiring at one physical lifespan `τ` satisfying the standard small-time
-condition
+The analytic work is packaged in `h3SpectralFinHeatLerayEstimateData`.  The
+positive heat--Leray Duhamel object remains reusable throughout the library,
+while the estimate data inserts the Navier--Stokes sign at the Picard boundary.
 
-    8 C A sqrt(τ) ≤ 1.
+Consequently the selected fixed point satisfies the standard mild equation
 
-It exposes:
+    W = H U₀ - D(W,W),
 
-* the concrete `RestartPicardProblem` on normalized spectral H³ paths;
-* the Banach-selected solution path;
-* the actual heat--Leray mild fixed-point equation, stated with the physical
-  non-totalized Duhamel path operator;
-* the inherited pointwise `2A` bound.
+where `D` is the positive heat--Leray Duhamel integral.
 
-No new PDE estimate is introduced here.
+The contraction and invariant-ball estimates are unchanged because negation is
+an isometry.
 -/
 
 namespace PrimeTensor
@@ -31,10 +27,8 @@ open scoped ENNReal NNReal Topology Interval
 
 noncomputable section
 
-/--
-The concrete small-time hypothesis has exactly the shape required by the
-abstract estimate-data package.
--/
+/-- The concrete small-time hypothesis has exactly the shape required by the
+abstract estimate-data package. -/
 theorem h3SpectralFinHeatLerayEstimateData_smallTime
     {ν τ A : ℝ}
     (hν : 0 < ν)
@@ -53,10 +47,8 @@ theorem h3SpectralFinHeatLerayEstimateData_smallTime
       ≤ 1 := by
   exact hsmall
 
-/--
-The invariant contracting Picard problem attached to the concrete finite
-heat--Leray estimates at lifespan `τ`.
--/
+/-- The invariant contracting Picard problem attached to the concrete finite
+heat--Leray estimates at lifespan `τ`. -/
 noncomputable def h3SpectralFinHeatLerayRestartPicardProblem
     {ν τ A : ℝ}
     (hν : 0 < ν)
@@ -74,9 +66,7 @@ noncomputable def h3SpectralFinHeatLerayRestartPicardProblem
     (h3SpectralFinHeatLerayEstimateData_smallTime
       hν hτ U₀ hA hU₀ hsmall)
 
-/--
-The actual spectral H³ mild path selected by Banach's fixed-point theorem.
--/
+/-- The spectral H³ mild path selected by Banach's fixed-point theorem. -/
 noncomputable def h3SpectralFinHeatLerayMildSolution
     {ν τ A : ℝ}
     (hν : 0 < ν)
@@ -90,9 +80,10 @@ noncomputable def h3SpectralFinHeatLerayMildSolution
   (h3SpectralFinHeatLerayRestartPicardProblem
     hν hτ U₀ hA hU₀ hsmall).solution
 
-/--
-The Banach-selected path satisfies the concrete finite heat--Leray mild
-equation on the normalized interval.
+/-- The Banach-selected path satisfies the correctly signed Navier--Stokes mild
+equation on the normalized interval:
+
+    heat - positive Duhamel = solution.
 -/
 theorem h3SpectralFinHeatLerayMildSolution_satisfies_mild
     {ν τ A : ℝ}
@@ -104,7 +95,7 @@ theorem h3SpectralFinHeatLerayMildSolution_satisfies_mild
     (hsmall :
       8 * h3HeatLerayDuhamelPathCoefficient ν * A * Real.sqrt τ ≤ 1) :
     h3SpectralVelocityHeatFreePath ν τ hν.le hτ U₀
-        +
+        -
       h3SpectralFinHeatLerayDuhamelPathOperator
         hν hτ
         (h3SpectralFinHeatLerayMildSolution
@@ -123,12 +114,14 @@ theorem h3SpectralFinHeatLerayMildSolution_satisfies_mild
           hν hτ U₀ hA hU₀ hsmall)
   simpa only [
     h3SpectralFinHeatLerayEstimateData,
-    h3SpectralFinHeatLerayDuhamelPathOperatorTotal_of_nonneg hν hτ,
+    h3SpectralFinNavierStokesDuhamelPathOperatorTotal_of_nonneg hν hτ,
+    sub_eq_add_neg,
     h3SpectralFinHeatLerayMildSolution,
     h3SpectralFinHeatLerayRestartPicardProblem
   ] using h
 
-/-- Every normalized time slice of the selected mild path has norm at most `2A`. -/
+/-- Every normalized time slice of the selected mild path has norm at most
+`2A`. -/
 theorem norm_h3SpectralFinHeatLerayMildSolution_apply_le_twoA
     {ν τ A : ℝ}
     (hν : 0 < ν)

@@ -10,13 +10,14 @@ available.  This file packages the continuation-facing finite statement.
 For any nonempty finite list of strictly positive restart durations, if the
 corresponding endpoint remains inside the physical interval, then the selected
 mild path advances from the initial restart origin by exactly the heat flow over
-the total elapsed duration plus one canonical nonlinear restart remainder.
+the total elapsed duration minus one canonical positive nonlinear restart
+remainder.
 
 The recursively folded remainder for the chosen restart list is exactly that
-canonical remainder, and its decoded value lies in the Schwartz heat--Leray
-physical-realization set for the total duration.  Consequently downstream
-continuation arguments may use an arbitrary finite restart mesh and immediately
-forget the mesh after this theorem.
+canonical positive remainder, and its decoded value lies in the Schwartz
+heat--Leray physical-realization set for the total duration.  Consequently
+downstream continuation arguments may use an arbitrary finite restart mesh and
+immediately forget the mesh after this theorem.
 -/
 
 namespace PrimeTensor
@@ -29,8 +30,8 @@ open scoped ENNReal NNReal Interval Topology
 noncomputable section
 
 /-- Any positive finite restart mesh for the Banach-selected mild path collapses
-to the canonical mesh-independent physical restart evolution over its total
-elapsed duration. -/
+to the canonical mesh-independent signed physical restart evolution over its
+total elapsed duration. -/
 theorem h3SpectralFinHeatLerayMildSolutionPhysicalExtension_restart_physical_closed_finite
     {ν τ A a : ℝ}
     (hν : 0 < ν)
@@ -54,7 +55,7 @@ theorem h3SpectralFinHeatLerayMildSolutionPhysicalExtension_restart_physical_clo
         ν a hν W W T
     h3SpectralFinVectorDecodeComplexL2 (W (a + (T : ℝ)))
         = h3ComplexPhysicalVelocityHeatApplyNN ν hν.le T (W a)
-          + h3SpectralFinVectorDecodeComplexL2 R
+          - h3SpectralFinVectorDecodeComplexL2 R
       ∧
     h3SpectralFinHeatLerayDuhamelRestartFold ν a hν W W ds = R
       ∧
@@ -84,7 +85,7 @@ theorem h3SpectralFinHeatLerayMildSolutionPhysicalExtension_restart_physical_clo
   have hEvolution :
       h3SpectralFinVectorDecodeComplexL2 (W (a + (T : ℝ)))
           = h3ComplexPhysicalVelocityHeatApplyNN ν hν.le T (W a)
-            + h3SpectralFinVectorDecodeComplexL2 R
+            - h3SpectralFinVectorDecodeComplexL2 R
         ∧
       h3SpectralFinVectorDecodeComplexL2 R
           ∈ H3SchwartzHeatLerayDuhamelPhysicalRealization

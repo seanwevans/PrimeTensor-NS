@@ -5,17 +5,17 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Sp
 # Canonical physical restart evolution for the selected mild path
 
 The Duhamel restart remainder is now mesh-independent and satisfies its own
-semigroup law.  This file attaches that canonical remainder directly to the
-Banach-selected mild solution.
+semigroup law.  This file attaches that canonical positive remainder directly
+to the Banach-selected mild solution.
 
 For every admissible restart origin `a` and positive elapsed duration `T`, the
-selected path satisfies the exact spectral identity
+selected path satisfies the exact spectral Navier--Stokes identity
 
-    W(a + T) = H_T (W a) + R(a,T),
+    W(a + T) = H_T (W a) - R(a,T),
 
-where `R(a,T)` is the canonical restart remainder.  After decoding, the same
-identity holds in physical `L²`, and the nonlinear remainder belongs to the
-Schwartz heat--Leray physical-realization set for duration `T`.
+where `R(a,T)` is the canonical positive restart remainder.  After decoding,
+the same signed identity holds in physical `L²`, and the nonlinear remainder
+belongs to the Schwartz heat--Leray physical-realization set for duration `T`.
 
 This is the mesh-free evolution law intended for the continuation layer: a
 restart step carries only its origin and elapsed time, not an auxiliary
@@ -31,8 +31,8 @@ open scoped ENNReal NNReal Interval Topology
 
 noncomputable section
 
-/-- Exact canonical restart equation for the Banach-selected physical-time
-mild extension. -/
+/-- Exact canonical signed restart equation for the Banach-selected
+physical-time mild extension. -/
 theorem h3SpectralFinHeatLerayMildSolutionPhysicalExtension_restart_eq_restartRemainder
     {ν τ A a : ℝ}
     (hν : 0 < ν)
@@ -50,7 +50,7 @@ theorem h3SpectralFinHeatLerayMildSolutionPhysicalExtension_restart_eq_restartRe
       h3SpectralFinHeatLerayMildSolutionPhysicalExtension
         hν hτ U₀ hA hU₀ hsmall
     h3SpectralVelocityHeatApplyNN ν hν.le T (W a)
-      + h3SpectralFinHeatLerayDuhamelRestartRemainder
+      - h3SpectralFinHeatLerayDuhamelRestartRemainder
           ν a hν W W T
       = W (a + (T : ℝ)) := by
   dsimp only
@@ -80,7 +80,7 @@ theorem h3SpectralFinHeatLerayMildSolutionPhysicalExtension_restart_eq_restartRe
   have hMildA :
       h3SpectralVelocityHeatApplyNN
           ν hν.le (NNReal.mk a ha) U₀
-        +
+        -
       h3SpectralFinHeatLerayDuhamel
           ν a hν W W
         =
@@ -106,7 +106,7 @@ theorem h3SpectralFinHeatLerayMildSolutionPhysicalExtension_restart_eq_restartRe
   have hMildAT :
       h3SpectralVelocityHeatApplyNN
           ν hν.le (NNReal.mk a ha + T) U₀
-        +
+        -
       h3SpectralFinHeatLerayDuhamel
           ν (a + (T : ℝ)) hν W W
         =
@@ -155,7 +155,7 @@ theorem h3SpectralFinHeatLerayMildSolutionPhysicalExtension_restart_eq_restartRe
           ν hν.le
           (NNReal.mk a ha + NNReal.mk (T : ℝ) hTR0)
           U₀
-        +
+        -
       h3SpectralFinHeatLerayDuhamel
           ν (a + (T : ℝ)) hν W W
         =
@@ -175,8 +175,9 @@ theorem h3SpectralFinHeatLerayMildSolutionPhysicalExtension_restart_eq_restartRe
     hTmk
   ] using hRestart
 
-/-- Mesh-free physical restart equation for the selected mild path, together
-with Schwartz realization of its canonical nonlinear remainder. -/
+/-- Mesh-free signed physical restart equation for the selected mild path,
+together with Schwartz realization of its canonical positive nonlinear
+remainder. -/
 theorem h3SpectralFinHeatLerayMildSolutionPhysicalExtension_restart_decodeComplexL2_realized
     {ν τ A a : ℝ}
     (hν : 0 < ν)
@@ -199,7 +200,7 @@ theorem h3SpectralFinHeatLerayMildSolutionPhysicalExtension_restart_decodeComple
     h3SpectralFinVectorDecodeComplexL2 (W (a + (T : ℝ)))
         =
       h3ComplexPhysicalVelocityHeatApplyNN ν hν.le T (W a)
-        + h3SpectralFinVectorDecodeComplexL2 R
+        - h3SpectralFinVectorDecodeComplexL2 R
       ∧
     h3SpectralFinVectorDecodeComplexL2 R
         ∈ H3SchwartzHeatLerayDuhamelPhysicalRealization
@@ -216,7 +217,7 @@ theorem h3SpectralFinHeatLerayMildSolutionPhysicalExtension_restart_decodeComple
     h3SpectralFinHeatLerayMildSolutionPhysicalExtension_restart_eq_restartRemainder
       hν hτ U₀ hA hU₀ hsmall T ha hT haT
   have hDec := congrArg h3SpectralFinVectorDecodeComplexL2 hSpec
-  rw [h3SpectralFinVectorDecodeComplexL2_add] at hDec
+  rw [h3SpectralFinVectorDecodeComplexL2_sub_realization] at hDec
   rw [h3SpectralFinVectorDecodeComplexL2_velocityHeatApplyNN] at hDec
 
   have hWb :=

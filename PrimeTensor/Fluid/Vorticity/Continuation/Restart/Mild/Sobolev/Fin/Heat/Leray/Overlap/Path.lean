@@ -157,7 +157,7 @@ theorem h3SpectralFinHeatLerayPhysicalOverlap_normalized_unique
       ∀ s : H3UnitTime,
         h3SpectralVelocityHeatApplyNN
             ν hν.le (h3PhysicalTimeNN τ hτ s) U₀
-          +
+          -
         h3SpectralFinHeatLerayDuhamel
             ν
             (h3PhysicalTime τ s)
@@ -185,7 +185,7 @@ theorem h3SpectralFinHeatLerayPhysicalOverlap_normalized_unique
 
   have hVmild :
       h3SpectralVelocityHeatFreePath ν τ hν.le hτ U₀
-          +
+          -
         h3SpectralFinHeatLerayDuhamelPathOperator hν hτ V V
         =
       V := by
@@ -194,7 +194,7 @@ theorem h3SpectralFinHeatLerayPhysicalOverlap_normalized_unique
     have hs := hPmild s
     change
       h3SpectralVelocityHeatFreePath ν τ hν.le hτ U₀ s
-        +
+        -
       h3SpectralFinHeatLerayDuhamelPathOperator hν hτ V V s
         =
       V s
@@ -203,7 +203,7 @@ theorem h3SpectralFinHeatLerayPhysicalOverlap_normalized_unique
     change
       h3SpectralVelocityHeatApplyNN
           ν hν.le (h3PhysicalTimeNN τ hτ s) U₀
-        +
+        -
       h3SpectralFinHeatLerayDuhamel
           ν
           (h3PhysicalTimeNN τ hτ s : ℝ)
@@ -250,7 +250,7 @@ theorem h3SpectralFinHeatLerayPhysicalOverlapAtRestartRadius_normalized_unique
               (h3FinHeatLerayRestartRadius_pos ν hA).le
               s)
             U₀
-          +
+          -
         h3SpectralFinHeatLerayDuhamel
             ν
             (h3PhysicalTime

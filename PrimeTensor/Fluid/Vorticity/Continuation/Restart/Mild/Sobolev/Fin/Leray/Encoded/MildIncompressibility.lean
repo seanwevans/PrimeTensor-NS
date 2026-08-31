@@ -93,6 +93,28 @@ theorem h3SpectralFinDivergenceFree_add
         h3SpectralFinLerayApply_eq_of_divergenceFree hH
       ]
 
+/-- The finite Fourier divergence-free subspace is closed under
+subtraction. -/
+theorem h3SpectralFinDivergenceFree_sub
+    {G H : H3SpectralFinVectorState}
+    (hG : H3SpectralFinDivergenceFree G)
+    (hH : H3SpectralFinDivergenceFree H) :
+    H3SpectralFinDivergenceFree (G - H) := by
+  apply h3SpectralFinDivergenceFree_of_lerayFixed
+
+  calc
+    h3SpectralFinLerayApply (G - H)
+        =
+      h3SpectralFinLerayApply G
+        -
+      h3SpectralFinLerayApply H := by
+          exact h3SpectralFinLerayApply_sub G H
+    _ = G - H := by
+      rw [
+        h3SpectralFinLerayApply_eq_of_divergenceFree hG,
+        h3SpectralFinLerayApply_eq_of_divergenceFree hH
+      ]
+
 /-- One origin-based finite heat--Leray mild identity propagates
 incompressibility from the initial state to time `t`. -/
 theorem h3SpectralFinHeatLerayMild_divergenceFree
@@ -105,7 +127,7 @@ theorem h3SpectralFinHeatLerayMild_divergenceFree
     (hMild :
       h3SpectralVelocityHeatApplyNN
           ν hν.le (NNReal.mk t ht) Uinit
-        +
+        -
       h3SpectralFinHeatLerayDuhamel
           ν t hν W W
         =
@@ -132,21 +154,21 @@ theorem h3SpectralFinHeatLerayMild_divergenceFree
     h3SpectralFinHeatLerayDuhamel_divergenceFree
       hν ht W W hInt
 
-  have hSum :
+  have hDiff :
       H3SpectralFinDivergenceFree
         (
           h3SpectralVelocityHeatApplyNN
               ν hν.le (NNReal.mk t ht) Uinit
-            +
+            -
           h3SpectralFinHeatLerayDuhamel
               ν t hν W W
         ) :=
-    h3SpectralFinDivergenceFree_add
+    h3SpectralFinDivergenceFree_sub
       hHeat hDuhamel
 
-  rw [hMild] at hSum
+  rw [hMild] at hDiff
 
-  exact hSum
+  exact hDiff
 
 /-- Uniform version: an origin-based mild path with integrable Duhamel kernel
 at every nonnegative time remains divergence-free for all nonnegative time. -/
@@ -160,7 +182,7 @@ theorem h3SpectralFinHeatLerayMild_divergenceFree_of_forall
       ∀ (t : ℝ) (ht : 0 ≤ t),
         h3SpectralVelocityHeatApplyNN
             ν hν.le (NNReal.mk t ht) Uinit
-          +
+          -
         h3SpectralFinHeatLerayDuhamel
             ν t hν W W
           =

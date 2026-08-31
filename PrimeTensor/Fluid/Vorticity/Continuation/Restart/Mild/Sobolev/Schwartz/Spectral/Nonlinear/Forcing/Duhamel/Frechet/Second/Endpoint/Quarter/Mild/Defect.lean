@@ -7,7 +7,7 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Sp
 
 The canonical restart equation writes the selected mild path as
 
-    W(a + T) = H_T (W a) + R(a,T).
+    W(a + T) = H_T (W a) - R(a,T).
 
 The preceding quarter-Hölder Duhamel layer bounds the canonical nonlinear
 remainder by a fixed multiple of `T^(1/4)` on the canonical restart interval.
@@ -57,7 +57,7 @@ theorem norm_h3SpectralFinHeatLerayMildSolutionAtRestartRadiusPhysicalExtension_
       ν a hν W W T
 
   have hStep :
-      h3SpectralVelocityHeatApplyNN ν hν.le T (W a) + R
+      h3SpectralVelocityHeatApplyNN ν hν.le T (W a) - R
         = W (a + (T : ℝ)) := by
     dsimp only [W, R,
       h3SpectralFinHeatLerayMildSolutionAtRestartRadiusPhysicalExtension]
@@ -91,7 +91,14 @@ theorem norm_h3SpectralFinHeatLerayMildSolutionAtRestartRadiusPhysicalExtension_
       h3DuhamelQuarterSelectedRestartCoefficient ν A *
         (T : ℝ) ^ ((1 : ℝ) / 4)
   rw [← hStep]
-  simpa only [add_sub_cancel_left] using hR
+  have hEq :
+      (h3SpectralVelocityHeatApplyNN ν hν.le T (W a) - R) -
+          h3SpectralVelocityHeatApplyNN ν hν.le T (W a)
+        =
+      -R := by
+    abel
+  rw [hEq, norm_neg]
+  exact hR
 
 end
 

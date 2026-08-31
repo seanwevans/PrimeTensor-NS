@@ -94,7 +94,7 @@ theorem h3SpectralFinHeatLerayMildSolution_unique
     (hV : ‖V‖ ≤ 2 * A)
     (hVmild :
       h3SpectralVelocityHeatFreePath ν τ hν.le hτ U₀
-          +
+          -
         h3SpectralFinHeatLerayDuhamelPathOperator hν hτ V V
         =
       V) :
@@ -119,11 +119,14 @@ theorem h3SpectralFinHeatLerayMildSolution_unique
     change
       h3SpectralVelocityHeatFreePath ν τ hν.le hτ U₀
           +
-        h3SpectralFinHeatLerayDuhamelPathOperatorTotal hν τ V V
+        h3SpectralFinNavierStokesDuhamelPathOperatorTotal hν τ V V
         =
       V
-    rw [h3SpectralFinHeatLerayDuhamelPathOperatorTotal_of_nonneg hν hτ]
-    exact hVmild
+    rw [
+      h3SpectralFinNavierStokesDuhamelPathOperatorTotal_of_nonneg
+        hν hτ
+    ]
+    simpa only [sub_eq_add_neg] using hVmild
 
   have huniq :=
     D.eq_solution_of_mem_domain_of_isFixedPt hVmem hVfix
@@ -157,7 +160,7 @@ theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadius_unique
           hν.le
           (h3FinHeatLerayRestartRadius_pos ν hA).le
           U₀
-          +
+          -
         h3SpectralFinHeatLerayDuhamelPathOperator
           hν
           (h3FinHeatLerayRestartRadius_pos ν hA).le

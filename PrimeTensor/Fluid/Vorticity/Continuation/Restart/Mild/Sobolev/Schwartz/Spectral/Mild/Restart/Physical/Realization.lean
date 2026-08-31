@@ -5,25 +5,14 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Fin.Heat.Le
 /-!
 # Physical Schwartz realization after an interior mild restart
 
-The origin-based selected mild solution now has a physical Schwartz
-realization at every positive slice.  The existing restart-tail theory already
-identifies
+The positive Duhamel tail keeps the same Schwartz physical realization as
+before.  With the corrected Navier--Stokes mild sign, an interior restart now
+has the exact physical form
 
-    ∫_a^{a+b} K_{a+b-s}(U(s),V(s)) ds
+    decode W(a+b) = H_b (decode W(a)) - realized restart remainder.
 
-with an ordinary length-`b` Duhamel term for the translated paths
-`q ↦ U(q+a)` and `q ↦ V(q+a)`.
-
-This file combines those two facts.  First, any positive-length restart tail
-of continuous globally bounded spectral paths decodes into the same physical
-realization set used by a fresh length-`b` Duhamel problem.  Second, the
-Banach-selected physical mild solution can therefore be re-anchored at every
-interior time `a`:
-
-    decode W(a+b) = H_b (decode W(a)) + realized restart remainder.
-
-Thus the physical realization result is stable under the actual restart
-operation rather than only at the original time zero.
+Thus the positive realization machinery is reused unchanged while the mild
+assembly carries the required minus sign.
 -/
 
 namespace PrimeTensor
@@ -83,7 +72,7 @@ theorem h3SpectralFinHeatLerayDuhamel_tail_decodeComplexL2_mem_physicalRealizati
 
 /-- Every positive interior restart of the Banach-selected mild solution has
 an exact physical decomposition into heat evolution from the restart state
-plus a genuinely realized Schwartz heat--Leray tail remainder. -/
+minus a genuinely realized positive Schwartz heat--Leray tail remainder. -/
 theorem h3SpectralFinHeatLerayPhysicalMildSolution_restart_decodeComplexL2_exists_realized_remainder
     {ν τ A a b : ℝ}
     (hν : 0 < ν)
@@ -107,7 +96,7 @@ theorem h3SpectralFinHeatLerayPhysicalMildSolution_restart_decodeComplexL2_exist
           ν hν.le (NNReal.mk b hb.le)
           (h3SpectralFinHeatLerayMildSolutionPhysicalExtension
             hν hτ U₀ hA hU₀ hsmall a)
-        + R := by
+        - R := by
   let W : ℝ → H3SpectralFinVectorState :=
     h3SpectralFinHeatLerayMildSolutionPhysicalExtension
       hν hτ U₀ hA hU₀ hsmall
@@ -143,7 +132,7 @@ theorem h3SpectralFinHeatLerayPhysicalMildSolution_restart_decodeComplexL2_exist
   have hMildA :
       h3SpectralVelocityHeatApplyNN
           ν hν.le (NNReal.mk a ha) U₀
-        +
+        -
       h3SpectralFinHeatLerayDuhamel
           ν a hν W W
         =
@@ -169,7 +158,7 @@ theorem h3SpectralFinHeatLerayPhysicalMildSolution_restart_decodeComplexL2_exist
           ν hν.le
           (NNReal.mk a ha + NNReal.mk b hb.le)
           U₀
-        +
+        -
       h3SpectralFinHeatLerayDuhamel
           ν (a + b) hν W W
         =
@@ -222,7 +211,7 @@ theorem h3SpectralFinHeatLerayPhysicalMildSolution_restart_decodeComplexL2_exist
 
   have hDecoded :=
     congrArg h3SpectralFinVectorDecodeComplexL2 hRestart
-  rw [h3SpectralFinVectorDecodeComplexL2_add] at hDecoded
+  rw [h3SpectralFinVectorDecodeComplexL2_sub_realization] at hDecoded
   rw [h3SpectralFinVectorDecodeComplexL2_velocityHeatApplyNN] at hDecoded
   dsimp [R, W]
   exact hDecoded.symm

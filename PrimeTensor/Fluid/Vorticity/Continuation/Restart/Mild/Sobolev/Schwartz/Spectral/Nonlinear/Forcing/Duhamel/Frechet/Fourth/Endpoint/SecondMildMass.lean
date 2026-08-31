@@ -117,7 +117,7 @@ theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2_secondMome
   have hRep :
       ((W : H3FourierComplexL2) : H3FourierPoint3 → ℂ)
         =ᵐ[(volume : Measure H3FourierPoint3)]
-      (fun ξ : H3FourierPoint3 => H ξ + D ξ) := by
+      (fun ξ : H3FourierPoint3 => H ξ - D ξ) := by
     dsimp only [W, H, D]
     exact
       h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2_ae_eq_heat_add_duhamel
@@ -128,14 +128,14 @@ theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2_secondMome
         ‖ξ‖ ^ 2 * ‖W ξ‖)
         =ᵐ[(volume : Measure H3FourierPoint3)]
       (fun ξ : H3FourierPoint3 =>
-        ‖ξ‖ ^ 2 * ‖H ξ + D ξ‖) := by
+        ‖ξ‖ ^ 2 * ‖H ξ - D ξ‖) := by
     filter_upwards [hRep] with ξ hξ
     rw [hξ]
 
   have hSumInt :
       Integrable
         (fun ξ : H3FourierPoint3 =>
-          ‖ξ‖ ^ 2 * ‖H ξ + D ξ‖)
+          ‖ξ‖ ^ 2 * ‖H ξ - D ξ‖)
         (volume : Measure H3FourierPoint3) :=
     hFullInt.congr hWeightedRep
 
@@ -149,7 +149,7 @@ theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2_secondMome
 
   have hPoint :
       ∀ ξ : H3FourierPoint3,
-        ‖ξ‖ ^ 2 * ‖H ξ + D ξ‖
+        ‖ξ‖ ^ 2 * ‖H ξ - D ξ‖
           ≤
         ‖ξ‖ ^ 2 * ‖H ξ‖ +
           ‖ξ‖ ^ 2 * ‖D ξ‖ := by
@@ -159,11 +159,11 @@ theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2_secondMome
       pow_nonneg (norm_nonneg ξ) 2
 
     calc
-      ‖ξ‖ ^ 2 * ‖H ξ + D ξ‖
+      ‖ξ‖ ^ 2 * ‖H ξ - D ξ‖
           ≤
         ‖ξ‖ ^ 2 * (‖H ξ‖ + ‖D ξ‖) :=
         mul_le_mul_of_nonneg_left
-          (norm_add_le (H ξ) (D ξ))
+          (norm_sub_le (H ξ) (D ξ))
           hw
       _ =
         ‖ξ‖ ^ 2 * ‖H ξ‖ +
@@ -172,7 +172,7 @@ theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2_secondMome
 
   have hMono :
       (∫ ξ : H3FourierPoint3,
-          ‖ξ‖ ^ 2 * ‖H ξ + D ξ‖)
+          ‖ξ‖ ^ 2 * ‖H ξ - D ξ‖)
         ≤
       ∫ ξ : H3FourierPoint3,
         (‖ξ‖ ^ 2 * ‖H ξ‖ +
@@ -206,7 +206,7 @@ theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2_secondMome
           ‖ξ‖ ^ 2 * ‖W ξ‖)
         =
       ∫ ξ : H3FourierPoint3,
-        ‖ξ‖ ^ 2 * ‖H ξ + D ξ‖ :=
+        ‖ξ‖ ^ 2 * ‖H ξ - D ξ‖ :=
     integral_congr_ae hWeightedRep
 
   unfold h3SelectedMildSecondMomentEnvelope
@@ -216,7 +216,7 @@ theorem h3SpectralFinHeatLerayMildSolutionAtRestartRadiusRawFourierL2_secondMome
         ‖ξ‖ ^ 2 * ‖W ξ‖)
         =
       ∫ ξ : H3FourierPoint3,
-        ‖ξ‖ ^ 2 * ‖H ξ + D ξ‖ :=
+        ‖ξ‖ ^ 2 * ‖H ξ - D ξ‖ :=
       hIntegralEq
     _ ≤
       ∫ ξ : H3FourierPoint3,

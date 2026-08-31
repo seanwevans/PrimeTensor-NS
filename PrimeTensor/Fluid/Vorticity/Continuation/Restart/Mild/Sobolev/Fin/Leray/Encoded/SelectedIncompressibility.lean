@@ -150,7 +150,7 @@ theorem h3SpectralFinHeatLerayPhysicalMildSolution_divergenceFree
   have hMildW :
       h3SpectralVelocityHeatApplyNN
           ν hν.le (h3PhysicalTimePointNN q) U₀
-        +
+        -
       h3SpectralFinHeatLerayDuhamel
           ν (q : ℝ) hν W W
         =

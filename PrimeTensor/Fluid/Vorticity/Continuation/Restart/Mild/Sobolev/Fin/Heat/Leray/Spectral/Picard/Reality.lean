@@ -60,6 +60,33 @@ theorem H3SpectralVelocityPathRawHermitian.add
   change H3SpectralVelocityRawHermitian (U s + V s)
   exact (hU s).add (hV s)
 
+/-- Negation preserves the exact raw-Hermitian spectral velocity invariant. -/
+theorem h3SpectralVelocityRawHermitian_neg
+    {U : H3SpectralVelocityState}
+    (hU : H3SpectralVelocityRawHermitian U) :
+    H3SpectralVelocityRawHermitian (-U) := by
+  apply h3SpectralVelocityHermitian_to_rawHermitian
+  intro j
+
+  have hj :
+      h3FourierReflectL2L (U j)
+        =
+      h3FourierConjL2L (U j) :=
+    (h3FourierL2Hermitian_iff_reflect_eq_conj (U j)).1
+      (h3SpectralVelocityRawHermitian_to_hermitian hU j)
+
+  rw [h3FourierL2Hermitian_iff_reflect_eq_conj]
+  simpa only [Pi.neg_apply, map_neg] using congrArg Neg.neg hj
+
+/-- Pointwise negation preserves the normalized path reality invariant. -/
+theorem H3SpectralVelocityPathRawHermitian.neg
+    {U : H3SpectralVelocityPath}
+    (hU : H3SpectralVelocityPathRawHermitian U) :
+    H3SpectralVelocityPathRawHermitian (-U) := by
+  intro s
+  simpa using
+    h3SpectralVelocityRawHermitian_neg (hU s)
+
 /-! ## Free heat and physical extension -/
 
 /-- The normalized free heat path preserves raw-Hermitian reality. -/
@@ -137,6 +164,21 @@ theorem h3SpectralFinHeatLerayDuhamelPathOperatorTotal_preserves_rawHermitian
   · simp only [h3SpectralFinHeatLerayDuhamelPathOperatorTotal, hτ, ↓reduceDIte]
     exact h3SpectralVelocityPathRawHermitian_zero
 
+/-- The signed Navier--Stokes Duhamel family preserves the path reality
+invariant for every real lifespan. -/
+theorem h3SpectralFinNavierStokesDuhamelPathOperatorTotal_preserves_rawHermitian
+    {ν τ : ℝ}
+    (hν : 0 < ν)
+    {U V : H3SpectralVelocityPath}
+    (hU : H3SpectralVelocityPathRawHermitian U)
+    (hV : H3SpectralVelocityPathRawHermitian V) :
+    H3SpectralVelocityPathRawHermitian
+      (h3SpectralFinNavierStokesDuhamelPathOperatorTotal hν τ U V) := by
+  unfold h3SpectralFinNavierStokesDuhamelPathOperatorTotal
+  exact
+    (h3SpectralFinHeatLerayDuhamelPathOperatorTotal_preserves_rawHermitian
+      hν hU hV).neg
+
 /-! ## Concrete mild map and its iterates -/
 
 /-- One application of the actual concrete Picard map preserves the path
@@ -163,11 +205,11 @@ theorem h3SpectralFinHeatLerayPicardMap_preserves_rawHermitian
   change
     H3SpectralVelocityRawHermitian
       ((h3SpectralVelocityHeatFreePath ν τ hν.le hτ U₀) s +
-        (h3SpectralFinHeatLerayDuhamelPathOperatorTotal hν τ U U) s)
+        (h3SpectralFinNavierStokesDuhamelPathOperatorTotal hν τ U U) s)
   exact
     (h3SpectralVelocityHeatFreePath_preserves_rawHermitian
       hν.le hτ hU₀real s).add
-    (h3SpectralFinHeatLerayDuhamelPathOperatorTotal_preserves_rawHermitian
+    (h3SpectralFinNavierStokesDuhamelPathOperatorTotal_preserves_rawHermitian
       hν hU hU s)
 
 /-- Every Picard iterate from zero is raw-Hermitian. -/

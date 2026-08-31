@@ -75,7 +75,7 @@ def H3PreterminalSpectralOverlapWitnessAt
           ν hν.le
           (h3PhysicalTimeNN τ hτ s)
           U₀
-        +
+        -
       h3SpectralFinHeatLerayDuhamel
           ν
           (h3PhysicalTime τ s)

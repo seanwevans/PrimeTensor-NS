@@ -427,7 +427,7 @@ theorem h3PreterminalSpectralOverlapWitnessAt_of_canonicalPath
             (h3PhysicalTimeNN τ hτ s)
             (h3PreterminalCanonicalAnchorSpectralState
               hNS ht hInt0)
-          +
+          -
         h3SpectralFinHeatLerayDuhamel
             ν
             (h3PhysicalTime τ s)
