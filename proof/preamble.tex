@@ -38,15 +38,16 @@
 \newcommand{\lean}[1]{\texttt{#1}}
 
 % --------------------------------------------------------------- notation
-\newcommand{\Depth}{\mathrm{Depth}}
-\newcommand{\Axis}{\mathrm{Axis}}
-\newcommand{\Idx}{\mathrm{IndexTuple}}
-\newcommand{\one}{\mathsf{one}}
-\newcommand{\sucbare}{\mathsf{succ}}
-\newcommand{\suc}{\sucbare\,}
-\newcommand{\first}{\mathsf{first}}
-\newcommand{\next}{\mathsf{next}}
-\newcommand{\fold}{\operatorname{fold}}
+% Generic only.  Fragments must not define macros of their own -- they are
+% \input into a shared document -- and must not need any, or preamble.tex
+% would churn once per module.  Write Lean-derived names with these:
+%
+%   \name{Axis}   a type, function or field name        ->  roman
+%   \ctor{succ}   a constructor or literal              ->  sans serif
+%   \lean{Foo.bar}  a Lean declaration, cited verbatim  ->  typewriter
+%
+\newcommand{\name}[1]{\mathrm{#1}}
+\newcommand{\ctor}[1]{\mathsf{#1}}
 \newcommand{\size}[1]{\lvert #1 \rvert}
 \newcommand{\defeq}{\equiv}
 
