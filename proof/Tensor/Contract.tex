@@ -1,0 +1,191 @@
+% Prose rendering of PrimeTensor/Tensor/Contract.lean.
+% Fragment: no \documentclass, no preamble, no document environment.
+
+\section{Multiplicative contraction}
+\label{Tensor:Contract:sec}
+
+\leanfile{PrimeTensor/Tensor/Contract.lean}
+
+\subsection*{What this file establishes}
+
+The multiplicative trace of a square matrix: the product of its diagonal
+entries.  Where the classical trace sums the diagonal, this multiplies it,
+which is the right move for a carrier whose primitive operation is
+multiplication and which offers no addition.
+
+The file is three declarations, and its interest is that it needs no empty
+case.  A product over an index set must return something when that set is
+empty, and the only uniform answer is the unit of the operation --- so a
+contraction defined over $\name{Fin}\;n$ would have to demand a unit from the
+coefficient type and single out $n = 0$.  Here the dimension is a depth and
+therefore at least one, the fold that computes the product needs no identity
+element, and the coefficient type is asked only for a multiplication.
+
+\subsection{The definition}
+
+\begin{definition}[Contraction, \lean{Tensor.contract₂}]
+\label{Tensor:Contract:def:contract}
+For a type $A$ with a multiplication and
+$m : \name{Matrix}\;A\;\mathit{dim}$,
+\[
+  \name{contract}_2(m) \defeq
+    \name{fold}_{\,\cdot}\bigl(\mathit{dim},\;
+      \lambda i.\; m.\name{component}\;(i,i)\bigr) \;:\; A.
+\]
+\end{definition}
+
+\begin{leancode}
+def contract₂ {A : Type} [Mul A] {dim : Depth} (m : Matrix A dim) : A :=
+  Axis.fold (· * ·) dim (fun i => m.component (i, i))
+\end{leancode}
+
+Two things from earlier modules are being used without ceremony.  The
+diagonal selector $\lambda i.\; m.\name{component}\;(i,i)$ is well typed
+because at rank two the index type \emph{is} a product of two axis types,
+definitionally, as established in
+\texttt{PrimeTensor/Tensor/Basic.lean}.  And
+$\name{Axis.fold}$, from \texttt{PrimeTensor/Depth.lean}, folds a function on
+$\name{Axis}\;\mathit{dim}$ with a binary operation and no seed value.
+
+\begin{proposition}[What the contraction is]\label{Tensor:Contract:prop:expansion}
+Let $n = \size{\mathit{dim}}$ and let $i_1, \dots, i_n$ enumerate
+$\name{Axis}\;\mathit{dim}$ in order.  Writing
+$m_{jk} = m.\name{component}\;(j,k)$,
+\[
+  \name{contract}_2(m)
+    = m_{i_1 i_1} \cdot
+      \bigl( m_{i_2 i_2} \cdot
+        \bigl( \cdots \cdot m_{i_n i_n} \bigr) \bigr),
+\]
+the right-nested product of the diagonal entries in axis order, with no unit
+at the innermost position.
+\end{proposition}
+
+\begin{proof}
+Immediate from Definition~\ref{Tensor:Contract:def:contract} and the expansion
+of $\name{Axis.fold}$ proved in \texttt{PrimeTensor/Depth.lean}, applied to
+the diagonal selector.
+\end{proof}
+
+\begin{designnote}[Only a magma, and the bracketing is real]
+\label{Tensor:Contract:note:magma}
+The instance argument is \lean{[Mul A]} alone: no associativity, no
+commutativity, no unit.  Two consequences deserve stating, because for the
+classical trace neither arises.
+
+First, the bracketing in
+Proposition~\ref{Tensor:Contract:prop:expansion} is part of the value, not an
+artefact of how it is written.  Without associativity, a differently bracketed
+product of the same diagonal entries need not be the same element of $A$.
+
+Second, the \emph{order} of the diagonal entries is likewise part of the
+value, fixed by the enumeration of $\name{Axis}\;\mathit{dim}$.  Without
+commutativity there is no permutation invariance to appeal to.  For the
+intended carriers --- strictly positive reals under multiplication --- both
+laws do hold, so nothing is lost there; the definition simply does not assume
+them, and so applies to carriers where they fail.
+\end{designnote}
+
+\subsection{The two computation rules}
+
+\begin{lemma}[Base case, \lean{contract₂\_dim\_one}]
+\label{Tensor:Contract:lem:one}
+For $m : \name{Matrix}\;A\;\ctor{one}$,
+\[
+  \name{contract}_2(m) = m.\name{component}\;(\ctor{first}, \ctor{first}).
+\]
+\end{lemma}
+
+\begin{lemma}[Successor case, \lean{contract₂\_dim\_succ}]
+\label{Tensor:Contract:lem:succ}
+For $m : \name{Matrix}\;A\;(\ctor{succ}\,d)$,
+\[
+  \name{contract}_2(m) =
+    m.\name{component}\;(\ctor{first}, \ctor{first}) \cdot
+      \name{fold}_{\,\cdot}\bigl(d,\;
+        \lambda i.\; m.\name{component}\;
+          (\ctor{next}\,i, \ctor{next}\,i)\bigr).
+\]
+\end{lemma}
+
+\begin{leancode}
+@[simp] theorem contract₂_dim_one {A : Type} [Mul A]
+    (m : Matrix A .one) :
+    contract₂ m = m.component (.first, .first) := rfl
+
+@[simp] theorem contract₂_dim_succ {A : Type} [Mul A]
+    {d : Depth} (m : Matrix A (.succ d)) :
+    contract₂ m =
+      m.component (.first, .first) *
+        Axis.fold (· * ·) d (fun i => m.component (.next i, .next i)) := rfl
+\end{leancode}
+
+\begin{proof}
+Both are $\ctor{rfl}$.  Unfolding
+Definition~\ref{Tensor:Contract:def:contract} turns each side into an
+application of $\name{Axis.fold}$ at a dimension in constructor form, where
+the corresponding defining equation of $\name{fold}$ --- $\name{fold\_one}$
+and $\name{fold\_succ}$ in \texttt{PrimeTensor/Depth.lean} --- applies
+definitionally.  As there, the statements are content-free as propositions and
+the \lean{@[simp]} tags are the point: they let the simplifier evaluate a
+contraction whose dimension is a concrete numeral, which unfolding
+$\name{contract}_2$ alone would not do.  Together they are the complete case
+analysis on the dimension, so no third rule is possible.
+\end{proof}
+
+\begin{remark}[The successor rule is not recursive]
+\label{Tensor:Contract:rem:not-recursive}
+Lemma~\ref{Tensor:Contract:lem:succ} exposes a raw
+$\name{Axis.fold}$ on its right-hand side rather than a smaller contraction,
+and it has to: $m$ has type $\name{Matrix}\;A\;(\ctor{succ}\,d)$, whose
+component function is defined on $\name{Axis}\;(\ctor{succ}\,d)$, and there is
+no matrix of dimension $d$ sitting inside it to contract.
+
+One can of course build the restriction along $\ctor{next}$,
+\[
+  m' \defeq \bigl\langle\, \lambda \mathit{ij}.\;
+    m.\name{component}\;(\ctor{next}\,\mathit{ij}_1,
+      \ctor{next}\,\mathit{ij}_2) \,\bigr\rangle
+  \;:\; \name{Matrix}\;A\;d,
+\]
+and then $\name{contract}_2(m')$ is definitionally the fold appearing in the
+lemma, so the rule could equally have been phrased recursively.  The file does
+not introduce $m'$.  The practical consequence is that an induction on the
+dimension about $\name{contract}_2$ is carried out at the level of
+$\name{Axis.fold}$, generalising over the selector function, rather than by
+recursion on contractions.  ($m'$ is not a declaration of the file; it is
+written here only to say what the successor rule amounts to.)
+\end{remark}
+
+\begin{remark}[Scope]\label{Tensor:Contract:rem:scope}
+Only rank two is treated, as the subscript in the name records: there is no
+contraction of a general tensor, no contraction of a chosen pair of indices,
+and no interaction with the outer product of
+\texttt{PrimeTensor/Tensor/Basic.lean} --- in particular nothing here relates
+$\name{contract}_2(\name{outer}(u,v))$ to the coefficients of $u$ and $v$.
+Nor is anything proved about $\name{contract}_2$ beyond its two computation
+rules.
+\end{remark}
+
+\subsection*{Summary of the correspondence}
+
+\begin{center}
+\small
+\begin{tabular}{@{}lll@{}}
+\hline
+Lean declaration & Kind & Here \\
+\hline
+\lean{Tensor.contract₂}            & definition & Def.~\ref{Tensor:Contract:def:contract} \\
+\lean{Tensor.contract₂\_dim\_one}  & simp thm   & Lem.~\ref{Tensor:Contract:lem:one} \\
+\lean{Tensor.contract₂\_dim\_succ} & simp thm   & Lem.~\ref{Tensor:Contract:lem:succ} \\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent
+Every declaration of \texttt{PrimeTensor/Tensor/Contract.lean} appears above.
+The file contains no \lean{sorry}, no axiom, and no unproved named
+proposition; its two theorems are proved by $\ctor{rfl}$.
+Proposition~\ref{Tensor:Contract:prop:expansion} and
+Remark~\ref{Tensor:Contract:rem:not-recursive} are stated for the reader and
+are not declarations of the file.

@@ -1,16 +1,32 @@
 % Shared preamble for the PrimeTensor-NS prose proof documents.
 % Loaded by main.tex and by standalone.tex; never loaded by a per-module
 % fragment, so that every fragment stays \input-able.
+%
+% ENGINE: LuaLaTeX.  This will not compile under pdfLaTeX.  The sources are
+% full of Lean's Unicode -- 128 distinct non-ASCII characters across the
+% tree -- and a Unicode engine lets the fragments quote it literally instead
+% of transliterating it.  build.sh invokes lualatex.
 
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage{lmodern}
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\setmainfont{Latin Modern Roman}
+\setsansfont{Latin Modern Sans}
+\setmonofont{DejaVu Sans Mono}[Scale=MatchLowercase]
+\setmathfont{Latin Modern Math}
+
 \usepackage[margin=1.1in]{geometry}
-\usepackage{amsmath, amssymb, amsthm, mathtools}
-\usepackage{listings}
+\usepackage{amsmath, amsthm, mathtools}   % not amssymb: unicode-math supersedes it
+\usepackage{fvextra}
 \usepackage{xcolor}
 \usepackage{enumitem}
 \usepackage[hidelinks]{hyperref}
+
+% Lean identifiers are long, unbreakable typewriter words.  Let TeX stretch
+% interword space rather than overflow the measure when one lands badly.
+\tolerance=1500
+\emergencystretch=3em
+
+\providecommand{\fint}{\ensuremath{\rlap{--}\!\int}}
 
 % ---------------------------------------------------------------- theorems
 \theoremstyle{definition}
@@ -19,6 +35,7 @@
 \newtheorem{convention}[definition]{Convention}
 
 \theoremstyle{plain}
+\newtheorem{theorem}[definition]{Theorem}
 \newtheorem{proposition}[definition]{Proposition}
 \newtheorem{lemma}[definition]{Lemma}
 \newtheorem{corollary}[definition]{Corollary}
@@ -29,7 +46,6 @@
 
 % ------------------------------------------------------- Lean cross-links
 % \leanfile{PrimeTensor/Depth.lean} names the source file a section renders.
-% \leanref{Axis.fold} names the Lean declaration a numbered item formalises.
 \newcommand{\leanfile}[1]{%
   \par\noindent\textit{Source:}\; \texttt{#1}\par\medskip}
 \newcommand{\leanref}[1]{%
@@ -38,47 +54,43 @@
 \newcommand{\lean}[1]{\texttt{#1}}
 
 % --------------------------------------------------------------- notation
-\newcommand{\Depth}{\mathrm{Depth}}
-\newcommand{\Axis}{\mathrm{Axis}}
-\newcommand{\Idx}{\mathrm{IndexTuple}}
-\newcommand{\one}{\mathsf{one}}
-\newcommand{\sucbare}{\mathsf{succ}}
-\newcommand{\suc}{\sucbare\,}
-\newcommand{\first}{\mathsf{first}}
-\newcommand{\next}{\mathsf{next}}
-\newcommand{\fold}{\operatorname{fold}}
+% Generic only.  Fragments must not define macros of their own -- they are
+% \input into a shared document -- and must not need any, or preamble.tex
+% would churn once per module.  Write Lean-derived names with these:
+%
+%   \name{Axis}   a type, function or field name        ->  roman
+%   \ctor{succ}   a constructor or literal              ->  sans serif
+%   \lean{Foo.bar}  a Lean declaration, cited verbatim  ->  typewriter
+%
+\newcommand{\name}[1]{\mathrm{#1}}
+\newcommand{\ctor}[1]{\mathsf{#1}}
 \newcommand{\size}[1]{\lvert #1 \rvert}
 \newcommand{\defeq}{\equiv}
 
 % ------------------------------------------------------- Lean code blocks
-\definecolor{leankw}{HTML}{0F5B8C}
-\definecolor{leancm}{HTML}{6A7A6A}
-\definecolor{leanbg}{HTML}{F6F6F3}
+% Lean snippets are quoted verbatim from the source, Unicode included, and
+% check_fragment.py holds them to that.  The environment is fvextra's
+% Verbatim and NOT listings: listings reorders characters adjacent to
+% non-ASCII ones under LuaLaTeX -- it renders "(delta a b" as "delta( a b"
+% and the norm bars of a quantity as both bars then the quantity -- so a
+% listings block silently misquotes the very source it claims to reproduce.
+% Verbatim gives up keyword colouring and gets the characters right, which
+% is the trade this document needs.  fvextra (over plain fancyvrb) supplies
+% breaklines, so a long Lean signature wraps instead of running off the page.
+% Named leancode, not lean: \DefineVerbatimEnvironment{lean} would define
+% \lean and clobber the \lean{...} macro above.
+\definecolor{leanrule}{HTML}{7A9CC0}
 
-\lstdefinelanguage{Lean}{
-  morekeywords={inductive,def,theorem,lemma,namespace,end,import,deriving,
-    where,fun,match,with,Type,Prop,structure,instance,by,simp,rfl,variable},
-  sensitive=true,
-  morecomment=[l]{--},
-  morecomment=[n]{/-}{-/},
-}
-
-\lstset{
-  language=Lean,
-  basicstyle=\ttfamily\small,
-  keywordstyle=\color{leankw}\bfseries,
-  commentstyle=\color{leancm}\itshape,
-  backgroundcolor=\color{leanbg},
+\DefineVerbatimEnvironment{leancode}{Verbatim}{%
+  fontsize=\small,
   frame=leftline,
   framerule=0.8pt,
-  rulecolor=\color{leankw!40},
-  xleftmargin=1em,
-  framexleftmargin=1em,
-  aboveskip=1.1em,
-  belowskip=1.1em,
-  columns=fullflexible,
-  keepspaces=true,
-  showstringspaces=false,
-  literate={→}{{$\rightarrow$}}1 {×}{{$\times$}}1 {ℕ}{{$\mathbb{N}$}}1
-           {≥}{{$\geq$}}1 {≅}{{$\cong$}}1 {∘}{{$\circ$}}1,
+  rulecolor=\color{leanrule},
+  framesep=0.9em,
+  xleftmargin=1.1em,
+  breaklines=true,
+  breakanywhere=true,
+  breaksymbolleft={},
+  breakindent=2em,
+  samepage=false,
 }

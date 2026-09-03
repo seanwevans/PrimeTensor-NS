@@ -15,7 +15,10 @@ Every numbered item carries the name of the Lean declaration it corresponds
 to, and each fragment ends with a table listing every declaration in the
 module so that coverage is checkable by eye.
 
-Only `Depth` is written so far. The rest of the tree is not yet converted.
+`order.txt` lists all 766 modules in import-DAG topological order — the order
+the repository's `out.pdf` renders — and is the queue for this conversion.
+Fragments are written in that order; anything in `order.txt` without a `.tex`
+beside it is not yet converted.
 
 ## Fragments are `\input`-able
 
@@ -38,16 +41,42 @@ listing style, and the notation macros (`\Depth`, `\Axis`, `\fold`, `\leanfile`,
 | File | Role |
 | --- | --- |
 | `preamble.tex` | Shared packages, theorem environments, notation macros. No `\documentclass`. |
-| `main.tex` | The aggregate document. Add a module by adding one `\input` line. |
+| `main.tex` | The aggregate document. Its `\input` list is generated, so it is never edited by hand. |
+| `order.txt` | Every module in import-DAG topological order; the order fragments are assembled in. |
 | `standalone.tex` | One-fragment wrapper used to render a single module to its own PDF. |
-| `build.sh` | Driver for both. |
+| `build.sh` | Driver for both. Checks listings, then runs LuaLaTeX. |
+| `check_fragment.py` | Checks quoted snippets, label namespacing, and local references. |
 | `<Module>.tex` | The fragments, mirroring the `PrimeTensor/` tree. |
+
+`build.sh --main` regenerates `modules.tex` from `order.txt`, keeping the
+entries whose fragment exists, and `main.tex` inputs that. `modules.tex` is
+generated and not committed. This is deliberate: adding a module means adding
+one file and touching no shared file, so per-module branches never conflict
+with one another.
 
 ## Building
 
-Requires a TeX installation with `amsmath`, `listings`, `hyperref` and
-`lmodern` (on Debian/Ubuntu: `texlive-latex-base texlive-latex-recommended
-texlive-latex-extra texlive-fonts-recommended lmodern`).
+Builds with **LuaLaTeX**, not pdfLaTeX. The Lean sources use 128 distinct
+non-ASCII characters, and a Unicode engine lets the fragments quote them
+literally rather than transliterating them; `preamble.tex` is built on
+`fontspec` and `unicode-math`, and sets DejaVu Sans Mono for code, which
+carries 119 of those 128.
+
+Lean snippets go in a `leancode` environment, which is fvextra's `Verbatim` —
+deliberately **not** `listings`. Under LuaLaTeX, `listings` reorders
+characters adjacent to non-ASCII ones: it sets `(δ a b` as `δ( a b` and
+`‖x‖` as `‖‖x`, silently misquoting the source. `Verbatim` gives up keyword
+colouring and gets the characters right, which is the trade this document
+needs; `fvextra` adds line breaking so a long Lean signature wraps rather
+than running off the page.
+
+On Debian/Ubuntu:
+
+```bash
+apt-get install texlive-latex-base texlive-latex-recommended \
+    texlive-latex-extra texlive-fonts-recommended texlive-luatex \
+    fonts-dejavu-core fonts-lmodern
+```
 
 ```bash
 cd proof
@@ -61,13 +90,40 @@ Module names are given relative to `proof/` and without the extension, so they
 read exactly like the path under `PrimeTensor/`. Auxiliary files are written to
 a temporary directory and discarded; only the PDF is left behind.
 
+## Fragment rules
+
+`check_fragment.py` enforces three things, and `build.sh` runs it before every
+render, so a fragment that breaks one fails the build:
+
+1. **Snippets are verbatim.** Every `leancode` block must be an excerpt of
+   that module's `.lean` file, copied character for character, so a reader can
+   trust the quoted code without diffing it by hand. A block that is
+   deliberately not a quote opts out with `% listing:paraphrase` on the
+   preceding line.
+2. **Labels are namespaced by module**, as `<Module>:<name>` with `/` written
+   as `:` — `Depth:def:fold`, `Bridge:Log:Scale:lem:main`. All 766 fragments
+   share one document, and bare labels would collide.
+3. **References stay inside the fragment.** A fragment is rendered both alone
+   and inside `main.tex`; a `\ref` into another fragment is undefined in the
+   first case. Cite another module by file name instead — write
+   `\texttt{PrimeTensor/Depth.lean}`, not `\ref{Depth:...}`.
+
+```bash
+python3 check_fragment.py Depth     # one module
+python3 check_fragment.py --all     # every fragment
+```
+
+One further convention, not machine-checked: keep at most one Lean name in a
+theorem's bracketed title. Lean identifiers are long unbreakable typewriter
+words, and two of them in a title overflow the measure; list the rest in the
+body.
+
 ## Adding a module
 
 1. Write `proof/<Path>.tex` as a fragment, mirroring `PrimeTensor/<Path>.lean`.
-2. Add `\input{<Path>}` to `main.tex`, in dependency order. The repository's
-   `out.pdf` renders the import DAG in topological order (766 modules, `Depth`
-   first); that listing is the order `main.tex` follows.
-3. Run `./build.sh <Path>` and commit the `.tex` and the `.pdf`.
+2. Run `./build.sh <Path>` and commit the `.tex` and the `.pdf`. Nothing else
+   needs editing: `<Path>` is already listed in `order.txt`, so the aggregate
+   document picks the fragment up on its next build.
 
 One branch and one pull request per module, so that each conversion can be
 reviewed against its source file on its own.

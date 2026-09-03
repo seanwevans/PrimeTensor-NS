@@ -11,3 +11,4 @@ out.txt
 *.out
 *.toc
 proof/main.pdf
+proof/modules.tex

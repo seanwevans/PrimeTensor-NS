@@ -1,0 +1,348 @@
+% Prose rendering of PrimeTensor/MulRat.lean.
+% Fragment: no \documentclass, no preamble, no document environment.
+
+\section{Positive rational magnitudes as barcodes}
+\label{MulRat:sec}
+
+\leanfile{PrimeTensor/MulRat.lean}
+
+\subsection*{What this file establishes}
+
+\texttt{PrimeTensor/Ratio.lean} introduced $\name{PrimeRatio}$, an oriented
+pair of prime multisets, and defined the cross-product relation
+$\name{Same}$ on it --- but proved nothing whatever about that relation.
+This file supplies everything that was missing and then takes the quotient.
+
+The result, $\name{MulRat}$, is a commutative group: multiplication is
+associative and commutative with unit $1$, and every element has an inverse.
+All six laws are equalities of elements, not statements modulo a relation.
+
+One step in the file does real work.  Reflexivity and symmetry of
+$\name{Same}$ are immediate, but transitivity requires cancelling a common
+factor, and cancellation on $\mathbb{N}$ is valid only against a nonzero
+factor.  The factor available is the evaluation of a prime multiset, and it is
+nonzero because no bag evaluates below $1$.  This is the point at which the
+project's refusal of a zeroth stage, decided in
+\texttt{PrimeTensor/Depth.lean} and carried into
+\texttt{PrimeTensor/Prime.lean}, is actually spent.
+
+Finally, and as the module header states, no value of type $\mathbb{Q}$ or
+$\mathbb{R}$ occurs anywhere in the file.  Magnitudes are barcodes throughout;
+$\mathbb{N}$ enters only through $\name{eval}$, and only to compare.
+
+\subsection{Positivity}
+
+\begin{lemma}[\lean{PrimeRatio.multiset\_eval\_pos}]\label{MulRat:lem:pos}
+$0 < \name{eval}(q)$ for every $q : \name{PrimeMultiset}$.
+\end{lemma}
+
+\begin{leancode}
+private theorem multiset_eval_pos (q : PrimeMultiset) : 0 < q.eval := by
+  refine Quotient.inductionOn q ?_
+  intro b
+  exact lt_of_lt_of_le Nat.zero_lt_one (PrimeBag.one_le_eval b)
+\end{leancode}
+
+\begin{proof}
+By $\name{Quotient.inductionOn}$ it suffices to treat a class represented by a
+bag $b$, where $\name{eval}$ reduces to $\name{PrimeBag.eval}(b)$.  Then
+$0 < 1$ and $1 \leq \name{PrimeBag.eval}(b)$ ---
+the latter is $\name{one\_le\_eval}$ from \texttt{PrimeTensor/Prime.lean} ---
+compose to $0 < \name{PrimeBag.eval}(b)$.
+\end{proof}
+
+The lemma is \lean{private}, hence visible only inside this file.  That is
+appropriate: it exists to feed the single cancellation step below, and the
+public statement of that fact is $\name{one\_le\_eval}$, which is sharper.
+
+\subsection{Cross-product equality is an equivalence}
+
+\begin{lemma}[\lean{same\_refl} and \lean{same\_symm}]\label{MulRat:lem:refl-symm}
+$\name{Same}$ is reflexive and symmetric.
+\end{lemma}
+
+\begin{proof}
+Unfolding the definition from \texttt{PrimeTensor/Ratio.lean},
+$\name{Same}(a,a)$ is
+$\name{eval}(a.\name{upper}) \cdot \name{eval}(a.\name{lower})
+ = \name{eval}(a.\name{upper}) \cdot \name{eval}(a.\name{lower})$,
+closed by $\ctor{rfl}$; and $\name{Same}(a,b)$ and $\name{Same}(b,a)$ are the
+two sides of one equation of naturals, so symmetry is $\name{Eq.symm}$.  The
+two carry \lean{@[refl]} and \lean{@[symm]}.
+\end{proof}
+
+\begin{lemma}[Transitivity, \lean{PrimeRatio.same\_trans}]\label{MulRat:lem:trans}
+If $\name{Same}(a,b)$ and $\name{Same}(b,c)$ then $\name{Same}(a,c)$.
+\end{lemma}
+
+\begin{leancode}
+@[trans] theorem same_trans {a b c : PrimeRatio}
+    (hab : Same a b) (hbc : Same b c) : Same a c := by
+  unfold Same at hab hbc ⊢
+  apply Nat.eq_of_mul_eq_mul_right (multiset_eval_pos b.lower)
+  calc
+    (a.upper.eval * c.lower.eval) * b.lower.eval
+        = (a.upper.eval * b.lower.eval) * c.lower.eval := by ac_rfl
+    _ = (b.upper.eval * a.lower.eval) * c.lower.eval := by rw [hab]
+    _ = (b.upper.eval * c.lower.eval) * a.lower.eval := by ac_rfl
+    _ = (c.upper.eval * b.lower.eval) * a.lower.eval := by rw [hbc]
+    _ = (c.upper.eval * a.lower.eval) * b.lower.eval := by ac_rfl
+\end{leancode}
+
+\begin{proof}
+Write $u_x = \name{eval}(x.\name{upper})$ and
+$l_x = \name{eval}(x.\name{lower})$.  The hypotheses are
+$u_a l_b = u_b l_a$ and $u_b l_c = u_c l_b$, and the goal is
+$u_a l_c = u_c l_a$.
+
+The obvious route --- divide the two hypotheses --- is unavailable, since
+$\mathbb{N}$ has no division.  Instead one multiplies the goal by $l_b$ and
+cancels it afterwards.  By $\name{Nat.eq\_of\_mul\_eq\_mul\_right}$, applied
+with the positivity of $l_b$ supplied by Lemma~\ref{MulRat:lem:pos}, it is
+enough to prove
+\[
+  (u_a l_c) \, l_b = (u_c l_a) \, l_b,
+\]
+and that is the displayed chain: reassociate to expose $u_a l_b$, rewrite it
+to $u_b l_a$ by the first hypothesis, reassociate to expose $u_b l_c$, rewrite
+it to $u_c l_b$ by the second, and reassociate once more.  Each reassociation
+step is closed by $\ctor{ac\_rfl}$, which decides equalities that hold by
+associativity and commutativity of multiplication alone.
+\end{proof}
+
+\begin{designnote}[Where the missing zero is spent]\label{MulRat:note:cancel}
+Cancellation is the whole difficulty, and cancellation on $\mathbb{N}$ is
+valid only against a factor that is nonzero.  The factor here is $l_b$, the
+evaluation of a prime multiset, and Lemma~\ref{MulRat:lem:pos} makes it
+positive by tracing back through $\name{one\_le\_eval}$ to the fact that a
+prime bag is a product of atoms each greater than $1$, terminated by the
+pivot $\ctor{one}$ rather than by a zero.
+
+Had the carrier admitted a zeroth stage, this step would have needed a side
+condition, and the side condition would have propagated into $\name{setoid}$,
+into every lift out of the quotient, and into every downstream statement about
+$\name{MulRat}$.  Instead there is nothing to discharge: the representation
+cannot express the bad case.
+\end{designnote}
+
+\begin{definition}[The setoid, \lean{PrimeTensor.PrimeRatio.setoid}]
+\label{MulRat:def:setoid}
+$\name{setoid} : \name{Setoid}(\name{PrimeRatio})$ is $\name{Same}$ with the
+equivalence proof assembled from Lemmas~\ref{MulRat:lem:refl-symm}
+and~\ref{MulRat:lem:trans}.
+\end{definition}
+
+\subsection{Congruence and the laws at representative level}
+
+\begin{lemma}[\lean{mul\_same} and \lean{inv\_same}]\label{MulRat:lem:congr}
+$\name{Same}$ is respected by multiplication and by inversion:
+if $\name{Same}(a_1,a_2)$ and $\name{Same}(b_1,b_2)$ then
+$\name{Same}(a_1 b_1,\, a_2 b_2)$; and if $\name{Same}(a,b)$ then
+$\name{Same}(a^{-1}, b^{-1})$.
+\end{lemma}
+
+\begin{proof}
+For the first, $\name{upper\_mul}$ and $\name{lower\_mul}$ from
+\texttt{PrimeTensor/Ratio.lean} turn the goal into
+\[
+  (u_{a_1} u_{b_1})(l_{a_2} l_{b_2})
+    = (u_{a_2} u_{b_2})(l_{a_1} l_{b_1}),
+\]
+and regrouping gives
+$(u_{a_1} l_{a_2})(u_{b_1} l_{b_2})$, which the two hypotheses rewrite to
+$(u_{a_2} l_{a_1})(u_{b_2} l_{b_1})$, which regroups to the right-hand side.
+For the second, $\name{inv\_upper}$ and $\name{inv\_lower}$ turn the goal into
+$l_a u_b = l_b u_a$, and the hypothesis $u_a l_b = u_b l_a$ gives it after
+commuting each side.  Both proofs are chains of $\ctor{ac\_rfl}$ steps around
+a single rewrite.
+\end{proof}
+
+\begin{lemma}[\lean{one\_upper} and \lean{one\_lower}]\label{MulRat:lem:one-fields}
+$(1 : \name{PrimeRatio}).\name{upper} = 1$ and
+$(1 : \name{PrimeRatio}).\name{lower} = 1$.
+\end{lemma}
+
+\begin{leancode}
+@[simp] theorem one_upper : (1 : PrimeRatio).upper = 1 := rfl
+@[simp] theorem one_lower : (1 : PrimeRatio).lower = 1 := rfl
+\end{leancode}
+
+\begin{proof}
+$\ctor{rfl}$: the unit of $\name{PrimeRatio}$ is the literal
+$\langle 1, 1 \rangle$, and projecting a literal reduces.
+\end{proof}
+
+\begin{lemma}[The laws, up to $\name{Same}$]\label{MulRat:lem:laws-same}
+For all $a, b, c : \name{PrimeRatio}$:
+\[
+  \begin{array}{ll}
+    \name{Same}(1 \cdot a,\; a), &
+      \text{\lean{one\_mul\_same}} \\
+    \name{Same}(a \cdot 1,\; a), &
+      \text{\lean{mul\_one\_same}} \\
+    \name{Same}((a b) c,\; a (b c)), &
+      \text{\lean{mul\_assoc\_same}} \\
+    \name{Same}(a b,\; b a), &
+      \text{\lean{mul\_comm\_same}} \\
+    \name{Same}((a^{-1})^{-1},\; a), &
+      \text{\lean{inv\_inv\_same}} \\
+    \name{Same}(a \cdot a^{-1},\; 1), &
+      \text{\lean{mul\_inv\_same\_one}}
+  \end{array}
+\]
+\end{lemma}
+
+\begin{proof}
+Each unfolds $\name{Same}$, rewrites the components with the evaluation lemmas
+of \texttt{PrimeTensor/Ratio.lean} --- $\name{upper\_mul}$,
+$\name{lower\_mul}$, $\name{inv\_upper}$, $\name{inv\_lower}$ --- together
+with Lemma~\ref{MulRat:lem:one-fields} and $\name{PrimeMultiset.eval\_one}$,
+and closes the resulting identity of naturals.  The unit laws close by the
+unit laws of $\mathbb{N}$; associativity and commutativity close by
+$\ctor{ac\_rfl}$; double inversion closes by simplification alone, both sides
+becoming literally the same expression once the two swaps cancel; and
+$\name{Same}(a a^{-1}, 1)$ reduces to
+$u_a l_a = l_a u_a$, which is $\name{Nat.mul\_comm}$.
+\end{proof}
+
+Note what these say and do not say.  $\name{PrimeRatio}$ itself does not
+satisfy any of the six laws --- $a \cdot 1$ and $a$ are different terms, and
+$a \cdot a^{-1}$ is $\langle u_a l_a, l_a u_a \rangle$, not
+$\langle 1, 1 \rangle$.  Each law holds only after $\name{Same}$ has been
+applied, which is exactly the input the quotient needs.
+
+\subsection{The quotient}
+
+\begin{definition}[\lean{PrimeTensor.MulRat}]\label{MulRat:def:mulrat}
+$\name{MulRat} \defeq \name{Quotient}(\name{PrimeRatio.setoid})$, an
+\lean{abbrev} and hence reducible.  $\name{ofRatio}(q)$ is the class of $q$,
+and $\name{one} \defeq \name{ofRatio}(1)$.
+\end{definition}
+
+\begin{definition}[Induced operations]\label{MulRat:def:ops}
+The declarations \lean{MulRat.mul} and \lean{MulRat.inv} lift multiplication
+and inversion through the quotient; \lean{One}, \lean{Mul} and \lean{Inv}
+instances give them their notation.
+\end{definition}
+
+\begin{leancode}
+def mul (a b : MulRat) : MulRat :=
+  Quotient.liftOn₂ a b
+    (fun x y => ofRatio (x * y))
+    (by
+      intro a₁ b₁ a₂ b₂ ha hb
+      change PrimeRatio.Same a₁ a₂ at ha
+      change PrimeRatio.Same b₁ b₂ at hb
+      change Quotient.mk PrimeRatio.setoid (a₁ * b₁) =
+        Quotient.mk PrimeRatio.setoid (a₂ * b₂)
+      apply Quotient.sound
+      exact PrimeRatio.mul_same ha hb)
+\end{leancode}
+
+Each lift carries a well-definedness obligation, and each is exactly one of
+the congruence lemmas: $\name{mul\_same}$ for the binary lift,
+$\name{inv\_same}$ for the unary one, in both cases followed by
+$\name{Quotient.sound}$ to convert the resulting $\name{Same}$ into an
+equality of classes.
+
+\begin{theorem}[$\name{MulRat}$ is a commutative group]\label{MulRat:thm:group}
+For all $a, b, c : \name{MulRat}$,
+\[
+  1 \cdot a = a, \quad
+  a \cdot 1 = a, \quad
+  (ab)c = a(bc), \quad
+  ab = ba, \quad
+  (a^{-1})^{-1} = a, \quad
+  a \cdot a^{-1} = 1,
+\]
+these being the declarations \lean{one\_mul}, \lean{mul\_one},
+\lean{mul\_assoc}, \lean{mul\_comm}, \lean{inv\_inv} and \lean{mul\_inv}.
+\end{theorem}
+
+\begin{proof}
+Every one has the same three-step shape.  By $\name{Quotient.inductionOn}$
+(or its two- and three-variable forms) it suffices to prove the statement for
+classes of representatives; there the goal becomes an equality of two classes;
+$\name{Quotient.sound}$ reduces that to the corresponding $\name{Same}$
+statement, which is the matching item of Lemma~\ref{MulRat:lem:laws-same}.
+\end{proof}
+
+\begin{remark}[What is registered, and what is not]\label{MulRat:rem:instances}
+The four laws that make $\name{MulRat}$ a group are theorems, but no
+\lean{Group} or \lean{CommGroup} instance is declared --- only \lean{One},
+\lean{Mul} and \lean{Inv}.  So Mathlib's group lemmas are not available for
+$\name{MulRat}$ downstream, and each fact must be taken from this file by
+name.  Note also that $a^{-1} \cdot a = 1$ is not stated, although it follows
+from $\name{mul\_inv}$ and $\name{mul\_comm}$; and that
+$\name{one\_mul}$, $\name{mul\_one}$, $\name{inv\_inv}$ and $\name{mul\_inv}$
+carry \lean{@[simp]} while $\name{mul\_assoc}$ and $\name{mul\_comm}$ do not,
+as is usual for laws that would loop the simplifier.
+\end{remark}
+
+\begin{remark}[What the quotient is]\label{MulRat:rem:iso}
+Sending $a$ to
+$\name{eval}(a.\name{upper}) / \name{eval}(a.\name{lower})$ maps
+$\name{PrimeRatio}$ onto $\mathbb{Q}_{>0}$: it is surjective because every
+positive rational is a quotient of two positive integers and every positive
+integer is a product of primes, and by the cross-product characterisation in
+\texttt{PrimeTensor/Ratio.lean} two ratios have the same image precisely when
+$\name{Same}$ relates them.  So $\name{MulRat}$ is isomorphic to
+$(\mathbb{Q}_{>0}, \cdot, 1)$ as a group, and
+Theorem~\ref{MulRat:thm:group} is the barcode-level reflection of that.  The
+isomorphism is stated here for the reader; the file constructs no such map,
+and consistently with its header no value of type $\mathbb{Q}$ or $\mathbb{R}$
+appears in it.
+\end{remark}
+
+\begin{remark}[The order does not descend here]\label{MulRat:rem:no-order}
+\texttt{PrimeTensor/Ratio.lean} also defined $\name{Lt}$ and $\name{Within}$.
+This file proves nothing about either, and $\name{MulRat}$ carries no order:
+there is no \lean{LT MulRat} instance and no lemma showing $\name{Lt}$
+respects $\name{Same}$, though it does.  Only the multiplicative structure is
+transported across the quotient.
+\end{remark}
+
+\subsection*{Summary of the correspondence}
+
+\begin{center}
+\small
+\begin{tabular}{@{}lll@{}}
+\hline
+Lean declaration & Kind & Here \\
+\hline
+\lean{PrimeRatio.multiset\_eval\_pos} & private thm & Lem.~\ref{MulRat:lem:pos} \\
+\lean{PrimeRatio.same\_refl}      & refl thm   & Lem.~\ref{MulRat:lem:refl-symm} \\
+\lean{PrimeRatio.same\_symm}      & symm thm   & Lem.~\ref{MulRat:lem:refl-symm} \\
+\lean{PrimeRatio.same\_trans}     & trans thm  & Lem.~\ref{MulRat:lem:trans} \\
+\lean{PrimeRatio.setoid}          & definition & Def.~\ref{MulRat:def:setoid} \\
+\lean{PrimeRatio.mul\_same}       & theorem    & Lem.~\ref{MulRat:lem:congr} \\
+\lean{PrimeRatio.inv\_same}       & theorem    & Lem.~\ref{MulRat:lem:congr} \\
+\lean{PrimeRatio.one\_upper}      & simp thm   & Lem.~\ref{MulRat:lem:one-fields} \\
+\lean{PrimeRatio.one\_lower}      & simp thm   & Lem.~\ref{MulRat:lem:one-fields} \\
+\lean{PrimeRatio.one\_mul\_same}  & theorem    & Lem.~\ref{MulRat:lem:laws-same} \\
+\lean{PrimeRatio.mul\_one\_same}  & theorem    & Lem.~\ref{MulRat:lem:laws-same} \\
+\lean{PrimeRatio.mul\_assoc\_same}& theorem    & Lem.~\ref{MulRat:lem:laws-same} \\
+\lean{PrimeRatio.mul\_comm\_same} & theorem    & Lem.~\ref{MulRat:lem:laws-same} \\
+\lean{PrimeRatio.inv\_inv\_same}  & theorem    & Lem.~\ref{MulRat:lem:laws-same} \\
+\lean{PrimeRatio.mul\_inv\_same\_one} & theorem & Lem.~\ref{MulRat:lem:laws-same} \\
+\lean{PrimeTensor.MulRat}         & abbrev     & Def.~\ref{MulRat:def:mulrat} \\
+\lean{MulRat.ofRatio}             & definition & Def.~\ref{MulRat:def:mulrat} \\
+\lean{MulRat.one}                 & definition & Def.~\ref{MulRat:def:mulrat} \\
+\lean{MulRat.mul}                 & definition & Def.~\ref{MulRat:def:ops} \\
+\lean{MulRat.inv}                 & definition & Def.~\ref{MulRat:def:ops} \\
+\lean{One}, \lean{Mul}, \lean{Inv} & instances & Def.~\ref{MulRat:def:ops} \\
+\lean{MulRat.one\_mul}            & simp thm   & Thm.~\ref{MulRat:thm:group} \\
+\lean{MulRat.mul\_one}            & simp thm   & Thm.~\ref{MulRat:thm:group} \\
+\lean{MulRat.mul\_assoc}          & theorem    & Thm.~\ref{MulRat:thm:group} \\
+\lean{MulRat.mul\_comm}           & theorem    & Thm.~\ref{MulRat:thm:group} \\
+\lean{MulRat.inv\_inv}            & simp thm   & Thm.~\ref{MulRat:thm:group} \\
+\lean{MulRat.mul\_inv}            & simp thm   & Thm.~\ref{MulRat:thm:group} \\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent
+Every declaration of \texttt{PrimeTensor/MulRat.lean} appears above.  The file
+contains no \lean{sorry}, no axiom, and no unproved named proposition.
+Remarks~\ref{MulRat:rem:iso} and~\ref{MulRat:rem:no-order} are stated for the
+reader and are not declarations of the file.
