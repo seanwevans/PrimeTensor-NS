@@ -21,6 +21,11 @@
 \usepackage{enumitem}
 \usepackage[hidelinks]{hyperref}
 
+% Lean identifiers are long, unbreakable typewriter words.  Let TeX stretch
+% interword space rather than overflow the measure when one lands badly.
+\tolerance=1500
+\emergencystretch=3em
+
 \providecommand{\fint}{\ensuremath{\rlap{--}\!\int}}
 
 % ---------------------------------------------------------------- theorems

@@ -1,22 +1,29 @@
 #!/usr/bin/env python3
-"""Verify that every Lean snippet in a fragment is quoted verbatim.
+"""Check a prose fragment against the module it renders.
 
 A fragment under proof/ renders exactly one module under PrimeTensor/.  Each
 of its lstlisting blocks is meant to be an excerpt of that module's source,
 copied character for character, so that a reader can trust the quoted code
 without diffing it against the repository by hand.
 
-This checks that.  For proof/<M>.tex it reads PrimeTensor/<M>.lean and
-requires each block to occur in it verbatim, ignoring only leading and
-trailing blank lines and a uniform indent.
+Three checks, all of them things that only bite once the tree is large:
 
-A block that is deliberately not a quote -- a signature written in isolation,
-say -- opts out with a LaTeX comment on the line before it:
+1. Every lstlisting block occurs verbatim in PrimeTensor/<M>.lean, ignoring
+   leading and trailing blank lines and a uniform indent.  A block that is
+   deliberately not a quote opts out with a LaTeX comment on the line before
+   it:  % listing:paraphrase
 
-    % listing:paraphrase
+2. Every \\label is namespaced by the module, as <M>:<name> with '/' written
+   as ':'.  766 fragments share one document, and bare labels like
+   'def:eval' would collide.
 
-Usage:  check_listings.py <module> [<module> ...]      (paths relative to proof/)
-        check_listings.py --all
+3. Every \\ref and \\eqref resolves inside the same fragment.  A fragment is
+   rendered both alone and as part of main.tex, and a reference into another
+   fragment is undefined in the first case.  Cite another module by file
+   name instead.
+
+Usage:  check_fragment.py <module> [<module> ...]      (paths relative to proof/)
+        check_fragment.py --all
 """
 import os
 import re
@@ -57,6 +64,20 @@ def check(module):
         source = dedent(fh.read())
 
     problems, checked = [], 0
+
+    prefix = module.replace('/', ':') + ':'
+    labels = set(re.findall(r'\\label\{([^}]*)\}', fragment))
+    for label in sorted(labels):
+        if not label.startswith(prefix):
+            problems.append(
+                f"{module}.tex: label '{label}' is not namespaced; "
+                f"it must start with '{prefix}'")
+    refs = set(re.findall(r'\\(?:eq)?ref\{([^}]*)\}', fragment))
+    for ref in sorted(refs - labels):
+        problems.append(
+            f"{module}.tex: reference '{ref}' has no label in this fragment; "
+            f'cite another module by file name, not by \\ref')
+
     for m in BLOCK.finditer(fragment):
         if 'listing:paraphrase' in m.group('opt'):
             continue
@@ -70,7 +91,8 @@ def check(module):
             f'{module}.tex:{line}: block is not verbatim in '
             f'PrimeTensor/{module}.lean\n    first line: {head!r}')
     if not problems:
-        print(f'  {module}: {checked} listing(s) verbatim')
+        print(f'  {module}: {checked} listing(s) verbatim, '
+              f'{len(labels)} label(s) namespaced')
     return problems
 
 
@@ -88,14 +110,14 @@ def main(argv):
     else:
         modules = [m[:-4] if m.endswith('.tex') else m for m in argv]
     if not modules:
-        print('usage: check_listings.py <module> ... | --all', file=sys.stderr)
+        print('usage: check_fragment.py <module> ... | --all', file=sys.stderr)
         return 2
 
     problems = []
     for module in modules:
         problems += check(module)
     for p in problems:
-        print('check_listings: ' + p, file=sys.stderr)
+        print('check_fragment: ' + p, file=sys.stderr)
     return 1 if problems else 0
 
 

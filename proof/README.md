@@ -45,7 +45,7 @@ listing style, and the notation macros (`\Depth`, `\Axis`, `\fold`, `\leanfile`,
 | `order.txt` | Every module in import-DAG topological order; the order fragments are assembled in. |
 | `standalone.tex` | One-fragment wrapper used to render a single module to its own PDF. |
 | `build.sh` | Driver for both. Checks listings, then runs LuaLaTeX. |
-| `check_listings.py` | Verifies every Lean snippet is a verbatim quote of its source. |
+| `check_fragment.py` | Checks quoted snippets, label namespacing, and local references. |
 | `<Module>.tex` | The fragments, mirroring the `PrimeTensor/` tree. |
 
 `build.sh --main` regenerates `modules.tex` from `order.txt`, keeping the
@@ -82,19 +82,33 @@ Module names are given relative to `proof/` and without the extension, so they
 read exactly like the path under `PrimeTensor/`. Auxiliary files are written to
 a temporary directory and discarded; only the PDF is left behind.
 
-## Quoting Lean
+## Fragment rules
 
-Every `lstlisting` block in a fragment must be an excerpt of that module's
-`.lean` file, copied character for character. `check_listings.py` enforces
-this and `build.sh` runs it before every render, so a snippet that has drifted
-from the source fails the build rather than misleading a reader. A block that
-is deliberately not a quote opts out with `% listing:paraphrase` on the
-preceding line.
+`check_fragment.py` enforces three things, and `build.sh` runs it before every
+render, so a fragment that breaks one fails the build:
+
+1. **Snippets are verbatim.** Every `lstlisting` block must be an excerpt of
+   that module's `.lean` file, copied character for character, so a reader can
+   trust the quoted code without diffing it by hand. A block that is
+   deliberately not a quote opts out with `% listing:paraphrase` on the
+   preceding line.
+2. **Labels are namespaced by module**, as `<Module>:<name>` with `/` written
+   as `:` — `Depth:def:fold`, `Bridge:Log:Scale:lem:main`. All 766 fragments
+   share one document, and bare labels would collide.
+3. **References stay inside the fragment.** A fragment is rendered both alone
+   and inside `main.tex`; a `\ref` into another fragment is undefined in the
+   first case. Cite another module by file name instead — write
+   `\texttt{PrimeTensor/Depth.lean}`, not `\ref{Depth:...}`.
 
 ```bash
-python3 check_listings.py Depth     # one module
-python3 check_listings.py --all     # every fragment
+python3 check_fragment.py Depth     # one module
+python3 check_fragment.py --all     # every fragment
 ```
+
+One further convention, not machine-checked: keep at most one Lean name in a
+theorem's bracketed title. Lean identifiers are long unbreakable typewriter
+words, and two of them in a title overflow the measure; list the rest in the
+body.
 
 ## Adding a module
 

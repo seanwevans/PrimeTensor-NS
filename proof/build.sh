@@ -23,8 +23,8 @@ render() {
     echo "build.sh: no such fragment: $module.tex" >&2
     return 1
   fi
-  # Every Lean snippet must still be a verbatim quote of the source.
-  python3 check_listings.py "$module" || return 1
+  # Snippets verbatim, labels namespaced, references local.
+  python3 check_fragment.py "$module" || return 1
   echo "  $module.tex -> $module.pdf"
   local jobname
   jobname="$(printf '%s' "$module" | tr '/' '_')"
@@ -56,7 +56,7 @@ generate_module_list() {
 }
 
 render_main() {
-  python3 check_listings.py --all || return 1
+  python3 check_fragment.py --all || return 1
   generate_module_list
   echo "  main.tex -> main.pdf"
   for _ in 1 2; do
