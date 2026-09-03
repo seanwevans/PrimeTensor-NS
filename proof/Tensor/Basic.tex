@@ -1,0 +1,244 @@
+% Prose rendering of PrimeTensor/Tensor/Basic.lean.
+% Fragment: no \documentclass, no preamble, no document environment.
+
+\section{Positive-rank multiplicative tensors}
+\label{Tensor:Basic:sec}
+
+\leanfile{PrimeTensor/Tensor/Basic.lean}
+
+\subsection*{What this file establishes}
+
+A tensor is a function from index tuples to coefficients, wrapped in a
+one-field structure.  Both its dimension and its rank are depths, so neither
+can be zeroth: every tensor has at least one dimension and at least one index.
+The coefficient type is arbitrary, and the one operation that needs anything
+of it --- the outer product --- asks only for a multiplication, with no laws.
+
+The file is short, and almost all of its content is that the definitions
+typecheck at all.  That they do is inherited from
+\texttt{PrimeTensor/Depth.lean}: because $\name{IndexTuple}$ was defined there
+by recursion into $\mathrm{Type}$ rather than as an inductive family, a
+rank-one index tuple \emph{is} an axis index and a rank-two one \emph{is} a
+pair, definitionally, with no coercion in between.  Section~\ref{Tensor:Basic:sec:access}
+is where that is spent.
+
+\subsection{Tensors}
+
+\begin{definition}[Tensor, \lean{PrimeTensor.Tensor}]\label{Tensor:Basic:def:tensor}
+For a type $A$ and depths $\mathit{dim}$, $\mathit{rank}$, the structure
+$\name{Tensor}\;A\;\mathit{dim}\;\mathit{rank}$ has the single field
+\[
+  \name{component} :
+    \name{IndexTuple}(\mathit{dim}, \mathit{rank}) \to A.
+\]
+\end{definition}
+
+\begin{leancode}
+structure Tensor (A : Type) (dim rank : Depth) where
+  component : IndexTuple dim rank → A
+\end{leancode}
+
+Wrapping the function in a structure rather than using the function type
+directly buys nominal typing: $\name{Tensor}\;A\;\mathit{dim}\;\mathit{rank}$
+and $\name{IndexTuple}(\mathit{dim},\mathit{rank}) \to A$ are different
+types, so a tensor cannot be applied by mistake and the elaborator will not
+unify a tensor with an unrelated function.  Nothing is lost by it: Lean's
+structure eta makes $\langle f \rangle.\name{component}$ and
+$\langle t.\name{component} \rangle$ reduce to $f$ and $t$, so the wrapper is
+transparent in proofs.
+
+\begin{remark}[Size]\label{Tensor:Basic:rem:size}
+$\name{Tensor}\;A\;\mathit{dim}\;\mathit{rank}$ is the type of functions from
+a finite set of $\size{\mathit{dim}}^{\,\size{\mathit{rank}}}$ indices to $A$,
+by the cardinality of $\name{IndexTuple}$ established in
+\texttt{PrimeTensor/Depth.lean}.  For the case the project actually runs on,
+$\mathit{dim} = \mathit{rank} = \ctor{three}$, that is $27$ coefficients.  The
+index set is never empty, so a tensor always has at least one coefficient and
+there is no vacuous tensor to special-case.
+\end{remark}
+
+\begin{definition}[Vector and Matrix]\label{Tensor:Basic:def:aliases}
+The abbreviations \lean{Tensor.Vector} and \lean{Tensor.Matrix}:
+\[
+  \name{Vector}\;A\;\mathit{dim} \defeq
+    \name{Tensor}\;A\;\mathit{dim}\;\ctor{one},
+  \qquad
+  \name{Matrix}\;A\;\mathit{dim} \defeq
+    \name{Tensor}\;A\;\mathit{dim}\;\ctor{two}.
+\]
+\end{definition}
+
+\begin{leancode}
+abbrev Vector (A : Type) (dim : Depth) := Tensor A dim .one
+abbrev Matrix (A : Type) (dim : Depth) := Tensor A dim Depth.two
+\end{leancode}
+
+Both are \lean{abbrev} and so reducible: they unfold during elaboration rather
+than standing as opaque definitions.  This matters for the next two
+definitions, which would otherwise need explicit rewriting to typecheck.
+
+\subsection{Component access}
+\label{Tensor:Basic:sec:access}
+
+\begin{definition}[Access, \lean{vectorAt} and \lean{matrixAt}]
+\label{Tensor:Basic:def:access}
+For $v : \name{Vector}\;A\;\mathit{dim}$ and $i : \name{Axis}\;\mathit{dim}$,
+and for $m : \name{Matrix}\;A\;\mathit{dim}$ and
+$i, j : \name{Axis}\;\mathit{dim}$,
+\[
+  \name{vectorAt}(v, i) \defeq v.\name{component}\;i,
+  \qquad
+  \name{matrixAt}(m, i, j) \defeq m.\name{component}\;(i, j).
+\]
+\end{definition}
+
+\begin{leancode}
+def vectorAt {A : Type} {dim : Depth} (v : Vector A dim) (i : Axis dim) : A :=
+  v.component i
+
+/-- Rank-two component access. -/
+def matrixAt {A : Type} {dim : Depth} (m : Matrix A dim)
+    (i j : Axis dim) : A :=
+  m.component (i, j)
+\end{leancode}
+
+\begin{proposition}[Why these typecheck]\label{Tensor:Basic:prop:defeq}
+$v.\name{component}$ expects an argument of type
+$\name{IndexTuple}(\mathit{dim}, \ctor{one})$ but is given one of type
+$\name{Axis}\;\mathit{dim}$, and $m.\name{component}$ expects
+$\name{IndexTuple}(\mathit{dim}, \ctor{two})$ but is given a literal pair.
+Both are accepted, with no coercion and no cast, because
+\[
+  \name{IndexTuple}(\mathit{dim}, \ctor{one})
+    \;=\; \name{Axis}\;\mathit{dim},
+  \qquad
+  \name{IndexTuple}(\mathit{dim}, \ctor{two})
+    \;=\; \name{Axis}\;\mathit{dim} \times \name{Axis}\;\mathit{dim}
+\]
+hold definitionally.
+\end{proposition}
+
+\begin{proof}
+$\name{IndexTuple}$ is defined in \texttt{PrimeTensor/Depth.lean} by
+structural recursion on the rank, with defining equations
+$\name{IndexTuple}(\mathit{dim}, \ctor{one}) = \name{Axis}\;\mathit{dim}$ and
+$\name{IndexTuple}(\mathit{dim}, \ctor{succ}\,r) =
+  \name{Axis}\;\mathit{dim} \times \name{IndexTuple}(\mathit{dim}, r)$.
+The first equation gives the rank-one case directly.  For the rank-two case,
+$\ctor{two}$ unfolds to $\ctor{succ}\,\ctor{one}$, so the second equation
+applies and then the first, giving
+$\name{Axis}\;\mathit{dim} \times \name{Axis}\;\mathit{dim}$.  Each step is a
+defining equation of a structural recursion at a constructor, hence a
+definitional equality, and $\name{Vector}$ and $\name{Matrix}$ are reducible
+so they do not block the reduction.
+\end{proof}
+
+\begin{designnote}\label{Tensor:Basic:note:recursive-index}
+This is what the choice of $\name{IndexTuple}$ in
+\texttt{PrimeTensor/Depth.lean} was for.  Had index tuples been an inductive
+family, a rank-one tuple would have been a constructor application wrapping an
+axis index rather than the index itself, and every component access would have
+had to pack and unpack it --- with the packing visible in the statement of
+every downstream lemma.  Defining the index type by recursion into
+$\mathrm{Type}$ makes the wrapper disappear before it is ever built.
+\end{designnote}
+
+\subsection{Operations}
+
+\begin{definition}[Pointwise map, \lean{PrimeTensor.Tensor.map}]
+\label{Tensor:Basic:def:map}
+For $f : A \to B$ and $t : \name{Tensor}\;A\;\mathit{dim}\;\mathit{rank}$,
+\[
+  \name{map}(f, t) \defeq
+    \langle\, \lambda i.\; f(t.\name{component}\;i) \,\rangle
+  \;:\; \name{Tensor}\;B\;\mathit{dim}\;\mathit{rank}.
+\]
+\end{definition}
+
+\begin{leancode}
+def map {A B : Type} {dim rank : Depth} (f : A → B)
+    (t : Tensor A dim rank) : Tensor B dim rank :=
+  ⟨fun i => f (t.component i)⟩
+\end{leancode}
+
+Composition with $f$ on the coefficient side; the dimension, the rank and the
+index set are untouched.
+
+\begin{remark}[The functor laws are not stated]\label{Tensor:Basic:rem:map-laws}
+$\name{map}$ is functorial --- $\name{map}(\mathrm{id}, t) = t$ and
+$\name{map}(g \circ f, t) = \name{map}(g, \name{map}(f, t))$ --- and both laws
+in fact hold by $\ctor{rfl}$, since each side reduces to the same lambda under
+structure and function eta.  Neither is stated in the file, and no
+\lean{Functor} instance is registered.
+\end{remark}
+
+\begin{definition}[Outer product, \lean{PrimeTensor.Tensor.outer}]
+\label{Tensor:Basic:def:outer}
+For a type $A$ with a multiplication and
+$u, v : \name{Vector}\;A\;\mathit{dim}$,
+\[
+  \name{outer}(u, v) \defeq
+    \bigl\langle\, \lambda \mathit{ij}.\;
+      u.\name{component}\;\mathit{ij}_1 \cdot
+      v.\name{component}\;\mathit{ij}_2 \,\bigr\rangle
+  \;:\; \name{Matrix}\;A\;\mathit{dim},
+\]
+so that its $(i,j)$ coefficient is $u_i \cdot v_j$.
+\end{definition}
+
+\begin{leancode}
+def outer {A : Type} [Mul A] {dim : Depth}
+    (u v : Vector A dim) : Matrix A dim :=
+  ⟨fun ij => u.component ij.1 * v.component ij.2⟩
+\end{leancode}
+
+The two projections $\mathit{ij}_1$ and $\mathit{ij}_2$ are available for the
+reason given in Proposition~\ref{Tensor:Basic:prop:defeq}: the argument type
+$\name{IndexTuple}(\mathit{dim}, \ctor{two})$ \emph{is} a product, so it can be
+projected without first being taken apart.
+
+\begin{designnote}[Only a magma is required]\label{Tensor:Basic:note:magma}
+The instance argument is \lean{[Mul A]} alone.  No associativity, no
+commutativity, no unit --- the same discipline as the fold in
+\texttt{PrimeTensor/Depth.lean}, and for the same reason: the intended
+coefficient carrier is a strictly positive multiplicative one, which supplies
+a multiplication but no additive unit to fall back on.  A consequence is that
+$\name{outer}$ is not symmetric, $\name{outer}(u, v)$ and $\name{outer}(v, u)$
+being transposes rather than equal, and that there is no vector playing the
+role of a unit for it.
+\end{designnote}
+
+\begin{remark}[No scalars, and no contraction here]\label{Tensor:Basic:rem:no-scalars}
+Rank is a depth, so rank zero is unrepresentable and there is no scalar
+tensor: $\name{outer}$ raises rank from one to two with nothing below it.
+Neither is there any operation lowering rank --- contraction arrives in
+\texttt{PrimeTensor/Tensor/Contract.lean}, the next module.  Note also that
+$\name{outer}$ is stated only for vectors, not at general rank.
+\end{remark}
+
+\subsection*{Summary of the correspondence}
+
+\begin{center}
+\small
+\begin{tabular}{@{}lll@{}}
+\hline
+Lean declaration & Kind & Here \\
+\hline
+\lean{PrimeTensor.Tensor}   & structure  & Def.~\ref{Tensor:Basic:def:tensor} \\
+\lean{Tensor.Vector}        & abbrev     & Def.~\ref{Tensor:Basic:def:aliases} \\
+\lean{Tensor.Matrix}        & abbrev     & Def.~\ref{Tensor:Basic:def:aliases} \\
+\lean{Tensor.vectorAt}      & definition & Def.~\ref{Tensor:Basic:def:access} \\
+\lean{Tensor.matrixAt}      & definition & Def.~\ref{Tensor:Basic:def:access} \\
+\lean{Tensor.map}           & definition & Def.~\ref{Tensor:Basic:def:map} \\
+\lean{Tensor.outer}         & definition & Def.~\ref{Tensor:Basic:def:outer} \\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent
+Every declaration of \texttt{PrimeTensor/Tensor/Basic.lean} appears above.
+The file contains no theorem at all --- no \lean{sorry}, no axiom, no named
+proposition, and nothing proved.  It is seven definitions, and its content is
+that they elaborate.  Proposition~\ref{Tensor:Basic:prop:defeq} and
+Remarks~\ref{Tensor:Basic:rem:size} and~\ref{Tensor:Basic:rem:map-laws} are
+stated for the reader and are not declarations of the file.
