@@ -1,15 +1,19 @@
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Spectral.Classicalization.PhysicalTailCanonicalPath
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Spectral.Classicalization.PhysicalTailEndpointCanonicalPath
 
 /-!
 # Classicalization: radius-wide physical tail evolution
 
-`PhysicalTailCanonicalPath` reduces one local preterminal overlap witness to
-exactly two honest analytic inputs:
+`PhysicalTailEndpointCanonicalPath` reduces one local preterminal overlap witness
+to exactly two honest analytic inputs:
 
-1. strong continuity of the physical ordered H³ `L²` jet;
+1. strong continuity of only the physical zeroth and ordered third H³ `L²` jets;
 2. the restarted heat--Leray mild identity.
 
-This file packages those two inputs over the entire canonical restart radius.
+First- and second-order physical jet continuity are no longer independent
+requirements of the old-branch evolution frontier.
+
+This file packages the two surviving inputs over the entire canonical restart
+radius.
 
 The resulting proposition is the current old-branch evolution frontier.  It
 does not hide either analytic requirement, and it does not identify the
@@ -109,7 +113,10 @@ noncomputable def h3PreterminalTailCanonicalSelectedRestart
       hNS ht hE hTail)
 
 /-- At one positive overlap length `τ`, the old branch has the two physical
-evolution properties needed to become a spectral overlap witness. -/
+evolution properties needed to become a spectral overlap witness.
+
+The continuity witness is now endpoint-only: zeroth and ordered third physical
+H³ `L²` jets. -/
 def H3PreterminalTailPhysicalEvolutionAt
     {ν E : ℝ}
     (hν : 0 < ν)
@@ -121,8 +128,8 @@ def H3PreterminalTailPhysicalEvolutionAt
     (hEnd : t + τ < T)
     (hE : 1 ≤ E)
     (hTail : CanonicalH3TailDataFrom u t T E) : Prop :=
-  ∃ hL2 :
-      H3PreterminalCanonicalL2JetContinuousOnElapsed
+  ∃ hEndpoint :
+      H3PreterminalCanonicalL2EndpointContinuousOnElapsed
         hNS ht hEnd hTail,
     ∀ s : H3UnitTime,
       h3SpectralVelocityHeatApplyNN
@@ -142,17 +149,17 @@ def H3PreterminalTailPhysicalEvolutionAt
             τ
             (h3SpectralNormalizedPathOfPhysical
               hτ
-              (h3PreterminalTailCanonicalSpectralPhysicalPathOfL2Jet
-                hNS ht hEnd hE hTail hL2)))
+              (h3PreterminalTailCanonicalSpectralPhysicalPathOfL2Endpoint
+                hNS ht hEnd hE hTail hEndpoint)))
           (h3PathPhysicalRealExtension
             τ
             (h3SpectralNormalizedPathOfPhysical
               hτ
-              (h3PreterminalTailCanonicalSpectralPhysicalPathOfL2Jet
-                hNS ht hEnd hE hTail hL2)))
+              (h3PreterminalTailCanonicalSpectralPhysicalPathOfL2Endpoint
+                hNS ht hEnd hE hTail hEndpoint)))
         =
-      h3PreterminalTailCanonicalSpectralPhysicalPathOfL2Jet
-        hNS ht hEnd hE hTail hL2
+      h3PreterminalTailCanonicalSpectralPhysicalPathOfL2Endpoint
+        hNS ht hEnd hE hTail hEndpoint
         (h3PhysicalTimeMap τ hτ s)
 
 /-- Radius-wide physical evolution of the old H³ tail.
@@ -213,10 +220,10 @@ theorem h3PreterminalSpectralOverlapWitnessAt_of_tailPhysicalEvolutionAt
       τ
       hτ := by
   rcases hEvolution with
-    ⟨hL2, hMild⟩
+    ⟨hEndpoint, hMild⟩
 
   exact
-    h3PreterminalSpectralOverlapWitnessAt_of_tailL2CanonicalPath
+    h3PreterminalSpectralOverlapWitnessAt_of_tailL2EndpointCanonicalPath
       hν
       hNS
       ht
@@ -224,7 +231,7 @@ theorem h3PreterminalSpectralOverlapWitnessAt_of_tailPhysicalEvolutionAt
       hEnd
       hE
       hTail
-      hL2
+      hEndpoint
       hMild
 
 /-- Radius-wide physical evolution implies exact decoder agreement between the
