@@ -8,7 +8,7 @@ without diffing it against the repository by hand.
 
 Three checks, all of them things that only bite once the tree is large:
 
-1. Every lstlisting block occurs verbatim in PrimeTensor/<M>.lean, ignoring
+1. Every leancode block occurs verbatim in PrimeTensor/<M>.lean, ignoring
    leading and trailing blank lines and a uniform indent.  A block that is
    deliberately not a quote opts out with a LaTeX comment on the line before
    it:  % listing:paraphrase
@@ -32,8 +32,8 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
 BLOCK = re.compile(
-    r'(?P<opt>[^\n]*)\n\s*\\begin\{lstlisting\}(?:\[[^\]]*\])?\n'
-    r'(?P<body>.*?)\\end\{lstlisting\}',
+    r'(?P<opt>[^\n]*)\n\s*\\begin\{leancode\}(?:\[[^\]]*\])?\n'
+    r'(?P<body>.*?)\\end\{leancode\}',
     re.DOTALL)
 
 
@@ -64,6 +64,13 @@ def check(module):
         source = dedent(fh.read())
 
     problems, checked = [], 0
+
+    for wrong in ('lstlisting', 'verbatim', 'Verbatim'):
+        if '\\begin{%s}' % wrong in fragment:
+            problems.append(
+                f'{module}.tex: uses \\begin{{{wrong}}}; Lean snippets go in '
+                f'the leancode environment, which is checked and renders '
+                f'Unicode correctly')
 
     prefix = module.replace('/', ':') + ':'
     labels = set(re.findall(r'\\label\{([^}]*)\}', fragment))

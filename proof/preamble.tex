@@ -16,7 +16,7 @@
 
 \usepackage[margin=1.1in]{geometry}
 \usepackage{amsmath, amsthm, mathtools}   % not amssymb: unicode-math supersedes it
-\usepackage{listings}
+\usepackage{fvextra}
 \usepackage{xcolor}
 \usepackage{enumitem}
 \usepackage[hidelinks]{hyperref}
@@ -67,41 +67,29 @@
 \newcommand{\defeq}{\equiv}
 
 % ------------------------------------------------------- Lean code blocks
-% Lean snippets are quoted verbatim from the source, Unicode included.
-\definecolor{leankw}{HTML}{0F5B8C}
-\definecolor{leancm}{HTML}{6A7A6A}
-\definecolor{leanbg}{HTML}{F6F6F3}
+% Lean snippets are quoted verbatim from the source, Unicode included, and
+% check_fragment.py holds them to that.  The environment is fvextra's
+% Verbatim and NOT listings: listings reorders characters adjacent to
+% non-ASCII ones under LuaLaTeX -- it renders "(delta a b" as "delta( a b"
+% and the norm bars of a quantity as both bars then the quantity -- so a
+% listings block silently misquotes the very source it claims to reproduce.
+% Verbatim gives up keyword colouring and gets the characters right, which
+% is the trade this document needs.  fvextra (over plain fancyvrb) supplies
+% breaklines, so a long Lean signature wraps instead of running off the page.
+% Named leancode, not lean: \DefineVerbatimEnvironment{lean} would define
+% \lean and clobber the \lean{...} macro above.
+\definecolor{leanrule}{HTML}{7A9CC0}
 
-\lstdefinelanguage{Lean}{
-  morekeywords={inductive,def,theorem,lemma,namespace,end,import,deriving,
-    where,fun,match,with,Type,Prop,structure,instance,abbrev,by,simp,rfl,
-    variable,noncomputable,open,let,if,then,else,do,have,show,from,at},
-  sensitive=true,
-  morecomment=[l]{--},
-  morecomment=[n]{/-}{-/},
-}
-
-\lstset{
-  language=Lean,
-  basicstyle=\ttfamily\small,
-  keywordstyle=\color{leankw}\bfseries,
-  commentstyle=\color{leancm}\itshape,
-  backgroundcolor=\color{leanbg},
+\DefineVerbatimEnvironment{leancode}{Verbatim}{%
+  fontsize=\small,
   frame=leftline,
   framerule=0.8pt,
-  rulecolor=\color{leankw!40},
-  xleftmargin=1em,
-  framexleftmargin=1em,
-  aboveskip=1.1em,
-  belowskip=1.1em,
-  columns=fullflexible,
-  keepspaces=true,
-  showstringspaces=false,
-  % DejaVu Sans Mono carries 119 of the 128 non-ASCII characters used in the
-  % Lean sources.  These are the nine it lacks; everything else is set from
-  % the font directly, with no transliteration.
-  literate=
-    {ᵦ}{{$_{\beta}$}}1 {ᵧ}{{$_{\gamma}$}}1 {⨍}{{$\fint$}}1
-    {𝐞}{{$\mathbf{e}$}}1 {𝓏}{{$\mathit{z}$}}1 {𝓕}{{$\mathcal{F}$}}1
-    {𝓝}{{$\mathcal{N}$}}1 {𝓢}{{$\mathcal{S}$}}1 {𝕜}{{$\Bbbk$}}1,
+  rulecolor=\color{leanrule},
+  framesep=0.9em,
+  xleftmargin=1.1em,
+  breaklines=true,
+  breakanywhere=true,
+  breaksymbolleft={},
+  breakindent=2em,
+  samepage=false,
 }
