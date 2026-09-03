@@ -15,7 +15,10 @@ Every numbered item carries the name of the Lean declaration it corresponds
 to, and each fragment ends with a table listing every declaration in the
 module so that coverage is checkable by eye.
 
-Only `Depth` is written so far. The rest of the tree is not yet converted.
+`order.txt` lists all 766 modules in import-DAG topological order — the order
+the repository's `out.pdf` renders — and is the queue for this conversion.
+Fragments are written in that order; anything in `order.txt` without a `.tex`
+beside it is not yet converted.
 
 ## Fragments are `\input`-able
 
@@ -38,10 +41,17 @@ listing style, and the notation macros (`\Depth`, `\Axis`, `\fold`, `\leanfile`,
 | File | Role |
 | --- | --- |
 | `preamble.tex` | Shared packages, theorem environments, notation macros. No `\documentclass`. |
-| `main.tex` | The aggregate document. Add a module by adding one `\input` line. |
+| `main.tex` | The aggregate document. Its `\input` list is generated, so it is never edited by hand. |
+| `order.txt` | Every module in import-DAG topological order; the order fragments are assembled in. |
 | `standalone.tex` | One-fragment wrapper used to render a single module to its own PDF. |
 | `build.sh` | Driver for both. |
 | `<Module>.tex` | The fragments, mirroring the `PrimeTensor/` tree. |
+
+`build.sh --main` regenerates `modules.tex` from `order.txt`, keeping the
+entries whose fragment exists, and `main.tex` inputs that. `modules.tex` is
+generated and not committed. This is deliberate: adding a module means adding
+one file and touching no shared file, so per-module branches never conflict
+with one another.
 
 ## Building
 
@@ -64,10 +74,9 @@ a temporary directory and discarded; only the PDF is left behind.
 ## Adding a module
 
 1. Write `proof/<Path>.tex` as a fragment, mirroring `PrimeTensor/<Path>.lean`.
-2. Add `\input{<Path>}` to `main.tex`, in dependency order. The repository's
-   `out.pdf` renders the import DAG in topological order (766 modules, `Depth`
-   first); that listing is the order `main.tex` follows.
-3. Run `./build.sh <Path>` and commit the `.tex` and the `.pdf`.
+2. Run `./build.sh <Path>` and commit the `.tex` and the `.pdf`. Nothing else
+   needs editing: `<Path>` is already listed in `order.txt`, so the aggregate
+   document picks the fragment up on its next build.
 
 One branch and one pull request per module, so that each conversion can be
 reviewed against its source file on its own.
