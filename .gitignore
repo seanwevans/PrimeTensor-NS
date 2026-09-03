@@ -4,3 +4,10 @@ out.txt
 *.zip
 
 /scratch/
+
+# LaTeX build artifacts (proof/build.sh keeps these out of the tree already)
+*.aux
+*.log
+*.out
+*.toc
+proof/main.pdf
