@@ -1,0 +1,34 @@
+% Aggregate prose document for PrimeTensor-NS.
+%
+% Every module under PrimeTensor/ has (or will have) a matching fragment
+% under proof/ at the same relative path, with .lean replaced by .tex.
+% Each fragment is a bare \section-level fragment, so it is pulled in with
+% a plain \input and nothing else.  Add a module by adding one \input line.
+%
+% The \input order below follows the topological order of the import DAG,
+% which is what the repository's out.pdf renders; Depth is its first entry.
+%
+% Build:  cd proof && pdflatex main.tex && pdflatex main.tex
+
+\documentclass[11pt]{article}
+\input{preamble}
+
+\title{PrimeTensor-NS\\[0.3em]
+  \large A prose reading of the machine-checked development}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\bigskip
+
+% ------------------------------------------------------------------ core
+\input{Depth}
+
+% Further modules, mirroring the PrimeTensor/ tree, e.g.:
+% \input{Structure}
+% \input{Ratio}
+% \input{Bridge/Log/Scale}
+
+\end{document}

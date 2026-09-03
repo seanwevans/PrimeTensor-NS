@@ -1,0 +1,84 @@
+% Shared preamble for the PrimeTensor-NS prose proof documents.
+% Loaded by main.tex and by standalone.tex; never loaded by a per-module
+% fragment, so that every fragment stays \input-able.
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[margin=1.1in]{geometry}
+\usepackage{amsmath, amssymb, amsthm, mathtools}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+
+% ---------------------------------------------------------------- theorems
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{notation}[definition]{Notation}
+\newtheorem{convention}[definition]{Convention}
+
+\theoremstyle{plain}
+\newtheorem{proposition}[definition]{Proposition}
+\newtheorem{lemma}[definition]{Lemma}
+\newtheorem{corollary}[definition]{Corollary}
+
+\theoremstyle{remark}
+\newtheorem{remark}[definition]{Remark}
+\newtheorem{designnote}[definition]{Design note}
+
+% ------------------------------------------------------- Lean cross-links
+% \leanfile{PrimeTensor/Depth.lean} names the source file a section renders.
+% \leanref{Axis.fold} names the Lean declaration a numbered item formalises.
+\newcommand{\leanfile}[1]{%
+  \par\noindent\textit{Source:}\; \texttt{#1}\par\medskip}
+\newcommand{\leanref}[1]{%
+  \par\nopagebreak\vspace{-0.4em}%
+  \hspace*{\fill}{\small\textsf{Lean:}\;\texttt{#1}}\par\nopagebreak}
+\newcommand{\lean}[1]{\texttt{#1}}
+
+% --------------------------------------------------------------- notation
+\newcommand{\Depth}{\mathrm{Depth}}
+\newcommand{\Axis}{\mathrm{Axis}}
+\newcommand{\Idx}{\mathrm{IndexTuple}}
+\newcommand{\one}{\mathsf{one}}
+\newcommand{\sucbare}{\mathsf{succ}}
+\newcommand{\suc}{\sucbare\,}
+\newcommand{\first}{\mathsf{first}}
+\newcommand{\next}{\mathsf{next}}
+\newcommand{\fold}{\operatorname{fold}}
+\newcommand{\size}[1]{\lvert #1 \rvert}
+\newcommand{\defeq}{\equiv}
+
+% ------------------------------------------------------- Lean code blocks
+\definecolor{leankw}{HTML}{0F5B8C}
+\definecolor{leancm}{HTML}{6A7A6A}
+\definecolor{leanbg}{HTML}{F6F6F3}
+
+\lstdefinelanguage{Lean}{
+  morekeywords={inductive,def,theorem,lemma,namespace,end,import,deriving,
+    where,fun,match,with,Type,Prop,structure,instance,by,simp,rfl,variable},
+  sensitive=true,
+  morecomment=[l]{--},
+  morecomment=[n]{/-}{-/},
+}
+
+\lstset{
+  language=Lean,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{leankw}\bfseries,
+  commentstyle=\color{leancm}\itshape,
+  backgroundcolor=\color{leanbg},
+  frame=leftline,
+  framerule=0.8pt,
+  rulecolor=\color{leankw!40},
+  xleftmargin=1em,
+  framexleftmargin=1em,
+  aboveskip=1.1em,
+  belowskip=1.1em,
+  columns=fullflexible,
+  keepspaces=true,
+  showstringspaces=false,
+  literate={→}{{$\rightarrow$}}1 {×}{{$\times$}}1 {ℕ}{{$\mathbb{N}$}}1
+           {≥}{{$\geq$}}1 {≅}{{$\cong$}}1 {∘}{{$\circ$}}1,
+}

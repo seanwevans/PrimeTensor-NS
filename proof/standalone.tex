@@ -1,0 +1,15 @@
+% Wrapper that renders a single fragment as its own PDF, using the same
+% preamble as main.tex.  Not built directly -- build.sh invokes it as
+%
+%   pdflatex "\def\ProofFile{Depth}\input{standalone.tex}"
+%
+% so that proof/Depth.tex yields proof/Depth.pdf.
+
+\documentclass[11pt]{article}
+\input{preamble}
+
+\providecommand{\ProofFile}{Depth}
+
+\begin{document}
+\input{\ProofFile}
+\end{document}
