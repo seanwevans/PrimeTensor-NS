@@ -1,0 +1,276 @@
+% Prose rendering of PrimeTensor/Scale.lean.
+% Fragment: no \documentclass, no preamble, no document environment.
+
+\section{Intrinsic dyadic multiplicative scale}
+\label{Scale:sec}
+
+\leanfile{PrimeTensor/Scale.lean}
+
+\subsection*{What this file establishes}
+
+\texttt{PrimeTensor/Order.lean} left closeness parameterised by an arbitrary
+tolerance $\delta$, admissible when $\delta > 1$.  This file replaces that
+parameter by a single fixed ruler --- the magnitude $2$ --- and recovers
+arbitrarily fine tolerances not by shrinking the ruler but by \emph{squaring
+the ratio being measured}.  Closeness at level $\ell$ says that the oriented
+ratio, squared $\ell - 1$ times, is still below $2$.
+
+The substitution is exact and it is forced.  Refining a dyadic tolerance
+directly would mean comparing against
+$2^{1/2}, 2^{1/4}, 2^{1/8}, \dots$, and none of those is a positive rational,
+so none of them is an element of $\name{MulRat}$: the tolerances one wants are
+not expressible in the object language.  The equivalent condition on the
+squared ratio is, and it uses only multiplication and the order already built.
+This is what the module header means by admitting no rational square root.
+
+\subsection{The ruler}
+
+\begin{definition}[\lean{twoRatio} and \lean{MulRat.two}]\label{Scale:def:two}
+\begin{align*}
+  \name{twoRatio} &\defeq
+    \bigl\langle\, \name{ofBag}(\ctor{factor}\;\name{primeTwo}\;\ctor{one}),
+      \;1 \,\bigr\rangle
+    &&: \name{PrimeRatio}, \\
+  \name{two} &\defeq \name{ofRatio}(\name{twoRatio})
+    &&: \name{MulRat}.
+\end{align*}
+\end{definition}
+
+\begin{leancode}
+def twoRatio : PrimeRatio :=
+  ⟨PrimeMultiset.ofBag (.factor primeTwo .one), 1⟩
+
+/-- Distinguished multiplicative ruler. -/
+def two : MulRat :=
+  ofRatio twoRatio
+\end{leancode}
+
+The numerator is the one-atom barcode carrying the prime $2$ and nothing else,
+and the denominator is the pivot, so the pair denotes $2/1$.  Note that the
+ruler is built, not postulated: it is an ordinary element of the carrier,
+assembled from $\name{primeTwo}$ of \texttt{PrimeTensor/Prime.lean}.
+
+\begin{lemma}[\lean{MulRat.one\_lt\_two}]\label{Scale:lem:one-lt-two}
+$1 < \name{two}$ in $\name{MulRat}$.
+\end{lemma}
+
+\begin{proof}
+Both sides are classes of literals, so the lifted order reduces definitionally
+to the representative-level comparison
+$\name{PrimeRatio.Lt}(1, \name{twoRatio})$, which by
+\texttt{PrimeTensor/Ratio.lean} unfolds to
+\[
+  \name{eval}(1.\name{upper}) \cdot \name{eval}(\name{twoRatio}.\name{lower})
+    \;<\;
+  \name{eval}(\name{twoRatio}.\name{upper}) \cdot
+    \name{eval}(1.\name{lower}).
+\]
+Simplification evaluates the four components: the unit contributes $1$ on both
+sides by $\name{one\_upper}$, $\name{one\_lower}$ and
+$\name{eval\_one}$, while the numerator of the ruler evaluates through
+$\name{eval\_ofBag}$ and $\name{eval\_factor}$ to
+$\name{primeTwo}.\name{value} \cdot 1$.  The goal becomes $1 \cdot 1 < 2 \cdot 1$,
+closed by $\ctor{norm\_num}$ once $\name{primeTwo}$ is unfolded.
+\end{proof}
+
+So the ruler is an admissible tolerance in the sense of
+\texttt{PrimeTensor/Order.lean}, and being fixed, it is admissible once and for
+all --- no hypothesis $1 < \delta$ has to be carried anywhere below.
+
+\subsection{Repeated squaring}
+
+\begin{definition}[\lean{MulRat.scalePow}]\label{Scale:def:scalepow}
+For $r : \name{MulRat}$, define $\name{scalePow}(r, -) : \name{Depth} \to
+\name{MulRat}$ by structural recursion on the level:
+\[
+  \name{scalePow}(r, \ctor{one}) = r,
+  \qquad
+  \name{scalePow}(r, \ctor{succ}\,d) = q \cdot q
+    \quad\text{where } q = \name{scalePow}(r, d).
+\]
+\end{definition}
+
+\begin{leancode}
+def scalePow (r : MulRat) : Depth → MulRat
+  | .one => r
+  | .succ d =>
+      let q := scalePow r d
+      q * q
+\end{leancode}
+
+\begin{proposition}[The effective exponent]\label{Scale:prop:exponent}
+$\name{scalePow}(r, \ell) = r^{\,2^{\size{\ell} - 1}}$.  In particular the
+exponents realised, as $\ell$ ranges over the depths, are
+$1, 2, 4, 8, \dots$ --- the powers of two, and only those.
+\end{proposition}
+
+\begin{proof}
+By induction on $\ell$.  For $\ell = \ctor{one}$, $\size{\ell} = 1$ and the
+value is $r = r^{2^0}$.  For $\ell = \ctor{succ}\,d$, the induction hypothesis
+gives $q = r^{2^{\size{d}-1}}$, and $q \cdot q = r^{2 \cdot 2^{\size{d}-1}}
+= r^{2^{\size{d}}} = r^{2^{\size{\ctor{succ}\,d} - 1}}$.
+\end{proof}
+
+The definition squares the running value rather than multiplying by $r$, so
+the level counts \emph{doublings of the exponent}, not the exponent itself.
+Level $\ell$ therefore reaches exponent $2^{\size{\ell}-1}$ in $\size{\ell}$
+steps: the ladder climbs geometrically in a linear number of levels.
+
+\begin{lemma}[\lean{MulRat.scalePow\_one}]\label{Scale:lem:scalepow-one}
+$\name{scalePow}(1, \ell) = 1$ for every level $\ell$.
+\end{lemma}
+
+\begin{leancode}
+@[simp] theorem scalePow_one : ∀ d : Depth, scalePow (1 : MulRat) d = 1
+  | .one => rfl
+  | .succ d => by
+      change scalePow (1 : MulRat) d * scalePow (1 : MulRat) d = 1
+      rw [scalePow_one d, one_mul]
+\end{leancode}
+
+\begin{proof}
+By structural recursion on the level.  At $\ctor{one}$ the value is the
+argument, so the claim is $\ctor{rfl}$.  At $\ctor{succ}\,d$ the value is
+$q \cdot q$ with $q = \name{scalePow}(1, d)$; the induction hypothesis rewrites
+$q$ to $1$, and $\name{one\_mul}$ from \texttt{PrimeTensor/MulRat.lean}
+finishes.  Note the recursive call is made explicitly on $d$, the lemma being
+stated as a $\forall$ and proved by pattern matching rather than by
+$\ctor{induction}$.
+\end{proof}
+
+The unit is thus fixed by the whole ladder, which is exactly what reflexivity
+of the closeness relation will need.
+
+\subsection{Closeness at an intrinsic scale}
+
+\begin{definition}[\lean{MulRat.ScaleWithin}]\label{Scale:def:scalewithin}
+For a level $\ell$ and $a, b : \name{MulRat}$,
+\[
+  \name{ScaleWithin}(\ell, a, b) \defeq
+    \bigl(\name{scalePow}(\name{ratio}(a,b), \ell) < \name{two}\bigr) \wedge
+    \bigl(\name{scalePow}(\name{ratio}(b,a), \ell) < \name{two}\bigr).
+\]
+\end{definition}
+
+\begin{leancode}
+def ScaleWithin (level : Depth) (a b : MulRat) : Prop :=
+  scalePow (ratio a b) level < two ∧
+  scalePow (ratio b a) level < two
+\end{leancode}
+
+\begin{proposition}[What the levels measure]\label{Scale:prop:tolerance}
+$\name{ScaleWithin}(\ell, a, b)$ holds precisely when both oriented ratios lie
+strictly below $2^{1/2^{\size{\ell}-1}}$.  Increasing the level therefore
+tightens the requirement, and the effective tolerances
+\[
+  2, \; \sqrt{2}, \; \sqrt[4]{2}, \; \sqrt[8]{2}, \; \dots
+\]
+decrease towards $1$.
+\end{proposition}
+
+\begin{proof}
+By Proposition~\ref{Scale:prop:exponent} the first conjunct is
+$r^{2^{\size{\ell}-1}} < 2$ where $r = \name{ratio}(a,b)$, and for $r > 0$ this
+is equivalent to $r < 2^{1/2^{\size{\ell}-1}}$, the map $x \mapsto x^{n}$ being
+strictly increasing on the positive reals for $n \geq 1$.  The same applies to
+the second conjunct.
+\end{proof}
+
+\begin{designnote}[Why squaring the ratio and not shrinking the ruler]
+\label{Scale:note:no-roots}
+Proposition~\ref{Scale:prop:tolerance} makes the design constraint visible.
+The tolerances the ladder realises are $2^{1/2^{k}}$, and for $k \geq 1$ every
+one of them is irrational: $\sqrt{2}$ already is.  So none of them is an
+element of $\name{MulRat}$, which by construction contains exactly the positive
+rationals.  A definition of the form ``$\name{ratio}(a,b) < \delta_k$'' with
+$\delta_k$ the $k$-th tolerance is therefore not expressible here at all ---
+not merely inconvenient, but absent from the object language.
+
+Squaring the ratio states the same condition using only what is available: a
+multiplication, the fixed ruler $\name{two}$, and the order of
+\texttt{PrimeTensor/Order.lean}.  This is the sense in which the scale is
+\emph{intrinsic}: the refinement is carried by the depth index, a piece of the
+object language, rather than by a sequence of tolerances that would have to be
+imported from outside it.
+
+The same reading explains the other two exclusions the header names.  There is
+no additive midpoint because there is no addition; and there is no zeroth
+scale because levels are depths, so the coarsest tolerance is the ruler itself
+and the ladder has a bottom rung rather than a degenerate one.
+\end{designnote}
+
+\begin{remark}[Level one is the old notion]\label{Scale:rem:level-one}
+$\name{scalePow}(r, \ctor{one})$ is $r$ by definition, so
+$\name{ScaleWithin}(\ctor{one}, a, b)$ is literally
+$\name{ratio}(a,b) < \name{two} \wedge \name{ratio}(b,a) < \name{two}$, which
+is $\name{Within}(\name{two}, a, b)$ in the sense of
+\texttt{PrimeTensor/Order.lean} --- the two unfold to the same proposition.
+The new relation is thus a refinement of the old one at a particular
+tolerance, not a replacement for it.  The file does not state this.
+\end{remark}
+
+\begin{lemma}[\lean{scaleWithin\_refl} and \lean{scaleWithin\_symm}]
+\label{Scale:lem:refl-symm}
+$\name{ScaleWithin}(\ell, a, a)$ holds for every level $\ell$ and every $a$;
+and $\name{ScaleWithin}(\ell, a, b)$ implies $\name{ScaleWithin}(\ell, b, a)$.
+\end{lemma}
+
+\begin{proof}
+For reflexivity, $\name{ratio}(a,a) = 1$ by $\name{ratio\_self}$ of
+\texttt{PrimeTensor/Order.lean}, then
+Lemma~\ref{Scale:lem:scalepow-one} collapses the whole ladder to $1$, and each
+conjunct becomes Lemma~\ref{Scale:lem:one-lt-two}.  Symmetry is the exchange of
+the two conjuncts.
+\end{proof}
+
+\begin{remark}[Reflexivity is now unconditional]\label{Scale:rem:uncond}
+Compare $\name{within\_refl}$ in \texttt{PrimeTensor/Order.lean}, which
+required the hypothesis $1 < \delta$ and could not do without it.  Here there
+is no hypothesis at all: the tolerance is $\name{two}$, fixed, and
+Lemma~\ref{Scale:lem:one-lt-two} discharges the admissibility condition once
+inside this file.  Every later statement about $\name{ScaleWithin}$ is free of
+it.  This is a small illustration of the general point --- fixing the ruler
+converts a carried hypothesis into a proved lemma.
+\end{remark}
+
+\begin{remark}[Monotonicity in the level is not proved]\label{Scale:rem:mono}
+The levels ought to be nested: closeness at a finer level should imply
+closeness at a coarser one, so that the relations form a decreasing family.
+They do --- if $r^{2^{k-1}} \geq 2$ then squaring gives $r^{2^{k}} \geq 4 > 2$,
+so contrapositively $\name{ScaleWithin}(\ctor{succ}\,d, a, b)$ implies
+$\name{ScaleWithin}(d, a, b)$ --- but the file states no such lemma, and the
+argument as given needs a comparison fact about $\name{MulRat}$ beyond the
+order lemmas available so far.  Nor is there any composition rule across two
+levels, the analogue of a triangle inequality, which
+\texttt{PrimeTensor/Order.lean} also lacked.  Both are what a Cauchy notion
+built on this scale will require.
+\end{remark}
+
+\subsection*{Summary of the correspondence}
+
+\begin{center}
+\small
+\begin{tabular}{@{}lll@{}}
+\hline
+Lean declaration & Kind & Here \\
+\hline
+\lean{MulRat.twoRatio}          & definition & Def.~\ref{Scale:def:two} \\
+\lean{MulRat.two}               & definition & Def.~\ref{Scale:def:two} \\
+\lean{MulRat.one\_lt\_two}      & theorem    & Lem.~\ref{Scale:lem:one-lt-two} \\
+\lean{MulRat.scalePow}          & definition & Def.~\ref{Scale:def:scalepow} \\
+\lean{MulRat.scalePow\_one}     & simp thm   & Lem.~\ref{Scale:lem:scalepow-one} \\
+\lean{MulRat.ScaleWithin}       & definition & Def.~\ref{Scale:def:scalewithin} \\
+\lean{MulRat.scaleWithin\_refl} & theorem    & Lem.~\ref{Scale:lem:refl-symm} \\
+\lean{MulRat.scaleWithin\_symm} & theorem    & Lem.~\ref{Scale:lem:refl-symm} \\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent
+Every declaration of \texttt{PrimeTensor/Scale.lean} appears above.  The file
+contains no \lean{sorry}, no axiom, and no unproved named proposition.
+Propositions~\ref{Scale:prop:exponent} and~\ref{Scale:prop:tolerance}, and
+Remarks~\ref{Scale:rem:level-one} and~\ref{Scale:rem:mono}, are stated for the
+reader and are not declarations of the file; the first two are the arithmetic
+reading of the ladder, and they are what
+Design note~\ref{Scale:note:no-roots} rests on.
