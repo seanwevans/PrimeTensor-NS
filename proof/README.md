@@ -60,7 +60,15 @@ Builds with **LuaLaTeX**, not pdfLaTeX. The Lean sources use 128 distinct
 non-ASCII characters, and a Unicode engine lets the fragments quote them
 literally rather than transliterating them; `preamble.tex` is built on
 `fontspec` and `unicode-math`, and sets DejaVu Sans Mono for code, which
-carries 119 of those 128 (the remaining nine have `literate` entries).
+carries 119 of those 128.
+
+Lean snippets go in a `leancode` environment, which is fvextra's `Verbatim` —
+deliberately **not** `listings`. Under LuaLaTeX, `listings` reorders
+characters adjacent to non-ASCII ones: it sets `(δ a b` as `δ( a b` and
+`‖x‖` as `‖‖x`, silently misquoting the source. `Verbatim` gives up keyword
+colouring and gets the characters right, which is the trade this document
+needs; `fvextra` adds line breaking so a long Lean signature wraps rather
+than running off the page.
 
 On Debian/Ubuntu:
 
@@ -87,7 +95,7 @@ a temporary directory and discarded; only the PDF is left behind.
 `check_fragment.py` enforces three things, and `build.sh` runs it before every
 render, so a fragment that breaks one fails the build:
 
-1. **Snippets are verbatim.** Every `lstlisting` block must be an excerpt of
+1. **Snippets are verbatim.** Every `leancode` block must be an excerpt of
    that module's `.lean` file, copied character for character, so a reader can
    trust the quoted code without diffing it by hand. A block that is
    deliberately not a quote opts out with `% listing:paraphrase` on the
