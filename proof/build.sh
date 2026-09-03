@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
-# Render prose fragments under proof/ to PDF.
+# Render prose fragments under proof/ to PDF, with LuaLaTeX.
+#
+# LuaLaTeX, not pdfLaTeX: the fragments quote Lean's Unicode literally and
+# preamble.tex is built on fontspec/unicode-math.
 #
 #   ./build.sh Depth              -> proof/Depth.pdf
 #   ./build.sh Bridge/Log/Scale   -> proof/Bridge/Log/Scale.pdf
@@ -20,11 +23,13 @@ render() {
     echo "build.sh: no such fragment: $module.tex" >&2
     return 1
   fi
+  # Every Lean snippet must still be a verbatim quote of the source.
+  python3 check_listings.py "$module" || return 1
   echo "  $module.tex -> $module.pdf"
   local jobname
   jobname="$(printf '%s' "$module" | tr '/' '_')"
   for _ in 1 2; do
-    pdflatex -interaction=nonstopmode -halt-on-error \
+    lualatex -interaction=nonstopmode -halt-on-error \
       -output-directory "$AUX" -jobname "$jobname" \
       "\\def\\ProofFile{$module}\\input{standalone.tex}" >/dev/null
   done
@@ -51,10 +56,11 @@ generate_module_list() {
 }
 
 render_main() {
+  python3 check_listings.py --all || return 1
   generate_module_list
   echo "  main.tex -> main.pdf"
   for _ in 1 2; do
-    pdflatex -interaction=nonstopmode -halt-on-error \
+    lualatex -interaction=nonstopmode -halt-on-error \
       -output-directory "$AUX" main.tex >/dev/null
   done
   mv "$AUX/main.pdf" main.pdf

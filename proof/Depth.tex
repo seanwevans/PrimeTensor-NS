@@ -95,7 +95,7 @@ $\name{Axis}$ is the inductive family $\name{Depth} \to \mathrm{Type}$ generated
 \begin{lstlisting}
 inductive Axis : Depth → Type where
   | first {d : Depth} : Axis d
-  | next  {d : Depth} : Axis d → Axis (.succ d)
+  | next {d : Depth} : Axis d → Axis (.succ d)
 \end{lstlisting}
 
 Note the asymmetry between the two constructors.  $\ctor{first}$ is available at
@@ -172,7 +172,7 @@ structural recursion on $d$:
 \begin{lstlisting}
 def fold {A : Type} (op : A → A → A) :
     (d : Depth) → (Axis d → A) → A
-  | .one,    f => f .first
+  | .one, f => f .first
   | .succ d, f => op (f .first) (fold op d (fun i => f (.next i)))
 \end{lstlisting}
 
@@ -279,7 +279,7 @@ map $\name{Depth} \to \mathrm{Type}$, by structural recursion on the rank:
 
 \begin{lstlisting}
 def IndexTuple (dim : Depth) : Depth → Type
-  | .one   => Axis dim
+  | .one => Axis dim
   | .succ r => Axis dim × IndexTuple dim r
 \end{lstlisting}
 

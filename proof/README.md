@@ -44,7 +44,8 @@ listing style, and the notation macros (`\Depth`, `\Axis`, `\fold`, `\leanfile`,
 | `main.tex` | The aggregate document. Its `\input` list is generated, so it is never edited by hand. |
 | `order.txt` | Every module in import-DAG topological order; the order fragments are assembled in. |
 | `standalone.tex` | One-fragment wrapper used to render a single module to its own PDF. |
-| `build.sh` | Driver for both. |
+| `build.sh` | Driver for both. Checks listings, then runs LuaLaTeX. |
+| `check_listings.py` | Verifies every Lean snippet is a verbatim quote of its source. |
 | `<Module>.tex` | The fragments, mirroring the `PrimeTensor/` tree. |
 
 `build.sh --main` regenerates `modules.tex` from `order.txt`, keeping the
@@ -55,9 +56,19 @@ with one another.
 
 ## Building
 
-Requires a TeX installation with `amsmath`, `listings`, `hyperref` and
-`lmodern` (on Debian/Ubuntu: `texlive-latex-base texlive-latex-recommended
-texlive-latex-extra texlive-fonts-recommended lmodern`).
+Builds with **LuaLaTeX**, not pdfLaTeX. The Lean sources use 128 distinct
+non-ASCII characters, and a Unicode engine lets the fragments quote them
+literally rather than transliterating them; `preamble.tex` is built on
+`fontspec` and `unicode-math`, and sets DejaVu Sans Mono for code, which
+carries 119 of those 128 (the remaining nine have `literate` entries).
+
+On Debian/Ubuntu:
+
+```bash
+apt-get install texlive-latex-base texlive-latex-recommended \
+    texlive-latex-extra texlive-fonts-recommended texlive-luatex \
+    fonts-dejavu-core fonts-lmodern
+```
 
 ```bash
 cd proof
@@ -70,6 +81,20 @@ cd proof
 Module names are given relative to `proof/` and without the extension, so they
 read exactly like the path under `PrimeTensor/`. Auxiliary files are written to
 a temporary directory and discarded; only the PDF is left behind.
+
+## Quoting Lean
+
+Every `lstlisting` block in a fragment must be an excerpt of that module's
+`.lean` file, copied character for character. `check_listings.py` enforces
+this and `build.sh` runs it before every render, so a snippet that has drifted
+from the source fails the build rather than misleading a reader. A block that
+is deliberately not a quote opts out with `% listing:paraphrase` on the
+preceding line.
+
+```bash
+python3 check_listings.py Depth     # one module
+python3 check_listings.py --all     # every fragment
+```
 
 ## Adding a module
 

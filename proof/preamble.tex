@@ -1,16 +1,27 @@
 % Shared preamble for the PrimeTensor-NS prose proof documents.
 % Loaded by main.tex and by standalone.tex; never loaded by a per-module
 % fragment, so that every fragment stays \input-able.
+%
+% ENGINE: LuaLaTeX.  This will not compile under pdfLaTeX.  The sources are
+% full of Lean's Unicode -- 128 distinct non-ASCII characters across the
+% tree -- and a Unicode engine lets the fragments quote it literally instead
+% of transliterating it.  build.sh invokes lualatex.
 
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage{lmodern}
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\setmainfont{Latin Modern Roman}
+\setsansfont{Latin Modern Sans}
+\setmonofont{DejaVu Sans Mono}[Scale=MatchLowercase]
+\setmathfont{Latin Modern Math}
+
 \usepackage[margin=1.1in]{geometry}
-\usepackage{amsmath, amssymb, amsthm, mathtools}
+\usepackage{amsmath, amsthm, mathtools}   % not amssymb: unicode-math supersedes it
 \usepackage{listings}
 \usepackage{xcolor}
 \usepackage{enumitem}
 \usepackage[hidelinks]{hyperref}
+
+\providecommand{\fint}{\ensuremath{\rlap{--}\!\int}}
 
 % ---------------------------------------------------------------- theorems
 \theoremstyle{definition}
@@ -29,7 +40,6 @@
 
 % ------------------------------------------------------- Lean cross-links
 % \leanfile{PrimeTensor/Depth.lean} names the source file a section renders.
-% \leanref{Axis.fold} names the Lean declaration a numbered item formalises.
 \newcommand{\leanfile}[1]{%
   \par\noindent\textit{Source:}\; \texttt{#1}\par\medskip}
 \newcommand{\leanref}[1]{%
@@ -52,13 +62,15 @@
 \newcommand{\defeq}{\equiv}
 
 % ------------------------------------------------------- Lean code blocks
+% Lean snippets are quoted verbatim from the source, Unicode included.
 \definecolor{leankw}{HTML}{0F5B8C}
 \definecolor{leancm}{HTML}{6A7A6A}
 \definecolor{leanbg}{HTML}{F6F6F3}
 
 \lstdefinelanguage{Lean}{
   morekeywords={inductive,def,theorem,lemma,namespace,end,import,deriving,
-    where,fun,match,with,Type,Prop,structure,instance,by,simp,rfl,variable},
+    where,fun,match,with,Type,Prop,structure,instance,abbrev,by,simp,rfl,
+    variable,noncomputable,open,let,if,then,else,do,have,show,from,at},
   sensitive=true,
   morecomment=[l]{--},
   morecomment=[n]{/-}{-/},
@@ -80,6 +92,11 @@
   columns=fullflexible,
   keepspaces=true,
   showstringspaces=false,
-  literate={→}{{$\rightarrow$}}1 {×}{{$\times$}}1 {ℕ}{{$\mathbb{N}$}}1
-           {≥}{{$\geq$}}1 {≅}{{$\cong$}}1 {∘}{{$\circ$}}1,
+  % DejaVu Sans Mono carries 119 of the 128 non-ASCII characters used in the
+  % Lean sources.  These are the nine it lacks; everything else is set from
+  % the font directly, with no transliteration.
+  literate=
+    {ᵦ}{{$_{\beta}$}}1 {ᵧ}{{$_{\gamma}$}}1 {⨍}{{$\fint$}}1
+    {𝐞}{{$\mathbf{e}$}}1 {𝓏}{{$\mathit{z}$}}1 {𝓕}{{$\mathcal{F}$}}1
+    {𝓝}{{$\mathcal{N}$}}1 {𝓢}{{$\mathcal{S}$}}1 {𝕜}{{$\Bbbk$}}1,
 }
