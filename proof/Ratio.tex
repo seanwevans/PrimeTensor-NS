@@ -1,0 +1,313 @@
+% Prose rendering of PrimeTensor/Ratio.lean.
+% Fragment: no \documentclass, no preamble, no document environment.
+
+\section{Oriented prime-multiset ratios}
+\label{Ratio:sec}
+
+\leanfile{PrimeTensor/Ratio.lean}
+
+\subsection*{What this file establishes}
+
+A positive rational magnitude is represented as an \emph{ordered pair} of
+prime multisets --- a numerator and a denominator carried separately, never
+combined.  Multiplication is componentwise, inversion swaps the two
+components, and division is multiplication by a swap.
+
+Two consequences shape everything downstream.  First, exponents stay in
+$\mathbb{N}$: the usual encoding of a positive rational as a
+$\mathbb{Z}$-valued exponent vector over the primes is replaced by a pair of
+$\mathbb{N}$-valued ones, and what would be negation of an exponent is
+exchange of orientation.  Second, comparison is by cross-multiplication, so
+neither subtraction nor division appears in the definitions of equality and
+order.
+
+\subsection{The representation}
+
+\begin{definition}[Prime ratio, \lean{PrimeTensor.PrimeRatio}]
+\label{Ratio:def:primeratio}
+$\name{PrimeRatio}$ is the structure with fields
+\[
+  \name{upper} : \name{PrimeMultiset},
+  \qquad
+  \name{lower} : \name{PrimeMultiset}.
+\]
+\end{definition}
+
+\begin{leancode}
+structure PrimeRatio where
+  upper : PrimeMultiset
+  lower : PrimeMultiset
+\end{leancode}
+
+\begin{notation}\label{Ratio:not:denote}
+For $a : \name{PrimeRatio}$ write
+\[
+  \size{a} \defeq
+    \frac{\name{eval}(a.\name{upper})}{\name{eval}(a.\name{lower})}
+  \;\in\; \mathbb{Q}_{>0}
+\]
+for the positive rational $a$ denotes.  This is well defined without a side
+condition: $\name{PrimeTensor/Prime.lean}$ proves
+$1 \leq \name{eval}(b)$ for every bag, so the denominator is at least $1$ and
+in particular never zero.  Nothing in the file mentions $\size{a}$ ---
+it is the reading against which the definitions below are stated.
+\end{notation}
+
+\begin{definition}[Operations]\label{Ratio:def:ops}
+The declarations \lean{PrimeRatio.one}, \lean{mul}, \lean{inv} and
+\lean{ratio}:
+\begin{align*}
+  \ctor{one} &\defeq \langle 1, 1 \rangle, \\
+  a \cdot b &\defeq
+    \langle a.\name{upper} \cdot b.\name{upper},\;
+            a.\name{lower} \cdot b.\name{lower} \rangle, \\
+  a^{-1} &\defeq \langle a.\name{lower},\; a.\name{upper} \rangle, \\
+  \name{ratio}(a, b) &\defeq a \cdot b^{-1}.
+\end{align*}
+The instances \lean{One}, \lean{Mul} and \lean{Inv} give the first three
+their usual notation.
+\end{definition}
+
+\begin{leancode}
+def one : PrimeRatio := ⟨1, 1⟩
+
+def mul (a b : PrimeRatio) : PrimeRatio :=
+  ⟨a.upper * b.upper, a.lower * b.lower⟩
+
+def inv (a : PrimeRatio) : PrimeRatio := ⟨a.lower, a.upper⟩
+
+def ratio (a b : PrimeRatio) : PrimeRatio := mul a (inv b)
+
+instance : One PrimeRatio := ⟨one⟩
+instance : Mul PrimeRatio := ⟨mul⟩
+instance : Inv PrimeRatio := ⟨inv⟩
+\end{leancode}
+
+Under Notation~\ref{Ratio:not:denote} these are the expected operations:
+$\size{a \cdot b} = \size{a}\,\size{b}$, $\size{a^{-1}} = \size{a}^{-1}$ and
+$\size{\name{ratio}(a,b)} = \size{a} / \size{b}$.
+
+\begin{designnote}\label{Ratio:note:no-signs}
+Inversion is a swap, and this is the file's stated reason for the two-field
+representation.  Identifying a positive rational with its exponent vector
+over the primes, the usual encoding needs exponents in $\mathbb{Z}$, because
+inverting negates them.  Splitting the vector into a positive part and a
+negative part --- $\name{upper}$ and $\name{lower}$ --- keeps both in
+$\mathbb{N}$, and inversion becomes exchange rather than negation.  No signed
+arithmetic enters, which matters because $\name{PrimeMultiset}$ has no
+additive inverse to offer.
+\end{designnote}
+
+\begin{remark}[The representation is not normalised]\label{Ratio:rem:unreduced}
+Distinct terms denote the same rational: $\langle 1, 1 \rangle$ and
+$\langle 2, 2 \rangle$ both denote $1$, and no cancellation is performed by
+$\name{mul}$.  So propositional equality of $\name{PrimeRatio}$ is finer than
+equality of denoted magnitude, and the relation of
+Definition~\ref{Ratio:def:same} is what one must use instead.  This is where
+the file differs from \texttt{PrimeTensor/Prime.lean}: there the
+representation was quotiented, so that reordering became equality.  Here no
+quotient is taken --- the file declares no $\name{Setoid}$ and no
+$\name{Quotient}$ --- and $\name{Same}$ is carried explicitly by downstream
+statements.
+\end{remark}
+
+\subsection{Equality and order without subtraction}
+
+\begin{definition}[Same, \lean{PrimeTensor.PrimeRatio.Same}]
+\label{Ratio:def:same}
+\[
+  \name{Same}(a, b) \defeq
+    \bigl(\name{eval}(a.\name{upper}) \cdot \name{eval}(b.\name{lower})
+      = \name{eval}(b.\name{upper}) \cdot \name{eval}(a.\name{lower})\bigr).
+\]
+\end{definition}
+
+\begin{definition}[Lt, \lean{PrimeTensor.PrimeRatio.Lt}]\label{Ratio:def:lt}
+\[
+  \name{Lt}(a, b) \defeq
+    \bigl(\name{eval}(a.\name{upper}) \cdot \name{eval}(b.\name{lower})
+      < \name{eval}(b.\name{upper}) \cdot \name{eval}(a.\name{lower})\bigr),
+\]
+and \lean{instance : LT PrimeRatio} makes $a < b$ mean $\name{Lt}(a,b)$.
+\end{definition}
+
+\begin{leancode}
+def Same (a b : PrimeRatio) : Prop :=
+  a.upper.eval * b.lower.eval = b.upper.eval * a.lower.eval
+
+/-- Strict order by positive cross-product, with no subtraction. -/
+def Lt (a b : PrimeRatio) : Prop :=
+  a.upper.eval * b.lower.eval < b.upper.eval * a.lower.eval
+\end{leancode}
+
+\begin{proposition}[Both relations say what they should]
+\label{Ratio:prop:cross}
+For all $a, b : \name{PrimeRatio}$,
+\[
+  \name{Same}(a, b) \iff \size{a} = \size{b},
+  \qquad
+  \name{Lt}(a, b) \iff \size{a} < \size{b}.
+\]
+\end{proposition}
+
+\begin{proof}
+Write $u_a = \name{eval}(a.\name{upper})$ and
+$l_a = \name{eval}(a.\name{lower})$, and likewise for $b$.  By
+Notation~\ref{Ratio:not:denote}, $l_a$ and $l_b$ are at least $1$, hence
+strictly positive.  Multiplying the equation $u_a / l_a = u_b / l_b$ through
+by the positive quantity $l_a l_b$ gives $u_a l_b = u_b l_a$, and dividing
+back recovers it; the same computation with $<$ in place of $=$ is valid
+because multiplying an inequality of rationals by a positive quantity
+preserves its direction.
+\end{proof}
+
+The point of the two definitions is what they avoid rather than what they
+say.  Comparing $u_a / l_a$ with $u_b / l_b$ directly would require division;
+comparing $u_a l_b - u_b l_a$ with $0$ would require subtraction on
+$\mathbb{N}$, which truncates.  Cross-multiplication needs neither, and it
+stays inside $\mathbb{N}$ where the carrier lives.  Positivity of the
+denominators, inherited from $\name{one\_le\_eval}$, is exactly the hypothesis
+that makes the reformulation faithful.
+
+\begin{remark}[What is not proved here]\label{Ratio:rem:no-laws}
+The file states $\name{Same}$ and $\name{Lt}$ but proves nothing about them:
+there is no reflexivity, symmetry or transitivity lemma for $\name{Same}$, no
+transitivity or irreflexivity for $\name{Lt}$, and no lemma relating either to
+$\name{mul}$ or $\name{inv}$.  Nor are the monoid laws for $\name{mul}$
+stated, though they follow componentwise from the corresponding laws in
+\texttt{PrimeTensor/Prime.lean}.  Compare $\name{PrimeBag.Same}$, which does
+come with its three equivalence lemmas and a $\name{Setoid}$.  Only the four
+evaluation lemmas of Section~\ref{Ratio:sec:eval} are proved.
+\end{remark}
+
+\subsection{Multiplicative neighbourhoods}
+
+\begin{definition}[Within, \lean{PrimeTensor.PrimeRatio.Within}]
+\label{Ratio:def:within}
+For $\delta, a, b : \name{PrimeRatio}$,
+\[
+  \name{Within}(\delta, a, b) \defeq
+    \bigl(\name{ratio}(a,b) < \delta\bigr) \wedge
+    \bigl(\name{ratio}(b,a) < \delta\bigr).
+\]
+\end{definition}
+
+\begin{leancode}
+def Within (δ a b : PrimeRatio) : Prop :=
+  ratio a b < δ ∧ ratio b a < δ
+\end{leancode}
+
+This is the multiplicative replacement for $\lvert a - b \rvert < \varepsilon$:
+both $\size{a}/\size{b}$ and $\size{b}/\size{a}$ are required to fall below
+$\size{\delta}$, which pins the two magnitudes to a common annulus.  Taking
+both directions is what makes the condition two-sided without a subtraction
+or an absolute value, and it makes the relation symmetric in $a$ and $b$ by
+construction, since the conjunction is symmetric under exchanging them.
+
+\begin{proposition}[The tolerance must exceed one]\label{Ratio:prop:refl}
+$\name{Within}(\delta, a, a)$ holds if and only if
+$\name{eval}(\delta.\name{lower}) < \name{eval}(\delta.\name{upper})$, that
+is, if and only if $\size{\delta} > 1$.  In particular the relation is
+reflexive for such $\delta$ and holds for no pair at all when
+$\size{\delta} \leq 1$.
+\end{proposition}
+
+\begin{proof}
+Put $x = \name{ratio}(a, a) = a \cdot a^{-1}$.  Unfolding
+Definition~\ref{Ratio:def:ops},
+\[
+  x.\name{upper} = a.\name{upper} \cdot a.\name{lower},
+  \qquad
+  x.\name{lower} = a.\name{lower} \cdot a.\name{upper},
+\]
+so by $\name{PrimeMultiset.mul\_comm}$ these two multisets are equal, and in
+particular $\name{eval}(x.\name{upper}) = \name{eval}(x.\name{lower}) =: E$
+with $E \geq 1$.  Definition~\ref{Ratio:def:lt} then reads
+$E \cdot \name{eval}(\delta.\name{lower}) <
+  \name{eval}(\delta.\name{upper}) \cdot E$,
+which since $E > 0$ is equivalent to
+$\name{eval}(\delta.\name{lower}) < \name{eval}(\delta.\name{upper})$.  Both
+conjuncts of $\name{Within}(\delta, a, a)$ are this same condition.
+
+For the last claim, note that $\size{\delta} \leq 1$ forces
+$\name{ratio}(a,b) < \delta$ and $\name{ratio}(b,a) < \delta$ to fail
+together: their denoted magnitudes are mutually inverse positive rationals, so
+at least one of them is $\geq 1 \geq \size{\delta}$.
+\end{proof}
+
+So $\size{\delta} > 1$ is the multiplicative reading of $\varepsilon > 0$, and
+$\delta = 1$ is the degenerate tolerance, not the exact one.  The file states
+neither fact; both are recorded here because the analogy with an additive
+$\varepsilon$ otherwise suggests the opposite convention.
+
+\subsection{Evaluation lemmas}
+\label{Ratio:sec:eval}
+
+\begin{lemma}[\lean{PrimeTensor.PrimeRatio.upper\_mul}]\label{Ratio:lem:upper-mul}
+$\name{eval}((a \cdot b).\name{upper})
+  = \name{eval}(a.\name{upper}) \cdot \name{eval}(b.\name{upper})$,
+and symmetrically \lean{lower\_mul} for the lower components.
+\end{lemma}
+
+\begin{proof}
+By Definition~\ref{Ratio:def:ops} the projection
+$(a \cdot b).\name{upper}$ is definitionally
+$a.\name{upper} \cdot b.\name{upper}$, so after that change of view the goal
+is $\name{PrimeMultiset.eval\_mul}$ applied to the two upper components.
+The lower case is the same argument on the other field.  Both are tagged
+\lean{@[simp]}.
+\end{proof}
+
+\begin{lemma}[\lean{inv\_upper}, \lean{inv\_lower}]\label{Ratio:lem:inv}
+$(a^{-1}).\name{upper} = a.\name{lower}$ and
+$(a^{-1}).\name{lower} = a.\name{upper}$.
+\end{lemma}
+
+\begin{leancode}
+@[simp] theorem inv_upper (a : PrimeRatio) : (a⁻¹).upper = a.lower := rfl
+@[simp] theorem inv_lower (a : PrimeRatio) : (a⁻¹).lower = a.upper := rfl
+\end{leancode}
+
+\begin{proof}
+Both are $\ctor{rfl}$.  Inversion is a structure literal whose fields are the
+projections of $a$ in the other order, and projecting a literal reduces
+definitionally, so each side is the same term.  Note these are stated about
+the multisets themselves, whereas
+Lemma~\ref{Ratio:lem:upper-mul} is stated about their evaluations: nothing is
+lost, because $\name{mul}$ acts on the fields while $\name{inv}$ merely moves
+them.
+\end{proof}
+
+\subsection*{Summary of the correspondence}
+
+\begin{center}
+\small
+\begin{tabular}{@{}lll@{}}
+\hline
+Lean declaration & Kind & Here \\
+\hline
+\lean{PrimeTensor.PrimeRatio}    & structure  & Def.~\ref{Ratio:def:primeratio} \\
+\lean{PrimeRatio.one}            & definition & Def.~\ref{Ratio:def:ops} \\
+\lean{PrimeRatio.mul}            & definition & Def.~\ref{Ratio:def:ops} \\
+\lean{PrimeRatio.inv}            & definition & Def.~\ref{Ratio:def:ops} \\
+\lean{PrimeRatio.ratio}          & definition & Def.~\ref{Ratio:def:ops} \\
+\lean{One}, \lean{Mul}, \lean{Inv} & instances & Def.~\ref{Ratio:def:ops} \\
+\lean{PrimeRatio.Same}           & definition & Def.~\ref{Ratio:def:same} \\
+\lean{PrimeRatio.Lt}             & definition & Def.~\ref{Ratio:def:lt} \\
+\lean{LT PrimeRatio}             & instance   & Def.~\ref{Ratio:def:lt} \\
+\lean{PrimeRatio.Within}         & definition & Def.~\ref{Ratio:def:within} \\
+\lean{PrimeRatio.upper\_mul}     & simp thm   & Lem.~\ref{Ratio:lem:upper-mul} \\
+\lean{PrimeRatio.lower\_mul}     & simp thm   & Lem.~\ref{Ratio:lem:upper-mul} \\
+\lean{PrimeRatio.inv\_upper}     & simp thm   & Lem.~\ref{Ratio:lem:inv} \\
+\lean{PrimeRatio.inv\_lower}     & simp thm   & Lem.~\ref{Ratio:lem:inv} \\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent
+Every declaration of \texttt{PrimeTensor/Ratio.lean} appears above.  The file
+contains no \lean{sorry}, no axiom, and no unproved named proposition; it is
+almost entirely definitions, with four evaluation lemmas.
+Propositions~\ref{Ratio:prop:cross} and~\ref{Ratio:prop:refl}, and
+Notation~\ref{Ratio:not:denote}, are stated for the reader and are not
+declarations of the file.
