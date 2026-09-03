@@ -1,0 +1,320 @@
+% Prose rendering of PrimeTensor/Order.lean.
+% Fragment: no \documentclass, no preamble, no document environment.
+
+\section{Native order and multiplicative annuli}
+\label{Order:sec}
+
+\leanfile{PrimeTensor/Order.lean}
+
+\subsection*{What this file establishes}
+
+Two earlier modules left a gap that this one closes.
+\texttt{PrimeTensor/Ratio.lean} defined the cross-product strict order
+$\name{Lt}$ on representatives and proved nothing about it;
+\texttt{PrimeTensor/MulRat.lean} took the quotient and transported only the
+multiplicative structure across, leaving $\name{MulRat}$ with no order at all.
+Here $\name{Lt}$ is shown to respect the equivalence, lifted to
+$\name{MulRat}$, and proved irreflexive and transitive.
+
+On top of that comes the notion the completion will actually be built from:
+$\name{Within}(\delta, a, b)$, saying that $a$ and $b$ lie in a common
+multiplicative $\delta$-annulus.  There is no distance function anywhere, and
+no subtraction --- closeness is expressed by bounding a ratio in both
+directions, and the tolerance is a magnitude exceeding $1$ rather than a small
+positive number.
+
+\subsection{Positivity, again}
+
+\begin{lemma}[\lean{PrimeRatio.multiset\_eval\_pos\_order}]\label{Order:lem:pos}
+$0 < \name{eval}(q)$ for every $q : \name{PrimeMultiset}$.
+\end{lemma}
+
+\begin{proof}
+By $\name{Quotient.inductionOn}$, reducing to a representative bag, where
+$0 < 1$ and $\name{PrimeBag.one\_le\_eval}$ compose.
+\end{proof}
+
+This is word for word the lemma proved in
+\texttt{PrimeTensor/MulRat.lean}, restated because that one is \lean{private}
+and so not visible outside its own file.  Both are \lean{private}, and the
+names differ only by the suffix $\lean{\_order}$.  Everything below rests on
+it: each order proof cancels a factor, and cancellation of a strict inequality
+on $\mathbb{N}$ is valid only against a positive factor.
+
+\subsection{The order respects the equivalence}
+
+\begin{lemma}[Left congruence, \lean{PrimeRatio.lt\_same\_left}]
+\label{Order:lem:left}
+If $\name{Same}(a, a')$ then $\name{Lt}(a,b) \leftrightarrow \name{Lt}(a',b)$.
+\end{lemma}
+
+\begin{leancode}
+private theorem lt_of_same_left {a a' b : PrimeRatio}
+    (ha : Same a a') (h : Lt a b) : Lt a' b := by
+  unfold Same at ha
+  unfold Lt at h ⊢
+  exact (Nat.mul_lt_mul_right (multiset_eval_pos_order a.lower)).mp (by
+    calc
+      (a'.upper.eval * b.lower.eval) * a.lower.eval
+          = (a'.upper.eval * a.lower.eval) * b.lower.eval := by ac_rfl
+      _ = (a.upper.eval * a'.lower.eval) * b.lower.eval := by rw [← ha]
+      _ = (a.upper.eval * b.lower.eval) * a'.lower.eval := by ac_rfl
+      _ < (b.upper.eval * a.lower.eval) * a'.lower.eval :=
+          (Nat.mul_lt_mul_right (multiset_eval_pos_order a'.lower)).mpr h
+      _ = (b.upper.eval * a'.lower.eval) * a.lower.eval := by ac_rfl)
+\end{leancode}
+
+\begin{proof}
+Write $u_x = \name{eval}(x.\name{upper})$, $l_x = \name{eval}(x.\name{lower})$.
+The forward direction is the private lemma \lean{lt\_of\_same\_left}
+displayed above.  Its hypotheses are $u_a l_{a'} = u_{a'} l_a$ and
+$u_a l_b < u_b l_a$, and its goal is $u_{a'} l_b < u_b l_{a'}$.
+
+Since $\mathbb{N}$ has no division, the goal is multiplied by $l_a$ and the
+factor cancelled at the end: by $\name{Nat.mul\_lt\_mul\_right}$ against the
+positive $l_a$ it suffices to show
+$(u_{a'} l_b)\,l_a < (u_b l_{a'})\,l_a$, which is the displayed chain ---
+reassociate to expose $u_{a'} l_a$, rewrite it backwards along the hypothesis
+to $u_a l_{a'}$, reassociate to expose $u_a l_b$, apply the strict hypothesis
+multiplied by the positive $l_{a'}$, and reassociate once more.  Every
+equality step is $\ctor{ac\_rfl}$.
+
+The stated \lean{iff} then follows by applying the private lemma in both
+directions, the second time to $\name{same\_symm}\,ha$.
+\end{proof}
+
+\begin{lemma}[Right congruence, \lean{PrimeRatio.lt\_same\_right}]
+\label{Order:lem:right}
+If $\name{Same}(b, b')$ then $\name{Lt}(a,b) \leftrightarrow \name{Lt}(a,b')$.
+\end{lemma}
+
+\begin{proof}
+The mirror image of Lemma~\ref{Order:lem:left}, via the private
+\lean{lt\_of\_same\_right}: multiply by $l_b$, and this time apply the strict
+hypothesis \emph{first} and rewrite along $\name{Same}(b,b')$ afterwards,
+since the hypothesis being replaced now sits on the right of the inequality.
+\end{proof}
+
+\begin{lemma}[\lean{PrimeRatio.lt\_iff\_of\_same}]\label{Order:lem:both}
+If $\name{Same}(a,a')$ and $\name{Same}(b,b')$ then
+$\name{Lt}(a,b) \leftrightarrow \name{Lt}(a',b')$.
+\end{lemma}
+
+\begin{proof}
+Compose Lemmas~\ref{Order:lem:left} and~\ref{Order:lem:right}: replacing one
+argument at a time is enough, and the two replacements are independent.
+\end{proof}
+
+\subsection{Irreflexivity and transitivity at representative level}
+
+\begin{lemma}[\lean{lt\_irrefl\_ratio}]\label{Order:lem:irrefl-rep}
+$\neg\, \name{Lt}(a,a)$ for every $a : \name{PrimeRatio}$.
+\end{lemma}
+
+\begin{proof}
+Unfolded, $\name{Lt}(a,a)$ is $u_a l_a < u_a l_a$, contradicted by
+irreflexivity of $<$ on $\mathbb{N}$.  Note that no positivity is needed
+here --- the two sides are literally the same natural number.
+\end{proof}
+
+\begin{lemma}[\lean{lt\_trans\_ratio}]\label{Order:lem:trans-rep}
+If $\name{Lt}(a,b)$ and $\name{Lt}(b,c)$ then $\name{Lt}(a,c)$.
+\end{lemma}
+
+\begin{proof}
+The hypotheses are $u_a l_b < u_b l_a$ and $u_b l_c < u_c l_b$ and the goal is
+$u_a l_c < u_c l_a$.  Multiplying the goal by the positive $l_b$ and cancelling
+afterwards, it suffices to prove
+$(u_a l_c)\,l_b < (u_c l_a)\,l_b$, and the chain runs
+\[
+  (u_a l_c) l_b = (u_a l_b) l_c
+    < (u_b l_a) l_c = (u_b l_c) l_a
+    < (u_c l_b) l_a = (u_c l_a) l_b,
+\]
+with the two strict steps being the hypotheses multiplied by the positive
+$l_c$ and $l_a$ respectively, and the three equalities $\ctor{ac\_rfl}$.
+\end{proof}
+
+\begin{remark}[One pattern, three times]\label{Order:rem:pattern}
+Lemmas~\ref{Order:lem:left}, \ref{Order:lem:right}
+and~\ref{Order:lem:trans-rep} are the same manoeuvre: multiply through by the
+denominator that the conclusion does not mention, walk a chain of
+$\ctor{ac\_rfl}$ reassociations punctuated by the hypotheses, then cancel.  It
+is the strict-inequality counterpart of the calculation proving transitivity of
+$\name{Same}$ in \texttt{PrimeTensor/MulRat.lean}, and it exists for the same
+reason: the natural formulation would divide, and $\mathbb{N}$ has no
+division.  Each use needs a positive factor, and each gets it from
+Lemma~\ref{Order:lem:pos}.
+\end{remark}
+
+\subsection{Lifting the order to the quotient}
+
+\begin{definition}[\lean{MulRat.lt} and the \lean{LT} instance]
+\label{Order:def:lt}
+$\name{lt} : \name{MulRat} \to \name{MulRat} \to \mathrm{Prop}$ is
+$\name{PrimeRatio.Lt}$ lifted through the quotient in both arguments, and
+\lean{instance : LT MulRat} makes $a < b$ mean $\name{lt}(a,b)$.
+\end{definition}
+
+\begin{leancode}
+def lt (a b : MulRat) : Prop :=
+  Quotient.liftOn₂ a b
+    PrimeRatio.Lt
+    (by
+      intro a₁ b₁ a₂ b₂ ha hb
+      change PrimeRatio.Same a₁ a₂ at ha
+      change PrimeRatio.Same b₁ b₂ at hb
+      apply propext
+      exact PrimeRatio.lt_iff_of_same ha hb)
+\end{leancode}
+
+\begin{remark}[This lift needs \lean{propext}]\label{Order:rem:propext}
+The lifts in \texttt{PrimeTensor/MulRat.lean} produced elements of
+$\name{MulRat}$, and their obligations were discharged by
+$\name{Quotient.sound}$, which turns a $\name{Same}$ into an equality of
+classes.  This one produces an element of $\mathrm{Prop}$, so its obligation is
+that the two propositions are \emph{equal}, not merely equivalent.
+Lemma~\ref{Order:lem:both} supplies an $\leftrightarrow$, and
+$\name{propext}$ --- propositional extensionality --- converts it to the
+required equality.  That axiom is the only extra principle the order costs,
+and it is one Lean's standard library assumes throughout.
+\end{remark}
+
+\begin{theorem}[The lifted order is a strict order]\label{Order:thm:strict}
+For $a, b, c : \name{MulRat}$: $\neg\, a < a$, and $a < b$ together with
+$b < c$ gives $a < c$.  These are \lean{MulRat.lt\_irrefl} and
+\lean{MulRat.lt\_trans}.
+\end{theorem}
+
+\begin{proof}
+Both by $\name{Quotient.inductionOn}$, reducing to representatives, where the
+goals become $\neg\,\name{Lt}(x,x)$ and $\name{Lt}(x,z)$ and the
+representative-level Lemmas~\ref{Order:lem:irrefl-rep}
+and~\ref{Order:lem:trans-rep} apply.  Transitivity inducts on all three
+arguments in turn, carrying the hypotheses along.  No appeal to
+$\name{Quotient.sound}$ is needed: the statements are propositions about
+classes, not equations between them.
+\end{proof}
+
+\begin{remark}[What is not established]\label{Order:rem:order-gaps}
+No order-theoretic instance is registered beyond \lean{LT}: there is no
+\lean{Preorder}, \lean{PartialOrder} or \lean{LinearOrder} for
+$\name{MulRat}$, so Mathlib's order lemmas do not apply and every fact must be
+cited from this file.  Asymmetry is not stated, though it follows from
+irreflexivity and transitivity.  Neither is trichotomy --- that of $a < b$,
+$a = b$, $b < a$ exactly one holds --- nor any compatibility between the order
+and the group structure, such as $a < b$ implying $ac < bc$.  Nothing relates
+$<$ to $\name{inv}$.
+\end{remark}
+
+\subsection{Ratios and annuli}
+
+\begin{definition}[\lean{MulRat.ratio}]\label{Order:def:ratio}
+$\name{ratio}(a,b) \defeq a \cdot b^{-1}$.
+\end{definition}
+
+\begin{lemma}[\lean{MulRat.ratio\_self}]\label{Order:lem:ratio-self}
+$\name{ratio}(a,a) = 1$.
+\end{lemma}
+
+\begin{proof}
+Unfolding, this is $a \cdot a^{-1} = 1$, which is \lean{MulRat.mul\_inv} from
+\texttt{PrimeTensor/MulRat.lean}.  It is tagged \lean{@[simp]}.
+\end{proof}
+
+This is a real strengthening over the representative level.  In
+\texttt{PrimeTensor/Ratio.lean}, $\name{PrimeRatio.ratio}(a,a)$ is the term
+$\langle u_a l_a,\, l_a u_a \rangle$, which is only $\name{Same}$ to the unit,
+not equal to it.  After the quotient the two coincide, so the self-ratio can
+be rewritten away by $\mathsf{simp}$ rather than carried as a relation.
+
+\begin{definition}[Annulus membership, \lean{MulRat.Within}]
+\label{Order:def:within}
+For $\delta, a, b : \name{MulRat}$,
+\[
+  \name{Within}(\delta, a, b) \defeq
+    \bigl(\name{ratio}(a,b) < \delta\bigr) \wedge
+    \bigl(\name{ratio}(b,a) < \delta\bigr).
+\]
+\end{definition}
+
+\begin{leancode}
+def Within (δ a b : MulRat) : Prop :=
+  ratio a b < δ ∧ ratio b a < δ
+\end{leancode}
+
+\begin{lemma}[\lean{within\_refl} and \lean{within\_symm}]
+\label{Order:lem:within}
+If $1 < \delta$ then $\name{Within}(\delta, a, a)$; and
+$\name{Within}(\delta, a, b)$ implies $\name{Within}(\delta, b, a)$.
+\end{lemma}
+
+\begin{proof}
+For reflexivity, Lemma~\ref{Order:lem:ratio-self} rewrites both conjuncts to
+$1 < \delta$, which is the hypothesis, supplied twice.  Symmetry is the
+exchange of the two conjuncts, the definition being symmetric under swapping
+$a$ and $b$.
+\end{proof}
+
+\begin{designnote}[Why the tolerance exceeds one]\label{Order:note:delta}
+The hypothesis $1 < \delta$ in $\name{within\_refl}$ is not a convenience; it
+is forced.  Reflexivity requires $\name{ratio}(a,a) < \delta$, and
+$\name{ratio}(a,a)$ is exactly $1$, so $\name{Within}(\delta,a,a)$ holds if and
+only if $1 < \delta$.  More generally, $\name{ratio}(a,b)$ and
+$\name{ratio}(b,a)$ are mutually inverse, so at least one is $\geq 1$ and a
+tolerance $\delta \leq 1$ admits no pair at all.
+
+So $\delta > 1$ is the multiplicative reading of $\varepsilon > 0$, and
+$\delta = 1$ is the degenerate tolerance rather than the exact one --- the
+opposite of what the additive analogy suggests.  The module header says as
+much.  Only the sufficient direction is a declaration; that $1 < \delta$ is
+also necessary is not stated in the file.
+\end{designnote}
+
+\begin{remark}[No triangle inequality]\label{Order:rem:no-triangle}
+$\name{Within}$ is reflexive for admissible tolerances and symmetric, and
+that is all.  The remaining ingredient of a metric-like notion --- the
+multiplicative triangle inequality, that $\name{Within}(\delta,a,b)$ and
+$\name{Within}(\varepsilon,b,c)$ give
+$\name{Within}(\delta\varepsilon, a, c)$ --- is not proved here, and neither
+is any statement combining two annuli.  Since Cauchy convergence is what the
+header advertises this notion is for, the composition rule is the thing to
+look for in the modules that follow.
+\end{remark}
+
+\subsection*{Summary of the correspondence}
+
+\begin{center}
+\small
+\begin{tabular}{@{}lll@{}}
+\hline
+Lean declaration & Kind & Here \\
+\hline
+\lean{PrimeRatio.multiset\_eval\_pos\_order} & private thm & Lem.~\ref{Order:lem:pos} \\
+\lean{PrimeRatio.lt\_of\_same\_left}  & private thm & Lem.~\ref{Order:lem:left} \\
+\lean{PrimeRatio.lt\_same\_left}      & theorem     & Lem.~\ref{Order:lem:left} \\
+\lean{PrimeRatio.lt\_of\_same\_right} & private thm & Lem.~\ref{Order:lem:right} \\
+\lean{PrimeRatio.lt\_same\_right}     & theorem     & Lem.~\ref{Order:lem:right} \\
+\lean{PrimeRatio.lt\_iff\_of\_same}   & theorem     & Lem.~\ref{Order:lem:both} \\
+\lean{PrimeRatio.lt\_irrefl\_ratio}   & theorem     & Lem.~\ref{Order:lem:irrefl-rep} \\
+\lean{PrimeRatio.lt\_trans\_ratio}    & theorem     & Lem.~\ref{Order:lem:trans-rep} \\
+\lean{MulRat.lt}                      & definition  & Def.~\ref{Order:def:lt} \\
+\lean{LT MulRat}                      & instance    & Def.~\ref{Order:def:lt} \\
+\lean{MulRat.lt\_irrefl}              & theorem     & Thm.~\ref{Order:thm:strict} \\
+\lean{MulRat.lt\_trans}               & theorem     & Thm.~\ref{Order:thm:strict} \\
+\lean{MulRat.ratio}                   & definition  & Def.~\ref{Order:def:ratio} \\
+\lean{MulRat.ratio\_self}             & simp thm    & Lem.~\ref{Order:lem:ratio-self} \\
+\lean{MulRat.Within}                  & definition  & Def.~\ref{Order:def:within} \\
+\lean{MulRat.within\_refl}            & theorem     & Lem.~\ref{Order:lem:within} \\
+\lean{MulRat.within\_symm}            & theorem     & Lem.~\ref{Order:lem:within} \\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent
+Every declaration of \texttt{PrimeTensor/Order.lean} appears above.  The file
+contains no \lean{sorry}, no axiom of its own, and no unproved named
+proposition; it does use $\name{propext}$, as
+Remark~\ref{Order:rem:propext} explains.  The necessity half of
+Design note~\ref{Order:note:delta} is stated for the reader and is not a
+declaration of the file.
