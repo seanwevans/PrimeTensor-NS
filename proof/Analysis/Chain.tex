@@ -1,0 +1,411 @@
+% Prose rendering of PrimeTensor/Analysis/Chain.lean.
+% Fragment: no \documentclass, no preamble, no document environment.
+
+\section{The multiplicative chain rule}
+\label{Analysis:Chain:sec}
+
+\leanfile{PrimeTensor/Analysis/Chain.lean}
+
+\subsection*{What this file establishes}
+
+The chain rule, under hypotheses the module header is unusually explicit
+about.  Differentiability of the two factors and scale control of their tangent
+maps are, in its words, \emph{almost} sufficient; one further hypothesis is
+exposed rather than hidden, namely that negligibility measured against the
+actual inner response germ implies negligibility measured against the original
+perturbation.  That is $\name{ChainAdmissibleAt}$, and
+Design note~\ref{Analysis:Chain:note:why-hypothesis} is about why it has to be
+assumed here when its classical counterpart is automatic.
+
+Around it the file assembles: composition of tangent maps; the fact that a
+differentiable map with a controlled tangent has a response that really does
+approach the pivot, so that the inner response is itself a legitimate
+perturbation; and an exact identity saying the response of a composite is the
+outer response along the inner response.  The proof of the rule is then a
+telescoping product of two ratios, and
+Design note~\ref{Analysis:Chain:note:telescope} sets it beside the classical
+two-term error split.
+
+\subsection{Ratio algebra}
+
+\begin{lemma}[\lean{MulReal.ratio\_comp}, \lean{ratio\_mul\_right} and
+  \lean{mul\_ratio\_right}]\label{Analysis:Chain:lem:ratio}
+$\name{ratio}(a,c) = \name{ratio}(a,b)\,\name{ratio}(b,c)$, and
+$\name{ratio}(a,b) \cdot b = a = b \cdot \name{ratio}(a,b)$.
+\end{lemma}
+
+\begin{leancode}
+theorem ratio_mul_right (a b : MulReal) :
+    ratio a b * b = a := by
+  unfold ratio
+  calc
+    (a * b⁻¹) * b = a * (b⁻¹ * b) := mul_assoc a b⁻¹ b
+    _ = a * 1 := by rw [inv_mul b]
+    _ = a := mul_one a
+\end{leancode}
+
+\begin{proof}
+The first is the argument of \texttt{PrimeTensor/Scale/Laws.lean} one layer up:
+reassociate to expose $b^{-1}b$, cancel, drop the unit.  The second is the same
+cancellation with the intermediate magnitude restored, and the third is the
+second after commuting.
+\end{proof}
+
+The cocycle identity and the reconstruction identity are the two facts the main
+proof runs on.  The first telescopes a chain of comparisons; the second says
+that a magnitude is recoverable from a comparison and its reference point,
+which is what lets the inner response be treated as a perturbation in its own
+right.
+
+\begin{lemma}[\lean{MulReal.converges\_congr} and \lean{negligible\_congr}]
+\label{Analysis:Chain:lem:congr}
+Convergence and negligibility are unchanged by replacing a germ with one equal
+to it term by term.
+\end{lemma}
+
+\begin{proof}
+Keep the anchor and rewrite pointwise.
+\end{proof}
+
+These are bookkeeping, but they carry real weight below: several of the germs
+in the main proof are equal on the nose rather than merely asymptotic, and
+these two lemmas are how an exact rewriting is admitted into a statement about
+levels.
+
+\subsection{Composition of tangent maps}
+
+\begin{definition}[\lean{MulTangentMap.comp}]\label{Analysis:Chain:def:comp}
+$\name{comp}(D_g, D_f)(h) \defeq D_g(D_f(h))$, with the three morphism laws
+proved by rewriting with the corresponding laws of the two factors, and
+$\name{comp\_apply}$ recording the value by $\ctor{rfl}$.
+\end{definition}
+
+\begin{leancode}
+def comp (Dg Df : MulTangentMap) : MulTangentMap where
+  toFun := fun h => Dg (Df h)
+  map_one := by
+    rw [Df.map_one, Dg.map_one]
+  map_mul := by
+    intro a b
+    rw [Df.map_mul, Dg.map_mul]
+  map_inv := by
+    intro a
+    rw [Df.map_inv, Dg.map_inv]
+\end{leancode}
+
+\begin{lemma}[\lean{MulTangentMap.map\_ratio}]\label{Analysis:Chain:lem:map-ratio}
+Every tangent map preserves ratios:
+$D(\name{ratio}(a,b)) = \name{ratio}(D(a), D(b))$.
+\end{lemma}
+
+\begin{proof}
+Unfold the ratio and apply preservation of products and of inverses.
+\end{proof}
+
+This is what lets an error, which is a ratio, be pushed through a tangent map
+and still be recognised as an error between the images.
+
+\subsection{Differentiability gives a genuine perturbation}
+
+\begin{lemma}[\lean{negligible\_converges}]\label{Analysis:Chain:lem:neg-conv}
+If $\name{error}$ is negligible relative to $\name{base}$ and $\name{base}$
+approaches the pivot, then $\name{error}$ converges to the pivot.
+\end{lemma}
+
+\begin{proof}
+Fix a level.  Take the anchor negligibility supplies at the smallest gain
+$\ctor{one}$, and the anchor the convergence of the base supplies at the
+requested level, and join them.  Beyond the join the base achieves that level,
+so negligibility puts the error at $\name{advance}(\ell, \ctor{one})$, which is
+$\ctor{succ}\,\ell$; one weakening by
+\texttt{PrimeTensor/Analysis/Control.lean} gives $\ell$.
+\end{proof}
+
+\begin{theorem}[\lean{response\_converges}]\label{Analysis:Chain:thm:resp-conv}
+If $f$ has derivative $D$ at $x$, $D$ is scale controlled, and $h$ approaches
+the pivot, then $\name{response}(f,x,h)$ converges to the pivot.
+\end{theorem}
+
+\begin{proof}
+The response is recovered from its error and the model by
+Lemma~\ref{Analysis:Chain:lem:ratio}:
+\[
+  \name{response}_n
+    = \name{ratio}\bigl(\name{response}_n,\, D(h_n)\bigr) \cdot D(h_n).
+\]
+The first factor converges to the pivot by
+Lemma~\ref{Analysis:Chain:lem:neg-conv}, since differentiability makes it
+negligible relative to $h$ and $h$ approaches the pivot.  The second converges
+to the pivot by $\name{maps\_converges}$ of
+\texttt{PrimeTensor/Analysis/Control.lean}, which is where control of $D$ is
+used.  Their product converges to $1 \cdot 1 = 1$ by
+\texttt{PrimeTensor/Analysis/Near/Laws.lean}, and
+Lemma~\ref{Analysis:Chain:lem:congr} transports that along the pointwise
+identity above.
+\end{proof}
+
+\begin{remark}[Differentiable implies continuous --- but not for free]
+\label{Analysis:Chain:rem:diff-cont}
+This is the statement that a differentiable map is continuous at the point, in
+the only form the vocabulary offers: the response along any perturbation is
+itself a perturbation.  In the additive theory it needs no extra hypothesis.
+Here it needs $D$ to be scale controlled, and unavoidably so ---
+\texttt{PrimeTensor/Analysis/Derivative.lean} placed no regularity on tangent
+maps, so an unbounded model could carry a perturbation away from the pivot and
+the response with it.  Control is what excludes that, and this theorem is the
+first place the notion is spent rather than established.
+\end{remark}
+
+\subsection{The admissibility hypothesis}
+
+\begin{definition}[\lean{ChainAdmissibleAt}]\label{Analysis:Chain:def:admissible}
+$f$ is \emph{chain admissible at} $x$ when, for every $h$ approaching the
+pivot, every germ negligible relative to $\name{response}(f,x,h)$ is negligible
+relative to $h$.
+\end{definition}
+
+\begin{leancode}
+def ChainAdmissibleAt
+    (f : MulReal → MulReal) (x : MulReal) : Prop :=
+  ∀ h : MulReal.Seq,
+    ApproachesPivot h →
+    ∀ error : MulReal.Seq,
+      NegligibleRelative error (response f x h) →
+      NegligibleRelative error h
+\end{leancode}
+
+\begin{designnote}[Why this is a hypothesis and not a lemma]
+\label{Analysis:Chain:note:why-hypothesis}
+The header identifies the classical counterpart: the comparison
+$D f(h) = O(h)$ that transports an outer little-o error back to the original
+variable.  Classically that comparison is not assumed --- for a differentiable
+map with a bounded derivative it follows, since the increment is bounded by a
+constant times the perturbation.
+
+It is not lifted here in that form.  The obstacle is one already recorded in
+\texttt{PrimeTensor/Analysis/Derivative.lean}:
+comparisons in that file are made with $\name{advance}$, which refines a level by a
+\emph{positive} number of steps, there being no advance by zero.  Used that
+way the vocabulary can say ``strictly finer by a prescribed amount'' ---
+little-o --- and cannot say ``no coarser than, up to a constant'' --- big-$O$;
+and the statement the chain rule needs is a big-$O$ statement.  Nor could the
+missing inequality simply be written out, since $\name{Depth}$ has no
+subtraction with which to say that one level lags another by a bounded amount.
+
+$\name{ChainAdmissibleAt}$ is what this file writes instead.  Rather than
+bounding the inner response against the perturbation, it asserts the
+consequence that bounding would have: that the two germs are interchangeable
+as \emph{bases} for negligibility, in the direction the proof consumes.  This
+converts an inequality the file does not express into an implication it does,
+at the cost of making it an assumption.  Whether it follows from the other
+hypotheses of Theorem~\ref{Analysis:Chain:thm:chain} is not settled here, and
+no argument either way is given.
+
+The obstacle is, however, one of formulation rather than of expressive power.
+\texttt{PrimeTensor/Analysis/Growth.lean} writes the growth comparison after
+all, by advancing \emph{both} levels --- the base one and the response one ---
+and comparing the results in the tail order instead of demanding a fixed
+refinement of a single level.  That sidesteps the missing subtraction, and the
+condition so obtained implies the hypothesis assumed here.
+\end{designnote}
+
+\begin{lemma}[\lean{chainAdmissibleAt\_identity}]
+\label{Analysis:Chain:lem:adm-id}
+The identity map is chain admissible at every point.
+\end{lemma}
+
+\begin{proof}
+Its response along $h$ at stage $n$ is $\name{ratio}(x h_n, x)$.  That is
+$h_n$, by the reconstruction identity of
+\texttt{PrimeTensor/Analysis/Derivative.lean}.
+So the two bases are the same germ and the implication is trivial: rewrite the
+base and hand back the hypothesis.
+\end{proof}
+
+\subsection{Responses of a composite}
+
+\begin{lemma}[\lean{response\_comp}]\label{Analysis:Chain:lem:resp-comp}
+For every $n$,
+\[
+  \name{response}(g \circ f,\, x,\, h)_n
+    = \name{response}\bigl(g,\, f(x),\, \name{response}(f,x,h)\bigr)_n .
+\]
+\end{lemma}
+
+\begin{leancode}
+theorem response_comp
+    (f g : MulReal → MulReal)
+    (x : MulReal)
+    (h : MulReal.Seq) :
+    ∀ n : Depth,
+      response (fun y => g (f y)) x h n =
+        response g (f x) (response f x h) n := by
+  intro n
+  unfold response
+  rw [MulReal.mul_ratio_right
+    (f (x * h n))
+    (f x)]
+\end{leancode}
+
+\begin{proof}
+The left side is $\name{ratio}\bigl(g(f(x h_n)),\, g(f(x))\bigr)$.  The right
+side is $\name{ratio}\bigl(g(f(x) \cdot \name{inner}_n),\, g(f(x))\bigr)$ with
+$\name{inner}_n = \name{ratio}(f(x h_n), f(x))$, and
+Lemma~\ref{Analysis:Chain:lem:ratio} reconstructs
+$f(x) \cdot \name{inner}_n = f(x h_n)$.  The two sides are then the same term.
+\end{proof}
+
+An identity, with no error and no hypothesis on $h$: the perturbation of the
+outer function is exactly the response of the inner one.  This is what makes
+the chain rule a matter of composing two first-order statements rather than of
+estimating a composite directly.
+
+\subsection{The chain rule}
+
+\begin{theorem}[\lean{hasMulDerivativeAt\_comp}]\label{Analysis:Chain:thm:chain}
+Suppose $f$ has derivative $D_f$ at $x$ with $D_f$ scale controlled, $f$ is
+chain admissible at $x$, and $g$ has derivative $D_g$ at $f(x)$ with $D_g$
+scale controlled.  Then $y \mapsto g(f(y))$ has derivative
+$\name{comp}(D_g, D_f)$ at $x$.
+\end{theorem}
+
+\begin{leancode}
+theorem hasMulDerivativeAt_comp
+    {f g : MulReal → MulReal}
+    {x : MulReal}
+    {Df Dg : MulTangentMap}
+    (hf : HasMulDerivativeAt f x Df)
+    (hDf : Df.ScaleControlled)
+    (hadm : ChainAdmissibleAt f x)
+    (hg : HasMulDerivativeAt g (f x) Dg)
+    (hDg : Dg.ScaleControlled) :
+    HasMulDerivativeAt
+      (fun y => g (f y))
+      x
+      (MulTangentMap.comp Dg Df) := by
+\end{leancode}
+
+\begin{proof}
+Fix $h$ approaching the pivot and write $\name{inner} = \name{response}(f,x,h)$.
+
+By Theorem~\ref{Analysis:Chain:thm:resp-conv}, $\name{inner}$ approaches the
+pivot, so it is a legitimate perturbation and the hypothesis on $g$ may be
+applied \emph{along it}.  That gives the outer error
+$\name{ratio}\bigl(\name{response}(g,f(x),\name{inner})_n,\, D_g(\name{inner}_n)\bigr)$
+negligible relative to $\name{inner}$; chain admissibility re-bases it against
+$h$.
+
+Separately, the hypothesis on $f$ gives the inner error
+$\name{ratio}(\name{inner}_n,\, D_f(h_n))$ negligible relative to $h$.  Push it
+through $D_g$ using $\name{negligible\_map}$ of
+\texttt{PrimeTensor/Analysis/Control.lean} --- this is where control of $D_g$
+is used --- and rewrite the image with
+Lemma~\ref{Analysis:Chain:lem:map-ratio}, obtaining
+$\name{ratio}\bigl(D_g(\name{inner}_n),\, D_g(D_f(h_n))\bigr)$ negligible
+relative to $h$.
+
+Multiply the two negligible germs, which is legitimate by
+\texttt{PrimeTensor/Analysis/Rules.lean}.  Their product telescopes: by the
+cocycle identity of Lemma~\ref{Analysis:Chain:lem:ratio},
+\[
+  \name{ratio}\bigl(\name{resp}_n,\, D_g(\name{inner}_n)\bigr) \cdot
+  \name{ratio}\bigl(D_g(\name{inner}_n),\, D_g(D_f(h_n))\bigr)
+  =
+  \name{ratio}\bigl(\name{resp}_n,\, D_g(D_f(h_n))\bigr).
+\]
+Finally Lemma~\ref{Analysis:Chain:lem:resp-comp} identifies $\name{resp}_n$
+with the response of the composite, and
+$\name{comp}(D_g,D_f)(h_n) = D_g(D_f(h_n))$ by $\ctor{rfl}$, so the product is
+exactly the error of the composite against its model.
+\end{proof}
+
+\begin{designnote}[A telescope where the classical proof has a sum]
+\label{Analysis:Chain:note:telescope}
+The classical chain rule splits the error into two pieces,
+\begin{align*}
+  g(f(x+h)) - g(f(x)) - D_g D_f h
+  &= \bigl[g(f(x+h)) - g(f(x)) - D_g \Delta\bigr]
+   + D_g\bigl[\Delta - D_f h\bigr], \\
+  \Delta &= f(x+h) - f(x),
+\end{align*}
+and estimates the two summands separately, the second using linearity and
+boundedness of $D_g$.  The proof above has the same two pieces and combines
+them differently: they are ratios, they are \emph{multiplied}, and the
+combination is the cocycle identity, which is exact.  There is no triangle
+inequality and no constant --- the intermediate term $D_g(\name{inner}_n)$
+cancels identically rather than being bounded away.
+
+Each of the three hypotheses is spent in exactly one place, and the proof makes
+that visible: control of $D_f$ only to know the inner response is a genuine
+perturbation; control of $D_g$ only to push the inner error through it;
+admissibility only to re-base the outer error.  The docstring says as much.
+\end{designnote}
+
+\begin{remark}[The rule cannot yet be iterated]
+\label{Analysis:Chain:rem:no-iterate}
+Applying Theorem~\ref{Analysis:Chain:thm:chain} twice requires knowing that
+$\name{comp}(D_g,D_f)$ is itself scale controlled, and that is proved nowhere:
+\texttt{PrimeTensor/Analysis/Control.lean} closed the property under product
+and inverse, but composition was not defined until this file, and no lemma here
+adds it.  Likewise $\name{ChainAdmissibleAt}$ is not shown closed under
+composition.  So the rule is stated for one composite and has no corollary for
+a tower of them.
+\end{remark}
+
+\begin{remark}[Only one function is known to be admissible]
+\label{Analysis:Chain:rem:only-identity}
+Lemma~\ref{Analysis:Chain:lem:adm-id} is the sole verification of
+$\name{ChainAdmissibleAt}$ in the file.  Nothing establishes it for a constant
+map, for a power, or for a product --- so the only $f$ with which
+Theorem~\ref{Analysis:Chain:thm:chain} can currently be discharged is the
+identity, where it says nothing.  This continues the pattern noted since
+\texttt{PrimeTensor/Analysis/Derivative.lean}: the machinery is complete and
+its nontrivial instances are still ahead.
+\end{remark}
+
+\begin{remark}[What is not proved]\label{Analysis:Chain:rem:missing}
+Admissibility is not shown to follow from differentiability and control, nor
+shown independent of them.  There is no uniqueness of derivatives, so
+``the'' derivative of a composite is still not a phrase the development can
+use.  $\name{comp}$ is given no laws --- not associativity, and not that
+$\name{identity}$ is a unit for it --- and no relation is stated between
+$\name{comp}$ and the pointwise product of
+\texttt{PrimeTensor/Analysis/Rules.lean}.
+\end{remark}
+
+\subsection*{Summary of the correspondence}
+
+\begin{center}
+\small
+\begin{tabular}{@{}lll@{}}
+\hline
+Lean declaration & Kind & Here \\
+\hline
+\lean{MulReal.ratio\_comp}          & theorem    & Lem.~\ref{Analysis:Chain:lem:ratio} \\
+\lean{MulReal.ratio\_mul\_right}    & theorem    & Lem.~\ref{Analysis:Chain:lem:ratio} \\
+\lean{MulReal.mul\_ratio\_right}    & theorem    & Lem.~\ref{Analysis:Chain:lem:ratio} \\
+\lean{MulReal.converges\_congr}     & theorem    & Lem.~\ref{Analysis:Chain:lem:congr} \\
+\lean{MulTangentMap.comp}           & definition & Def.~\ref{Analysis:Chain:def:comp} \\
+\lean{MulTangentMap.comp\_apply}    & simp thm   & Def.~\ref{Analysis:Chain:def:comp} \\
+\lean{MulTangentMap.map\_ratio}     & theorem    & Lem.~\ref{Analysis:Chain:lem:map-ratio} \\
+\lean{MulDifferential.negligible\_congr} & theorem & Lem.~\ref{Analysis:Chain:lem:congr} \\
+\lean{negligible\_converges}        & theorem    & Lem.~\ref{Analysis:Chain:lem:neg-conv} \\
+\lean{response\_converges}          & theorem    & Thm.~\ref{Analysis:Chain:thm:resp-conv} \\
+\lean{ChainAdmissibleAt}            & definition & Def.~\ref{Analysis:Chain:def:admissible} \\
+\lean{chainAdmissibleAt\_identity}  & theorem    & Lem.~\ref{Analysis:Chain:lem:adm-id} \\
+\lean{response\_comp}               & theorem    & Lem.~\ref{Analysis:Chain:lem:resp-comp} \\
+\lean{hasMulDerivativeAt\_comp}     & theorem    & Thm.~\ref{Analysis:Chain:thm:chain} \\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent
+Every declaration of \texttt{PrimeTensor/Analysis/Chain.lean} appears above.
+The file contains no \lean{sorry}, no axiom, and no unproved named proposition.
+Design notes~\ref{Analysis:Chain:note:why-hypothesis}
+and~\ref{Analysis:Chain:note:telescope} and
+Remarks~\ref{Analysis:Chain:rem:diff-cont},
+\ref{Analysis:Chain:rem:no-iterate}, \ref{Analysis:Chain:rem:only-identity}
+and~\ref{Analysis:Chain:rem:missing} are stated for the reader and are not
+declarations of the file; in particular the comparison with the classical
+error split is a gloss and is not formalised.
