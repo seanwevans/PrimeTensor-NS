@@ -1,0 +1,249 @@
+% Prose rendering of PrimeTensor/Analysis/Growth.lean.
+% Fragment: no \documentclass, no preamble, no document environment.
+
+\section{Primitive response-scale growth control}
+\label{Analysis:Growth:sec}
+
+\leanfile{PrimeTensor/Analysis/Growth.lean}
+
+\subsection*{What this file establishes}
+
+\texttt{PrimeTensor/Analysis/Chain.lean} proved the chain rule under a
+hypothesis, $\name{ChainAdmissibleAt}$, that quantifies over \emph{arbitrary
+error germs}: it says that anything negligible against the inner response is
+negligible against the perturbation.  That is a strong and rather indirect
+thing to have to assume, and the module header names the defect precisely --- it
+is a second-order transport assumption where a first-order geometric one ought
+to do.
+
+This file supplies the geometric condition.  $\name{ResponseScaleControlledAt}$
+speaks only about the perturbation and its response, quantifying over no error
+germs at all, and it implies admissibility.  The chain rule is then restated
+with it in place of the transport hypothesis, and the two base cases --- the
+identity and the constants --- are verified.
+
+The interesting part is how a growth bound gets written down at all, since
+$\name{Depth}$ has no subtraction.  The header states the technique: scale
+comparison is expressed entirely through $\name{AtOrAfter}$.
+Design note~\ref{Analysis:Growth:note:big-o} works out what that buys.
+
+\subsection{The condition}
+
+\begin{definition}[\lean{ResponseScaleControlledAt}]
+\label{Analysis:Growth:def:rsc}
+$f$ is \emph{response-scale controlled at} $x$ when, for every perturbation $h$
+approaching the pivot and every target gain $t$, there are a response gain $r$
+and an anchor such that, beyond the anchor and for every level $\ell$ the
+perturbation achieves, the response achieves \emph{some} level $\rho$ with
+\[
+  \name{ScaleNear}(\rho,\; \name{response}(f,x,h)_n,\; 1)
+  \quad\text{and}\quad
+  \name{AtOrAfter}\bigl(\name{advance}(\ell,t),\; \name{advance}(\rho,r)\bigr).
+\]
+\end{definition}
+
+\begin{leancode}
+def ResponseScaleControlledAt
+    (f : MulReal → MulReal) (x : MulReal) : Prop :=
+  ∀ h : MulReal.Seq,
+    ApproachesPivot h →
+    ∀ targetGain : Depth,
+      ∃ responseGain : Depth,
+      ∃ anchor : Depth,
+        ∀ n : Depth,
+          Depth.AtOrAfter anchor n →
+          ∀ level : Depth,
+            MulReal.ScaleNear level (h n) 1 →
+            ∃ responseLevel : Depth,
+              MulReal.ScaleNear responseLevel
+                (response f x h n) 1 ∧
+              Depth.AtOrAfter
+                (Depth.advance level targetGain)
+                (Depth.advance responseLevel responseGain)
+\end{leancode}
+
+\begin{designnote}[A growth bound without subtraction]
+\label{Analysis:Growth:note:big-o}
+Read the concluding comparison numerically.  $\name{AtOrAfter}(a,b)$ is
+$\size{a} \leq \size{b}$ and $\size{\name{advance}(\ell,g)} = \size{\ell} +
+\size{g}$, so the condition is
+\[
+  \size{\ell} + \size{t} \;\leq\; \size{\rho} + \size{r},
+  \qquad\text{that is}\qquad
+  \size{\rho} \;\geq\; \size{\ell} + \size{t} - \size{r}.
+\]
+The response's level lags the perturbation's by at most the fixed amount
+$\size{r} - \size{t}$.  In the logarithmic chart of
+\texttt{PrimeTensor/Analysis/Derivative.lean}, where level $\ell$ is the
+tolerance $2^{-(\size{\ell}-1)}$, that reads
+\[
+  \bigl\lvert \log \name{response}_n \bigr\rvert
+    \;\leq\; 2^{\,\size{r}-\size{t}} \cdot
+      \bigl\lvert \log h_n \bigr\rvert
+    \quad\text{up to the dyadic rounding},
+\]
+which is the classical comparison $\Delta f = O(h)$ with
+$2^{\size{r}-\size{t}}$ as the constant.
+
+The inequality $\size{\rho} \geq \size{\ell} + \size{t} - \size{r}$ cannot be
+stated directly: $\name{Depth}$ carries no subtraction, and none could be
+added, since the depths start at one and a difference need not be positive.
+The definition therefore never forms it.  It advances \emph{both} sides ---
+the base level by $t$, the response level by $r$ --- and compares the two
+results in the tail order of \texttt{PrimeTensor/Completion.lean}, which is
+available.  Moving the deficit to the other side of the comparison turns a
+subtraction into an addition, and addition of depths is what $\name{advance}$
+already is.
+
+This is worth setting against
+\texttt{PrimeTensor/Analysis/Chain.lean}, which introduced admissibility as a
+hypothesis on the ground that the required big-$O$ comparison had no expression
+in the vocabulary.  That was true of the vocabulary as used there --- a single
+level advanced by a gain, which can only be made finer --- but not of the
+vocabulary as a whole.  Advancing both levels and comparing recovers exactly
+the missing relation, which is what this file is for.
+\end{designnote}
+
+\begin{remark}[Where each quantifier sits]\label{Analysis:Growth:rem:quantifiers}
+The response gain $r$ and the anchor are chosen after the perturbation and the
+target gain but before the stage $n$ and the base level $\ell$, so a single $r$
+must serve at every stage and every level --- the constant in the bound is
+uniform.  The response level $\rho$, by contrast, is chosen after $\ell$, as it
+must be, since how fine the response is depends on how fine the perturbation
+is.  And the condition is stated per perturbation: a function may be
+response-scale controlled with different constants along different $h$.
+\end{remark}
+
+\subsection{It implies admissibility}
+
+\begin{theorem}[\lean{chainAdmissible\_of\_responseScaleControlled}]
+\label{Analysis:Growth:thm:implies}
+For every $f$ and $x$,
+\[
+  \name{ResponseScaleControlledAt}(f,x)
+  \;\longrightarrow\;
+  \name{ChainAdmissibleAt}(f,x).
+\]
+\end{theorem}
+
+\begin{proof}
+Let $h$ approach the pivot, let $\name{error}$ be negligible relative to the
+response, and let a target gain $t$ be requested.  Take the response gain $r$
+and the control anchor supplied by the hypothesis at $t$, take the anchor
+supplied by negligibility \emph{at the gain $r$}, and join the two.
+
+Beyond the join, suppose the base achieves level $\ell$ at stage $n$.  The
+control produces a response level $\rho$ at which the response is near the
+pivot, together with the comparison
+$\name{AtOrAfter}(\name{advance}(\ell,t), \name{advance}(\rho,r))$.  Feeding
+$\rho$ to the negligibility hypothesis --- legitimate, since the response is
+near the pivot at $\rho$ --- puts $\name{error}_n$ near the pivot at
+$\name{advance}(\rho,r)$.  The comparison says that level is at or after
+$\name{advance}(\ell,t)$, so weakening once by $\name{scaleNear\_weaken}$ of
+\texttt{PrimeTensor/Analysis/Control.lean} delivers the required
+$\name{advance}(\ell,t)$.
+\end{proof}
+
+\begin{remark}[Monotonicity, spent a second time]\label{Analysis:Growth:rem:monotone}
+The last step is the whole reason the comparison is stated in the tail order
+rather than as an equation.  Having proved the error at some level, the proof
+needs it at a possibly coarser one, and that is precisely the nesting of levels
+established in \texttt{PrimeTensor/Analysis/Control.lean}.  The pattern is now
+familiar: a bound is obtained at whatever level the machinery produces, and
+monotonicity converts it to the level that was asked for.
+\end{remark}
+
+\subsection{The two base cases}
+
+\begin{lemma}[\lean{responseScaleControlledAt\_identity} and
+  \lean{responseScaleControlledAt\_constant}]
+\label{Analysis:Growth:lem:examples}
+The identity map, and every constant map, are response-scale controlled at
+every point.
+\end{lemma}
+
+\begin{proof}
+In both cases take the response gain equal to the target gain, the anchor
+$\ctor{one}$, and the response level equal to the base level $\ell$; the
+comparison is then between $\name{advance}(\ell,t)$ and itself, discharged by
+$\ctor{here}$.
+
+What differs is the first component.  For the identity the response at stage
+$n$ is $\name{ratio}(x h_n, x) = h_n$, so it is near the pivot at $\ell$
+exactly because the perturbation is --- the hypothesis is handed back
+unchanged.  For a constant the response is $\name{ratio}(c,c) = 1$, near the
+pivot at every level by reflexivity, and the hypothesis is discarded.
+\end{proof}
+
+The docstrings distinguish the two as \emph{exact} and \emph{maximal} control,
+and the distinction is real even though the witnesses coincide: the identity
+attains the bound with constant $1$ and could not do better, whereas the
+constant map would satisfy the condition for any response gain whatever, its
+response being the pivot on the nose.
+
+\subsection{The chain rule, restated}
+
+\begin{theorem}[\lean{hasMulDerivativeAt\_comp\_of\_responseScaleControlled}]
+\label{Analysis:Growth:thm:chain}
+Suppose $f$ has derivative $D_f$ at $x$ with $D_f$ scale controlled, $f$ is
+response-scale controlled at $x$, and $g$ has derivative $D_g$ at $f(x)$ with
+$D_g$ scale controlled.  Then $g \circ f$ has derivative
+$\name{comp}(D_g,D_f)$ at $x$.
+\end{theorem}
+
+\begin{proof}
+Convert the third hypothesis by Theorem~\ref{Analysis:Growth:thm:implies} and
+apply the chain rule of \texttt{PrimeTensor/Analysis/Chain.lean}.
+\end{proof}
+
+\begin{remark}[What has changed and what has not]\label{Analysis:Growth:rem:what-changed}
+All five hypotheses are now first-order conditions on $f$, $g$ and their
+tangent maps: two are boundedness of a tangent map, two are differentiability,
+and the fifth is a growth bound on a response.  None quantifies over error
+germs.  That is the whole improvement, and it is a real one --- an assumption
+about all possible errors has become an assumption about one specific germ.
+
+The underlying proof is unchanged; $\name{ChainAdmissibleAt}$ remains the
+notion the chain rule actually consumes, and this theorem is a wrapper.  No
+converse is proved, so the two conditions are not known to be equivalent, and
+nothing rules out an $f$ that is admissible without being response-scale
+controlled.
+\end{remark}
+
+\begin{remark}[Still no nontrivial instance]\label{Analysis:Growth:rem:instances}
+Response-scale control is verified for the identity and for constants and for
+nothing else.  It is not shown closed under products, inverses, powers or
+composition, and neither is $\name{ChainAdmissibleAt}$.  So
+Theorem~\ref{Analysis:Growth:thm:chain} can still be discharged only where
+\texttt{PrimeTensor/Analysis/Chain.lean} could --- with $f$ the identity or,
+now, a constant --- and in both of those the composite's derivative was already
+known from \texttt{PrimeTensor/Analysis/Examples.lean}.  The closure lemmas that
+would make the rule usable are not in this file.
+\end{remark}
+
+\subsection*{Summary of the correspondence}
+
+\begin{center}
+\small
+\begin{tabular}{@{}lll@{}}
+\hline
+Lean declaration & Kind & Here \\
+\hline
+\lean{ResponseScaleControlledAt}    & definition & Def.~\ref{Analysis:Growth:def:rsc} \\
+\lean{chainAdmissible\_of\_responseScaleControlled} & theorem & Thm.~\ref{Analysis:Growth:thm:implies} \\
+\lean{responseScaleControlledAt\_identity} & theorem & Lem.~\ref{Analysis:Growth:lem:examples} \\
+\lean{responseScaleControlledAt\_constant} & theorem & Lem.~\ref{Analysis:Growth:lem:examples} \\
+\lean{hasMulDerivativeAt\_comp\_of\_responseScaleControlled} & theorem & Thm.~\ref{Analysis:Growth:thm:chain} \\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent
+Every declaration of \texttt{PrimeTensor/Analysis/Growth.lean} appears above.
+The file contains no \lean{sorry}, no axiom, and no unproved named proposition.
+Design note~\ref{Analysis:Growth:note:big-o} and
+Remarks~\ref{Analysis:Growth:rem:quantifiers},
+\ref{Analysis:Growth:rem:monotone}, \ref{Analysis:Growth:rem:what-changed}
+and~\ref{Analysis:Growth:rem:instances} are stated for the reader and are not
+declarations of the file; the numerical and logarithmic readings of the
+comparison are glosses and are not formalised.
