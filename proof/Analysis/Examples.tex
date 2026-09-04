@@ -1,0 +1,263 @@
+% Prose rendering of PrimeTensor/Analysis/Examples.lean.
+% Fragment: no \documentclass, no preamble, no document environment.
+
+\section{Derived rules and positive-depth powers}
+\label{Analysis:Examples:sec}
+
+\leanfile{PrimeTensor/Analysis/Examples.lean}
+
+\subsection*{What this file establishes}
+
+Nothing in this file is new analysis, and the module header says so: it
+develops the consequences that require no further continuity assumption.  Three
+derivatives are computed --- of a ratio, of the reciprocal map, and of every
+positive-depth power --- and all three are assembled from the product and
+inversion rules of \texttt{PrimeTensor/Analysis/Rules.lean} and the two exact
+examples of \texttt{PrimeTensor/Analysis/Derivative.lean}.
+
+The substantive content is the power operation.  \texttt{PrimeTensor/Structure.lean}
+rejected Lean's $\ctor{CommGroup}$ partly because it would equip the carrier
+with a natural-power field defined at $0$; this file supplies the replacement,
+a power indexed by $\name{Depth}$ with no zeroth case.  The power rule that
+results, Theorem~\ref{Analysis:Examples:thm:power}, therefore has --- in the
+docstring's words --- no zeroth case to prove or even state.
+
+\subsection{Positive-depth powers}
+
+\begin{definition}[\lean{MulReal.depthPow}]\label{Analysis:Examples:def:pow}
+For $a : \name{MulReal}$, define $\name{depthPow}(a,-) : \name{Depth} \to
+\name{MulReal}$ by
+\[
+  \name{depthPow}(a, \ctor{one}) = a,
+  \qquad
+  \name{depthPow}(a, \ctor{succ}\,d) = a \cdot \name{depthPow}(a, d),
+\]
+so that $\name{depthPow}(a,d) = a^{\size{d}}$.  Two $\ctor{simp}$ lemmas,
+$\name{depthPow\_one}$ and $\name{depthPow\_succ}$, record the two equations,
+both by $\ctor{rfl}$.
+\end{definition}
+
+\begin{leancode}
+def depthPow (a : MulReal) : Depth → MulReal
+  | .one => a
+  | .succ d => a * depthPow a d
+\end{leancode}
+
+\begin{remark}[Two Depth-indexed iterations, doing different jobs]
+\label{Analysis:Examples:rem:two-iterations}
+This is the second operation in the development defined by recursion on a
+depth, and it is worth setting beside the first.  $\name{scalePow}$ of
+\texttt{PrimeTensor/Scale.lean} \emph{squares} at each successor and so reaches
+exponent $2^{\size{d}-1}$ in $\size{d}$ steps; $\name{depthPow}$ multiplies by
+one more copy and so reaches exponent $\size{d}$ in $\size{d}$ steps.  The
+first climbs geometrically because it is measuring tolerances, which have to
+become fine quickly; the second climbs linearly because it is an exponent,
+which has to be able to take every positive value.  The same index type is
+carrying two quite different scales, and only the linear one is a power in the
+ordinary sense.
+\end{remark}
+
+\begin{designnote}[The zeroth power, promised absent and now absent]
+\label{Analysis:Examples:note:no-zero}
+\texttt{PrimeTensor/Structure.lean} declined $\ctor{CommGroup}$ on the ground
+that $\ctor{Monoid}$ carries an $\ctor{npow}$ field defined at $0$, which would
+reintroduce at the level of the carrier the zeroth index that
+\texttt{PrimeTensor/Depth.lean} had excluded.  Declining a library operation is
+only half a decision; this file completes it by defining the operation the
+development actually wants.
+
+The consequence is visible in Theorem~\ref{Analysis:Examples:thm:power}.  An
+induction over $\mathbb{N}$ would have a base case $a^{0} = 1$ with derivative
+$\name{trivial}$, and the statement would have to be checked there.  The
+induction here starts at $\ctor{one}$, where the power is $a$ itself and the
+derivative is $\name{identity}$ --- a case that carries content rather than
+being a degenerate convention.  Nothing is lost: every exponent the additive
+version could state, except $0$, is a depth.
+\end{designnote}
+
+\subsection{Derived tangent maps}
+
+\begin{definition}[\lean{MulTangentMap.ratio}]\label{Analysis:Examples:def:tratio}
+$\name{ratio}(D,E) \defeq \name{mul}(D, \name{inv}(E))$, with
+$\name{ratio}(D,E)(h) = D(h)\,E(h)^{-1}$ by $\ctor{rfl}$.
+\end{definition}
+
+No verification is needed: the two operations of
+\texttt{PrimeTensor/Analysis/Rules.lean} already produce tangent maps, so their
+composite does too.  As the docstring notes, the ratio is built only from
+product and inversion, introducing no third primitive on tangent maps --- the
+same discipline \texttt{PrimeTensor/Structure.lean} applied in refusing
+$\ctor{Div}$ on the carrier.
+
+\begin{definition}[\lean{MulTangentMap.depthPow}]\label{Analysis:Examples:def:tpow}
+\[
+  \name{depthPow}(\ctor{one}) = \name{identity},
+  \qquad
+  \name{depthPow}(\ctor{succ}\,d) =
+    \name{mul}(\name{identity},\, \name{depthPow}(d)).
+\]
+\end{definition}
+
+\begin{leancode}
+def depthPow : Depth → MulTangentMap
+  | .one => identity
+  | .succ d => mul identity (depthPow d)
+\end{leancode}
+
+\begin{lemma}[\lean{MulTangentMap.depthPow\_apply}]
+\label{Analysis:Examples:lem:tpow-apply}
+$\name{depthPow}(d)(h) = \name{depthPow}(h, d)$: the $d$-th power tangent map
+sends a perturbation to its own $d$-th power.
+\end{lemma}
+
+\begin{leancode}
+theorem depthPow_apply (d : Depth) (h : MulReal) :
+    depthPow d h = MulReal.depthPow h d := by
+  induction d with
+  | one =>
+      rfl
+  | succ d ih =>
+      change h * depthPow d h = h * MulReal.depthPow h d
+      rw [ih]
+\end{leancode}
+
+\begin{proof}
+By induction on $d$.  At $\ctor{one}$ both sides are $h$.  At
+$\ctor{succ}\,d$ both sides unfold to $h$ times the respective value at $d$,
+and the induction hypothesis identifies those.
+\end{proof}
+
+\begin{remark}[Stated but unused here]\label{Analysis:Examples:rem:unused}
+Lemma~\ref{Analysis:Examples:lem:tpow-apply} is not cited by
+Theorem~\ref{Analysis:Examples:thm:power}, whose proof unfolds both power
+operations definitionally with $\ctor{change}$ and never needs the two to be
+identified as terms.  The lemma is there to be quotable, and to record for the
+reader that the two recursions --- one on the carrier, one on tangent maps ---
+compute the same thing.
+\end{remark}
+
+\subsection{Three derivatives}
+
+\begin{theorem}[\lean{hasMulDerivativeAt\_ratio}]
+\label{Analysis:Examples:thm:ratio}
+If $f$ has derivative $D_f$ at $x$ and $g$ has derivative $D_g$ at $x$, then
+$y \mapsto \name{ratio}(f(y), g(y))$ has derivative
+$\name{ratio}(D_f, D_g)$ at $x$.
+\end{theorem}
+
+\begin{proof}
+Unfold both ratios to a product with an inverse and compose the two rules of
+\texttt{PrimeTensor/Analysis/Rules.lean}.  The proof is one line because both
+ratios were \emph{defined} as that composite, on the carrier and on tangent
+maps alike; had either been a primitive, this would have been a third rule to
+prove rather than a corollary.
+\end{proof}
+
+\begin{corollary}[\lean{hasMulDerivativeAt\_reciprocal}]
+\label{Analysis:Examples:cor:reciprocal}
+$y \mapsto y^{-1}$ has derivative $\name{inv}(\name{identity})$ at every point.
+\end{corollary}
+
+\begin{proof}
+Apply the inversion rule to the identity derivative.
+\end{proof}
+
+\begin{theorem}[\lean{hasMulDerivativeAt\_depthPow}]
+\label{Analysis:Examples:thm:power}
+For every depth $d$ and every $x$, the map $y \mapsto \name{depthPow}(y,d)$ has
+derivative $\name{depthPow}(d)$ at $x$.
+\end{theorem}
+
+\begin{proof}
+By structural recursion on $d$.  At $\ctor{one}$ the map is the identity and
+the claim is the identity derivative of
+\texttt{PrimeTensor/Analysis/Derivative.lean}.  At $\ctor{succ}\,d$ the map is
+$y \mapsto y \cdot \name{depthPow}(y,d)$ and the model is
+$\name{mul}(\name{identity}, \name{depthPow}(d))$, so the product rule applies
+to the identity derivative and the recursive call.
+\end{proof}
+
+\begin{designnote}[The derivative of a power does not depend on the point]
+\label{Analysis:Examples:note:elasticity}
+Theorem~\ref{Analysis:Examples:thm:power} gives one tangent map that works at
+\emph{every} $x$, and by Lemma~\ref{Analysis:Examples:lem:tpow-apply} that map
+is $h \mapsto h^{\size{d}}$.  The additive statement is
+$(y^{n})' = n\,y^{\,n-1}$, which depends on $y$.  The discrepancy is not an
+error on either side; it is the difference between two derivatives.
+
+In the chart of \texttt{PrimeTensor/Analysis/Derivative.lean}, where both the
+argument and the value are read logarithmically, the quantity being computed is
+$\dfrac{d}{du}\Bigl[\log f\bigl(x e^{u}\bigr)\Bigr]_{u=0}
+ = \dfrac{x f'(x)}{f(x)}$, the elasticity of $f$ at $x$.  For $f(y) = y^{n}$
+that is the constant $n$, independent of $x$ --- which is exactly what the
+theorem says, since $\log$ of $h \mapsto h^{n}$ is multiplication by $n$.
+
+The whole family computed so far reads off in the same currency: elasticity $1$
+for the identity, $0$ for a constant, $-1$ for the reciprocal, $n$ for the
+$n$-th power, the sum of the elasticities for a product, and their difference
+for a ratio.  Every rule proved in
+\texttt{PrimeTensor/Analysis/Rules.lean} and in this file is the additivity of
+elasticity, which is why none of them carries a Leibniz term and why none of
+them mentions the point.  Nothing in this paragraph is formalised.
+\end{designnote}
+
+\begin{remark}[The negligibility machinery is still untouched]
+\label{Analysis:Examples:rem:still-exact}
+Every derivative known at the end of this file is obtained from
+$\name{identity}$ and $\name{trivial}$ by products and inverses, so the
+functions covered are exactly those of the form $y \mapsto c \cdot y^{n}$ with
+$n$ an integer.  For such a function the response is
+\[
+  \frac{c\,(x h_k)^{n}}{c\,x^{n}} = h_k^{n},
+\]
+which is the model \emph{exactly}, with no error at all.  So every derivative
+computed in the development so far routes through
+$\name{firstOrder\_of\_exact}$, and $\name{NegligibleRelative}$ --- defined in
+\texttt{PrimeTensor/Analysis/Derivative.lean} and equipped with closure
+properties in \texttt{PrimeTensor/Analysis/Rules.lean} --- has still never been
+applied to a nonzero error.  The first function needing it is not in this file.
+\end{remark}
+
+\begin{remark}[What is not proved]\label{Analysis:Examples:rem:missing}
+$\name{depthPow}$ on the carrier is given no laws: neither
+$a^{m}a^{n} = a^{m+n}$, nor $(ab)^{n} = a^{n}b^{n}$, nor
+$(a^{m})^{n} = a^{mn}$ is stated, and $\name{Depth}$ carries no addition or
+multiplication with which to state the first and third.  Negative powers exist
+only as $(a^{n})^{-1}$, with no lemma identifying them with anything.  There is
+still no chain rule and still no uniqueness of derivatives.
+\end{remark}
+
+\subsection*{Summary of the correspondence}
+
+\begin{center}
+\small
+\begin{tabular}{@{}lll@{}}
+\hline
+Lean declaration & Kind & Here \\
+\hline
+\lean{MulReal.depthPow}                   & definition & Def.~\ref{Analysis:Examples:def:pow} \\
+\lean{MulReal.depthPow\_one}              & simp thm   & Def.~\ref{Analysis:Examples:def:pow} \\
+\lean{MulReal.depthPow\_succ}             & simp thm   & Def.~\ref{Analysis:Examples:def:pow} \\
+\lean{MulTangentMap.ratio}                & definition & Def.~\ref{Analysis:Examples:def:tratio} \\
+\lean{MulTangentMap.ratio\_apply}         & simp thm   & Def.~\ref{Analysis:Examples:def:tratio} \\
+\lean{MulTangentMap.depthPow}             & definition & Def.~\ref{Analysis:Examples:def:tpow} \\
+\lean{MulTangentMap.depthPow\_one\_apply} & simp thm   & Def.~\ref{Analysis:Examples:def:tpow} \\
+\lean{MulTangentMap.depthPow\_apply}      & theorem    & Lem.~\ref{Analysis:Examples:lem:tpow-apply} \\
+\lean{hasMulDerivativeAt\_ratio}          & theorem    & Thm.~\ref{Analysis:Examples:thm:ratio} \\
+\lean{hasMulDerivativeAt\_reciprocal}     & theorem    & Cor.~\ref{Analysis:Examples:cor:reciprocal} \\
+\lean{hasMulDerivativeAt\_depthPow}       & theorem    & Thm.~\ref{Analysis:Examples:thm:power} \\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent
+Every declaration of \texttt{PrimeTensor/Analysis/Examples.lean} appears above.
+The file contains no \lean{sorry}, no axiom, and no unproved named proposition.
+Design notes~\ref{Analysis:Examples:note:no-zero}
+and~\ref{Analysis:Examples:note:elasticity} and
+Remarks~\ref{Analysis:Examples:rem:two-iterations},
+\ref{Analysis:Examples:rem:unused},
+\ref{Analysis:Examples:rem:still-exact}
+and~\ref{Analysis:Examples:rem:missing} are stated for the reader and are not
+declarations of the file; the elasticity reading is a gloss and is not
+formalised.
