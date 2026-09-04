@@ -1,0 +1,281 @@
+% Prose rendering of PrimeTensor/Analysis/Limit.lean.
+% Fragment: no \documentclass, no preamble, no document environment.
+
+\section{Intrinsic convergence on the completed carrier}
+\label{Analysis:Limit:sec}
+
+\leanfile{PrimeTensor/Analysis/Limit.lean}
+
+\subsection*{What this file establishes}
+
+$\name{MulReal}$ has so far been an algebraic object: a commutative carrier in
+the sense of \texttt{PrimeTensor/Structure.lean}, receiving a
+structure-preserving map from $\name{MulRat}$.  Nothing has related its
+elements to the scale they were built from.  This file supplies the missing
+analytic vocabulary --- a nearness relation on completed points and a notion of
+convergence for sequences of them --- and proves the one theorem that makes the
+construction deserve the name completion:
+\[
+  \text{for every Cauchy stream } a, \qquad
+  \name{ofRat}(a_n) \longrightarrow [a] .
+\]
+That is, the embedded rational terms of a Cauchy stream converge to the point
+that stream represents.  Read the other way, it says that
+$\name{ofRat}(\name{MulRat})$ is dense in $\name{MulReal}$: every completed
+point is a limit of embedded rationals, with an explicit sequence exhibiting it.
+
+The design question the file has to answer is how to transport a relation
+defined on representatives across a quotient whose relation is not itself the
+one being transported.  Its answer --- quantify existentially over
+representatives --- is what
+Design note~\ref{Analysis:Limit:note:existential} is about, and it is what
+makes the central theorem cost nothing.
+
+\subsection{Nearness of completed points}
+
+\begin{definition}[\lean{MulReal.ScaleNear}]\label{Analysis:Limit:def:scalenear}
+Completed points $x$ and $y$ are \emph{near at level $\ell$} when there exist
+Cauchy streams $a$ and $b$ with $[a] = x$ and $[b] = y$, and an anchor beyond
+which their terms are $\name{ScaleWithin}(\ell,-,-)$.
+\end{definition}
+
+\begin{leancode}
+def ScaleNear (level : Depth) (x y : MulReal) : Prop :=
+  ∃ a b : MulCauchyStream,
+    ofStream a = x ∧
+    ofStream b = y ∧
+    ∃ anchor : Depth,
+      ∀ n : Depth,
+        Depth.AtOrAfter anchor n →
+        MulRat.ScaleWithin level (a.term n) (b.term n)
+\end{leancode}
+
+\begin{designnote}[Existential, not universal, over representatives]
+\label{Analysis:Limit:note:existential}
+A relation on representatives descends to a quotient when it is invariant
+under the quotient's own relation.  $\name{ScaleWithin}$ at a fixed level is
+not: two streams asymptotic in the sense of
+\texttt{PrimeTensor/Completion.lean} agree only up to the composition law of
+\texttt{PrimeTensor/Scale/Laws.lean}, and that law consumes a level each time
+it is used.  Replacing representatives therefore cannot be free at a fixed
+level, and a relation defined by ``\emph{for all} representatives'' and one
+defined by ``\emph{there exist} representatives'' are genuinely different
+propositions here, the second being the weaker.
+
+The file takes the weaker one deliberately --- the docstring calls the choice
+part of the quotient semantics.  The consequence, visible immediately below, is
+that establishing $\name{ScaleNear}$ means exhibiting one convenient pair of
+representatives rather than controlling every pair, and the central theorem
+gets to choose the pair that makes it trivial.  The price is paid in what can
+be proved \emph{about} the relation, and
+Remark~\ref{Analysis:Limit:rem:not-transitive} is the bill.
+
+Note also what is not introduced.  There is no metric, no distance function,
+and no additive $\varepsilon$: nearness is a family of relations indexed by
+depth, exactly as at the $\name{MulRat}$ layer, and the index is the same
+$\name{Depth}$ that indexes the sequences.
+\end{designnote}
+
+\begin{lemma}[\lean{MulReal.scaleNear\_refl} and \lean{scaleNear\_symm}]
+\label{Analysis:Limit:lem:refl-symm}
+$\name{ScaleNear}(\ell, x, x)$ for every level and every $x$; and
+$\name{ScaleNear}(\ell,x,y)$ implies $\name{ScaleNear}(\ell,y,x)$.
+\end{lemma}
+
+\begin{proof}
+For reflexivity, induct to choose a representative $a$ of $x$ and offer the
+pair $(a,a)$, with anchor $\ctor{one}$ so the tail is everything; each term
+comparison is $\name{scaleWithin\_refl}$.  For symmetry, take the witnessing
+pair supplied by the hypothesis, exchange its two components together with the
+two identifications, keep the anchor and the level, and apply
+$\name{scaleWithin\_symm}$ termwise.
+\end{proof}
+
+\begin{remark}[Transitivity is not proved, at any level]
+\label{Analysis:Limit:rem:not-transitive}
+$\name{ScaleWithin}$ was not transitive at a fixed level either, but it had the
+level-shifted substitute of \texttt{PrimeTensor/Scale/Laws.lean}.  No analogue
+is proved here, and the obstruction is exactly the existential of
+Design note~\ref{Analysis:Limit:note:existential}: a witness for
+$\name{ScaleNear}(\ell,x,y)$ names some representative of $y$, a witness for
+$\name{ScaleNear}(\ell,y,z)$ names \emph{some other} one, and the two need not
+be the same stream.  Chaining them requires first crossing from one
+representative of $y$ to the other, which is possible --- they are asymptotic,
+so they are eventually close at every level --- but costs a further application
+of the composition law, and then a comparison between two different levels,
+which is the monotonicity statement that
+\texttt{PrimeTensor/Scale/Laws.lean} left unproved.  So a level-shifted
+transitivity is plausible and is not available off the shelf.  Nothing below
+needs it.
+\end{remark}
+
+\subsection{Convergence}
+
+\begin{definition}[\lean{MulReal.Seq} and \lean{MulReal.ConvergesTo}]
+\label{Analysis:Limit:def:converges}
+A \emph{sequence} is a function $s : \name{Depth} \to \name{MulReal}$, and
+$s$ \emph{converges to} $x$ when
+\[
+  \forall\, \ell\; \exists\, c\; \forall\, n :
+    \name{AtOrAfter}(c,n) \longrightarrow \name{ScaleNear}(\ell, s_n, x).
+\]
+\end{definition}
+
+\begin{leancode}
+def ConvergesTo (s : Seq) (x : MulReal) : Prop :=
+  ∀ level : Depth,
+    ∃ anchor : Depth,
+      ∀ n : Depth,
+        Depth.AtOrAfter anchor n →
+        ScaleNear level (s n) x
+\end{leancode}
+
+The shape is the one used twice already --- for $\name{IsMulCauchy}$ and for
+$\name{MulAsymptotic}$ in \texttt{PrimeTensor/Completion.lean} --- with
+$\name{ScaleNear}$ in place of $\name{ScaleWithin}$: for every level a tail on
+which the requirement holds, with the level and the tail anchor both depths and
+nothing else quantified.
+
+\begin{lemma}[\lean{MulReal.converges\_constant}]\label{Analysis:Limit:lem:constant}
+The constant sequence at $x$ converges to $x$.
+\end{lemma}
+
+\begin{proof}
+Anchor $\ctor{one}$, and each requirement is
+Lemma~\ref{Analysis:Limit:lem:refl-symm}.
+\end{proof}
+
+\begin{lemma}[\lean{MulReal.ofStream\_eq\_of\_asymptotic}]
+\label{Analysis:Limit:lem:sound}
+Asymptotic streams represent the same completed point.
+\end{lemma}
+
+\begin{proof}
+This is $\ctor{Quotient.sound}$ for the setoid of
+\texttt{PrimeTensor/Completion.lean}, named so that later proofs can rewrite
+along it.
+\end{proof}
+
+\subsection{The convergence theorem}
+
+\begin{theorem}[\lean{MulReal.terms\_converge}]\label{Analysis:Limit:thm:main}
+For every Cauchy stream $a$, the sequence $n \mapsto \name{ofRat}(a_n)$
+converges to $[a]$.
+\end{theorem}
+
+\begin{leancode}
+theorem terms_converge (a : MulCauchyStream) :
+    ConvergesTo (fun n => ofRat (a.term n)) (ofStream a) := by
+  intro level
+  obtain ⟨anchor, hcauchy⟩ := a.cauchy level
+  refine ⟨anchor, ?_⟩
+  intro n hn
+  refine ⟨MulCauchyStream.constant (a.term n), a, rfl, rfl, anchor, ?_⟩
+  intro k hk
+  exact hcauchy n k hn hk
+\end{leancode}
+
+\begin{proof}
+Fix a level $\ell$ and let $c$ be the anchor supplied by the Cauchy property of
+$a$ \emph{at that same level} --- not at $\ctor{succ}\,\ell$.  Take $c$ as the
+anchor for the convergence claim as well.
+
+Let $n$ be at or after $c$.  To witness
+$\name{ScaleNear}(\ell, \name{ofRat}(a_n), [a])$, offer the pair consisting of
+the constant stream at $a_n$ and the stream $a$ itself.  The two
+identifications are $\ctor{rfl}$: $\name{ofRat}(q)$ was defined in
+\texttt{PrimeTensor/Completion.lean} as the class of the constant stream at
+$q$, and the second component is $a$ unchanged.  Take $c$ once more as the
+anchor of the witness.  For $k$ at or after $c$, the required comparison is
+\[
+  \name{ScaleWithin}\bigl(\ell,\; (\name{constant}(a_n))_k,\; a_k\bigr)
+  \;=\;
+  \name{ScaleWithin}(\ell,\, a_n,\, a_k),
+\]
+and both $n$ and $k$ lie in the tail at $c$, so this is precisely the Cauchy
+property of $a$ at $\ell$ applied to the pair $(n,k)$.
+\end{proof}
+
+\begin{remark}[The proof costs nothing, and why]\label{Analysis:Limit:rem:free}
+No level is spent: the Cauchy property is invoked at $\ell$ and the conclusion
+is at $\ell$.  No $\name{join}$ of anchors appears; one anchor serves for the
+convergence claim and for every witness.  The whole theorem is the Cauchy
+property of $a$, re-read.
+
+That is the payoff of
+Design note~\ref{Analysis:Limit:note:existential}.  The witnessing pair may be
+chosen, and the choice made here --- compare the constant stream at $a_n$
+against $a$ itself, rather than against some other representative --- turns the
+statement ``the $n$-th embedded term is near the limit'' into the statement
+``$a_n$ is close to $a_k$ for large $k$'', which is what being Cauchy says.
+Under a universally quantified $\name{ScaleNear}$ the same argument would have
+to survive an arbitrary change of representative on both sides, and would spend
+levels doing it.
+\end{remark}
+
+\begin{corollary}[\lean{MulReal.terms\_converge\_of\_asymptotic}]
+\label{Analysis:Limit:cor:asymptotic}
+If $a$ and $b$ are asymptotic then $n \mapsto \name{ofRat}(a_n)$ converges to
+$[b]$.
+\end{corollary}
+
+\begin{proof}
+$[a] = [b]$ by Lemma~\ref{Analysis:Limit:lem:sound}; rewrite the target and
+apply Theorem~\ref{Analysis:Limit:thm:main}.
+\end{proof}
+
+\begin{remark}[Density, and the half of completeness this is]
+\label{Analysis:Limit:rem:density}
+Theorem~\ref{Analysis:Limit:thm:main} says every completed point is a limit of
+embedded rationals, and it does more than assert existence: the approximating
+sequence is exhibited, being the terms of any representative.  That is the
+density half of the statement that $\name{MulReal}$ completes $\name{MulRat}$.
+
+The other half --- that $\name{MulReal}$ is itself complete, every Cauchy
+sequence of completed points converging in $\name{MulReal}$ --- is not proved,
+and cannot yet be stated: $\name{IsMulCauchy}$ is a predicate on
+$\name{MulRat}$-valued streams, and no Cauchy condition for a
+$\name{MulReal}$-valued $\name{Seq}$ is defined anywhere in the file.  The
+vocabulary for the second half is missing, not merely its proof.
+\end{remark}
+
+\begin{remark}[Limits are not yet unique]\label{Analysis:Limit:rem:unique}
+$\name{ConvergesTo}$ is a relation, and nothing here makes it a function.  If
+$s$ converges to $x$ and to $y$, no lemma concludes $x = y$; the usual argument
+would combine the two through a transitivity that
+Remark~\ref{Analysis:Limit:rem:not-transitive} says is unavailable, and would
+then need the separation statement that two points near at every level are
+equal.  That statement is the same missing ingredient as the injectivity of
+$\name{ofRat}$, noted at the end of \texttt{PrimeTensor/Structure.lean}: both
+are the assertion that the ladder of levels actually separates points.  Until
+it is proved one may not speak of \emph{the} limit of a sequence, and this file
+never does.
+\end{remark}
+
+\subsection*{Summary of the correspondence}
+
+\begin{center}
+\small
+\begin{tabular}{@{}lll@{}}
+\hline
+Lean declaration & Kind & Here \\
+\hline
+\lean{MulReal.ScaleNear}          & definition & Def.~\ref{Analysis:Limit:def:scalenear} \\
+\lean{MulReal.scaleNear\_refl}    & theorem    & Lem.~\ref{Analysis:Limit:lem:refl-symm} \\
+\lean{MulReal.scaleNear\_symm}    & theorem    & Lem.~\ref{Analysis:Limit:lem:refl-symm} \\
+\lean{MulReal.Seq}                & abbrev     & Def.~\ref{Analysis:Limit:def:converges} \\
+\lean{MulReal.ConvergesTo}        & definition & Def.~\ref{Analysis:Limit:def:converges} \\
+\lean{MulReal.converges\_constant} & theorem   & Lem.~\ref{Analysis:Limit:lem:constant} \\
+\lean{MulReal.ofStream\_eq\_of\_asymptotic} & theorem & Lem.~\ref{Analysis:Limit:lem:sound} \\
+\lean{MulReal.terms\_converge}    & theorem    & Thm.~\ref{Analysis:Limit:thm:main} \\
+\lean{MulReal.terms\_converge\_of\_asymptotic} & theorem & Cor.~\ref{Analysis:Limit:cor:asymptotic} \\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent
+Every declaration of \texttt{PrimeTensor/Analysis/Limit.lean} appears above.
+The file contains no \lean{sorry}, no axiom, and no unproved named proposition.
+Remarks~\ref{Analysis:Limit:rem:not-transitive}, \ref{Analysis:Limit:rem:free},
+\ref{Analysis:Limit:rem:density} and~\ref{Analysis:Limit:rem:unique} are stated
+for the reader and are not declarations of the file.
