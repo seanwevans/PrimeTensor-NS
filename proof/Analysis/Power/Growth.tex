@@ -1,0 +1,351 @@
+% Prose rendering of PrimeTensor/Analysis/Power/Growth.lean.
+% Fragment: no \documentclass, no preamble, no document environment.
+
+\section{End-to-end response growth for positive-depth powers}
+\label{Analysis:Power:Growth:sec}
+
+\leanfile{PrimeTensor/Analysis/Power/Growth.lean}
+
+\subsection*{What this file establishes}
+
+\texttt{PrimeTensor/Analysis/Growth.lean} replaced the chain rule's transport
+assumption by a first-order growth condition, and verified that condition for
+the identity and for constants --- the two maps where it is vacuous.  This file
+supplies the first case with content: \emph{every positive-depth power is
+response-scale controlled}.  With it, all three hypotheses the chain rule
+places on an inner function are discharged for $y \mapsto y^{d}$, and the file
+closes by stating the resulting rule.
+
+A power costs refinement.  The $d$-th power is $\size{d} - 1$ multiplications,
+each of which spends one level by
+\texttt{PrimeTensor/Analysis/Near/Laws.lean}, so controlling $h^{d}$ at level
+$\ell$ requires controlling $h$ at level $\ell$ refined $\size{d}-1$ times.
+Recovering the level afterwards is a \emph{subtraction}, and $\name{Depth}$ has
+none.  The first half of the file builds the two transforms that encode the
+cost without one, and
+Design note~\ref{Analysis:Power:Growth:note:adjoint} is about the identity that
+makes them fit together.
+
+\subsection{Encoding a finite refinement cost}
+
+\begin{definition}[\lean{Depth.powerInput} and \lean{Depth.powerOutput}]
+\label{Analysis:Power:Growth:def:transforms}
+\begin{align*}
+  \name{powerInput}(\ctor{one}, \ell) &= \ell, &
+  \name{powerInput}(\ctor{succ}\,d, \ell)
+    &= \name{powerInput}(d, \ctor{succ}\,\ell), \\
+  \name{powerOutput}(\ctor{one}, \ell) &= \ell, &
+  \name{powerOutput}(\ctor{succ}\,d, \ctor{one}) &= \ctor{one}, \\
+  &&\name{powerOutput}(\ctor{succ}\,d, \ctor{succ}\,\ell)
+    &= \name{powerOutput}(d, \ell).
+\end{align*}
+\end{definition}
+
+\begin{leancode}
+def powerInput : Depth → Depth → Depth
+  | .one, level => level
+  | .succ d, level => powerInput d (.succ level)
+\end{leancode}
+
+Numerically,
+\[
+  \size{\name{powerInput}(d,\ell)} = \size{\ell} + \size{d} - 1,
+  \qquad
+  \size{\name{powerOutput}(d,\ell)}
+    = \max\bigl(\size{\ell} - (\size{d}-1),\; 1\bigr).
+\]
+The first adds the power's cost to a requested level; the second removes it,
+saturating at the coarsest level rather than running off the bottom, since as
+the docstring says there is no scale below $\ctor{one}$.  Both are defined by
+recursion and neither mentions a difference: $\name{powerInput}$ moves a
+$\ctor{succ}$ from the power onto the level, and $\name{powerOutput}$ cancels
+$\ctor{succ}$ against $\ctor{succ}$ and stops when the level runs out.
+
+\begin{lemma}[\lean{Depth.powerInput\_succ} and \lean{powerInput\_atOrAfter}]
+\label{Analysis:Power:Growth:lem:input}
+$\name{powerInput}(d, \ctor{succ}\,\ell) =
+ \ctor{succ}\,\name{powerInput}(d,\ell)$, and
+$\name{AtOrAfter}\bigl(\ell,\, \name{powerInput}(d,\ell)\bigr)$.
+\end{lemma}
+
+\begin{proof}
+Both by structural recursion on $d$.  The first says the two additions
+commute; the second says adding a cost only refines, and follows from the
+first by transitivity, one $\ctor{later}$ at a time.
+\end{proof}
+
+\begin{theorem}[\lean{Depth.powerInput\_output\_join}]
+\label{Analysis:Power:Growth:thm:adjoint}
+For all $d$ and $\ell$,
+\[
+  \name{powerInput}\bigl(d,\; \name{powerOutput}(d,\ell)\bigr)
+    = \name{join}\bigl(\ell,\; \name{powerInput}(d, \ctor{one})\bigr).
+\]
+\end{theorem}
+
+\begin{proof}
+By simultaneous recursion on $d$ and $\ell$; three of the four cases are
+$\ctor{rfl}$.  In the remaining case both arguments are successors, and the
+chain is: unfold both transforms one step; move the exposed $\ctor{succ}$ out
+of $\name{powerInput}$ by Lemma~\ref{Analysis:Power:Growth:lem:input}; apply
+the recursive case; observe that $\ctor{succ}$ of a join is the join of the
+successors; and move the $\ctor{succ}$ back inside $\name{powerInput}$.
+\end{proof}
+
+\begin{designnote}[Truncated subtraction, and why the floor is harmless]
+\label{Analysis:Power:Growth:note:adjoint}
+Numerically the theorem reads
+\[
+  \bigl(\size{\ell} - (\size{d}-1)\bigr)^{+} + (\size{d}-1)
+    = \max\bigl(\size{\ell},\, \size{d}\bigr),
+\]
+the standard identity for truncated subtraction: adding back what was
+truncated recovers the original value, or the truncation threshold, whichever
+is larger.  $\name{powerOutput}$ is a left adjoint to $\name{powerInput}$ in
+the order $\name{AtOrAfter}$, and this is the composite of the adjunction on
+one side.
+
+The identity is exactly what the main theorem needs, and the reason is worth
+stating.  Asked to control the response at level $\ell$, the proof offers the
+response level $\name{powerOutput}(d,\ell)$.  For that to be justified the
+perturbation must be controlled at $\name{powerInput}(d, \name{powerOutput}(d,
+\ell))$, which by the theorem is not $\ell$ --- it is $\ell$ joined with the
+power's minimum budget $\name{powerInput}(d,\ctor{one})$, that is, with
+$\size{d}$.  When $\ell$ is already at least that fine the join is $\ell$ and
+nothing is lost.  When it is not, the floor has bitten and more is being asked
+of the perturbation than the caller supplied.
+
+That is precisely why
+Theorem~\ref{Analysis:Power:Growth:thm:main} opens by extracting an anchor
+beyond which the perturbation is near the pivot at the minimum budget.  The
+convergence hypothesis on $h$ pays for the floor, once, at the start; after
+that the join is available for free at every stage and the adjunction closes.
+\end{designnote}
+
+\begin{lemma}[Three facts about \lean{Depth.advance}]
+\label{Analysis:Power:Growth:lem:advance}
+Advancing preserves the order in the base, and
+\begin{align*}
+  \name{advance}(\ctor{succ}\,\ell,\, g)
+    &= \ctor{succ}\,\name{advance}(\ell,\,g), \\
+  \name{advance}\bigl(\name{powerInput}(d,\ell),\, g\bigr)
+    &= \name{advance}\bigl(\ell,\, \name{powerInput}(d,g)\bigr).
+\end{align*}
+The three are $\name{advance\_base\_atOrAfter}$,
+$\name{advance\_succ\_base}$ and $\name{advance\_powerInput\_comm}$.
+\end{lemma}
+
+\begin{proof}
+The first two are recursions on the gain.  The third is a recursion on $d$
+using the first two; numerically both sides are
+$\size{\ell} + \size{g} + \size{d} - 1$, so it is the commutativity and
+associativity of adding three costs, proved by moving one $\ctor{succ}$ at a
+time.
+\end{proof}
+
+\texttt{PrimeTensor/Analysis/Control.lean} proved that advancing respects the
+order in the \emph{gain}; the first of these is the companion statement in the
+base, and both are needed because the main proof advances a comparison between
+two levels rather than between two gains.
+
+\begin{lemma}[\lean{Depth.join\_eq\_left\_or\_right} and
+  \lean{MulReal.scaleNear\_join}]\label{Analysis:Power:Growth:lem:join}
+$\name{join}(a,b)$ is equal to $a$ or to $b$.  Consequently, if $x$ and $y$ are
+near at level $a$ and also near at level $b$, they are near at
+$\name{join}(a,b)$.
+\end{lemma}
+
+\begin{proof}
+The first is a recursion on both arguments; being a maximum, the join is
+whichever argument attains it, and the recursion produces the disjunction.  The
+second then needs no combination argument at all: rewrite along whichever
+disjunct holds and hand back the corresponding hypothesis.
+\end{proof}
+
+\begin{remark}[A third property of \lean{join}]\label{Analysis:Power:Growth:rem:join}
+\texttt{PrimeTensor/Completion.lean} proved $\name{join}$ to be an upper bound
+of its two arguments and remarked that nothing more was proved or needed.  Here
+a third property appears, and it is stronger than it looks: a bound equal to
+one of the things it bounds is a \emph{least} upper bound.  The file does not
+say so, and uses the disjunction only to avoid having to combine two nearness
+facts --- which, given that $\name{ScaleNear}$ has no transitivity, would
+otherwise not be possible at all.
+\end{remark}
+
+\subsection{Powers on the carrier}
+
+\begin{lemma}[\lean{MulReal.depthPow\_mul}]\label{Analysis:Power:Growth:lem:pow-mul}
+$(ab)^{d} = a^{d} b^{d}$ for every depth $d$.
+\end{lemma}
+
+\begin{proof}
+By recursion on $d$.  At $\ctor{one}$ both sides are $ab$.  At
+$\ctor{succ}\,d$ the claim unfolds to
+$(ab)(ab)^{d} = (a\,a^{d})(b\,b^{d})$; the recursive case rewrites the left
+factor's tail, and the four-factor regrouping of
+\texttt{PrimeTensor/Analysis/Rules.lean} finishes.
+\end{proof}
+
+\texttt{PrimeTensor/Analysis/Examples.lean} noted that $\name{depthPow}$ had
+been given no laws.  This is the first of them, and the only one the file
+needs; $a^{m}a^{n} = a^{m+n}$ is still absent, and still unstatable, since
+$\name{Depth}$ has no addition.
+
+\begin{theorem}[\lean{MulReal.scaleNear\_depthPow}]
+\label{Analysis:Power:Growth:thm:pow-near}
+If $h$ is near the pivot at $\name{powerInput}(d,\ell)$, then $h^{d}$ is near
+the pivot at $\ell$.
+\end{theorem}
+
+\begin{proof}
+By recursion on $d$.  At $\ctor{one}$ the power is $h$ and the input level is
+$\ell$, so the hypothesis is the conclusion.
+
+At $\ctor{succ}\,d$ the hypothesis is nearness at
+$\name{powerInput}(d, \ctor{succ}\,\ell)$.  Weakening it by
+Lemma~\ref{Analysis:Power:Growth:lem:input} and
+\texttt{PrimeTensor/Analysis/Control.lean} gives $h$ near the pivot at
+$\ctor{succ}\,\ell$; and the recursive case, applied to the same hypothesis at
+level $\ctor{succ}\,\ell$, gives $h^{d}$ near the pivot at $\ctor{succ}\,\ell$.
+Two facts at $\ctor{succ}\,\ell$ multiply to one at $\ell$, and
+$h \cdot h^{d} = h^{\ctor{succ}\,d}$.
+\end{proof}
+
+This is the quantitative statement that a power costs refinement, and the
+budget is exact: $\size{d}-1$ multiplications, one level each, is precisely the
+$\size{d}-1$ that $\name{powerInput}$ adds.
+
+\subsection{Response-scale control of a power}
+
+\begin{lemma}[\lean{response\_depthPow}]\label{Analysis:Power:Growth:lem:response}
+$\name{response}(y \mapsto y^{d},\, x,\, h)_n = (h_n)^{d}$.
+\end{lemma}
+
+\begin{proof}
+The response is $\name{ratio}\bigl((x h_n)^{d},\, x^{d}\bigr)$; expand the
+numerator by Lemma~\ref{Analysis:Power:Growth:lem:pow-mul} into
+$x^{d}\,(h_n)^{d}$, and the reconstruction identity of
+\texttt{PrimeTensor/Analysis/Derivative.lean} cancels $x^{d}$.
+\end{proof}
+
+An identity again, as
+\texttt{PrimeTensor/Analysis/Examples.lean} predicted for the whole monomial
+family.
+
+\begin{theorem}[\lean{responseScaleControlledAt\_depthPow}]
+\label{Analysis:Power:Growth:thm:main}
+For every $x$ and every depth $d$, the map $y \mapsto y^{d}$ is response-scale
+controlled at $x$.
+\end{theorem}
+
+\begin{proof}
+Let $h$ approach the pivot and let a target gain $t$ be requested.  Ask the
+convergence of $h$ for the level $\name{powerInput}(d,\ctor{one})$ --- the
+power's minimum budget --- and take the anchor it returns.  Offer
+$\name{powerInput}(d,t)$ as the response gain.
+
+Beyond the anchor, suppose $h_n$ is near the pivot at level $\ell$.  It is also
+near the pivot at the minimum budget, so by
+Lemma~\ref{Analysis:Power:Growth:lem:join} it is near at
+$\name{join}(\ell, \name{powerInput}(d,\ctor{one}))$.  Offer
+$\rho = \name{powerOutput}(d,\ell)$ as the response level.  Two things must be
+checked.
+
+\emph{The response is near the pivot at $\rho$.}  By
+Theorem~\ref{Analysis:Power:Growth:thm:adjoint} the joined level just obtained
+\emph{is} $\name{powerInput}(d,\rho)$, so
+Theorem~\ref{Analysis:Power:Growth:thm:pow-near} puts $(h_n)^{d}$ near the
+pivot at $\rho$, and Lemma~\ref{Analysis:Power:Growth:lem:response} identifies
+that with the response.
+
+\emph{The comparison holds.}  Again by
+Theorem~\ref{Analysis:Power:Growth:thm:adjoint},
+$\name{powerInput}(d,\rho)$ is a join with $\ell$ as one argument, so $\ell$
+lies at or before it.  Advance both by $t$, using the base-monotonicity of
+Lemma~\ref{Analysis:Power:Growth:lem:advance}, and then commute the advance
+past the input transform by the third part of the same lemma:
+\[
+  \name{advance}\bigl(\name{powerInput}(d,\rho),\, t\bigr)
+  = \name{advance}\bigl(\rho,\, \name{powerInput}(d,t)\bigr),
+\]
+whose right-hand side is $\rho$ advanced by the offered response gain.  That
+is exactly the required
+$\name{AtOrAfter}(\name{advance}(\ell,t), \name{advance}(\rho, r))$.
+\end{proof}
+
+\begin{corollary}[\lean{hasMulDerivativeAt\_comp\_depthPow}]
+\label{Analysis:Power:Growth:cor:chain}
+If $g$ has derivative $D_g$ at $x^{d}$ and $D_g$ is scale controlled, then
+$y \mapsto g(y^{d})$ has derivative
+$\name{comp}\bigl(D_g,\, \name{depthPow}(d)\bigr)$ at $x$.
+\end{corollary}
+
+\begin{proof}
+Apply the chain rule of \texttt{PrimeTensor/Analysis/Growth.lean}.  Its three
+hypotheses on the inner map are now all available: the derivative from
+\texttt{PrimeTensor/Analysis/Examples.lean}, the tangent control from
+\texttt{PrimeTensor/Analysis/Control.lean}, and the response-scale control from
+Theorem~\ref{Analysis:Power:Growth:thm:main}.
+\end{proof}
+
+\begin{remark}[The first chain rule with content]
+\label{Analysis:Power:Growth:rem:first}
+Both \texttt{PrimeTensor/Analysis/Chain.lean} and
+\texttt{PrimeTensor/Analysis/Growth.lean} closed with the observation that the
+rule could be discharged only for inner maps --- the identity, then also the
+constants --- where it says nothing.  Corollary~\ref{Analysis:Power:Growth:cor:chain}
+is the first instance that is not of that kind: the inner map genuinely
+distorts scale, by $\size{d}-1$ levels, and the hypotheses are met anyway
+because the distortion is finite and exactly accounted.  Nothing about $g$ is
+assumed beyond differentiability and control of its tangent --- in particular
+$g$ needs no response-scale control of its own, the rule requiring that only of
+the inner factor.
+\end{remark}
+
+\begin{remark}[Still no iteration]\label{Analysis:Power:Growth:rem:no-iterate}
+Applying the corollary twice would require
+$\name{comp}\bigl(D_g, \name{depthPow}(d)\bigr)$ to be scale controlled, and
+composition is still not shown to preserve that property --- the gap named in
+\texttt{PrimeTensor/Analysis/Chain.lean} and untouched here.  Likewise
+$\name{ResponseScaleControlledAt}$ is proved for powers, for the identity and
+for constants, but for no product, inverse or composite of them, so a general
+monomial $y \mapsto c\,y^{d}$ is not covered even though each of its factors
+is.
+\end{remark}
+
+\subsection*{Summary of the correspondence}
+
+\begin{center}
+\small
+\begin{tabular}{@{}lll@{}}
+\hline
+Lean declaration & Kind & Here \\
+\hline
+\lean{Depth.powerInput}                 & definition & Def.~\ref{Analysis:Power:Growth:def:transforms} \\
+\lean{Depth.powerOutput}                & definition & Def.~\ref{Analysis:Power:Growth:def:transforms} \\
+\lean{Depth.powerInput\_succ}           & theorem    & Lem.~\ref{Analysis:Power:Growth:lem:input} \\
+\lean{Depth.powerInput\_atOrAfter}      & theorem    & Lem.~\ref{Analysis:Power:Growth:lem:input} \\
+\lean{Depth.powerInput\_output\_join}   & theorem    & Thm.~\ref{Analysis:Power:Growth:thm:adjoint} \\
+\lean{Depth.advance\_base\_atOrAfter}   & theorem    & Lem.~\ref{Analysis:Power:Growth:lem:advance} \\
+\lean{Depth.advance\_succ\_base}        & theorem    & Lem.~\ref{Analysis:Power:Growth:lem:advance} \\
+\lean{Depth.advance\_powerInput\_comm}  & theorem    & Lem.~\ref{Analysis:Power:Growth:lem:advance} \\
+\lean{Depth.join\_eq\_left\_or\_right}  & theorem    & Lem.~\ref{Analysis:Power:Growth:lem:join} \\
+\lean{MulReal.scaleNear\_join}          & theorem    & Lem.~\ref{Analysis:Power:Growth:lem:join} \\
+\lean{MulReal.depthPow\_mul}            & theorem    & Lem.~\ref{Analysis:Power:Growth:lem:pow-mul} \\
+\lean{MulReal.scaleNear\_depthPow}      & theorem    & Thm.~\ref{Analysis:Power:Growth:thm:pow-near} \\
+\lean{response\_depthPow}               & theorem    & Lem.~\ref{Analysis:Power:Growth:lem:response} \\
+\lean{responseScaleControlledAt\_depthPow} & theorem & Thm.~\ref{Analysis:Power:Growth:thm:main} \\
+\lean{hasMulDerivativeAt\_comp\_depthPow}  & theorem & Cor.~\ref{Analysis:Power:Growth:cor:chain} \\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent
+Every declaration of \texttt{PrimeTensor/Analysis/Power/Growth.lean} appears
+above.  The file contains no \lean{sorry}, no axiom, and no unproved named
+proposition.  Design note~\ref{Analysis:Power:Growth:note:adjoint} and
+Remarks~\ref{Analysis:Power:Growth:rem:join},
+\ref{Analysis:Power:Growth:rem:first}
+and~\ref{Analysis:Power:Growth:rem:no-iterate} are stated for the reader and
+are not declarations of the file; the numerical readings of the two transforms
+are glosses and are not formalised.
