@@ -1,0 +1,239 @@
+% Prose rendering of PrimeTensor/Analysis/Near/Laws.lean.
+% Fragment: no \documentclass, no preamble, no document environment.
+
+\section{Algebraic laws for nearness and convergence}
+\label{Analysis:Near:Laws:sec}
+
+\leanfile{PrimeTensor/Analysis/Near/Laws.lean}
+
+\subsection*{What this file establishes}
+
+\texttt{PrimeTensor/Analysis/Limit.lean} introduced nearness and convergence on
+$\name{MulReal}$ but related them to nothing: neither the multiplication of
+\texttt{PrimeTensor/Algebra.lean} nor its inversion was known to interact with
+them.  This file supplies the four compatibilities, and one consequence.
+\[
+  \begin{array}{lll}
+    \text{nearness} & \text{multiplication} &
+      \text{costs one level} \\
+    \text{nearness} & \text{inversion} &
+      \text{costs nothing} \\
+    \text{convergence} & \text{multiplication} &
+      \text{costs one level} \\
+    \text{convergence} & \text{inversion} &
+      \text{costs nothing}
+  \end{array}
+\]
+The consequence is that ratios of convergent sequences converge to the ratio of
+the limits.  Together the four are the sequential statement that the carrier
+operations are continuous.
+
+Nothing new is estimated.  The two nearness laws transport
+$\name{scaleWithin\_mul}$ and $\name{scaleWithin\_inv}$ of
+\texttt{PrimeTensor/Algebra.lean} across the quotient, and the two convergence
+laws are the anchor-combining pattern used three times already.  What the file
+does show, for the first time, is that the deliberately weak nearness relation
+of \texttt{PrimeTensor/Analysis/Limit.lean} is strong enough to be transported
+at all --- see Remark~\ref{Analysis:Near:Laws:rem:existential}.
+
+\subsection{Nearness respects the operations}
+
+\begin{theorem}[\lean{MulReal.scaleNear\_mul}]
+\label{Analysis:Near:Laws:thm:near-mul}
+If
+\[
+  \name{ScaleNear}(\ctor{succ}\,\ell,\, a,\, a')
+  \quad\text{and}\quad
+  \name{ScaleNear}(\ctor{succ}\,\ell,\, b,\, b'),
+\]
+then $\name{ScaleNear}(\ell,\, a b,\, a' b')$.
+\end{theorem}
+
+\begin{leancode}
+theorem scaleNear_mul {level : Depth} {a a' b b' : MulReal}
+    (ha : ScaleNear (.succ level) a a')
+    (hb : ScaleNear (.succ level) b b') :
+    ScaleNear level (a * b) (a' * b') := by
+  obtain ⟨as, as', has, has', aAnchor, haTail⟩ := ha
+  obtain ⟨bs, bs', hbs, hbs', bAnchor, hbTail⟩ := hb
+
+  refine ⟨MulCauchyStream.mul as bs,
+    MulCauchyStream.mul as' bs', ?_, ?_, ?_⟩
+
+  · rw [← has, ← hbs]
+    rfl
+
+  · rw [← has', ← hbs']
+    rfl
+\end{leancode}
+
+\begin{proof}
+Each hypothesis supplies a pair of representative streams and an anchor: say
+$(\alpha, \alpha')$ with anchor $c_a$ for the first, and $(\beta, \beta')$ with
+anchor $c_b$ for the second.  Offer as witnesses for the conclusion the
+pointwise products $\alpha\beta$ and $\alpha'\beta'$, using the stream
+multiplication of \texttt{PrimeTensor/Algebra.lean}.
+
+The two identifications are $\ctor{rfl}$ after rewriting by the given ones:
+$\name{MulReal}$'s multiplication was defined by lifting the stream
+multiplication along the quotient, so the class of a product of streams is by
+construction the product of their classes, with no lemma needed.
+
+For the tail, take $\name{join}(c_a, c_b)$.  For $n$ at or after it, the two
+bounds on $\name{join}$ and transitivity of $\name{AtOrAfter}$, all from
+\texttt{PrimeTensor/Completion.lean}, put $n$ in both original tails, so both
+factor pairs are $\name{ScaleWithin}(\ctor{succ}\,\ell)$-close at $n$; and
+$\name{scaleWithin\_mul}$ of \texttt{PrimeTensor/Algebra.lean} combines them
+into $\name{ScaleWithin}(\ell)$-closeness of the products.
+\end{proof}
+
+\begin{theorem}[\lean{MulReal.scaleNear\_inv}]
+\label{Analysis:Near:Laws:thm:near-inv}
+$\name{ScaleNear}(\ell, a, b)$ implies $\name{ScaleNear}(\ell, a^{-1}, b^{-1})$.
+\end{theorem}
+
+\begin{proof}
+Invert the two witnessing streams pointwise; the identifications are again
+$\ctor{rfl}$, because inversion on $\name{MulReal}$ was also defined by lifting.
+Keep the anchor and the level, and apply $\name{scaleWithin\_inv}$ termwise.
+\end{proof}
+
+\begin{remark}[The existential form is what makes this work]
+\label{Analysis:Near:Laws:rem:existential}
+$\name{ScaleNear}$ was defined in
+\texttt{PrimeTensor/Analysis/Limit.lean} by quantifying \emph{existentially}
+over representatives, and that file's design note observed that the choice
+makes the relation weaker and easier to establish.  Here it is what makes it
+transportable.  Both proofs above proceed by \emph{constructing} witnesses for
+the conclusion out of the witnesses supplied by the hypotheses, and the
+construction is available because the operations act pointwise on streams and
+because $\name{MulReal}$'s operations were defined as their lifts --- so the
+required identifications hold definitionally rather than by an argument.
+
+Under a universally quantified nearness the same statements would have to be
+proved for representatives one does not get to choose, and each proof would
+have to bridge from an arbitrary representative to a convenient one, spending
+levels.  So the two theorems above would not have the level costs they do.
+\end{remark}
+
+\subsection{Convergence respects the operations}
+
+\begin{theorem}[\lean{MulReal.converges\_mul} and \lean{converges\_inv}]
+\label{Analysis:Near:Laws:thm:converges}
+If $a \to x$ and $b \to y$ then $a_n b_n \to xy$; and if $a \to x$ then
+$a_n^{-1} \to x^{-1}$.
+\end{theorem}
+
+\begin{leancode}
+theorem converges_mul {a b : Seq} {x y : MulReal}
+    (ha : ConvergesTo a x)
+    (hb : ConvergesTo b y) :
+    ConvergesTo (fun n => a n * b n) (x * y) := by
+  intro level
+  obtain ⟨aAnchor, haTail⟩ := ha (.succ level)
+  obtain ⟨bAnchor, hbTail⟩ := hb (.succ level)
+\end{leancode}
+
+\begin{proof}
+For the product, fix a level $\ell$, instantiate both hypotheses at
+$\ctor{succ}\,\ell$, take $\name{join}$ of the two anchors, and for $n$ beyond
+it apply Theorem~\ref{Analysis:Near:Laws:thm:near-mul} to the two nearness
+facts.  For the inverse, instantiate at $\ell$, keep the anchor, and apply
+Theorem~\ref{Analysis:Near:Laws:thm:near-inv} pointwise.
+\end{proof}
+
+\begin{corollary}[\lean{MulReal.converges\_ratio}]
+\label{Analysis:Near:Laws:cor:ratio}
+If $a \to x$ and $b \to y$ then
+$\name{ratio}(a_n, b_n) \to \name{ratio}(x,y)$.
+\end{corollary}
+
+\begin{proof}
+Unfold $\name{ratio}$ to $a_n \cdot b_n^{-1}$ and compose the two theorems.
+\end{proof}
+
+\begin{designnote}[One motif, five layers]\label{Analysis:Near:Laws:note:motif}
+The pair ``multiplication costs one level, inversion costs none, and combining
+two hypotheses needs a $\name{join}$ of anchors'' has now been proved five
+times, at every layer the development has:
+\begin{center}
+\small
+\begin{tabular}{@{}lll@{}}
+\hline
+Layer & Multiplication & Inversion \\
+\hline
+$\name{MulRat}$, single pair
+  & $\name{scaleWithin\_mul}$ & $\name{scaleWithin\_inv}$ \\
+Cauchy streams
+  & $\name{MulCauchyStream.mul}$ & $\name{MulCauchyStream.inv}$ \\
+asymptotic equivalence
+  & $\name{MulAsymptotic.mul}$ & $\name{MulAsymptotic.inv}$ \\
+$\name{MulReal}$, nearness
+  & Thm.~\ref{Analysis:Near:Laws:thm:near-mul}
+  & Thm.~\ref{Analysis:Near:Laws:thm:near-inv} \\
+$\name{MulReal}$, convergence
+  & \multicolumn{2}{l}{Thm.~\ref{Analysis:Near:Laws:thm:converges}} \\
+\hline
+\end{tabular}
+\end{center}
+The first three are in \texttt{PrimeTensor/Algebra.lean} and the last two here.
+The repetition is not redundancy: each layer's statement is about different
+objects, and only the last two could be stated at all before this file.  But
+the \emph{reason} for the level cost is the same at every layer, and it is the
+one identified in \texttt{PrimeTensor/Algebra.lean} --- multiplication combines
+two independent errors and their ratios multiply, whereas inversion merely
+reverses orientation and multiplicative distance does not notice.  The cost is
+a property of the operation, not of the layer, so it propagates unchanged all
+the way up.
+\end{designnote}
+
+\begin{remark}[This is continuity, sequentially]\label{Analysis:Near:Laws:rem:continuity}
+Theorem~\ref{Analysis:Near:Laws:thm:converges} is the statement that
+multiplication and inversion are continuous, in the sequential form available
+here: they carry convergent sequences to convergent sequences with the expected
+limits.  Since \texttt{PrimeTensor/Analysis/Limit.lean} defined convergence for
+sequences and not through a filter or a topology, this is the strongest form
+the statement can take in the present vocabulary.  In particular nothing here
+asserts joint continuity in any uniform sense, and nothing asserts that the
+limit is unique --- that gap, open since
+\texttt{PrimeTensor/Structure.lean}, is untouched, so ``the'' limit still may
+not be spoken of.
+\end{remark}
+
+\begin{remark}[What is not proved]\label{Analysis:Near:Laws:rem:missing}
+Nearness is still not transitive at any level, for the reason
+\texttt{PrimeTensor/Analysis/Limit.lean} gave, and nothing here changes that.
+There is no compatibility of nearness or convergence with $\name{ofRat}$, no
+statement that a convergent sequence is Cauchy in any sense --- the
+vocabulary for that is still missing --- and no interaction with the
+differential notions of
+\texttt{PrimeTensor/Analysis/Derivative.lean}: in particular
+$\name{NegligibleRelative}$ is not shown to be preserved by products, which is
+the fact a product rule would need.
+\end{remark}
+
+\subsection*{Summary of the correspondence}
+
+\begin{center}
+\small
+\begin{tabular}{@{}lll@{}}
+\hline
+Lean declaration & Kind & Here \\
+\hline
+\lean{MulReal.scaleNear\_mul}   & theorem & Thm.~\ref{Analysis:Near:Laws:thm:near-mul} \\
+\lean{MulReal.scaleNear\_inv}   & theorem & Thm.~\ref{Analysis:Near:Laws:thm:near-inv} \\
+\lean{MulReal.converges\_mul}   & theorem & Thm.~\ref{Analysis:Near:Laws:thm:converges} \\
+\lean{MulReal.converges\_inv}   & theorem & Thm.~\ref{Analysis:Near:Laws:thm:converges} \\
+\lean{MulReal.converges\_ratio} & theorem & Cor.~\ref{Analysis:Near:Laws:cor:ratio} \\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent
+Every declaration of \texttt{PrimeTensor/Analysis/Near/Laws.lean} appears
+above.  The file contains no \lean{sorry}, no axiom, and no unproved named
+proposition.  Design note~\ref{Analysis:Near:Laws:note:motif} and
+Remarks~\ref{Analysis:Near:Laws:rem:existential},
+\ref{Analysis:Near:Laws:rem:continuity}
+and~\ref{Analysis:Near:Laws:rem:missing} are stated for the reader and are not
+declarations of the file.
