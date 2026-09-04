@@ -182,23 +182,31 @@ variable.  Classically that comparison is not assumed --- for a differentiable
 map with a bounded derivative it follows, since the increment is bounded by a
 constant times the perturbation.
 
-It cannot be lifted here in that form, for a reason
-\texttt{PrimeTensor/Analysis/Derivative.lean} already recorded.  Comparisons in
-this development are made with $\name{advance}$, which refines a level by a
-\emph{positive} number of steps, there being no advance by zero.  So the
-vocabulary can say ``strictly finer by a prescribed amount'' --- little-o ---
-and cannot say ``no coarser than, up to a constant'' --- big-$O$.  The
-statement the chain rule needs is a big-$O$ statement, and there is no way to
-write it.
+It is not lifted here in that form.  The obstacle is one already recorded in
+\texttt{PrimeTensor/Analysis/Derivative.lean}:
+comparisons in that file are made with $\name{advance}$, which refines a level by a
+\emph{positive} number of steps, there being no advance by zero.  Used that
+way the vocabulary can say ``strictly finer by a prescribed amount'' ---
+little-o --- and cannot say ``no coarser than, up to a constant'' --- big-$O$;
+and the statement the chain rule needs is a big-$O$ statement.  Nor could the
+missing inequality simply be written out, since $\name{Depth}$ has no
+subtraction with which to say that one level lags another by a bounded amount.
 
-$\name{ChainAdmissibleAt}$ is what can be written instead.  Rather than
+$\name{ChainAdmissibleAt}$ is what this file writes instead.  Rather than
 bounding the inner response against the perturbation, it asserts the
-consequence that bounding would have: that the two germs are interchangeable as
-\emph{bases} for negligibility, in the direction the proof consumes.  This
-converts an inexpressible inequality into an expressible implication, at the
-cost of making it an assumption.  Whether it follows from the other hypotheses
-of Theorem~\ref{Analysis:Chain:thm:chain} is not settled in this file, and no
-argument either way is given.
+consequence that bounding would have: that the two germs are interchangeable
+as \emph{bases} for negligibility, in the direction the proof consumes.  This
+converts an inequality the file does not express into an implication it does,
+at the cost of making it an assumption.  Whether it follows from the other
+hypotheses of Theorem~\ref{Analysis:Chain:thm:chain} is not settled here, and
+no argument either way is given.
+
+The obstacle is, however, one of formulation rather than of expressive power.
+\texttt{PrimeTensor/Analysis/Growth.lean} writes the growth comparison after
+all, by advancing \emph{both} levels --- the base one and the response one ---
+and comparing the results in the tail order instead of demanding a fixed
+refinement of a single level.  That sidesteps the missing subtraction, and the
+condition so obtained implies the hypothesis assumed here.
 \end{designnote}
 
 \begin{lemma}[\lean{chainAdmissibleAt\_identity}]
