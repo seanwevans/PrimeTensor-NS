@@ -1,0 +1,382 @@
+% Prose rendering of PrimeTensor/Scale/Laws.lean.
+% Fragment: no \documentclass, no preamble, no document environment.
+
+\section{Composition laws for the intrinsic scale}
+\label{Scale:Laws:sec}
+
+\leanfile{PrimeTensor/Scale/Laws.lean}
+
+\subsection*{What this file establishes}
+
+\texttt{PrimeTensor/Scale.lean} built the ladder of closeness relations
+$\name{ScaleWithin}(\ell,-,-)$ and proved them reflexive and symmetric.  It
+did not prove any statement relating two of them, and closed with the
+observation that a Cauchy notion on this scale needs one.  This file supplies
+it, in the form the completion will use:
+\[
+  \name{ScaleWithin}(\ctor{succ}\,\ell, a, b)
+  \;\wedge\;
+  \name{ScaleWithin}(\ctor{succ}\,\ell, b, c)
+  \;\longrightarrow\;
+  \name{ScaleWithin}(\ell, a, c).
+\]
+Two steps, each at one level finer than the target, compose into one step at
+the target level.  This is the multiplicative triangle inequality, and the
+level bookkeeping in it is not an artefact: by
+\texttt{PrimeTensor/Scale.lean} the tolerance at level $\ctor{succ}\,\ell$ is
+the square root of the tolerance at level $\ell$, so ``one level finer'' is
+exactly ``half the error'' in the multiplicative sense, and two halves make a
+whole.
+
+Getting there needs three things the previous files left out: that ratios
+compose, $\name{ratio}(a,c) = \name{ratio}(a,b)\cdot\name{ratio}(b,c)$; that
+the squaring ladder is multiplicative,
+$\name{scalePow}(xy,\ell) = \name{scalePow}(x,\ell)\,\name{scalePow}(y,\ell)$;
+and the arithmetic core, that $x^2 < 2$ and $y^2 < 2$ force $xy < 2$.  The
+third is where the work is, and it is done on the natural-number
+cross-products underlying $\name{PrimeRatio}$ --- the file introduces no real
+numbers and no square roots.
+
+\subsection{Ratios compose}
+
+\begin{lemma}[\lean{MulRat.inv\_mul}]\label{Scale:Laws:lem:inv-mul}
+$a^{-1} \cdot a = 1$ for every $a : \name{MulRat}$.
+\end{lemma}
+
+\begin{leancode}
+@[simp] theorem inv_mul (a : MulRat) : a⁻¹ * a = 1 := by
+  rw [mul_comm]
+  exact mul_inv a
+\end{leancode}
+
+\begin{proof}
+Commute the product and apply $\name{mul\_inv}$ of
+\texttt{PrimeTensor/MulRat.lean}.
+\end{proof}
+
+\begin{remark}[Filling a gap, not proving something new]
+\label{Scale:Laws:rem:inv-mul}
+\texttt{PrimeTensor/MulRat.lean} proved $a \cdot a^{-1} = 1$ and, separately,
+commutativity, but never stated the left-handed form; since $\name{MulRat}$
+carries a bare $\ctor{Mul}$ instance and not a group structure, nothing
+derives it automatically.  It is marked $\ctor{simp}$ here because the
+cancellation in Lemma~\ref{Scale:Laws:lem:ratio-comp} is where it is wanted.
+\end{remark}
+
+\begin{lemma}[\lean{MulRat.ratio\_comp}]\label{Scale:Laws:lem:ratio-comp}
+$\name{ratio}(a,c) = \name{ratio}(a,b) \cdot \name{ratio}(b,c)$ for all
+$a,b,c : \name{MulRat}$.
+\end{lemma}
+
+\begin{leancode}
+theorem ratio_comp (a b c : MulRat) :
+    ratio a c = ratio a b * ratio b c := by
+  unfold ratio
+  symm
+  calc
+    (a * b⁻¹) * (b * c⁻¹)
+        = ((a * b⁻¹) * b) * c⁻¹ := (mul_assoc (a * b⁻¹) b c⁻¹).symm
+    _ = (a * (b⁻¹ * b)) * c⁻¹ := by
+      rw [mul_assoc a b⁻¹ b]
+    _ = (a * 1) * c⁻¹ := by
+      rw [inv_mul b]
+    _ = a * c⁻¹ := by
+      rw [mul_one]
+\end{leancode}
+
+\begin{proof}
+Unfolding $\name{ratio}$ of \texttt{PrimeTensor/Order.lean}, the claim is
+$a c^{-1} = (a b^{-1})(b c^{-1})$, and it is proved from right to left:
+reassociate to expose $b^{-1} b$, cancel it by
+Lemma~\ref{Scale:Laws:lem:inv-mul}, and remove the unit.  The intermediate
+magnitude $b$ leaves no trace, which is the point --- the oriented ratio is a
+cocycle.
+\end{proof}
+
+\subsection{The ladder is multiplicative}
+
+\begin{lemma}[\lean{MulRat.mul\_mul\_shuffle}, private]
+\label{Scale:Laws:lem:shuffle}
+$(xy)(xy) = (xx)(yy)$ for all $x,y : \name{MulRat}$.
+\end{lemma}
+
+\begin{proof}
+Six rewrites, alternating associativity and the single commutation
+$yx = xy$:
+\[
+  (xy)(xy) = x(y(xy)) = x((yx)y) = x((xy)y) = (x(xy))y = ((xx)y)y = (xx)(yy).
+\]
+\end{proof}
+
+\begin{remark}[Why this is spelled out]\label{Scale:Laws:rem:no-ac}
+The identity is a pure consequence of associativity and commutativity, and on
+a type carrying a $\ctor{CommMonoid}$ instance it would be one call to
+$\ctor{ac\_rfl}$ or $\ctor{ring}$.  $\name{MulRat}$ carries only $\ctor{One}$,
+$\ctor{Mul}$ and $\ctor{Inv}$ instances, with associativity and commutativity
+available as named theorems and not as instance data, so the rewriting has to
+be written out.  The contrast is visible inside this same file:
+Theorem~\ref{Scale:Laws:thm:mul-lt-two} does its regrouping on $\mathbb{N}$,
+where the algebraic instances are in place, and there each regrouping step is
+a single $\ctor{ac\_rfl}$.
+\end{remark}
+
+\begin{lemma}[\lean{MulRat.scalePow\_mul}]\label{Scale:Laws:lem:scalepow-mul}
+$\name{scalePow}(x \cdot y, \ell) =
+ \name{scalePow}(x, \ell) \cdot \name{scalePow}(y, \ell)$
+for all $x, y : \name{MulRat}$ and every level $\ell$.
+\end{lemma}
+
+\begin{leancode}
+theorem scalePow_mul (x y : MulRat) :
+    ∀ level : Depth,
+      scalePow (x * y) level = scalePow x level * scalePow y level
+  | .one => rfl
+  | .succ level => by
+      change
+        scalePow (x * y) level * scalePow (x * y) level =
+          (scalePow x level * scalePow x level) *
+            (scalePow y level * scalePow y level)
+      rw [scalePow_mul x y level]
+      exact mul_mul_shuffle (scalePow x level) (scalePow y level)
+\end{leancode}
+
+\begin{proof}
+By structural recursion on the level.  At $\ctor{one}$ both sides are $xy$, so
+the claim is $\ctor{rfl}$.  At $\ctor{succ}\,\ell$ both sides unfold to
+squares; the recursive call rewrites $\name{scalePow}(xy,\ell)$ to
+$\name{scalePow}(x,\ell)\,\name{scalePow}(y,\ell)$, and
+Lemma~\ref{Scale:Laws:lem:shuffle} regroups the square of that product into
+the product of the squares.
+\end{proof}
+
+Read through the exponent formula of \texttt{PrimeTensor/Scale.lean}, this is
+$(xy)^{n} = x^{n} y^{n}$ for $n = 2^{\size{\ell}-1}$; but it is proved
+directly on the ladder, so no exponent arithmetic enters the file.
+
+\subsection{The ruler as a natural number}
+
+\begin{lemma}[\lean{MulRat.multiset\_eval\_pos}, private]
+\label{Scale:Laws:lem:eval-pos}
+$0 < q.\name{eval}$ for every $q : \name{PrimeMultiset}$.
+\end{lemma}
+
+\begin{proof}
+By induction on the quotient, it suffices to treat a bag, and there
+$\name{PrimeBag.one\_le\_eval}$ of \texttt{PrimeTensor/Prime.lean} gives
+$1 \leq \name{eval}$.
+\end{proof}
+
+\begin{remark}[The same lemma, a third time]\label{Scale:Laws:rem:third-time}
+This statement is proved privately in \texttt{PrimeTensor/MulRat.lean}, again
+in \texttt{PrimeTensor/Order.lean} as $\name{multiset\_eval\_pos\_order}$, and
+again here.  Each copy is $\ctor{private}$, so no later file can reach the
+earlier one; the duplication is the price of that.  What it says is the
+positivity that makes the cross-product order well behaved at all: every
+barcode denotes a magnitude $\geq 1$, so no denominator can vanish and no
+comparison degenerates.
+\end{remark}
+
+\begin{lemma}[\lean{MulRat.twoRatio\_upper\_eval} and
+  \lean{twoRatio\_lower\_eval}]\label{Scale:Laws:lem:two-eval}
+$\name{twoRatio}.\name{upper}.\name{eval} = 2$ and
+$\name{twoRatio}.\name{lower}.\name{eval} = 1$.
+\end{lemma}
+
+\begin{leancode}
+@[simp] theorem twoRatio_upper_eval : twoRatio.upper.eval = 2 := by
+  norm_num [twoRatio, primeTwo, PrimeMultiset.eval_ofBag,
+    PrimeBag.eval_factor, PrimeBag.eval_one]
+
+@[simp] theorem twoRatio_lower_eval : twoRatio.lower.eval = 1 := by
+  rfl
+\end{leancode}
+
+\begin{proof}
+The numerator is the one-atom barcode carrying $\name{primeTwo}$: evaluating
+through $\name{eval\_ofBag}$ and $\name{eval\_factor}$ gives
+$\name{primeTwo}.\name{value} \cdot 1$, which $\ctor{norm\_num}$ reduces to
+$2$.  The denominator is the pivot, whose evaluation is $1$ definitionally.
+\end{proof}
+
+These two are the hinge of the file.  Marked $\ctor{simp}$, they let every
+comparison against the ruler be normalised into a statement about the literal
+naturals $2$ and $1$, after which the remaining work is ordinary arithmetic on
+$\mathbb{N}$ and nothing about barcodes is needed again.
+
+\subsection{The arithmetic core}
+
+\begin{theorem}[\lean{MulRat.mul\_lt\_two\_of\_sq\_lt\_two}]
+\label{Scale:Laws:thm:mul-lt-two}
+If $x \cdot x < \name{two}$ and $y \cdot y < \name{two}$ in $\name{MulRat}$,
+then $x \cdot y < \name{two}$.
+\end{theorem}
+
+\begin{proof}
+Both hypotheses are about classes, and $<$ on $\name{MulRat}$ was defined in
+\texttt{PrimeTensor/Order.lean} by lifting $\name{PrimeRatio.Lt}$ along the
+quotient, so choose representatives $x_r$ and $y_r$ and write
+\[
+  p = x_r.\name{upper}.\name{eval}, \quad
+  q = x_r.\name{lower}.\name{eval}, \quad
+  u = y_r.\name{upper}.\name{eval}, \quad
+  v = y_r.\name{lower}.\name{eval},
+\]
+so that $x$ denotes $p/q$ and $y$ denotes $u/v$.  Products of barcodes
+multiply componentwise, by $\name{upper\_mul}$ and $\name{lower\_mul}$ of
+\texttt{PrimeTensor/Ratio.lean}, and
+$\name{PrimeRatio.Lt}(a,b)$ is the cross-product inequality
+$a.\name{upper}.\name{eval} \cdot b.\name{lower}.\name{eval} <
+ b.\name{upper}.\name{eval} \cdot a.\name{lower}.\name{eval}$.  Normalising
+the ruler with Lemma~\ref{Scale:Laws:lem:two-eval} turns the two hypotheses
+and the goal into statements about naturals:
+\[
+  p^2 < 2q^2, \qquad u^2 < 2v^2, \qquad\text{goal:}\quad pu < 2qv .
+\]
+Squaring is strictly monotone on $\mathbb{N}$, so by
+$\name{Nat.mul\_self\_lt\_mul\_self\_iff}$ it is enough to prove the squared
+goal $(pu)^2 < (2qv)^2$, and that is a chain of two strict steps:
+\[
+  (pu)^2 = p^2 u^2
+    \;<\; (2q^2)\,u^2
+    \;=\; u^2\,(2q^2)
+    \;<\; (2v^2)(2q^2)
+    \;=\; (2qv)^2 .
+\]
+The first strict step multiplies the first hypothesis by $u^2$ and the second
+multiplies the second hypothesis by $2q^2$; both need the multiplier to be
+strictly positive, which is Lemma~\ref{Scale:Laws:lem:eval-pos} applied to
+$y_r.\name{upper}$ and to $x_r.\name{lower}$.  The three equalities are
+regroupings of a commutative product, each closed by $\ctor{ac\_rfl}$.
+\end{proof}
+
+\begin{designnote}[Squaring in place of a square root]
+\label{Scale:Laws:note:no-sqrt}
+Stated in the reals the theorem is immediate: $x^2 < 2$ and $y^2 < 2$ give
+$x, y < \sqrt{2}$, hence $xy < 2$.  That argument is unavailable here for the
+reason \texttt{PrimeTensor/Scale.lean} recorded --- $\sqrt{2}$ is not an
+element of $\name{MulRat}$, which contains exactly the positive rationals, so
+the intermediate bound cannot even be written down.
+
+The proof above avoids it by never dividing the problem in half.  It multiplies
+the two hypotheses together instead, obtaining $(xy)^2 < 4$, and then descends
+from $(xy)^2 < 4 = 2^2$ to $xy < 2$ by strict monotonicity of squaring on
+$\mathbb{N}$ --- a square root taken on the integers, where it is exact,
+rather than on the magnitudes, where it does not exist.  Everything the file
+needs from irrational tolerances is obtained this way: the tolerances are
+never named, only their squares, and the squares are rational.
+\end{designnote}
+
+\subsection{The composition law}
+
+\begin{theorem}[\lean{MulRat.scaleWithin\_comp}]
+\label{Scale:Laws:thm:comp}
+If $\name{ScaleWithin}(\ctor{succ}\,\ell, a, b)$ and
+$\name{ScaleWithin}(\ctor{succ}\,\ell, b, c)$, then
+$\name{ScaleWithin}(\ell, a, c)$.
+\end{theorem}
+
+\begin{leancode}
+theorem scaleWithin_comp {level : Depth} {a b c : MulRat}
+    (hab : ScaleWithin (.succ level) a b)
+    (hbc : ScaleWithin (.succ level) b c) :
+    ScaleWithin level a c := by
+\end{leancode}
+
+\begin{proof}
+By definition $\name{scalePow}(r, \ctor{succ}\,\ell)$ is
+$\name{scalePow}(r,\ell)^2$, so the four conjuncts of the two hypotheses read
+\[
+  \name{scalePow}(\name{ratio}(a,b),\ell)^2 < \name{two},
+  \quad
+  \name{scalePow}(\name{ratio}(b,a),\ell)^2 < \name{two},
+\]
+and the same pair for $(b,c)$ and $(c,b)$.
+
+For the forward conjunct of the goal, rewrite
+$\name{ratio}(a,c) = \name{ratio}(a,b)\,\name{ratio}(b,c)$ by
+Lemma~\ref{Scale:Laws:lem:ratio-comp} and distribute the ladder over the
+product by Lemma~\ref{Scale:Laws:lem:scalepow-mul}, reducing the goal to
+\[
+  \name{scalePow}(\name{ratio}(a,b),\ell) \cdot
+  \name{scalePow}(\name{ratio}(b,c),\ell) < \name{two},
+\]
+which is Theorem~\ref{Scale:Laws:thm:mul-lt-two} applied to the two forward
+hypotheses.  For the backward conjunct, rewrite instead
+$\name{ratio}(c,a) = \name{ratio}(c,b)\,\name{ratio}(b,a)$ --- note the
+reversed order --- and apply the theorem to the backward hypothesis for
+$(c,b)$ and the backward hypothesis for $(b,a)$.
+\end{proof}
+
+\begin{remark}[The level cost is exactly right]\label{Scale:Laws:rem:cost}
+By \texttt{PrimeTensor/Scale.lean} the tolerance at level $\ell$ is
+$2^{1/2^{\size{\ell}-1}}$, and at $\ctor{succ}\,\ell$ it is
+$2^{1/2^{\size{\ell}}}$, the square root of the former.  So the theorem says:
+two ratios each below $t$ have product below $t^2$, with $t$ the finer
+tolerance and $t^2$ the coarser one.  The inequality is sharp in the sense
+that no smaller target level would follow --- $t \cdot t$ is exactly $t^2$,
+not less --- so composing costs one level and cannot cost fewer.
+
+That single-level cost is what makes the ladder usable downstream.  A Cauchy
+sequence for this scale will be indexed by depth, and chaining $n$ steps of a
+telescoping argument will consume $n$ levels; since the levels are the depths
+of \texttt{PrimeTensor/Depth.lean} and those are unbounded, there is always
+room to pay.
+\end{remark}
+
+\begin{remark}[Monotonicity in the level now follows]
+\label{Scale:Laws:rem:mono}
+\texttt{PrimeTensor/Scale.lean} noted that closeness at a finer level ought to
+imply closeness at a coarser one, and that the argument needed a comparison
+fact not then available.  Theorem~\ref{Scale:Laws:thm:mul-lt-two} is that
+fact, and the implication is now a one-line consequence of
+Theorem~\ref{Scale:Laws:thm:comp}: take the middle magnitude to be $a$ itself
+and feed $\name{scaleWithin\_refl}(\ctor{succ}\,\ell, a)$ as the first
+hypothesis, so that
+\[
+  \name{ScaleWithin}(\ctor{succ}\,\ell, a, b)
+  \;\longrightarrow\;
+  \name{ScaleWithin}(\ell, a, b).
+\]
+The file does not state this, and nothing below needs it in this form; it is
+recorded here because it settles the question the previous file left open.
+\end{remark}
+
+\begin{remark}[What is still missing]\label{Scale:Laws:rem:missing}
+The composition law is proved only in the shape it will be used ---
+$\ctor{succ}\,\ell$ and $\ctor{succ}\,\ell$ into $\ell$.  There is no general
+statement composing level $m$ with level $n$ into some level determined by
+both, and no $n$-fold version chaining a whole finite path.  Nor is
+$\name{ScaleWithin}$ shown to be an equivalence relation at any fixed level:
+it is reflexive and symmetric, but transitivity at a single level is false in
+general, and the level-shifted law above is what replaces it.  A completion
+built on this scale has to be organised around that shift rather than around
+an equivalence.
+\end{remark}
+
+\subsection*{Summary of the correspondence}
+
+\begin{center}
+\small
+\begin{tabular}{@{}lll@{}}
+\hline
+Lean declaration & Kind & Here \\
+\hline
+\lean{MulRat.inv\_mul}                   & simp thm        & Lem.~\ref{Scale:Laws:lem:inv-mul} \\
+\lean{MulRat.ratio\_comp}                & theorem         & Lem.~\ref{Scale:Laws:lem:ratio-comp} \\
+\lean{MulRat.mul\_mul\_shuffle}          & private thm     & Lem.~\ref{Scale:Laws:lem:shuffle} \\
+\lean{MulRat.scalePow\_mul}              & theorem         & Lem.~\ref{Scale:Laws:lem:scalepow-mul} \\
+\lean{MulRat.multiset\_eval\_pos}        & private thm     & Lem.~\ref{Scale:Laws:lem:eval-pos} \\
+\lean{MulRat.twoRatio\_upper\_eval}      & simp thm        & Lem.~\ref{Scale:Laws:lem:two-eval} \\
+\lean{MulRat.twoRatio\_lower\_eval}      & simp thm        & Lem.~\ref{Scale:Laws:lem:two-eval} \\
+\lean{MulRat.mul\_lt\_two\_of\_sq\_lt\_two} & theorem      & Thm.~\ref{Scale:Laws:thm:mul-lt-two} \\
+\lean{MulRat.scaleWithin\_comp}          & theorem         & Thm.~\ref{Scale:Laws:thm:comp} \\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent
+Every declaration of \texttt{PrimeTensor/Scale/Laws.lean} appears above.  The
+file contains no \lean{sorry}, no axiom, and no unproved named proposition.
+Remarks~\ref{Scale:Laws:rem:cost}, \ref{Scale:Laws:rem:mono}
+and~\ref{Scale:Laws:rem:missing} are stated for the reader and are not
+declarations of the file.
