@@ -1,0 +1,220 @@
+% Prose rendering of PrimeTensor/Tensor/Calculus.lean.
+% Fragment: no \documentclass, no preamble, no document environment.
+
+\section{Abstract multiplicative differential calculus}
+\label{Tensor:Calculus:sec}
+
+\leanfile{PrimeTensor/Tensor/Calculus.lean}
+
+\subsection*{What this file establishes}
+
+Nothing, in the sense of proving: the file contains no theorem.  It fixes
+vocabulary --- points, scalar fields, vector fields --- and defines the three
+vector-calculus operators the fluid layer will need, gradient, divergence and
+Laplacian, on top of an abstract carrier of directional derivatives.
+
+The module header states the reason for the abstraction: it deliberately
+separates the differential \emph{identities} from the eventual analytic
+construction of a derivative on completed prime barcodes.  A
+$\name{Differential}$ here is a bare family of operators with no axioms, so
+every identity proved about these three operators downstream will be an
+identity about folds and components, provable before any analysis exists and
+true of whatever concrete derivative is eventually supplied.
+
+What is worth reading closely is that the operators are \emph{products}, not
+sums --- Design note~\ref{Tensor:Calculus:note:product} --- and that the folds
+require no unit, which is a consequence of the decision in
+\texttt{PrimeTensor/Depth.lean} that nothing starts at zero ---
+Remark~\ref{Tensor:Calculus:rem:no-unit}.
+
+\subsection{Fields}
+
+\begin{definition}[\lean{Point}, \lean{ScalarField} and \lean{VectorField}]
+\label{Tensor:Calculus:def:fields}
+For a type $X$ of coordinate values, a type $A$ of field values and a dimension
+$d$,
+\begin{align*}
+  \name{Point}(X,d) &\defeq \name{Axis}(d) \to X, \\
+  \name{ScalarField}(X,A,d) &\defeq \name{Point}(X,d) \to A, \\
+  \name{VectorField}(X,A,d) &\defeq
+    \name{Point}(X,d) \to \name{Tensor.Vector}(A,d).
+\end{align*}
+\end{definition}
+
+\begin{leancode}
+/-- A point in a positive-dimensional coordinate space. -/
+abbrev Point (X : Type) (dim : Depth) := Axis dim → X
+
+/-- Scalar field. -/
+abbrev ScalarField (X A : Type) (dim : Depth) := Point X dim → A
+
+/-- Vector field. -/
+abbrev VectorField (X A : Type) (dim : Depth) := Point X dim → Tensor.Vector A dim
+\end{leancode}
+
+All three are $\ctor{abbrev}$s, so they unfold on sight and carry no wrapping.
+The coordinate type $X$ receives no structure anywhere in the file: a point is
+a tuple of values indexed by an axis, and nothing may be done with it but feed
+it to a field.  By \texttt{PrimeTensor/Depth.lean} the axis is nonempty, so a
+point always has at least one coordinate.
+
+\subsection{The carrier of derivatives}
+
+\begin{definition}[\lean{Differential}]\label{Tensor:Calculus:def:differential}
+$\name{Differential}(X,A,d)$ is the structure with the single field
+\[
+  \name{d} : \name{Axis}(d) \to
+    \name{ScalarField}(X,A,d) \to \name{ScalarField}(X,A,d),
+\]
+assigning to each coordinate direction an operator on scalar fields.
+\end{definition}
+
+\begin{leancode}
+structure Differential (X A : Type) (dim : Depth) where
+  d : Axis dim → ScalarField X A dim → ScalarField X A dim
+\end{leancode}
+
+\begin{remark}[No axioms whatever]\label{Tensor:Calculus:rem:no-axioms}
+The structure has one field and no laws.  A $\name{Differential}$ is
+\emph{any} assignment of an endomorphism of the scalar-field space to each
+axis: nothing requires it to be a morphism of the value carrier, to satisfy a
+product rule, to commute with itself across directions, or to bear any relation
+to $\name{HasMulDerivativeAt}$ of
+\texttt{PrimeTensor/Analysis/Derivative.lean}.  The two notions of derivative
+in the development are, at this point, entirely unconnected, and the header
+says that is deliberate.
+
+The consequence is a division of labour.  Everything provable about
+Definition~\ref{Tensor:Calculus:def:gradient} and the two below is provable by
+unfolding folds and components, with no analysis and no hypotheses --- and so
+holds for whichever concrete $\name{Differential}$ is eventually constructed.
+The price is that nothing provable here has analytic content.
+\end{remark}
+
+\subsection{The three operators}
+
+\begin{definition}[\lean{Differential.gradient}]\label{Tensor:Calculus:def:gradient}
+$\name{gradient}(D,f)$ is the vector field whose $i$-th component at $x$ is
+$D.\name{d}\,i\,f\,x$.
+\end{definition}
+
+The gradient imposes no structure on $A$ at all --- it only repackages the
+family of directional derivatives as a rank-one tensor in the sense of
+\texttt{PrimeTensor/Tensor/Basic.lean}.
+
+\begin{definition}[\lean{Differential.divergence} and \lean{laplacian}]
+\label{Tensor:Calculus:def:div-lap}
+For $A$ carrying a multiplication,
+\begin{align*}
+  \name{divergence}(D,u)(x)
+    &\defeq \name{fold}\bigl((\cdot\,\cdot),\, d,\;
+       i \mapsto D.\name{d}\,i\,(y \mapsto (u\,y).\name{component}\,i)\,x\bigr), \\
+  \name{laplacian}(D,f)(x)
+    &\defeq \name{fold}\bigl((\cdot\,\cdot),\, d,\;
+       i \mapsto D.\name{d}\,i\,(D.\name{d}\,i\,f)\,x\bigr).
+\end{align*}
+\end{definition}
+
+\begin{leancode}
+/-- Multiplicative divergence: product of diagonal directional derivatives. -/
+def divergence {X A : Type} [Mul A] {dim : Depth}
+    (D : Differential X A dim) (u : VectorField X A dim) : ScalarField X A dim :=
+  fun x =>
+    Axis.fold (· * ·) dim (fun i =>
+      D.d i (fun y => (u y).component i) x)
+\end{leancode}
+
+\begin{designnote}[Products where the classical operators have sums]
+\label{Tensor:Calculus:note:product}
+Both operators fold with multiplication.  Classically
+\[
+  \operatorname{div} u = \sum_i \partial_i u_i,
+  \qquad
+  \Delta f = \sum_i \partial_i \partial_i f,
+\]
+and the sums here are products.  This is the same substitution the whole
+development makes, and it reads correctly in the logarithmic chart of
+\texttt{PrimeTensor/Analysis/Derivative.lean}: since $\log$ turns a product
+into a sum, the multiplicative divergence of $u$ is the ordinary divergence of
+the log-transformed field, and likewise for the Laplacian.  Nothing is lost and
+nothing additive is introduced.
+
+Two features of the classical operators survive unchanged.  The divergence
+contracts a vector field to a scalar by pairing the $i$-th direction with the
+$i$-th component --- the diagonal, as the docstring says.  And the Laplacian
+takes only \emph{same-axis} second derivatives, $D_i D_i f$: no mixed partial
+$D_i D_j f$ with $i \neq j$ appears in this file, and no commutation of mixed
+partials is available to be assumed, since
+Remark~\ref{Tensor:Calculus:rem:no-axioms} leaves the operators unrelated.
+\end{designnote}
+
+\begin{remark}[The fold needs no unit, and that is the point of positive depth]
+\label{Tensor:Calculus:rem:no-unit}
+The two definitions require $[\ctor{Mul}\,A]$ and nothing else.  In particular
+they do not require $[\ctor{One}\,A]$, even though a product over an index set
+normally needs a unit for the empty case.
+
+There is no empty case.  $\name{fold}$ of \texttt{PrimeTensor/Depth.lean} was
+defined with no identity argument precisely because $\name{Axis}(d)$ always has
+at least one coordinate, $\name{Depth}$ having no zeroth constructor.  So the
+divergence of a vector field over a one-dimensional axis is its single
+directional derivative, not that derivative multiplied by an empty product.
+
+This is the concrete payoff of the founding decision, and it matters more here
+than a convenience: the eventual value carrier is $\name{MulReal}$, which does
+have a unit, but the definition is stated for an arbitrary type with a
+multiplication, and that generality is available only because no unit is
+needed.
+\end{remark}
+
+\begin{remark}[Order and bracketing are not shown to be irrelevant]
+\label{Tensor:Calculus:rem:order}
+$\name{fold}$ associates to the right and visits the axis in the order
+$\ctor{first}$, then the successors, and the definitions inherit that.  Since
+$A$ carries only $[\ctor{Mul}\,A]$, with neither associativity nor
+commutativity assumed, the value of a divergence genuinely depends on the
+bracketing and on the enumeration of the axis.  For a carrier satisfying
+$\name{IsMulCarrier}$ of \texttt{PrimeTensor/Structure.lean} both dependencies
+vanish, but this file neither assumes that nor proves the independence.  Any
+later identity that reorders a fold will have to establish it.
+\end{remark}
+
+\begin{remark}[What is absent]\label{Tensor:Calculus:rem:absent}
+There is no curl, no second-order mixed operator, and no theorem of any kind
+--- no linearity, no product rule, no identity relating divergence to gradient,
+and no analogue of $\operatorname{div}\operatorname{grad} = \Delta$, which in
+this notation would say that the divergence of the gradient of $f$ is the
+Laplacian of $f$ and is in fact true by unfolding, the two folds having the
+same summand.  It is not stated.  Nor is any $\name{Differential}$ constructed:
+the structure has no instance anywhere in this file, so the three operators are
+so far defined and never applied.
+\end{remark}
+
+\subsection*{Summary of the correspondence}
+
+\begin{center}
+\small
+\begin{tabular}{@{}lll@{}}
+\hline
+Lean declaration & Kind & Here \\
+\hline
+\lean{Point}                      & abbrev     & Def.~\ref{Tensor:Calculus:def:fields} \\
+\lean{ScalarField}                & abbrev     & Def.~\ref{Tensor:Calculus:def:fields} \\
+\lean{VectorField}                & abbrev     & Def.~\ref{Tensor:Calculus:def:fields} \\
+\lean{Differential}               & structure  & Def.~\ref{Tensor:Calculus:def:differential} \\
+\lean{Differential.gradient}      & definition & Def.~\ref{Tensor:Calculus:def:gradient} \\
+\lean{Differential.divergence}    & definition & Def.~\ref{Tensor:Calculus:def:div-lap} \\
+\lean{Differential.laplacian}     & definition & Def.~\ref{Tensor:Calculus:def:div-lap} \\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent
+Every declaration of \texttt{PrimeTensor/Tensor/Calculus.lean} appears above,
+together with the single field $\name{d}$ of $\name{Differential}$.  The file
+contains no theorem, and so no \lean{sorry}, no axiom, and no unproved named
+proposition.  Design note~\ref{Tensor:Calculus:note:product} and
+Remarks~\ref{Tensor:Calculus:rem:no-axioms}, \ref{Tensor:Calculus:rem:no-unit},
+\ref{Tensor:Calculus:rem:order} and~\ref{Tensor:Calculus:rem:absent} are stated
+for the reader; the logarithmic reading of the two folds is a gloss and is not
+formalised.
