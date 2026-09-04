@@ -1,0 +1,391 @@
+% Prose rendering of PrimeTensor/Algebra.lean.
+% Fragment: no \documentclass, no preamble, no document environment.
+
+\section{Multiplicative algebra on the completed carrier}
+\label{Algebra:sec}
+
+\leanfile{PrimeTensor/Algebra.lean}
+
+\subsection*{What this file establishes}
+
+\texttt{PrimeTensor/Completion.lean} produced the carrier $\name{MulReal}$ as a
+quotient of Cauchy streams and left it with no operations at all.  This file
+supplies them.  Multiplication and inversion are lifted from $\name{MulRat}$
+to streams and then through asymptotic equivalence, and the resulting
+$\name{MulReal}$ is shown to be a commutative group: associative, commutative,
+unital, and with $a \cdot a^{-1} = 1$ for every element.
+
+The lift runs in three strata, and it is worth naming them because the work is
+very unevenly distributed between them.
+
+\begin{enumerate}[label=(\roman*)]
+\item \emph{The operations respect the scale.}  Two theorems,
+  $\name{scaleWithin\_mul}$ and $\name{scaleWithin\_inv}$.  This is the whole
+  analytic content of the file.
+\item \emph{Hence they act on streams and respect asymptotic equivalence.}
+  Four routine consequences, all of them the same anchor-juggling already seen
+  in the transitivity proof of \texttt{PrimeTensor/Completion.lean}.
+\item \emph{Hence they descend to the quotient, and the group laws hold there.}
+  Seven laws, none of which involves an anchor or a level at all: each holds
+  \emph{termwise} on streams, and $\name{of\_pointwise}$ converts a termwise
+  equality into an equality of classes.
+\end{enumerate}
+
+So the analysis is confined to stratum (i), two theorems, and the algebra of
+stratum (iii) is in every case ``the same law one layer down''.  What makes
+that separation possible is that the group laws are exact identities on
+$\name{MulRat}$, so no error term survives to be estimated.
+
+\subsection{Ratios of products and of inverses}
+
+\begin{lemma}[\lean{MulRat.inv\_mul\_pair} and \lean{MulRat.inv\_one}]
+\label{Algebra:lem:inv-mul-pair}
+$(a \cdot b)^{-1} = a^{-1} \cdot b^{-1}$, and $1^{-1} = 1$.
+\end{lemma}
+
+\begin{leancode}
+theorem inv_mul_pair (a b : MulRat) :
+    (a * b)⁻¹ = a⁻¹ * b⁻¹ := by
+  refine Quotient.inductionOn₂ a b ?_
+  intro x y
+  change
+    Quotient.mk PrimeRatio.setoid ((x * y)⁻¹) =
+      Quotient.mk PrimeRatio.setoid (x⁻¹ * y⁻¹)
+  rfl
+\end{leancode}
+
+\begin{proof}
+Both are $\ctor{rfl}$ once representatives are chosen.  On
+$\name{PrimeRatio}$, multiplication is componentwise and inversion exchanges
+the two components, so $(xy)^{-1}$ and $x^{-1}y^{-1}$ are the same pair
+$\langle x.\name{lower}\cdot y.\name{lower},\;
+ x.\name{upper}\cdot y.\name{upper}\rangle$ --- not merely equivalent modulo
+the setoid, but syntactically identical.  Likewise $1 = \langle 1,1\rangle$ is
+fixed by the exchange.
+\end{proof}
+
+\begin{lemma}[\lean{MulRat.mul\_four\_shuffle}, private]
+\label{Algebra:lem:four-shuffle}
+$(ab)(cd) = (ac)(bd)$.
+\end{lemma}
+
+\begin{proof}
+Five rewrites, alternating associativity and the single commutation $bc = cb$.
+As in \texttt{PrimeTensor/Scale/Laws.lean}, the regrouping is written out
+because $\name{MulRat}$ carries $\ctor{Mul}$ and $\ctor{One}$ instances but no
+$\ctor{CommMonoid}$, so $\ctor{ac\_rfl}$ is not available.
+\end{proof}
+
+\begin{lemma}[\lean{MulRat.ratio\_mul\_pair}]\label{Algebra:lem:ratio-mul}
+$\name{ratio}(ac, bd) = \name{ratio}(a,b) \cdot \name{ratio}(c,d)$.
+\end{lemma}
+
+\begin{proof}
+Unfolding $\name{ratio}$, the left side is $(ac)(bd)^{-1}$, which
+Lemma~\ref{Algebra:lem:inv-mul-pair} turns into $(ac)(b^{-1}d^{-1})$, and
+Lemma~\ref{Algebra:lem:four-shuffle} regroups into
+$(ab^{-1})(cd^{-1})$.
+\end{proof}
+
+\begin{designnote}[The multiplicative product rule is exact]
+\label{Algebra:note:exact-product}
+Lemma~\ref{Algebra:lem:ratio-mul} is the statement that \emph{the relative
+error of a product is the product of the relative errors}.  It is an identity,
+with no remainder and no cross term.
+
+Its additive counterpart is not.  Estimating
+$\lvert ac - bd\rvert$ requires splitting
+$ac - bd = a(c-d) + (a-b)d$ and then \emph{bounding $a$ and $d$}, which is why
+the classical construction of $\mathbb{R}$ from Cauchy sequences has to prove
+first that a Cauchy sequence is bounded, and why the proof that a product of
+Cauchy sequences is Cauchy cites that lemma.  Nothing of the sort appears in
+this file, or anywhere in this development: there is no boundedness lemma
+because there is no cross term to bound.  The multiplicative presentation buys
+this by measuring error as a ratio rather than a difference, and a ratio is
+multiplicative on the nose.
+\end{designnote}
+
+\begin{lemma}[\lean{MulRat.ratio\_inv\_pair}]\label{Algebra:lem:ratio-inv}
+$\name{ratio}(a^{-1}, b^{-1}) = \name{ratio}(b, a)$.
+\end{lemma}
+
+\begin{proof}
+$\name{ratio}(a^{-1},b^{-1}) = a^{-1}(b^{-1})^{-1} = a^{-1}b = ba^{-1} =
+\name{ratio}(b,a)$, using $\name{inv\_inv}$ and commutativity from
+\texttt{PrimeTensor/MulRat.lean}.
+\end{proof}
+
+\subsection{The two analytic theorems}
+
+\begin{theorem}[\lean{MulRat.scaleWithin\_mul}]\label{Algebra:thm:scalewithin-mul}
+If
+\[
+  \name{ScaleWithin}(\ctor{succ}\,\ell,\, a,\, b)
+  \quad\text{and}\quad
+  \name{ScaleWithin}(\ctor{succ}\,\ell,\, c,\, d),
+\]
+then $\name{ScaleWithin}(\ell,\, a \cdot c,\, b \cdot d)$.
+\end{theorem}
+
+\begin{proof}
+Identical in shape to $\name{scaleWithin\_comp}$ of
+\texttt{PrimeTensor/Scale/Laws.lean}, with
+Lemma~\ref{Algebra:lem:ratio-mul} in place of the composition of ratios.
+Unfolding $\name{scalePow}$ at $\ctor{succ}\,\ell$ turns the four hypotheses
+into squares below $\name{two}$.  For the forward conjunct, rewrite
+$\name{ratio}(ac,bd) = \name{ratio}(a,b)\name{ratio}(c,d)$, distribute the
+ladder over that product by $\name{scalePow\_mul}$, and apply
+$\name{mul\_lt\_two\_of\_sq\_lt\_two}$.  For the backward conjunct, rewrite
+instead $\name{ratio}(bd,ac) = \name{ratio}(b,a)\name{ratio}(d,c)$ and use the
+two backward hypotheses.
+\end{proof}
+
+\begin{theorem}[\lean{MulRat.scaleWithin\_inv}]\label{Algebra:thm:scalewithin-inv}
+$\name{ScaleWithin}(\ell, a, b)$ implies
+$\name{ScaleWithin}(\ell, a^{-1}, b^{-1})$ --- at the \emph{same} level.
+\end{theorem}
+
+\begin{leancode}
+theorem scaleWithin_inv {level : Depth} {a b : MulRat}
+    (h : ScaleWithin level a b) :
+    ScaleWithin level a⁻¹ b⁻¹ := by
+  unfold ScaleWithin at h ⊢
+  rw [ratio_inv_pair a b, ratio_inv_pair b a]
+  exact ⟨h.2, h.1⟩
+\end{leancode}
+
+\begin{proof}
+By Lemma~\ref{Algebra:lem:ratio-inv} the two oriented ratios of the inverted
+pair are the two oriented ratios of the original pair, exchanged.  So the goal
+is the hypothesis with its conjuncts swapped.
+\end{proof}
+
+\begin{designnote}[Inversion is an isometry, and why that is free]
+\label{Algebra:note:isometry}
+Theorem~\ref{Algebra:thm:scalewithin-inv} costs no level: closeness at $\ell$
+goes to closeness at $\ell$, and the proof is a swap.  Multiplicative distance
+is literally invariant under $x \mapsto x^{-1}$, which merely reverses
+orientation, and $\name{ScaleWithin}$ was defined symmetrically in the two
+orientations precisely so that the reversal is invisible.
+
+Contrast the classical construction again.  There, showing that the reciprocal
+of a Cauchy sequence is Cauchy is the delicate step: $x \mapsto 1/x$ is not
+uniformly continuous near $0$, the estimate
+$\lvert 1/a - 1/b\rvert = \lvert a-b\rvert / \lvert ab\rvert$ blows up, and one
+must first prove that a sequence not asymptotic to $0$ is eventually bounded
+\emph{away} from $0$, then restrict to such sequences, then check the choice is
+independent of representative.  None of that appears here, and the reason is
+structural rather than clever: $\name{MulRat}$ is the strictly positive
+rationals, so the singular point is not in the carrier to begin with.  The
+completion is a group because the space being completed already was one, with
+no punctured-domain bookkeeping to carry through the quotient.
+\end{designnote}
+
+\begin{remark}[One level for multiplication, none for inversion]
+\label{Algebra:rem:level-cost}
+The asymmetry is exactly right.  Multiplication combines two independent
+errors, so their ratios multiply and the level must absorb a squaring --- the
+same single-level cost, for the same reason, as composing two steps through a
+midpoint.  Inversion combines nothing; it is a bijection of the carrier that
+preserves multiplicative distance, so it is free.  Every level bookkeeping in
+the rest of the file traces back to this one distinction: the constructions
+that combine two streams take a $\ctor{join}$ of anchors and ask their
+hypotheses for $\ctor{succ}\,\ell$, and the constructions that transform one
+stream keep both the anchor and the level.
+\end{remark}
+
+\subsection{Operations on streams}
+
+\begin{definition}[\lean{MulCauchyStream.mul} and \lean{MulCauchyStream.inv}]
+\label{Algebra:def:stream-ops}
+The product of two Cauchy streams is the pointwise product, and the inverse is
+the pointwise inverse; each carries a proof that the result is again Cauchy.
+The two $\ctor{simp}$ lemmas $\name{mul\_term}$ and $\name{inv\_term}$ record
+that the terms are what they look like, both by $\ctor{rfl}$.
+\end{definition}
+
+\begin{proof}[Proof that the product is Cauchy]
+Given a level $\ell$, ask each factor's Cauchy property for
+$\ctor{succ}\,\ell$, obtaining anchors $a_a$ and $a_b$, and take
+$\name{join}(a_a, a_b)$.  For $m$ and $n$ in that tail, the two bounds on
+$\name{join}$ and transitivity of $\name{AtOrAfter}$, all from
+\texttt{PrimeTensor/Completion.lean}, place both indices in both original
+tails, so both factors are close at $\ctor{succ}\,\ell$, and
+Theorem~\ref{Algebra:thm:scalewithin-mul} combines them at $\ell$.
+\end{proof}
+
+\begin{proof}[Proof that the inverse is Cauchy]
+Ask the Cauchy property for $\ell$ itself, keep the same anchor, and apply
+Theorem~\ref{Algebra:thm:scalewithin-inv} termwise.  No $\name{join}$ and no
+$\ctor{succ}$ occur.
+\end{proof}
+
+\subsection{Compatibility with asymptotic equivalence}
+
+\begin{lemma}[\lean{MulAsymptotic.of\_pointwise}]\label{Algebra:lem:of-pointwise}
+If $a_n = b_n$ for every $n$, then $a$ and $b$ are asymptotic.
+\end{lemma}
+
+\begin{leancode}
+theorem of_pointwise {a b : MulCauchyStream}
+    (h : ∀ n : Depth, a.term n = b.term n) :
+    MulAsymptotic a b := by
+  intro level
+  refine ⟨.one, ?_⟩
+  intro n hn
+  rw [h n]
+  exact MulRat.scaleWithin_refl level (b.term n)
+\end{leancode}
+
+\begin{proof}
+Take the anchor $\ctor{one}$, so the tail is everything, rewrite by the
+pointwise equality, and apply unconditional reflexivity of
+$\name{ScaleWithin}$.
+\end{proof}
+
+This small lemma is what makes stratum (iii) cheap.  Every group law below is
+an equality that already holds term by term, so none of them needs a level, an
+anchor or an estimate: $\name{of\_pointwise}$ turns the termwise identity
+straight into the required asymptotic equivalence, and $\ctor{Quotient.sound}$
+turns that into an equality in $\name{MulReal}$.
+
+\begin{lemma}[\lean{MulAsymptotic.mul} and \lean{MulAsymptotic.inv}]
+\label{Algebra:lem:congruence}
+$\name{MulAsymptotic}$ is a congruence for both operations: from
+$a \sim a'$ and $b \sim b'$ follows $ab \sim a'b'$, and from $a \sim b$ follows
+$a^{-1} \sim b^{-1}$.
+\end{lemma}
+
+\begin{proof}
+For the product, the same three moves as the transitivity proof of
+\texttt{PrimeTensor/Completion.lean}: ask both hypotheses for
+$\ctor{succ}\,\ell$, take $\name{join}$ of the anchors, and combine with
+Theorem~\ref{Algebra:thm:scalewithin-mul}.  For the inverse, keep the anchor
+and the level and apply Theorem~\ref{Algebra:thm:scalewithin-inv} termwise.
+\end{proof}
+
+\subsection{The operations on \texorpdfstring{$\name{MulReal}$}{MulReal}}
+
+\begin{definition}[\lean{MulReal.mul} and \lean{MulReal.inv}]
+\label{Algebra:def:mulreal-ops}
+$\name{mul}$ is $\ctor{Quotient.liftOn_2}$ of the stream product and
+$\name{inv}$ is $\ctor{Quotient.liftOn}$ of the stream inverse, each with
+Lemma~\ref{Algebra:lem:congruence} as its well-definedness obligation.  They
+are registered as the $\ctor{Mul}$ and $\ctor{Inv}$ instances of
+$\name{MulReal}$.
+\end{definition}
+
+\begin{leancode}
+def inv (a : MulReal) : MulReal :=
+  Quotient.liftOn a
+    (fun x => ofStream (MulCauchyStream.inv x))
+    (by
+      intro a b h
+      change MulAsymptotic a b at h
+      change
+        Quotient.mk MulAsymptotic.setoid (MulCauchyStream.inv a) =
+          Quotient.mk MulAsymptotic.setoid (MulCauchyStream.inv b)
+      apply Quotient.sound
+      exact MulAsymptotic.inv h)
+\end{leancode}
+
+\begin{theorem}[The group laws]\label{Algebra:thm:group}
+$\name{MulReal}$ is a commutative group under $\name{mul}$ with unit
+$1 = \name{ofRat}(1)$ and inverse $\name{inv}$.  Explicitly:
+$1 \cdot a = a$ and $a \cdot 1 = a$; $(ab)c = a(bc)$; $ab = ba$;
+$(a^{-1})^{-1} = a$; $a \cdot a^{-1} = 1$ and $a^{-1} \cdot a = 1$.
+\end{theorem}
+
+\begin{proof}
+All but the last have the same four-line shape: induct to replace each element
+by a representative stream, apply $\ctor{Quotient.sound}$ to reduce the claim
+to an asymptotic equivalence, apply
+Lemma~\ref{Algebra:lem:of-pointwise} to reduce that to a termwise equality, and
+close the termwise equality with the corresponding law of
+\texttt{PrimeTensor/MulRat.lean} --- $\name{one\_mul}$, $\name{mul\_one}$,
+$\name{mul\_assoc}$, $\name{mul\_comm}$, $\name{inv\_inv}$, $\name{mul\_inv}$
+respectively.  The unit cases additionally use that the constant stream at $1$
+has every term $1$.  The last law, $a^{-1}a = 1$, is obtained from the previous
+two by commuting, exactly as in \texttt{PrimeTensor/Scale/Laws.lean}.
+\end{proof}
+
+\begin{remark}[Where the analysis went]\label{Algebra:rem:no-analysis}
+Not one of the seven laws mentions a level, an anchor, or
+$\name{ScaleWithin}$.  That is not an accident of presentation: the laws hold
+strictly, term by term, because they hold in $\name{MulRat}$, and equality of
+streams is finer than asymptotic equivalence.  All of the analytic content of
+the file was spent in
+Theorems~\ref{Algebra:thm:scalewithin-mul} and~\ref{Algebra:thm:scalewithin-inv},
+which are what make the operations well defined on the quotient at all; once
+they are proved, the group structure descends for free.
+
+The same will not be true of an order or of a limit, where the statement itself
+mentions the scale and cannot be checked termwise.
+\end{remark}
+
+\begin{remark}[Still a bare $\ctor{Mul}$, not a $\ctor{CommGroup}$]
+\label{Algebra:rem:no-instance}
+The seven laws amount to $\name{MulReal}$ being an abelian group, but no
+$\ctor{CommGroup}$ instance is declared: only $\ctor{One}$, $\ctor{Mul}$ and
+$\ctor{Inv}$.  This repeats the choice made for $\name{MulRat}$, and it has the
+same consequence, visible already in this file --- the regrouping of four
+factors in Lemma~\ref{Algebra:lem:four-shuffle} has to be written by hand
+rather than discharged by $\ctor{ac\_rfl}$ or $\ctor{group}$.  It keeps the
+development independent of the library's algebraic hierarchy, at the price of
+re-proving inside it whatever the hierarchy would have supplied.
+\end{remark}
+
+\begin{remark}[What is still absent]\label{Algebra:rem:absent}
+There is no order on $\name{MulReal}$, no limit notion, and no statement that
+$\name{MulReal}$ is complete for the scale it was built from --- the standard
+next obligation for any completion.  Nor is $\name{ofRat}$ shown to be a
+homomorphism or shown injective, although the first would now follow from
+Lemma~\ref{Algebra:lem:of-pointwise} in one line, since the constant stream of
+a product is the product of the constant streams.  Consistently with the
+module header, nothing additive appears: no addition, no zero, no subtraction,
+and no coefficient drawn from $\mathbb{Q}$ or $\mathbb{R}$.
+\end{remark}
+
+\subsection*{Summary of the correspondence}
+
+\begin{center}
+\small
+\begin{tabular}{@{}lll@{}}
+\hline
+Lean declaration & Kind & Here \\
+\hline
+\lean{MulRat.inv\_mul\_pair}          & theorem     & Lem.~\ref{Algebra:lem:inv-mul-pair} \\
+\lean{MulRat.inv\_one}                & simp thm    & Lem.~\ref{Algebra:lem:inv-mul-pair} \\
+\lean{MulRat.mul\_four\_shuffle}      & private thm & Lem.~\ref{Algebra:lem:four-shuffle} \\
+\lean{MulRat.ratio\_mul\_pair}        & theorem     & Lem.~\ref{Algebra:lem:ratio-mul} \\
+\lean{MulRat.ratio\_inv\_pair}        & theorem     & Lem.~\ref{Algebra:lem:ratio-inv} \\
+\lean{MulRat.scaleWithin\_mul}        & theorem     & Thm.~\ref{Algebra:thm:scalewithin-mul} \\
+\lean{MulRat.scaleWithin\_inv}        & theorem     & Thm.~\ref{Algebra:thm:scalewithin-inv} \\
+\lean{MulCauchyStream.mul}            & definition  & Def.~\ref{Algebra:def:stream-ops} \\
+\lean{MulCauchyStream.inv}            & definition  & Def.~\ref{Algebra:def:stream-ops} \\
+\lean{MulCauchyStream.mul\_term}      & simp thm    & Def.~\ref{Algebra:def:stream-ops} \\
+\lean{MulCauchyStream.inv\_term}      & simp thm    & Def.~\ref{Algebra:def:stream-ops} \\
+\lean{MulAsymptotic.of\_pointwise}    & theorem     & Lem.~\ref{Algebra:lem:of-pointwise} \\
+\lean{MulAsymptotic.mul}              & theorem     & Lem.~\ref{Algebra:lem:congruence} \\
+\lean{MulAsymptotic.inv}              & theorem     & Lem.~\ref{Algebra:lem:congruence} \\
+\lean{MulReal.mul}                    & definition  & Def.~\ref{Algebra:def:mulreal-ops} \\
+\lean{MulReal.inv}                    & definition  & Def.~\ref{Algebra:def:mulreal-ops} \\
+\lean{Mul MulReal}                    & instance    & Def.~\ref{Algebra:def:mulreal-ops} \\
+\lean{Inv MulReal}                    & instance    & Def.~\ref{Algebra:def:mulreal-ops} \\
+\lean{MulReal.one\_mul}               & simp thm    & Thm.~\ref{Algebra:thm:group} \\
+\lean{MulReal.mul\_one}               & simp thm    & Thm.~\ref{Algebra:thm:group} \\
+\lean{MulReal.mul\_assoc}             & theorem     & Thm.~\ref{Algebra:thm:group} \\
+\lean{MulReal.mul\_comm}              & theorem     & Thm.~\ref{Algebra:thm:group} \\
+\lean{MulReal.inv\_inv}               & simp thm    & Thm.~\ref{Algebra:thm:group} \\
+\lean{MulReal.mul\_inv}               & simp thm    & Thm.~\ref{Algebra:thm:group} \\
+\lean{MulReal.inv\_mul}               & simp thm    & Thm.~\ref{Algebra:thm:group} \\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent
+Every declaration of \texttt{PrimeTensor/Algebra.lean} appears above.  The file
+contains no \lean{sorry}, no axiom, and no unproved named proposition.
+Remarks~\ref{Algebra:rem:level-cost}, \ref{Algebra:rem:no-analysis},
+\ref{Algebra:rem:no-instance} and~\ref{Algebra:rem:absent} are stated for the
+reader and are not declarations of the file.
