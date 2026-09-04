@@ -1,0 +1,386 @@
+% Prose rendering of PrimeTensor/Analysis/Control.lean.
+% Fragment: no \documentclass, no preamble, no document environment.
+
+\section{Quantitative scale control for tangent maps}
+\label{Analysis:Control:sec}
+
+\leanfile{PrimeTensor/Analysis/Control.lean}
+
+\subsection*{What this file establishes}
+
+Every tangent map so far has been an arbitrary morphism of the carrier.
+\texttt{PrimeTensor/Analysis/Derivative.lean} observed that nothing required one
+to be continuous, and that nothing up to that point needed it.  The chain rule
+does, and the module header says why the obvious repair is insufficient:
+ordinary continuity at the pivot is not enough, because the derivative measures
+a \emph{relative} rate, so what is wanted is a quantitative statement --- an
+input refinement gain that delivers a prescribed output refinement gain,
+uniformly in the ambient level.  That property is $\name{ScaleControlled}$, and
+this file introduces it, verifies it for every tangent map the development has
+built, and proves the two consequences the chain rule will consume.
+
+Getting there requires a fact outstanding since
+\texttt{PrimeTensor/Scale.lean}: that the levels are \emph{nested}, so that
+closeness at a fine level implies closeness at a coarse one.  That file
+recorded the statement as true and unproved; this one proves it, and
+Remark~\ref{Analysis:Control:rem:why-now} explains why it becomes unavoidable
+exactly here.
+
+\subsection{The levels are nested}
+
+\begin{lemma}[\lean{MulRat.scaleWithin\_succ\_weaken}]
+\label{Analysis:Control:lem:weaken-rat}
+$\name{ScaleWithin}(\ctor{succ}\,\ell, a, b)$ implies
+$\name{ScaleWithin}(\ell, a, b)$.
+\end{lemma}
+
+\begin{leancode}
+theorem scaleWithin_succ_weaken {level : Depth} {a b : MulRat}
+    (h : ScaleWithin (.succ level) a b) :
+    ScaleWithin level a b := by
+  unfold ScaleWithin at h ⊢
+
+  have hone :
+      (1 : MulRat) * (1 : MulRat) < two := by
+    rw [one_mul]
+    exact one_lt_two
+\end{leancode}
+
+\begin{proof}
+Write $q = \name{scalePow}(\name{ratio}(a,b), \ell)$, so that the forward
+hypothesis is $q \cdot q < \name{two}$.  Also $1 \cdot 1 < \name{two}$, by
+cancelling a unit and citing $\name{one\_lt\_two}$.  Now apply
+$\name{mul\_lt\_two\_of\_sq\_lt\_two}$ of
+\texttt{PrimeTensor/Scale/Laws.lean} to the pair $(q, 1)$: both have square
+below the ruler, so their product $q \cdot 1$ does, and cancelling the unit
+gives $q < \name{two}$, which is the forward half of the conclusion.  The
+backward half is the same argument on the reversed ratio.
+\end{proof}
+
+\begin{remark}[Monotonicity, and the route taken to it]
+\label{Analysis:Control:rem:monotone}
+\texttt{PrimeTensor/Scale.lean} stated this as something the ladder ought to
+satisfy, gave the informal argument --- if $r^{2^{k-1}} \geq 2$ then
+$r^{2^{k}} \geq 4 > 2$ --- and noted that the argument needed a comparison fact
+not then available.  \texttt{PrimeTensor/Scale/Laws.lean} supplied that fact
+and observed the statement had become a corollary of the composition law with
+the middle magnitude taken to be $a$ itself.
+
+The proof above takes neither route.  It pairs the hypothesis not with a second
+hypothesis but with the trivial bound $1 \cdot 1 < \name{two}$, and lets the
+arithmetic core do the rest.  The effect is the same and the shape is more
+direct: weakening a level is composing with the identity comparison, so it
+needs no new inequality at all --- only the observation that the pivot is
+itself within the ruler, which was the very first lemma of
+\texttt{PrimeTensor/Scale.lean}.
+\end{remark}
+
+\begin{lemma}[\lean{MulReal.scaleNear\_succ\_weaken} and \lean{scaleNear\_weaken}]
+\label{Analysis:Control:lem:weaken-real}
+$\name{ScaleNear}(\ctor{succ}\,\ell, a, b)$ implies
+$\name{ScaleNear}(\ell, a, b)$; and more generally, if
+$\name{AtOrAfter}(c, f)$ then $\name{ScaleNear}(f,a,b)$ implies
+$\name{ScaleNear}(c,a,b)$.
+\end{lemma}
+
+\begin{leancode}
+theorem scaleNear_weaken {coarse fine : Depth} {a b : MulReal}
+    (hcf : Depth.AtOrAfter coarse fine)
+    (h : ScaleNear fine a b) :
+    ScaleNear coarse a b := by
+  induction hcf with
+  | here =>
+      exact h
+  | later hcf ih =>
+      exact ih (scaleNear_succ_weaken h)
+\end{leancode}
+
+\begin{proof}
+The first transports Lemma~\ref{Analysis:Control:lem:weaken-rat} across the
+quotient, keeping the same witnessing streams and the same anchor and applying
+it termwise.  The second iterates: induction on the proof that the fine level
+lies at or after the coarse one peels off one $\ctor{succ}$ at a time, each
+peel being one application of the first.
+\end{proof}
+
+So the family $\{\name{ScaleNear}(\ell,-,-)\}$ is decreasing along
+$\name{AtOrAfter}$ --- the levels really are a nested system of tolerances, and
+the order on $\name{Depth}$ built in
+\texttt{PrimeTensor/Completion.lean} for indexing tails now also orders
+tolerances.
+
+\subsection{Advancing respects the order}
+
+\begin{lemma}[\lean{Depth.advance\_atOrAfter}, \lean{advance\_left\_join} and
+  \lean{advance\_right\_join}]\label{Analysis:Control:lem:advance}
+If $\name{AtOrAfter}(a,b)$ then
+$\name{AtOrAfter}(\name{advance}(\ell,a), \name{advance}(\ell,b))$.
+Consequently $\name{advance}(\ell, \name{join}(a,b))$ lies at or after both
+$\name{advance}(\ell,a)$ and $\name{advance}(\ell,b)$.
+\end{lemma}
+
+\begin{proof}
+The first is induction on the given proof, each $\ctor{later}$ becoming one
+$\ctor{later}$ on the advanced pair, since $\name{advance}$ recurses on its
+second argument by a single $\ctor{succ}$.  The two corollaries apply it to the
+bounds on $\name{join}$ from \texttt{PrimeTensor/Completion.lean}.
+\end{proof}
+
+\begin{remark}[Why monotonicity becomes unavoidable in this file]
+\label{Analysis:Control:rem:why-now}
+Six earlier proofs have combined two hypotheses by taking a $\name{join}$, and
+none of them needed the levels to be nested.  The reason is that in all six the
+join was taken in the \emph{anchor} coordinate: an index lying in the tail at
+$\name{join}(c_1,c_2)$ lies in the tail at $c_1$ by transitivity of
+$\name{AtOrAfter}$, and transitivity is all that is required.
+
+Theorem~\ref{Analysis:Control:thm:mul} takes a join in the \emph{level}
+coordinate instead --- of two source gains.  The hypothesis then arrives at
+$\name{advance}(\ell, \name{join}(s_1,s_2))$, which is \emph{finer} than the
+$\name{advance}(\ell, s_1)$ that the first control hypothesis expects, and a
+finer nearness is not automatically a coarser one.  Converting it is exactly
+Lemma~\ref{Analysis:Control:lem:weaken-real}, applied through
+Lemma~\ref{Analysis:Control:lem:advance}.  That is why the statement
+outstanding since \texttt{PrimeTensor/Scale.lean} is proved here and not
+earlier: this is the first place a join happens among tolerances rather than
+among stages.
+\end{remark}
+
+\subsection{Scale control}
+
+\begin{definition}[\lean{MulTangentMap.ScaleControlled}]
+\label{Analysis:Control:def:controlled}
+A tangent map $D$ is \emph{scale controlled} when
+\[
+  \forall\, t\;
+  \exists\, s\;
+  \forall\, \ell\; \forall\, h : \quad
+  \name{ScaleNear}(\name{advance}(\ell,s),\, h,\, 1)
+  \;\longrightarrow\;
+  \name{ScaleNear}(\name{advance}(\ell,t),\, D(h),\, 1).
+\]
+\end{definition}
+
+\begin{leancode}
+def ScaleControlled (D : MulTangentMap) : Prop :=
+  ∀ targetGain : Depth,
+    ∃ sourceGain : Depth,
+      ∀ level : Depth, ∀ h : MulReal,
+        MulReal.ScaleNear (Depth.advance level sourceGain) h 1 →
+        MulReal.ScaleNear (Depth.advance level targetGain) (D h) 1
+\end{leancode}
+
+\begin{designnote}[What the quantifier order buys]
+\label{Analysis:Control:note:uniform}
+The source gain $s$ is chosen \emph{before} the ambient level $\ell$, so one
+$s$ must work at every level simultaneously.  Had the order been
+$\forall t\,\forall \ell\,\exists s$, the modulus could depend on the ambient
+scale and the definition would be a level-by-level continuity statement.  As
+written it is uniform, and that uniformity is what the docstring calls finite
+scale distortion.
+
+In the logarithmic chart of
+\texttt{PrimeTensor/Analysis/Derivative.lean} the reading is the familiar one.
+Writing $T = 2^{-(\size{\ell}-1)}$ for the tolerance at level $\ell$, the
+hypothesis is $\lvert \log h \rvert < 2^{-\size{s}}\,T$ and the conclusion is
+$\lvert \log D(h) \rvert < 2^{-\size{t}}\,T$, for every dyadic $T$.  Since the
+induced map on logarithms is additive, that says it is bounded, with
+$2^{\size{s}-\size{t}}$ serving as a bound on its operator norm.  So
+$\name{ScaleControlled}$ is boundedness of the tangent map --- exactly the
+hypothesis \texttt{PrimeTensor/Analysis/Derivative.lean} declined to impose,
+imposed now that something needs it.
+\end{designnote}
+
+\begin{lemma}[\lean{scaleControlled\_identity} and \lean{scaleControlled\_trivial}]
+\label{Analysis:Control:lem:examples}
+$\name{identity}$ and $\name{trivial}$ are scale controlled.
+\end{lemma}
+
+\begin{proof}
+For the identity take $s = t$ and return the hypothesis unchanged --- no
+distortion at all.  For the trivial map take $s = t$ as well; the value is the
+pivot, and $\name{scaleNear\_refl}$ places it near itself at every level, so
+the hypothesis is discarded.
+\end{proof}
+
+\begin{theorem}[\lean{ScaleControlled.inv}]\label{Analysis:Control:thm:inv}
+If $D$ is scale controlled then so is $D^{-1}$, with the same source gain.
+\end{theorem}
+
+\begin{proof}
+Take the source gain $D$ supplies for the same target, apply $D$'s control, and
+invert the conclusion with $\name{scaleNear\_inv}$ of
+\texttt{PrimeTensor/Analysis/Near/Laws.lean}; the pivot is fixed by inversion,
+so the right-hand side stays $1$.
+\end{proof}
+
+\begin{theorem}[\lean{ScaleControlled.mul}]\label{Analysis:Control:thm:mul}
+If $D$ and $E$ are scale controlled then so is $D \cdot E$.
+\end{theorem}
+
+\begin{leancode}
+theorem ScaleControlled.mul {D E : MulTangentMap}
+    (hD : ScaleControlled D)
+    (hE : ScaleControlled E) :
+    ScaleControlled (mul D E) := by
+  intro targetGain
+
+  obtain ⟨sourceD, hcontrolD⟩ := hD (.succ targetGain)
+  obtain ⟨sourceE, hcontrolE⟩ := hE (.succ targetGain)
+
+  let sourceGain := Depth.join sourceD sourceE
+\end{leancode}
+
+\begin{proof}
+Given a target gain $t$, ask each factor for $\ctor{succ}\,t$ --- one deeper,
+because the product will spend a level --- obtaining source gains $s_D$ and
+$s_E$, and offer $\name{join}(s_D, s_E)$ as the source gain.
+
+Let $h$ be near the pivot at $\name{advance}(\ell, \name{join}(s_D,s_E))$.  By
+Lemma~\ref{Analysis:Control:lem:advance} that level is at or after both
+$\name{advance}(\ell,s_D)$ and $\name{advance}(\ell,s_E)$, so
+Lemma~\ref{Analysis:Control:lem:weaken-real} weakens the hypothesis to each of
+them and both controls apply, putting $D(h)$ and $E(h)$ near the pivot at
+$\name{advance}(\ell, \ctor{succ}\,t)$.  That level is
+$\ctor{succ}\,\name{advance}(\ell,t)$ by $\name{advance\_succ}$, so
+$\name{scaleNear\_mul}$ combines the two at $\name{advance}(\ell,t)$; the
+right-hand side is $1 \cdot 1$, which cancels.
+\end{proof}
+
+\begin{corollary}[\lean{scaleControlled\_depthPow}]
+\label{Analysis:Control:cor:pow}
+Every positive-depth tangent power $\name{depthPow}(d)$ is scale controlled.
+\end{corollary}
+
+\begin{proof}
+Structural recursion: at $\ctor{one}$ it is the identity, and at
+$\ctor{succ}\,d$ it is the product of the identity with the recursive case.
+\end{proof}
+
+\begin{remark}[Controlled is a property of the family, not of tangent maps]
+\label{Analysis:Control:rem:not-all}
+No theorem here says that a tangent map is scale controlled; the property is
+verified one construction at a time.  It could not be otherwise --- a tangent
+map is any morphism of the carrier whatever, and
+\texttt{PrimeTensor/Analysis/Derivative.lean} deliberately imposed no
+regularity, so a wild one is not excluded by anything.  What
+Lemma~\ref{Analysis:Control:lem:examples},
+Theorems~\ref{Analysis:Control:thm:inv} and~\ref{Analysis:Control:thm:mul} and
+Corollary~\ref{Analysis:Control:cor:pow} establish jointly is that the
+\emph{closure} of $\{\name{identity}, \name{trivial}\}$ under product and
+inverse consists of controlled maps --- which, by
+\texttt{PrimeTensor/Analysis/Examples.lean}, is every tangent map the
+development has so far produced as a derivative.  The tangent ratio is not
+separately checked, although it is a product with an inverse and so is covered.
+\end{remark}
+
+\subsection{The two consequences}
+
+\begin{theorem}[\lean{ScaleControlled.maps\_converges}]
+\label{Analysis:Control:thm:converges}
+A scale-controlled $D$ sends pivot-convergent sequences to pivot-convergent
+sequences.
+\end{theorem}
+
+\begin{proof}
+Fix a level $\ell$.  Ask the control for the smallest target gain,
+$\ctor{one}$, obtaining a source gain $s$, and ask the convergence hypothesis
+for the level $\name{advance}(\ell, s)$, obtaining an anchor.  Beyond it, the
+control puts $D(s_n)$ near the pivot at $\name{advance}(\ell, \ctor{one})$,
+which is $\ctor{succ}\,\ell$; weakening once by
+Lemma~\ref{Analysis:Control:lem:weaken-real} gives level $\ell$, as required.
+\end{proof}
+
+This is continuity at the pivot, in the sequential form of
+\texttt{PrimeTensor/Analysis/Limit.lean}.  The implication runs one way only:
+control is defined uniformly in the level, and nothing here derives it back
+from the sequential statement.  That gap is the content of the header's remark
+that ordinary continuity is not enough.
+
+\begin{theorem}[\lean{negligible\_map}]\label{Analysis:Control:thm:negligible-map}
+If $D$ is scale controlled and $\name{error}$ is negligible relative to
+$\name{base}$, then $n \mapsto D(\name{error}_n)$ is negligible relative to
+$\name{base}$.
+\end{theorem}
+
+\begin{leancode}
+theorem negligible_map
+    {D : MulTangentMap}
+    (hD : D.ScaleControlled)
+    {error base : MulReal.Seq}
+    (herror : NegligibleRelative error base) :
+    NegligibleRelative (fun n => D (error n)) base := by
+  intro targetGain
+
+  obtain ⟨sourceGain, hcontrol⟩ := hD targetGain
+  obtain ⟨anchor, htail⟩ := herror sourceGain
+
+  refine ⟨anchor, ?_⟩
+  intro n hn level hbase
+\end{leancode}
+
+\begin{proof}
+Given a target gain, take the source gain the control supplies and the anchor
+the negligibility supplies at that source gain.  Beyond the anchor, whatever
+level the base achieves, the error is near the pivot at the source-advanced
+level, and the control converts that into the target-advanced level for
+$D(\name{error}_n)$.  The two definitions match term for term; the proof is
+their composition and nothing more.
+\end{proof}
+
+\begin{remark}[Everything here is for the chain rule]
+\label{Analysis:Control:rem:purpose}
+Theorem~\ref{Analysis:Control:thm:negligible-map} is the reason the file
+exists.  A chain rule must push the error of the inner function through the
+outer tangent map and still call it negligible, and negligibility is a
+statement about levels, so the outer map has to move levels predictably.
+Nothing in this file states a chain rule, composes two functions, or defines
+composition of tangent maps; all of that is downstream.  What is settled here
+is the hypothesis such a rule will carry.
+\end{remark}
+
+\begin{remark}[What is not proved]\label{Analysis:Control:rem:missing}
+$\name{ScaleControlled}$ is not shown closed under composition of tangent maps,
+composition itself not being defined.  There is no converse to
+Theorem~\ref{Analysis:Control:thm:converges}, and no example of a tangent map
+that fails to be controlled --- so the notion is not shown to be a genuine
+restriction, only a sufficient one.  Nothing relates control to
+$\name{HasMulDerivativeAt}$: a derivative is not required to be controlled, and
+a function is not shown to have a controlled derivative.
+\end{remark}
+
+\subsection*{Summary of the correspondence}
+
+\begin{center}
+\small
+\begin{tabular}{@{}lll@{}}
+\hline
+Lean declaration & Kind & Here \\
+\hline
+\lean{MulRat.scaleWithin\_succ\_weaken}   & theorem    & Lem.~\ref{Analysis:Control:lem:weaken-rat} \\
+\lean{MulReal.scaleNear\_succ\_weaken}    & theorem    & Lem.~\ref{Analysis:Control:lem:weaken-real} \\
+\lean{MulReal.scaleNear\_weaken}          & theorem    & Lem.~\ref{Analysis:Control:lem:weaken-real} \\
+\lean{Depth.advance\_atOrAfter}           & theorem    & Lem.~\ref{Analysis:Control:lem:advance} \\
+\lean{Depth.advance\_left\_join}          & theorem    & Lem.~\ref{Analysis:Control:lem:advance} \\
+\lean{Depth.advance\_right\_join}         & theorem    & Lem.~\ref{Analysis:Control:lem:advance} \\
+\lean{MulTangentMap.ScaleControlled}      & definition & Def.~\ref{Analysis:Control:def:controlled} \\
+\lean{scaleControlled\_identity}          & theorem    & Lem.~\ref{Analysis:Control:lem:examples} \\
+\lean{scaleControlled\_trivial}           & theorem    & Lem.~\ref{Analysis:Control:lem:examples} \\
+\lean{ScaleControlled.inv}                & theorem    & Thm.~\ref{Analysis:Control:thm:inv} \\
+\lean{ScaleControlled.mul}                & theorem    & Thm.~\ref{Analysis:Control:thm:mul} \\
+\lean{scaleControlled\_depthPow}          & theorem    & Cor.~\ref{Analysis:Control:cor:pow} \\
+\lean{ScaleControlled.maps\_converges}    & theorem    & Thm.~\ref{Analysis:Control:thm:converges} \\
+\lean{MulDifferential.negligible\_map}    & theorem    & Thm.~\ref{Analysis:Control:thm:negligible-map} \\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent
+Every declaration of \texttt{PrimeTensor/Analysis/Control.lean} appears above.
+The file contains no \lean{sorry}, no axiom, and no unproved named proposition.
+Design note~\ref{Analysis:Control:note:uniform} and
+Remarks~\ref{Analysis:Control:rem:monotone},
+\ref{Analysis:Control:rem:why-now}, \ref{Analysis:Control:rem:not-all},
+\ref{Analysis:Control:rem:purpose} and~\ref{Analysis:Control:rem:missing} are
+stated for the reader and are not declarations of the file; the boundedness
+reading of scale control is a gloss and is not formalised.
