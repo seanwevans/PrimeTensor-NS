@@ -1,0 +1,261 @@
+% Prose rendering of PrimeTensor/Structure.lean.
+% Fragment: no \documentclass, no preamble, no document environment.
+
+\section{Zero-free multiplicative carrier interface}
+\label{Structure:sec}
+
+\leanfile{PrimeTensor/Structure.lean}
+
+\subsection*{What this file establishes}
+
+By the end of \texttt{PrimeTensor/Algebra.lean} two carriers ---
+$\name{MulRat}$ and its completion $\name{MulReal}$ --- satisfied the same six
+laws, each proved twice, once on each side.  This file introduces the interface
+that names those six laws, records both carriers as instances of it, and proves
+the first theorem of the development that is stated once and holds for every
+carrier at once.  It closes by checking that the embedding
+$\name{ofRat} : \name{MulRat} \to \name{MulReal}$ respects all of the
+structure.
+
+The interesting content is a negative decision, and the module header states it
+outright: Lean's $\ctor{Group}$ and $\ctor{CommGroup}$ are \emph{not} used, and
+the class defined instead is deliberately weaker than they are.  Why a weaker
+class is the right one here is the subject of
+Design note~\ref{Structure:note:why-not-group}.
+
+\subsection{The interface}
+
+\begin{definition}[\lean{IsMulCarrier}]\label{Structure:def:ismulcarrier}
+For a type $G$ already equipped with $\ctor{One}$, $\ctor{Mul}$ and
+$\ctor{Inv}$ instances, $\name{IsMulCarrier}(G)$ is the proposition asserting
+the six laws
+\begin{align*}
+  (ab)c &= a(bc), &
+  1 \cdot a &= a, &
+  a \cdot 1 &= a, \\
+  ab &= ba, &
+  (a^{-1})^{-1} &= a, &
+  a \cdot a^{-1} &= 1 .
+\end{align*}
+\end{definition}
+
+\begin{leancode}
+class IsMulCarrier (G : Type*) [One G] [Mul G] [Inv G] : Prop where
+  mul_assoc : ∀ a b c : G, (a * b) * c = a * (b * c)
+  one_mul : ∀ a : G, 1 * a = a
+  mul_one : ∀ a : G, a * 1 = a
+  mul_comm : ∀ a b : G, a * b = b * a
+  inv_inv : ∀ a : G, (a⁻¹)⁻¹ = a
+  mul_inv : ∀ a : G, a * a⁻¹ = 1
+\end{leancode}
+
+Three features of the declaration carry the design.
+
+It is a \emph{mixin}: the three operations appear as instance
+\emph{parameters} in square brackets, not as fields.  A type does not acquire a
+multiplication by being an $\name{IsMulCarrier}$; it must already have one, and
+the class only asserts that the one it has obeys the laws.  So no competing
+$\ctor{One}$, $\ctor{Mul}$ or $\ctor{Inv}$ instance is ever created, and there
+is no possibility of two multiplications on the same carrier disagreeing about
+which is meant.
+
+It is \emph{$\ctor{Prop}$-valued}.  Every field is an equation, so an
+$\name{IsMulCarrier}$ instance carries no data whatever --- nothing that could
+be computed with, and nothing that could be unfolded to something unexpected.
+
+And it is \emph{exactly six laws}, closed under nothing.  There is no division,
+no power operation, no additive field, and no cancellation axiom.
+
+\begin{designnote}[Why not $\ctor{CommGroup}$]\label{Structure:note:why-not-group}
+The six laws say that $G$ is an abelian group, so $\ctor{CommGroup}\,G$ would
+be provable and would bring the whole library with it.  The header rejects it
+for the operations it would drag in.
+
+Lean's $\ctor{Monoid}$ carries a natural-power field
+$\ctor{npow} : \mathbb{N} \to M \to M$, and $\ctor{DivInvMonoid}$ carries an
+integer power $\ctor{zpow} : \mathbb{Z} \to G \to G$ and a division
+$\ctor{Div}$.  They are fields with defaults, not theorems: a $\ctor{CommGroup}$
+instance on $\name{MulReal}$ would equip the carrier with $a^{0} = 1$, with
+$a^{-n}$, and with $a / b$, whether or not any of them is ever written.
+
+Each is precisely what this development has been at pains to exclude.
+$\name{Depth}$ of \texttt{PrimeTensor/Depth.lean} has no zeroth constructor, so
+that every axis is nonempty and every fold needs no identity element; a
+$\ctor{npow}$ defined at $0$ reintroduces the zeroth index at the level of the
+carrier and makes the exclusion cosmetic.  $\ctor{Div}$ reintroduces a second
+primitive operation on top of $\ctor{Inv}$, so that a statement can be written
+in two inequivalent-looking ways and every downstream $\ctor{simp}$ set has to
+decide between them.  And an integer power presupposes $\mathbb{Z}$, an
+additive object, in the object language of a development whose stated
+constraint is that nothing additive appears.
+
+The mixin is the smallest interface that gives the laws without the
+operations.  Its cost is real and was visible in
+\texttt{PrimeTensor/Scale/Laws.lean} and
+\texttt{PrimeTensor/Algebra.lean}: since $\ctor{ac\_rfl}$, $\ctor{ring}$ and
+$\ctor{group}$ all dispatch on the library's algebraic classes and not on this
+one, associativity-commutativity regroupings still have to be written out by
+hand, and both files did so.  The trade is spelled-out rewriting in exchange
+for a carrier that carries no operation nobody asked for.
+\end{designnote}
+
+\begin{lemma}[\lean{IsMulCarrier.inv\_mul}]\label{Structure:lem:inv-mul}
+In any $\name{IsMulCarrier}$, $a^{-1} \cdot a = 1$.
+\end{lemma}
+
+\begin{leancode}
+theorem inv_mul (a : G) : a⁻¹ * a = 1 := by
+  rw [IsMulCarrier.mul_comm]
+  exact IsMulCarrier.mul_inv a
+\end{leancode}
+
+\begin{proof}
+Commute and apply the sixth law.
+\end{proof}
+
+\begin{remark}[The first generic theorem]\label{Structure:rem:generic}
+Trivial as it is, this is the first statement in the development proved once
+for all carriers rather than once per carrier.  The same fact was proved
+separately as $\name{MulRat.inv\_mul}$ in
+\texttt{PrimeTensor/Scale/Laws.lean} and as $\name{MulReal.inv\_mul}$ in
+\texttt{PrimeTensor/Algebra.lean}, each by this identical two-line argument.
+Both survive: nothing is deleted, and the concrete names remain the ones the
+earlier files' $\ctor{simp}$ sets refer to.  What changes is that a
+\emph{third} carrier would now inherit the lemma instead of re-proving it.
+\end{remark}
+
+\begin{remark}[The axiom list is not minimal]\label{Structure:rem:redundant}
+$\name{inv\_inv}$ follows from the other five.  Inverses in a monoid are
+unique --- if $xy = 1$ and $xz = 1$ then
+$y = y\cdot 1 = y(xz) = (yx)z = (xy)z = 1\cdot z = z$, using commutativity for
+the fourth step --- and both $a$ and $(a^{-1})^{-1}$ are inverses of $a^{-1}$,
+the first by Lemma~\ref{Structure:lem:inv-mul} and the second by the sixth law
+applied to $a^{-1}$.  Listing it as an axiom costs one line per instance and
+saves that derivation at every use, which for a class whose only two instances
+already had the fact proved is the cheaper side of the trade.
+\end{remark}
+
+\subsection{The two instances}
+
+\begin{proposition}[\lean{IsMulCarrier MulRat} and \lean{IsMulCarrier MulReal}]
+\label{Structure:prop:instances}
+Both $\name{MulRat}$ and $\name{MulReal}$ are $\name{IsMulCarrier}$s.
+\end{proposition}
+
+\begin{proof}
+Each instance is a six-field record whose entries are the correspondingly named
+theorems already proved: $\name{MulRat.mul\_assoc}$, $\name{one\_mul}$,
+$\name{mul\_one}$, $\name{mul\_comm}$, $\name{inv\_inv}$, $\name{mul\_inv}$
+from \texttt{PrimeTensor/MulRat.lean}, and the six theorems of the same names
+on $\name{MulReal}$ from \texttt{PrimeTensor/Algebra.lean}.  Nothing is proved
+here; the file only records that what was proved has the shape the interface
+asks for.
+\end{proof}
+
+That both instances are literally lists of existing names is the evidence that
+the interface was extracted from the practice rather than imposed on it: the
+six laws are exactly the six that both carriers had already been given, in the
+same order and with the same statements.
+
+\subsection{The embedding respects the structure}
+
+\begin{lemma}[\lean{MulReal.ofRat\_one}, \lean{ofRat\_mul} and \lean{ofRat\_inv}]
+\label{Structure:lem:ofrat}
+$\name{ofRat}(1) = 1$, and for all $a, b : \name{MulRat}$,
+\[
+  \name{ofRat}(a \cdot b) = \name{ofRat}(a) \cdot \name{ofRat}(b),
+  \qquad
+  \name{ofRat}(a^{-1}) = \name{ofRat}(a)^{-1} .
+\]
+\end{lemma}
+
+\begin{leancode}
+@[simp] theorem ofRat_mul (a b : MulRat) :
+    ofRat (a * b) = ofRat a * ofRat b := by
+  change
+    Quotient.mk MulAsymptotic.setoid (MulCauchyStream.constant (a * b)) =
+      Quotient.mk MulAsymptotic.setoid
+        (MulCauchyStream.mul
+          (MulCauchyStream.constant a)
+          (MulCauchyStream.constant b))
+  apply Quotient.sound
+  apply MulAsymptotic.of_pointwise
+  intro n
+  rfl
+\end{leancode}
+
+\begin{proof}
+The first is $\ctor{rfl}$: $\name{MulReal.one}$ was \emph{defined} as
+$\name{ofRat}(1)$ in \texttt{PrimeTensor/Completion.lean} and installed as the
+$\ctor{One}$ instance, so the two sides are the same term.
+
+The other two are the four-line shape of
+\texttt{PrimeTensor/Algebra.lean}: reduce the equality of classes to an
+asymptotic equivalence by $\ctor{Quotient.sound}$, reduce that to a termwise
+equality by $\name{of\_pointwise}$, and observe that the termwise equality is
+$\ctor{rfl}$.  It is $\ctor{rfl}$ because the $n$-th term of the constant
+stream at $ab$ is $ab$, and the $n$-th term of the product of the constant
+streams at $a$ and at $b$ is also $ab$ --- the two streams are not merely
+asymptotic, they are equal, and the same holds for inversion.
+\end{proof}
+
+\begin{remark}[Predicted, and for the predicted reason]\label{Structure:rem:predicted}
+\texttt{PrimeTensor/Algebra.lean} closed by noting that the homomorphism
+property of $\name{ofRat}$ was not yet stated but would follow from
+$\name{of\_pointwise}$ in one line, since the constant stream of a product is
+the product of the constant streams.  That is exactly the proof above, and the
+``one line'' is the final $\ctor{rfl}$.  No analysis enters: the levels and
+anchors of the completion play no part, because constant streams agree
+identically rather than eventually.
+\end{remark}
+
+\begin{remark}[Injectivity is still missing]\label{Structure:rem:injective}
+$\name{ofRat}$ is now known to preserve the pivot, the multiplication and the
+inversion, which is everything the interface names.  It is still not known to
+be injective, and injectivity is not a formal consequence of being a
+homomorphism --- it is the statement that two rationals whose constant streams
+are close at every level are equal, which is an archimedean fact about
+$\name{MulRat}$ and needs an argument about the ladder.  Until it is proved,
+$\name{MulReal}$ is a carrier receiving a structure-preserving map from
+$\name{MulRat}$, not yet an extension of it.
+\end{remark}
+
+\begin{remark}[The mixin is not yet used generically]\label{Structure:rem:unused}
+Lemma~\ref{Structure:lem:inv-mul} is the only theorem stated for a general
+$\name{IsMulCarrier}$, and no later result in this file is.  The interface's
+payoff is entirely deferred: it exists so that constructions downstream can be
+written once against the laws instead of twice against the two carriers.  What
+the file delivers now is the declaration, the two instances, and the evidence
+that the embedding between them is a morphism of the structure the interface
+describes.
+\end{remark}
+
+\subsection*{Summary of the correspondence}
+
+\begin{center}
+\small
+\begin{tabular}{@{}lll@{}}
+\hline
+Lean declaration & Kind & Here \\
+\hline
+\lean{IsMulCarrier}                 & class      & Def.~\ref{Structure:def:ismulcarrier} \\
+\lean{IsMulCarrier.inv\_mul}        & theorem    & Lem.~\ref{Structure:lem:inv-mul} \\
+\lean{IsMulCarrier MulRat}          & instance   & Prop.~\ref{Structure:prop:instances} \\
+\lean{IsMulCarrier MulReal}         & instance   & Prop.~\ref{Structure:prop:instances} \\
+\lean{MulReal.ofRat\_one}           & simp thm   & Lem.~\ref{Structure:lem:ofrat} \\
+\lean{MulReal.ofRat\_mul}           & simp thm   & Lem.~\ref{Structure:lem:ofrat} \\
+\lean{MulReal.ofRat\_inv}           & simp thm   & Lem.~\ref{Structure:lem:ofrat} \\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent
+Every declaration of \texttt{PrimeTensor/Structure.lean} appears above,
+together with the six fields of the class, listed in
+Definition~\ref{Structure:def:ismulcarrier}.  The file contains no
+\lean{sorry}, no axiom, and no unproved named proposition.
+Remarks~\ref{Structure:rem:generic}, \ref{Structure:rem:redundant},
+\ref{Structure:rem:predicted}, \ref{Structure:rem:injective}
+and~\ref{Structure:rem:unused} are stated for the reader and are not
+declarations of the file; the derivation in
+Remark~\ref{Structure:rem:redundant} is not carried out in Lean.
