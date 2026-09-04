@@ -1,0 +1,383 @@
+% Prose rendering of PrimeTensor/Analysis/Rules.lean.
+% Fragment: no \documentclass, no preamble, no document environment.
+
+\section{First multiplicative calculus rules}
+\label{Analysis:Rules:sec}
+
+\leanfile{PrimeTensor/Analysis/Rules.lean}
+
+\subsection*{What this file establishes}
+
+\texttt{PrimeTensor/Analysis/Derivative.lean} defined the multiplicative
+derivative and computed it only where the first-order model happens to be
+exact.  This file proves the first two rules that combine derivatives:
+\[
+  D_{fg} = D_f \cdot D_g,
+  \qquad
+  D_{1/f} = D_f^{-1},
+\]
+with the tangent maps multiplied and inverted pointwise.  Both are exactly
+what the module header promises --- the product consumes one intrinsic scale
+level, inversion consumes none --- and the level accounting appears in a new
+place, which Design note~\ref{Analysis:Rules:note:gain} is about.
+
+The striking feature is the shape of the product rule.  There is no Leibniz
+cross term: the model for $fg$ depends on $D_f$ and $D_g$ and on nothing else
+--- not on $f(x)$, not on $g(x)$.
+Design note~\ref{Analysis:Rules:note:leibniz} explains why that is right and
+not a simplification.
+
+The file is built in four layers, each a product-and-inverse pair: carrier
+algebra on $\name{MulReal}$, operations on tangent maps, closure properties of
+negligibility and first-order equivalence, and the two rules themselves.
+
+\subsection{Carrier algebra, one layer up}
+
+\begin{lemma}[\lean{MulReal.inv\_mul\_pair} and \lean{mul\_four\_shuffle}]
+\label{Analysis:Rules:lem:algebra}
+$(ab)^{-1} = a^{-1}b^{-1}$ and $(ab)(cd) = (ac)(bd)$ on $\name{MulReal}$.
+\end{lemma}
+
+\begin{leancode}
+theorem mul_four_shuffle (a b c d : MulReal) :
+    (a * b) * (c * d) = (a * c) * (b * d) := by
+  calc
+    (a * b) * (c * d)
+        = a * (b * (c * d)) := mul_assoc a b (c * d)
+    _ = a * ((b * c) * d) := by
+      rw [← mul_assoc b c d]
+    _ = a * ((c * b) * d) := by
+      rw [mul_comm b c]
+    _ = a * (c * (b * d)) := by
+      rw [mul_assoc c b d]
+    _ = (a * c) * (b * d) := (mul_assoc a c (b * d)).symm
+\end{leancode}
+
+\begin{proof}
+The first descends from its $\name{MulRat}$ counterpart in
+\texttt{PrimeTensor/Algebra.lean} by the standard route: induct to
+representatives, apply $\ctor{Quotient.sound}$, apply
+$\name{of\_pointwise}$, and close termwise.  The second is the five-step
+regrouping, written out for the same reason it was written out one layer down.
+\end{proof}
+
+\begin{lemma}[\lean{MulReal.ratio\_mul\_pair}, \lean{ratio\_inv\_pair} and
+  \lean{ratio\_reverse}]\label{Analysis:Rules:lem:ratio}
+\[
+  \name{ratio}(ac, bd) = \name{ratio}(a,b)\,\name{ratio}(c,d),
+  \quad
+  \name{ratio}(a^{-1},b^{-1}) = \name{ratio}(b,a),
+  \quad
+  \name{ratio}(b,a) = \name{ratio}(a,b)^{-1}.
+\]
+\end{lemma}
+
+\begin{proof}
+The first two are the arguments of \texttt{PrimeTensor/Algebra.lean} repeated
+with Lemma~\ref{Analysis:Rules:lem:algebra} in place of its $\name{MulRat}$
+version.  For the third, $\name{ratio}(b,a) = ba^{-1}$ and
+$\name{ratio}(a,b)^{-1} = (ab^{-1})^{-1} = a^{-1}b$, and the two agree by
+commutativity.
+\end{proof}
+
+\begin{remark}[Where the mixin could have been used and was not]
+\label{Analysis:Rules:rem:mixin}
+Every statement in Lemmas~\ref{Analysis:Rules:lem:algebra}
+and~\ref{Analysis:Rules:lem:ratio} is a consequence of the six laws of
+$\name{IsMulCarrier}$ alone, and both $\name{MulRat}$ and $\name{MulReal}$ are
+instances.  They are nonetheless proved twice --- once in
+\texttt{PrimeTensor/Algebra.lean} for the finite carrier and once here for the
+completed one --- and the completed proof of $\name{inv\_mul\_pair}$ even
+descends through representatives rather than using the laws.
+
+The obstacle is not the laws but the notation: $\name{ratio}$ is defined
+separately on $\name{MulRat}$ and on $\name{MulReal}$, and not once for a
+general carrier, so a generic statement has nothing to be about.  This is the
+first concrete place where the payoff of
+\texttt{PrimeTensor/Structure.lean}, described there as entirely deferred,
+could have been collected and is not.
+\end{remark}
+
+\subsection{Operations on tangent maps}
+
+\begin{definition}[\lean{MulTangentMap.mul} and \lean{MulTangentMap.inv}]
+\label{Analysis:Rules:def:tangent-ops}
+$(D \cdot E)(h) \defeq D(h) \cdot E(h)$ and $D^{-1}(h) \defeq D(h)^{-1}$, each
+carrying proofs that the result is again a tangent map.
+\end{definition}
+
+\begin{leancode}
+def mul (D E : MulTangentMap) : MulTangentMap where
+  toFun := fun h => D h * E h
+  map_one := by
+    rw [D.map_one, E.map_one]
+    exact MulReal.one_mul 1
+  map_mul := by
+    intro a b
+    rw [D.map_mul, E.map_mul]
+    exact MulReal.mul_four_shuffle (D a) (D b) (E a) (E b)
+  map_inv := by
+    intro a
+    rw [D.map_inv, E.map_inv]
+    symm
+    exact MulReal.inv_mul_pair (D a) (E a)
+\end{leancode}
+
+\begin{proof}[Verification for the product]
+The pivot goes to $1 \cdot 1 = 1$.  Multiplicativity is
+$D(ab)E(ab) = D(a)D(b)E(a)E(b) = (D(a)E(a))(D(b)E(b))$, the middle step being
+exactly the four-factor regrouping of
+Lemma~\ref{Analysis:Rules:lem:algebra}.  Preservation of inverses is
+$D(a)^{-1}E(a)^{-1} = (D(a)E(a))^{-1}$, the same lemma read backwards.  The
+inverse tangent map is verified the same way, with
+$\name{inv\_one}$ for the pivot.
+\end{proof}
+
+\begin{remark}[A group of tangent maps, not declared]
+\label{Analysis:Rules:rem:tangent-group}
+These operations make the tangent maps a commutative group with
+$\name{trivial}$ as unit --- they are the endomorphisms of the carrier under
+pointwise multiplication.  Nothing in the file says so: no
+$\ctor{One}$, $\ctor{Mul}$ or $\ctor{Inv}$ instance is declared for
+$\name{MulTangentMap}$, and no law is stated for these two definitions.  Even
+$D \cdot \name{trivial} = D$ would need structure extensionality, which is not
+invoked anywhere.  The operations are here to be applied, not to be reasoned
+about.
+\end{remark}
+
+\subsection{Negligibility is closed under the operations}
+
+\begin{theorem}[\lean{negligible\_mul}]\label{Analysis:Rules:thm:negligible-mul}
+If $e_1$ and $e_2$ are each negligible relative to a common base, so is
+$n \mapsto e_1(n)\,e_2(n)$.
+\end{theorem}
+
+\begin{leancode}
+theorem negligible_mul
+    {e₁ e₂ base : MulReal.Seq}
+    (h₁ : NegligibleRelative e₁ base)
+    (h₂ : NegligibleRelative e₂ base) :
+    NegligibleRelative (fun n => e₁ n * e₂ n) base := by
+  intro gain
+  obtain ⟨aAnchor, ha⟩ := h₁ (.succ gain)
+  obtain ⟨bAnchor, hb⟩ := h₂ (.succ gain)
+\end{leancode}
+
+\begin{proof}
+Fix a gain $g$.  Ask each hypothesis not for $g$ but for $\ctor{succ}\,g$, and
+take $\name{join}$ of the two anchors.  For $n$ beyond it and any level $\ell$
+achieved by the base at $n$, both errors are near the pivot at level
+$\name{advance}(\ell, \ctor{succ}\,g)$, which by $\name{advance\_succ}$ is
+$\ctor{succ}\,\name{advance}(\ell,g)$.  So
+$\name{scaleNear\_mul}$ of
+\texttt{PrimeTensor/Analysis/Near/Laws.lean} applies and puts the product near
+$1 \cdot 1$ at level $\name{advance}(\ell,g)$; cancelling the unit gives the
+claim.
+\end{proof}
+
+\begin{theorem}[\lean{negligible\_inv}]\label{Analysis:Rules:thm:negligible-inv}
+If $e$ is negligible relative to a base, so is $n \mapsto e(n)^{-1}$, at the
+same gain.
+\end{theorem}
+
+\begin{proof}
+Keep the gain, keep the anchor, and apply $\name{scaleNear\_inv}$.
+\end{proof}
+
+\begin{designnote}[The level cost, transposed into the rate]
+\label{Analysis:Rules:note:gain}
+Everywhere until now the one-level cost of multiplication was paid in the
+\emph{level}: two hypotheses at $\ctor{succ}\,\ell$ gave a conclusion at
+$\ell$.  Here it is paid in the \emph{gain} instead: two hypotheses at
+$\ctor{succ}\,g$ give a conclusion at $g$, and the level $\ell$ is carried
+through untouched.  The mechanism is $\name{advance\_succ}$, the observation
+that advancing by $\ctor{succ}\,g$ is one $\ctor{succ}$ applied to advancing by
+$g$ --- so a request one gain deeper delivers a level one $\ctor{succ}$ finer,
+which is precisely the currency $\name{scaleNear\_mul}$ spends.
+
+In the logarithmic chart of
+\texttt{PrimeTensor/Analysis/Derivative.lean} the accounting is the familiar
+one.  Negligibility at gain $g$ says $\lvert \log e\rvert \lesssim 2^{-\size{g}}
+\lvert \log \name{base}\rvert$.  If both errors satisfy this at gain
+$\ctor{succ}\,g$, their product satisfies
+\[
+  \lvert \log e_1 + \log e_2 \rvert
+    \leq 2 \cdot 2^{-(\size{g}+1)} \lvert \log \name{base}\rvert
+    = 2^{-\size{g}} \lvert \log \name{base}\rvert ,
+\]
+so the factor of two from adding two errors is exactly the one refinement
+level.  Inversion negates the logarithm and changes no magnitude, which is why
+it costs nothing.
+\end{designnote}
+
+\begin{corollary}[\lean{firstOrder\_mul} and \lean{firstOrder\_inv}]
+\label{Analysis:Rules:cor:firstorder}
+First-order equivalence relative to a fixed base is preserved by pointwise
+multiplication and by pointwise inversion of both germs.
+\end{corollary}
+
+\begin{proof}
+For the product, the error germ of the products is
+$\name{ratio}(a_1a_2,\, m_1m_2)$, which by
+Lemma~\ref{Analysis:Rules:lem:ratio} is the product of the two error germs, so
+Theorem~\ref{Analysis:Rules:thm:negligible-mul} applies.  For the inverse, the
+error germ is $\name{ratio}(a^{-1},m^{-1})$, which the same lemma rewrites
+first as $\name{ratio}(m,a)$ and then as $\name{ratio}(a,m)^{-1}$ --- the
+inverse of the original error germ --- so
+Theorem~\ref{Analysis:Rules:thm:negligible-inv} applies.
+\end{proof}
+
+\subsection{Responses factor exactly}
+
+\begin{lemma}[\lean{response\_mul} and \lean{response\_inv}]
+\label{Analysis:Rules:lem:response}
+For every $f$, $g$, $x$, $h$ and $n$,
+\begin{align*}
+  \name{response}(fg, x, h)_n
+    &= \name{response}(f,x,h)_n \cdot \name{response}(g,x,h)_n, \\
+  \name{response}(f^{-1},x,h)_n
+    &= \name{response}(f,x,h)_n^{-1}.
+\end{align*}
+\end{lemma}
+
+\begin{leancode}
+theorem response_mul
+    (f g : MulReal → MulReal) (x : MulReal) (h : MulReal.Seq) :
+    ∀ n : Depth,
+      response (fun y => f y * g y) x h n =
+        response f x h n * response g x h n := by
+  intro n
+  unfold response
+  exact MulReal.ratio_mul_pair
+    (f (x * h n)) (f x)
+    (g (x * h n)) (g x)
+\end{leancode}
+
+\begin{proof}
+Unfold the response to a ratio of values and apply
+Lemma~\ref{Analysis:Rules:lem:ratio} in the two forms just used.
+\end{proof}
+
+These are identities, with no anchor, no level and no hypothesis about $h$.
+They are the reason the two rules below cost nothing beyond what
+Corollary~\ref{Analysis:Rules:cor:firstorder} already paid.
+
+\subsection{The two rules}
+
+\begin{theorem}[\lean{hasMulDerivativeAt\_mul}]\label{Analysis:Rules:thm:product}
+If $f$ has derivative $D_f$ at $x$ and $g$ has derivative $D_g$ at $x$, then
+$y \mapsto f(y)g(y)$ has derivative $D_f \cdot D_g$ at $x$.
+\end{theorem}
+
+\begin{proof}
+Fix a perturbation $h$ approaching the pivot.  Both hypotheses apply to it,
+giving first-order equivalences of the two responses with the two models
+relative to $h$, and Corollary~\ref{Analysis:Rules:cor:firstorder} multiplies
+them.  It remains only to see that the resulting statement is the required one,
+which is two rewrites: the actual germ is the response of the product, equal by
+Lemma~\ref{Analysis:Rules:lem:response} to the product of the responses, and
+the model germ is $(D_f \cdot D_g)(h_n)$, equal by $\name{mul\_apply}$ to
+$D_f(h_n) D_g(h_n)$.
+\end{proof}
+
+\begin{theorem}[\lean{hasMulDerivativeAt\_inv}]\label{Analysis:Rules:thm:inverse}
+If $f$ has derivative $D$ at $x$, then $y \mapsto f(y)^{-1}$ has derivative
+$D^{-1}$ at $x$.
+\end{theorem}
+
+\begin{proof}
+The same three steps with the inverse halves of
+Corollary~\ref{Analysis:Rules:cor:firstorder} and
+Lemma~\ref{Analysis:Rules:lem:response}.
+\end{proof}
+
+\begin{designnote}[No Leibniz term, and why that is correct]
+\label{Analysis:Rules:note:leibniz}
+The additive product rule is $(fg)' = f'g + fg'$: the model for the product
+depends on the \emph{values} of $f$ and $g$ at the point, not only on their
+derivatives.  Theorem~\ref{Analysis:Rules:thm:product} has no such dependence.
+The model for $fg$ is $D_f \cdot D_g$, and $f(x)$ and $g(x)$ appear nowhere.
+
+The reason is that the multiplicative derivative is the logarithmic derivative
+in disguise.  In the chart of
+\texttt{PrimeTensor/Analysis/Derivative.lean}, $D$ models the increment of
+$\log \circ f$, so what the theorem asserts is
+\[
+  (\log fg)' = (\log f)' + (\log g)',
+\]
+which is not the Leibniz rule but the additivity of differentiation, applied
+after $\log$ has already turned the product into a sum.  Equivalently, in
+ordinary notation the logarithmic derivative satisfies
+$(fg)'/(fg) = f'/f + g'/g$: the Leibniz cross terms are exactly what the
+division by $fg$ cancels.  The multiplicative language never writes them down
+because it never forms the product $f'g$ in the first place.
+
+Theorem~\ref{Analysis:Rules:thm:inverse} reads the same way,
+$(1/f)'/(1/f) = -f'/f$, and its cost-free status has the structural
+explanation given in \texttt{PrimeTensor/Algebra.lean}: the additive quotient
+rule needs $f \neq 0$ and divides by $f^2$, while here there is no zero in the
+carrier and inversion is an isometry.  What is a side condition there is
+absent here.
+\end{designnote}
+
+\begin{remark}[Still no genuinely approximate example]
+\label{Analysis:Rules:rem:still-exact}
+\texttt{PrimeTensor/Analysis/Derivative.lean} computed two derivatives, both
+with exact models.  The rules proved here combine derivatives that are already
+known, so applying them to those two examples again produces only exact cases
+--- for instance $y \mapsto y \cdot c$ with model $\name{identity}$, since
+$\name{identity} \cdot \name{trivial}$ acts as $\name{identity}$ does.  No
+function whose model is inexact is exhibited in this file either, so the
+negligibility machinery, although now equipped with closure properties, has
+still never been used with a nontrivial error.
+\end{remark}
+
+\begin{remark}[What is not proved]\label{Analysis:Rules:rem:missing}
+There is no quotient rule stated, although $y \mapsto f(y)g(y)^{-1}$ follows
+immediately from the two theorems; no chain rule, which would need a notion of
+composing perturbations that no file has yet defined; and still no uniqueness
+of derivatives.  $\name{NegligibleRelative}$ is shown closed under products and
+inverses but is not shown transitive, nor related to $\name{ConvergesTo}$, and
+nothing connects having a derivative to any continuity property.
+\end{remark}
+
+\subsection*{Summary of the correspondence}
+
+\begin{center}
+\small
+\begin{tabular}{@{}lll@{}}
+\hline
+Lean declaration & Kind & Here \\
+\hline
+\lean{Depth.advance\_succ}          & simp thm   & Thm.~\ref{Analysis:Rules:thm:negligible-mul} \\
+\lean{MulReal.inv\_mul\_pair}       & theorem    & Lem.~\ref{Analysis:Rules:lem:algebra} \\
+\lean{MulReal.mul\_four\_shuffle}   & theorem    & Lem.~\ref{Analysis:Rules:lem:algebra} \\
+\lean{MulReal.ratio\_mul\_pair}     & theorem    & Lem.~\ref{Analysis:Rules:lem:ratio} \\
+\lean{MulReal.ratio\_inv\_pair}     & theorem    & Lem.~\ref{Analysis:Rules:lem:ratio} \\
+\lean{MulReal.ratio\_reverse}       & theorem    & Lem.~\ref{Analysis:Rules:lem:ratio} \\
+\lean{MulTangentMap.mul}            & definition & Def.~\ref{Analysis:Rules:def:tangent-ops} \\
+\lean{MulTangentMap.inv}            & definition & Def.~\ref{Analysis:Rules:def:tangent-ops} \\
+\lean{MulTangentMap.mul\_apply}     & simp thm   & Def.~\ref{Analysis:Rules:def:tangent-ops} \\
+\lean{MulTangentMap.inv\_apply}     & simp thm   & Def.~\ref{Analysis:Rules:def:tangent-ops} \\
+\lean{negligible\_mul}              & theorem    & Thm.~\ref{Analysis:Rules:thm:negligible-mul} \\
+\lean{negligible\_inv}              & theorem    & Thm.~\ref{Analysis:Rules:thm:negligible-inv} \\
+\lean{firstOrder\_mul}              & theorem    & Cor.~\ref{Analysis:Rules:cor:firstorder} \\
+\lean{firstOrder\_inv}              & theorem    & Cor.~\ref{Analysis:Rules:cor:firstorder} \\
+\lean{response\_mul}                & theorem    & Lem.~\ref{Analysis:Rules:lem:response} \\
+\lean{response\_inv}                & theorem    & Lem.~\ref{Analysis:Rules:lem:response} \\
+\lean{hasMulDerivativeAt\_mul}      & theorem    & Thm.~\ref{Analysis:Rules:thm:product} \\
+\lean{hasMulDerivativeAt\_inv}      & theorem    & Thm.~\ref{Analysis:Rules:thm:inverse} \\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent
+Every declaration of \texttt{PrimeTensor/Analysis/Rules.lean} appears above.
+The file contains no \lean{sorry}, no axiom, and no unproved named proposition.
+Design notes~\ref{Analysis:Rules:note:gain}
+and~\ref{Analysis:Rules:note:leibniz} and
+Remarks~\ref{Analysis:Rules:rem:mixin},
+\ref{Analysis:Rules:rem:tangent-group},
+\ref{Analysis:Rules:rem:still-exact} and~\ref{Analysis:Rules:rem:missing} are
+stated for the reader and are not declarations of the file; the logarithmic
+readings in the two design notes are not formalised.
