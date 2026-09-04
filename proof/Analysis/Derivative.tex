@@ -1,0 +1,400 @@
+% Prose rendering of PrimeTensor/Analysis/Derivative.lean.
+% Fragment: no \documentclass, no preamble, no document environment.
+
+\section{Multiplicative differential germs}
+\label{Analysis:Derivative:sec}
+
+\leanfile{PrimeTensor/Analysis/Derivative.lean}
+
+\subsection*{What this file establishes}
+
+This is where the development starts doing calculus, and the module header is
+emphatic about how: the multiplicative derivative is \emph{not} obtained by
+translating the additive difference quotient.  Four notions are introduced.
+
+\begin{itemize}[leftmargin=1.4em]
+\item A \emph{perturbation} is a sequence of completed magnitudes tending to
+  the pivot $1$.  It replaces ``$h \to 0$''.
+\item The \emph{response} of $f$ at $x$ along $h$ is the sequence of output
+  ratios $f(x \cdot h_n)/f(x)$.  It replaces the difference $f(x+h) - f(x)$
+  --- and note that nothing is divided by the perturbation.
+\item A \emph{tangent map} is a morphism of the multiplicative carrier.  It
+  replaces the linear map.
+\item \emph{Negligibility} of one germ relative to another is stated by
+  demanding that the first reach a scale level an arbitrary prescribed number
+  of refinements deeper than the second.  It replaces little-o.
+\end{itemize}
+
+Assembling these, $D$ is a derivative of $f$ at $x$ when it models every
+pivot-approaching perturbation to first order.  The file closes by computing
+the two derivatives that can be computed with no analysis at all: the identity
+function has the identity tangent map, and every constant function has the
+trivial one.
+
+Design note~\ref{Analysis:Derivative:note:log} works out what all four notions
+say in the logarithmic chart, which is the quickest way to see that they are
+the familiar ones and not merely analogous to them.
+
+\subsection{Advancing a scale}
+
+\begin{definition}[\lean{Depth.advance}]\label{Analysis:Derivative:def:advance}
+$\name{advance} : \name{Depth} \to \name{Depth} \to \name{Depth}$ is defined by
+recursion on its second argument:
+\[
+  \name{advance}(\ell, \ctor{one}) = \ctor{succ}\,\ell,
+  \qquad
+  \name{advance}(\ell, \ctor{succ}\,g) = \ctor{succ}\,\name{advance}(\ell, g).
+\]
+\end{definition}
+
+\begin{leancode}
+def advance : Depth → Depth → Depth
+  | level, .one => .succ level
+  | level, .succ gain => .succ (advance level gain)
+\end{leancode}
+
+So $\size{\name{advance}(\ell,g)} = \size{\ell} + \size{g}$: the level is
+refined $\size{g}$ times.  As the docstring says, there is deliberately no
+advance by zero --- $\ctor{one}$ already means one refinement.  A consequence
+worth recording now is that the vocabulary can express ``strictly finer by a
+prescribed amount'' and cannot express ``no finer'': there is no way to write
+the multiplicative analogue of a big-$O$ relation in this file, only of a
+little-o one.
+
+\subsection{Ratios in the completion}
+
+\begin{definition}[\lean{MulReal.ratio}]\label{Analysis:Derivative:def:ratio}
+$\name{ratio}(a,b) \defeq a \cdot b^{-1}$, the completed counterpart of the
+ratio of \texttt{PrimeTensor/Order.lean}.
+\end{definition}
+
+\begin{lemma}[\lean{MulReal.ratio\_self}, \lean{inv\_one} and
+  \lean{ratio\_mul\_base}]\label{Analysis:Derivative:lem:ratio}
+$\name{ratio}(a,a) = 1$; $1^{-1} = 1$; and for all $x, h$,
+\[
+  \name{ratio}(x \cdot h,\; x) = h .
+\]
+\end{lemma}
+
+\begin{leancode}
+theorem ratio_mul_base (x h : MulReal) :
+    ratio (x * h) x = h := by
+  unfold ratio
+  calc
+    (x * h) * x⁻¹
+        = h * (x * x⁻¹) := by
+          rw [mul_comm x h]
+          exact mul_assoc h x x⁻¹
+    _ = h * 1 := by rw [mul_inv x]
+    _ = h := mul_one h
+\end{leancode}
+
+\begin{proof}
+The first is $\name{mul\_inv}$ of \texttt{PrimeTensor/Algebra.lean}.  For the
+second, $1 \cdot 1^{-1} = 1$ becomes $1^{-1} = 1$ after cancelling the unit on
+the left.  For the third, commute $x$ past $h$, reassociate to expose
+$x x^{-1}$, cancel it, and drop the unit.
+\end{proof}
+
+The third identity is small but it is the pivot of the whole file: it says that
+perturbing $x$ multiplicatively by $h$ and then comparing with $x$ returns
+exactly $h$.  The response of the identity function is therefore the
+perturbation itself, on the nose, with no error term --- which is
+Theorem~\ref{Analysis:Derivative:thm:identity} below.
+
+\subsection{Tangent maps}
+
+\begin{definition}[\lean{MulTangentMap}]\label{Analysis:Derivative:def:tangent}
+A \emph{tangent map} is a structure bundling a function
+$\name{toFun} : \name{MulReal} \to \name{MulReal}$ with proofs that it
+preserves the pivot, the multiplication and the inversion.  A $\ctor{CoeFun}$
+instance lets such a structure be applied directly to an argument.
+\end{definition}
+
+\begin{leancode}
+structure MulTangentMap where
+  toFun : MulReal → MulReal
+  map_one : toFun 1 = 1
+  map_mul : ∀ a b : MulReal, toFun (a * b) = toFun a * toFun b
+  map_inv : ∀ a : MulReal, toFun a⁻¹ = (toFun a)⁻¹
+\end{leancode}
+
+\begin{remark}[This is the linear map, and the axiom list is again redundant]
+\label{Analysis:Derivative:rem:tangent}
+In the additive theory the first-order model is required to be linear.  Here
+the requirement is that the model be a morphism of the structure the carrier
+actually has --- the one axiomatised as $\name{IsMulCarrier}$ in
+\texttt{PrimeTensor/Structure.lean} --- and multiplicativity is what
+additivity becomes.
+
+As with that class, the axioms are not independent: $\name{map\_inv}$ follows
+from the other two.  From $\name{toFun}(a^{-1})\,\name{toFun}(a) =
+\name{toFun}(a^{-1}a) = \name{toFun}(1) = 1$ and uniqueness of inverses in a
+carrier, $\name{toFun}(a^{-1})$ is $\name{toFun}(a)^{-1}$.  It is listed
+because it is used, and listing it costs one line in each of the two instances
+below.
+
+What is \emph{not} required is any continuity or boundedness of the tangent
+map.  In the additive theory over an infinite-dimensional space that
+requirement is what makes the derivative well behaved; here nothing rules out a
+wildly discontinuous morphism serving as a first-order model, and nothing in
+this file needs to.
+\end{remark}
+
+\begin{definition}[\lean{MulTangentMap.identity} and \lean{trivial}]
+\label{Analysis:Derivative:def:examples}
+$\name{identity}$ is $h \mapsto h$ and $\name{trivial}$ is $h \mapsto 1$; the
+$\ctor{simp}$ lemmas $\name{identity\_apply}$ and $\name{trivial\_apply}$
+record their values, both by $\ctor{rfl}$.
+\end{definition}
+
+\begin{proof}[Verification]
+For $\name{identity}$ all three laws are $\ctor{rfl}$.  For $\name{trivial}$,
+preservation of the pivot is $\ctor{rfl}$, preservation of the product is
+$1 = 1 \cdot 1$ read backwards from $\name{one\_mul}$, and preservation of the
+inverse is $1 = 1^{-1}$ read backwards from
+Lemma~\ref{Analysis:Derivative:lem:ratio}.
+\end{proof}
+
+\subsection{Perturbations, responses and negligibility}
+
+\begin{definition}[\lean{ApproachesPivot} and \lean{response}]
+\label{Analysis:Derivative:def:response}
+A sequence $h : \name{Depth} \to \name{MulReal}$ \emph{approaches the pivot}
+when it converges to $1$ in the sense of
+\texttt{PrimeTensor/Analysis/Limit.lean}.  The \emph{response} of $f$ at $x$
+along $h$ is the sequence
+\[
+  \name{response}(f,x,h)_n \defeq
+    \name{ratio}\bigl(f(x \cdot h_n),\, f(x)\bigr).
+\]
+\end{definition}
+
+Two features distinguish this from a difference quotient.  The perturbation
+enters multiplicatively, as $x \cdot h_n$ rather than $x + h_n$, so the
+statement never needs an additive structure on the domain.  And the response is
+\emph{not} divided by the perturbation: it is the raw output ratio, and the
+comparison against the model happens in
+Definition~\ref{Analysis:Derivative:def:firstorder} through negligibility
+rather than through a quotient.  This matters because dividing would require
+the model to be invertible, which no tangent map is asked to be ---
+$\name{trivial}$ is not.
+
+\begin{definition}[\lean{NegligibleRelative}]
+\label{Analysis:Derivative:def:negligible}
+$\name{error}$ is \emph{negligible relative to} $\name{base}$ when
+\[
+  \forall\, g\;
+  \exists\, c\;
+  \forall\, n \;\text{at or after}\; c\;
+  \forall\, \ell : \quad
+  \name{ScaleNear}(\ell, \name{base}_n, 1)
+  \;\longrightarrow\;
+  \name{ScaleNear}(\name{advance}(\ell,g),\, \name{error}_n,\, 1).
+\]
+\end{definition}
+
+\begin{leancode}
+def NegligibleRelative (error base : MulReal.Seq) : Prop :=
+  ∀ gain : Depth,
+    ∃ anchor : Depth,
+      ∀ n : Depth,
+        Depth.AtOrAfter anchor n →
+        ∀ level : Depth,
+          MulReal.ScaleNear level (base n) 1 →
+          MulReal.ScaleNear (Depth.advance level gain) (error n) 1
+\end{leancode}
+
+Read it as a scale shift: whatever level the base achieves at stage $n$, the
+error achieves that level advanced by $g$, and $g$ may be prescribed in
+advance and arbitrarily large.  Two points of quantifier order are worth
+noticing.  The anchor is chosen before the level, so one anchor must serve for
+every level simultaneously --- the shift is uniform in $\ell$.  And the
+implication is per-stage, so at a stage where the base achieves no level at all
+the condition says nothing about the error there; the definition constrains the
+error only where the base is genuinely small, which for a perturbation is
+eventually everywhere.
+
+\begin{designnote}[All of this in the logarithmic chart]
+\label{Analysis:Derivative:note:log}
+Write $L = \log_2$, so that $L$ carries the multiplicative carrier to an
+additive one, $L(1) = 0$, and $L(\name{ratio}(a,b)) = L(a) - L(b)$.  By the
+computation of \texttt{PrimeTensor/Scale.lean}, closeness at level $\ell$ is
+\[
+  \name{ScaleWithin}(\ell,a,b)
+  \iff
+  \lvert L(a) - L(b)\rvert < 2^{-(\size{\ell}-1)} ,
+\]
+so a level is a dyadic tolerance and $\ctor{succ}$ halves it.  Under $L$:
+
+\emph{Perturbations} approaching the pivot become sequences with
+$L(h_n) \to 0$.  \emph{Responses} become
+$L f(x \cdot h_n) - L f(x)$, that is, the increment of $L \circ f$ at the
+argument increment $L(h_n)$.  \emph{Tangent maps} become additive maps.
+And \emph{negligibility}, since $\name{advance}(\ell,g)$ adds $\size{g}$ to the
+level, becomes
+\[
+  \lvert L(\name{base}_n)\rvert < 2^{-(\size{\ell}-1)}
+  \;\Longrightarrow\;
+  \lvert L(\name{error}_n)\rvert < 2^{-\size{g}} \cdot 2^{-(\size{\ell}-1)} ,
+\]
+which is $\lvert L(\name{error}_n)\rvert \leq 2^{-\size{g}}
+\lvert L(\name{base}_n)\rvert$ up to the factor of at most two lost by rounding
+the bound to the next dyadic value.  Since $g$ is arbitrary, that is exactly
+$\name{error} = o(\name{base})$, with the rate quantified in powers of two
+rather than by an arbitrary positive real.
+
+Putting the four together,
+Definition~\ref{Analysis:Derivative:def:hasderiv} says
+\[
+  L f(x \cdot h_n) - L f(x) = \tilde{D}\bigl(L(h_n)\bigr) + o\bigl(L(h_n)\bigr),
+  \qquad \tilde{D} \text{ additive},
+\]
+which is the ordinary first-order expansion of $L \circ f \circ L^{-1}$ at
+$L(x)$.  The multiplicative derivative of $f$ is the ordinary derivative of the
+conjugated function; the content of the file is that this can be said without
+ever leaving the multiplicative language, so that no logarithm, no real
+exponent and no additive $\varepsilon$ is introduced.  The chart is a reading
+aid, and nothing in this paragraph is proved in Lean.
+\end{designnote}
+
+\begin{definition}[\lean{FirstOrderEquivalent} and \lean{HasMulDerivativeAt}]
+\label{Analysis:Derivative:def:firstorder}
+\label{Analysis:Derivative:def:hasderiv}
+Germs $\name{actual}$ and $\name{model}$ \emph{agree to first order relative to}
+$\name{base}$ when $n \mapsto \name{ratio}(\name{actual}_n, \name{model}_n)$ is
+negligible relative to $\name{base}$.  And $D$ \emph{is a multiplicative
+derivative of $f$ at $x$} when for every perturbation $h$ approaching the
+pivot, the response of $f$ at $x$ along $h$ agrees to first order, relative to
+$h$, with $n \mapsto D(h_n)$.
+\end{definition}
+
+\begin{leancode}
+def HasMulDerivativeAt
+    (f : MulReal → MulReal) (x : MulReal) (D : MulTangentMap) : Prop :=
+  ∀ h : MulReal.Seq,
+    ApproachesPivot h →
+    FirstOrderEquivalent h
+      (response f x h)
+      (fun n => D (h n))
+\end{leancode}
+
+The error between the actual response and the model is measured as their
+\emph{ratio}, which is the multiplicative counterpart of their difference; the
+two are the same object in the chart of
+Design note~\ref{Analysis:Derivative:note:log}.
+
+\begin{remark}[Sequential, not filtered]\label{Analysis:Derivative:rem:sequential}
+The definition quantifies over sequences $h$ rather than over a neighbourhood
+filter of the pivot, so it is a sequential notion --- closer to a Gateaux
+derivative along all pivot-approaching sequences than to a Fréchet derivative.
+Nothing here asserts that the scale shift is uniform over the choice of $h$,
+only over the level for each fixed $h$.
+\end{remark}
+
+\subsection{The two computable cases}
+
+\begin{lemma}[\lean{firstOrder\_of\_exact}]\label{Analysis:Derivative:lem:exact}
+If $\name{actual}_n = \name{model}_n$ for every $n$, then they agree to first
+order relative to any base.
+\end{lemma}
+
+\begin{proof}
+Given a gain, take the anchor $\ctor{one}$.  For any $n$ and any level, the
+ratio of the two germs at $n$ is $\name{ratio}(m,m) = 1$ by
+Lemma~\ref{Analysis:Derivative:lem:ratio}, and
+$\name{ScaleNear}(\ell', 1, 1)$ holds at every level $\ell'$ by reflexivity.
+The hypothesis about the base is not used.
+\end{proof}
+
+\begin{theorem}[\lean{hasMulDerivativeAt\_identity}]
+\label{Analysis:Derivative:thm:identity}
+The identity function has derivative $\name{identity}$ at every point.
+\end{theorem}
+
+\begin{proof}
+Fix $x$ and a pivot-approaching $h$.  The response at stage $n$ is
+$\name{ratio}(x \cdot h_n, x)$, which is $h_n$ by
+Lemma~\ref{Analysis:Derivative:lem:ratio}, and the model at stage $n$ is
+$\name{identity}(h_n) = h_n$.  The two germs are equal term by term, so
+Lemma~\ref{Analysis:Derivative:lem:exact} applies.
+\end{proof}
+
+\begin{theorem}[\lean{hasMulDerivativeAt\_constant}]
+\label{Analysis:Derivative:thm:constant}
+For every $c$, the constant function at $c$ has derivative $\name{trivial}$ at
+every point.
+\end{theorem}
+
+\begin{proof}
+The response at stage $n$ is $\name{ratio}(c,c) = 1$ and the model is
+$\name{trivial}(h_n) = 1$; again the germs are equal term by term.
+\end{proof}
+
+\begin{remark}[Neither example exercises the machinery]
+\label{Analysis:Derivative:rem:exact-only}
+Both theorems go through Lemma~\ref{Analysis:Derivative:lem:exact}, whose proof
+discards the base hypothesis and returns the anchor $\ctor{one}$.  So neither
+computation uses $\name{advance}$, negligibility, the convergence of $h$, or
+any property of the scale beyond reflexivity of $\name{ScaleNear}$: the
+hypothesis $\name{ApproachesPivot}\,h$ is accepted and never read in either
+proof.  These are the two cases where the model is exact, and they are here as
+sanity checks on the definitions rather than as evidence that the definitions
+have content.  The first genuinely approximate derivative is not computed in
+this file.
+\end{remark}
+
+\begin{remark}[What is not proved]\label{Analysis:Derivative:rem:missing}
+The derivative is not shown unique: nothing rules out two different tangent
+maps both modelling $f$ at $x$, and the argument that would exclude it needs
+the separation property still missing since
+\texttt{PrimeTensor/Structure.lean}.  There is no chain rule, no product rule,
+and no statement that a function with a derivative is in any sense continuous.
+$\name{NegligibleRelative}$ is not shown transitive, nor closed under products,
+nor related to $\name{ConvergesTo}$.  And, consistently with the header,
+nothing additive is used anywhere: no subtraction, no zero, no zeroth index,
+and no additive $\varepsilon$.
+\end{remark}
+
+\subsection*{Summary of the correspondence}
+
+\begin{center}
+\small
+\begin{tabular}{@{}lll@{}}
+\hline
+Lean declaration & Kind & Here \\
+\hline
+\lean{Depth.advance}                   & definition & Def.~\ref{Analysis:Derivative:def:advance} \\
+\lean{MulReal.ratio}                   & definition & Def.~\ref{Analysis:Derivative:def:ratio} \\
+\lean{MulReal.ratio\_self}             & simp thm   & Lem.~\ref{Analysis:Derivative:lem:ratio} \\
+\lean{MulReal.inv\_one}                & simp thm   & Lem.~\ref{Analysis:Derivative:lem:ratio} \\
+\lean{MulReal.ratio\_mul\_base}        & theorem    & Lem.~\ref{Analysis:Derivative:lem:ratio} \\
+\lean{MulTangentMap}                   & structure  & Def.~\ref{Analysis:Derivative:def:tangent} \\
+\lean{CoeFun MulTangentMap}            & instance   & Def.~\ref{Analysis:Derivative:def:tangent} \\
+\lean{MulTangentMap.identity}          & definition & Def.~\ref{Analysis:Derivative:def:examples} \\
+\lean{MulTangentMap.trivial}           & definition & Def.~\ref{Analysis:Derivative:def:examples} \\
+\lean{MulTangentMap.identity\_apply}   & simp thm   & Def.~\ref{Analysis:Derivative:def:examples} \\
+\lean{MulTangentMap.trivial\_apply}    & simp thm   & Def.~\ref{Analysis:Derivative:def:examples} \\
+\lean{MulDifferential.ApproachesPivot} & definition & Def.~\ref{Analysis:Derivative:def:response} \\
+\lean{MulDifferential.response}        & definition & Def.~\ref{Analysis:Derivative:def:response} \\
+\lean{MulDifferential.NegligibleRelative} & definition & Def.~\ref{Analysis:Derivative:def:negligible} \\
+\lean{MulDifferential.FirstOrderEquivalent} & definition & Def.~\ref{Analysis:Derivative:def:firstorder} \\
+\lean{MulDifferential.HasMulDerivativeAt} & definition & Def.~\ref{Analysis:Derivative:def:hasderiv} \\
+\lean{MulDifferential.firstOrder\_of\_exact} & theorem & Lem.~\ref{Analysis:Derivative:lem:exact} \\
+\lean{hasMulDerivativeAt\_identity}    & theorem    & Thm.~\ref{Analysis:Derivative:thm:identity} \\
+\lean{hasMulDerivativeAt\_constant}    & theorem    & Thm.~\ref{Analysis:Derivative:thm:constant} \\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent
+Every declaration of \texttt{PrimeTensor/Analysis/Derivative.lean} appears
+above, together with the four fields of $\name{MulTangentMap}$.  The file
+contains no \lean{sorry}, no axiom, and no unproved named proposition.
+Design note~\ref{Analysis:Derivative:note:log} and
+Remarks~\ref{Analysis:Derivative:rem:tangent},
+\ref{Analysis:Derivative:rem:sequential},
+\ref{Analysis:Derivative:rem:exact-only}
+and~\ref{Analysis:Derivative:rem:missing} are stated for the reader and are not
+declarations of the file; in particular the logarithmic chart is a reading aid
+and is not formalised.
