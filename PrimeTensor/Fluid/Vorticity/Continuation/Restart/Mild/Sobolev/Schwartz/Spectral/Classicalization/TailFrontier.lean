@@ -1,5 +1,5 @@
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Spectral.Classicalization.Frontier
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.TailLocalWellPosedness
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Tail.Local.Well.Posedness
 
 /-!
 # Tail-aware Schwartz spectral classicalization frontier

@@ -1,4 +1,4 @@
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Spectral.Classicalization.RawOuterDivergencePhysicalProductDerivativeBridge
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Spectral.Classicalization.Raw.Outer.Divergence.Physical.Product.Derivative.Bridge
 import Mathlib.Analysis.Fourier.Convolution
 
 /-!
