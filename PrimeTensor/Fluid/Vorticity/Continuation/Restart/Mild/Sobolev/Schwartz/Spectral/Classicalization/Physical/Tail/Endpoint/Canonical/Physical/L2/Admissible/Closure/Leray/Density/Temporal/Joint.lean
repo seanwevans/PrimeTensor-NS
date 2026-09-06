@@ -642,6 +642,129 @@ theorem h3PreterminalTailCanonicalVelocityIncrementPhysicalL2Hilbert_eq_BochnerP
     H3PreterminalLoggedVelocityTemporalDerivativeJointlyContinuous_of_momentumRHS
       hNS hRHS
 
+
+/-! ## Split the momentum-RHS frontier into its three classical pieces -/
+
+/-- Joint spacetime continuity of the old preterminal pressure-force component
+for every velocity coordinate. -/
+def H3PreterminalPressureForceJointlyContinuous
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T : ℝ}
+    (hNS : LoggedPreterminalNavierStokesAdmissible u T) : Prop :=
+  let p :
+      SpaceTimeScalarField ℝ ℝ ℝ Depth.three :=
+    Classical.choose hNS
+  ∀ i : Fin 3,
+    ContinuousOn
+      (fun z : ℝ × Point3 =>
+        PrimeTensor.Bridge.RealFluid.pressureForceComponent
+          spatial3 p z.1 z.2 (h3AxisOfFin3 i))
+      (Set.Ioo (0 : ℝ) T ×ˢ Set.univ)
+
+/-- Joint spacetime continuity of the old preterminal velocity Laplacian
+component for every velocity coordinate. -/
+def H3PreterminalLaplacianJointlyContinuous
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T : ℝ}
+    (hNS : LoggedPreterminalNavierStokesAdmissible u T) : Prop :=
+  ∀ i : Fin 3,
+    ContinuousOn
+      (fun z : ℝ × Point3 =>
+        (PrimeTensor.Bridge.RealFluid.laplacianVector
+          spatial3
+          (logSpaceTimeVectorField u)
+          z.1 z.2).component
+            (h3AxisOfFin3 i))
+      (Set.Ioo (0 : ℝ) T ×ˢ Set.univ)
+
+/-- Joint spacetime continuity of the old preterminal advection component for
+every velocity coordinate. -/
+def H3PreterminalAdvectionJointlyContinuous
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T : ℝ}
+    (hNS : LoggedPreterminalNavierStokesAdmissible u T) : Prop :=
+  ∀ i : Fin 3,
+    ContinuousOn
+      (fun z : ℝ × Point3 =>
+        (PrimeTensor.Bridge.RealFluid.advection
+          spatial3
+          (logSpaceTimeVectorField u)
+          z.1 z.2).component
+            (h3AxisOfFin3 i))
+      (Set.Ioo (0 : ℝ) T ×ˢ Set.univ)
+
+/-- The three termwise joint-continuity statements imply joint continuity of
+the complete classical momentum right-hand side. -/
+theorem H3PreterminalMomentumRHSJointlyContinuous_of_terms
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T : ℝ}
+    (hNS : LoggedPreterminalNavierStokesAdmissible u T)
+    (hPressure :
+      H3PreterminalPressureForceJointlyContinuous hNS)
+    (hLaplacian :
+      H3PreterminalLaplacianJointlyContinuous hNS)
+    (hAdvection :
+      H3PreterminalAdvectionJointlyContinuous hNS) :
+    H3PreterminalMomentumRHSJointlyContinuous hNS := by
+  unfold
+    H3PreterminalPressureForceJointlyContinuous
+    at hPressure
+
+  unfold
+    H3PreterminalLaplacianJointlyContinuous
+    at hLaplacian
+
+  unfold
+    H3PreterminalAdvectionJointlyContinuous
+    at hAdvection
+
+  unfold
+    H3PreterminalMomentumRHSJointlyContinuous
+
+  dsimp only at hPressure hLaplacian hAdvection ⊢
+
+  intro i
+
+  exact
+    ((hPressure i).add
+      (hLaplacian i)).sub
+      (hAdvection i)
+
+/-- Hence the physical `L²` vector evolution identity follows from exactly the
+three classical spacetime-continuity obligations appearing in the momentum
+right-hand side. -/
+theorem h3PreterminalTailCanonicalVelocityIncrementPhysicalL2Hilbert_eq_BochnerProjectedRHS_of_momentumTermsJointlyContinuous
+    {E : ℝ}
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T t tau : ℝ}
+    (hNS : LoggedPreterminalNavierStokesAdmissible u T)
+    (ht : t ∈ Set.Ioo (0 : ℝ) T)
+    (htau : 0 < tau)
+    (hEnd : t + tau < T)
+    (hE : 1 ≤ E)
+    (hTail : CanonicalH3TailDataFrom u t T E)
+    (hEndpoint :
+      H3PreterminalCanonicalL2EndpointContinuousOnElapsed
+        hNS ht hEnd hTail)
+    (hPressure :
+      H3PreterminalPressureForceJointlyContinuous hNS)
+    (hLaplacian :
+      H3PreterminalLaplacianJointlyContinuous hNS)
+    (hAdvection :
+      H3PreterminalAdvectionJointlyContinuous hNS) :
+    h3PreterminalTailCanonicalVelocityIncrementPhysicalL2Hilbert
+        hNS ht htau hEnd hTail
+      =
+    h3PreterminalTailCanonicalProjectedRHSPhysicalL2BochnerIntegralHilbert
+      hNS ht htau hEnd hE hTail hEndpoint := by
+  apply
+    h3PreterminalTailCanonicalVelocityIncrementPhysicalL2Hilbert_eq_BochnerProjectedRHS_of_momentumRHSJointlyContinuous
+      hNS ht htau hEnd hE hTail hEndpoint
+
+  exact
+    H3PreterminalMomentumRHSJointlyContinuous_of_terms
+      hNS hPressure hLaplacian hAdvection
+
 end
 
 end Euclidean
