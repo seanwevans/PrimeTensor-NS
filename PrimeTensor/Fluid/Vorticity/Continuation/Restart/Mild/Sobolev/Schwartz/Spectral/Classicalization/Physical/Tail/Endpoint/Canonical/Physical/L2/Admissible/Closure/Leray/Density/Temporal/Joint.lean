@@ -471,6 +471,177 @@ theorem h3PreterminalTailCanonicalVelocityIncrementPhysicalL2Hilbert_eq_BochnerP
     H3PreterminalTailCanonicalAllDivergenceFreeWeakTestsTemporalDerivativeJointlyContinuousNearSupport_of_oldJoint
       hNS ht htau hEnd hE hTail hEndpoint hOldJoint
 
+
+/-! ## Reduce old temporal joint continuity to the classical momentum RHS -/
+
+/-- Joint spacetime continuity of the classical preterminal momentum right-hand
+side.
+
+The pressure is the witness already carried by
+`LoggedPreterminalNavierStokesAdmissible`.  This proposition does not strengthen
+or alter the momentum equation itself: it isolates only the regularity needed
+to turn that pointwise equation into joint continuity of `∂ₜu`.
+
+Written componentwise, the field is
+
+    -∂ᵢp + Δuᵢ - (u · ∇)uᵢ.
+
+No implication from the existing separated preterminal regularity package is
+asserted here. -/
+def H3PreterminalMomentumRHSJointlyContinuous
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T : ℝ}
+    (hNS : LoggedPreterminalNavierStokesAdmissible u T) : Prop :=
+  let p :
+      SpaceTimeScalarField ℝ ℝ ℝ Depth.three :=
+    Classical.choose hNS
+  ∀ i : Fin 3,
+    ContinuousOn
+      (fun z : ℝ × Point3 =>
+        PrimeTensor.Bridge.RealFluid.pressureForceComponent
+            spatial3 p z.1 z.2 (h3AxisOfFin3 i)
+          +
+        (PrimeTensor.Bridge.RealFluid.laplacianVector
+            spatial3
+            (logSpaceTimeVectorField u)
+            z.1 z.2).component
+          (h3AxisOfFin3 i)
+          -
+        (PrimeTensor.Bridge.RealFluid.advection
+            spatial3
+            (logSpaceTimeVectorField u)
+            z.1 z.2).component
+          (h3AxisOfFin3 i))
+      (Set.Ioo (0 : ℝ) T ×ˢ Set.univ)
+
+/-- Joint continuity of the classical momentum RHS implies joint continuity of
+the actual preterminal temporal derivative.
+
+The proof uses only the already-assumed pointwise momentum equation:
+`∂ₜu + (u·∇)u = -∇p + Δu`. -/
+theorem H3PreterminalLoggedVelocityTemporalDerivativeJointlyContinuous_of_momentumRHS
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T : ℝ}
+    (hNS : LoggedPreterminalNavierStokesAdmissible u T)
+    (hRHS : H3PreterminalMomentumRHSJointlyContinuous hNS) :
+    H3PreterminalLoggedVelocityTemporalDerivativeJointlyContinuous
+      u T := by
+  intro i
+
+  unfold H3PreterminalMomentumRHSJointlyContinuous at hRHS
+
+  let p :
+      SpaceTimeScalarField ℝ ℝ ℝ Depth.three :=
+    Classical.choose hNS
+
+  let hPDE :
+      PreterminalNavierStokes3
+        (logSpaceTimeVectorField u)
+        p
+        T :=
+    Classical.choose_spec hNS
+
+  let rhs : ℝ × Point3 → ℝ :=
+    fun z =>
+      PrimeTensor.Bridge.RealFluid.pressureForceComponent
+          spatial3 p z.1 z.2 (h3AxisOfFin3 i)
+        +
+      (PrimeTensor.Bridge.RealFluid.laplacianVector
+          spatial3
+          (logSpaceTimeVectorField u)
+          z.1 z.2).component
+        (h3AxisOfFin3 i)
+        -
+      (PrimeTensor.Bridge.RealFluid.advection
+          spatial3
+          (logSpaceTimeVectorField u)
+          z.1 z.2).component
+        (h3AxisOfFin3 i)
+
+  have hContinuous :
+      ContinuousOn
+        rhs
+        (Set.Ioo (0 : ℝ) T ×ˢ Set.univ) := by
+    dsimp only [rhs, p]
+    exact hRHS i
+
+  apply hContinuous.congr
+  intro z hz
+
+  have hMomentum :=
+    hPDE.momentum
+      z.1
+      hz.1
+      z.2
+      (h3AxisOfFin3 i)
+
+  change
+    temporal.d
+        (fun q : ℝ =>
+          (logSpaceTimeVectorField u q z.2).component
+            (h3AxisOfFin3 i))
+        z.1
+      =
+    rhs z
+
+  change
+    temporal.d
+          (fun q : ℝ =>
+            (logSpaceTimeVectorField u q z.2).component
+              (h3AxisOfFin3 i))
+          z.1
+        +
+      (PrimeTensor.Bridge.RealFluid.advection
+          spatial3
+          (logSpaceTimeVectorField u)
+          z.1 z.2).component
+        (h3AxisOfFin3 i)
+      =
+    PrimeTensor.Bridge.RealFluid.pressureForceComponent
+        spatial3 p z.1 z.2 (h3AxisOfFin3 i)
+      +
+    (PrimeTensor.Bridge.RealFluid.laplacianVector
+        spatial3
+        (logSpaceTimeVectorField u)
+        z.1 z.2).component
+      (h3AxisOfFin3 i)
+    at hMomentum
+
+  dsimp only [rhs]
+
+  linarith
+
+/-- Therefore continuity of the classical momentum RHS alone closes the whole
+weak-FTC / admissible-density chain and yields the physical `L²` vector
+evolution identity. -/
+theorem h3PreterminalTailCanonicalVelocityIncrementPhysicalL2Hilbert_eq_BochnerProjectedRHS_of_momentumRHSJointlyContinuous
+    {E : ℝ}
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T t tau : ℝ}
+    (hNS : LoggedPreterminalNavierStokesAdmissible u T)
+    (ht : t ∈ Set.Ioo (0 : ℝ) T)
+    (htau : 0 < tau)
+    (hEnd : t + tau < T)
+    (hE : 1 ≤ E)
+    (hTail : CanonicalH3TailDataFrom u t T E)
+    (hEndpoint :
+      H3PreterminalCanonicalL2EndpointContinuousOnElapsed
+        hNS ht hEnd hTail)
+    (hRHS :
+      H3PreterminalMomentumRHSJointlyContinuous hNS) :
+    h3PreterminalTailCanonicalVelocityIncrementPhysicalL2Hilbert
+        hNS ht htau hEnd hTail
+      =
+    h3PreterminalTailCanonicalProjectedRHSPhysicalL2BochnerIntegralHilbert
+      hNS ht htau hEnd hE hTail hEndpoint := by
+  apply
+    h3PreterminalTailCanonicalVelocityIncrementPhysicalL2Hilbert_eq_BochnerProjectedRHS_of_oldTemporalDerivativeJointlyContinuous
+      hNS ht htau hEnd hE hTail hEndpoint
+
+  exact
+    H3PreterminalLoggedVelocityTemporalDerivativeJointlyContinuous_of_momentumRHS
+      hNS hRHS
+
 end
 
 end Euclidean
