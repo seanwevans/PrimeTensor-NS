@@ -1,5 +1,6 @@
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Spectral.Classicalization.Physical.Tail.Endpoint.Canonical.Physical.L2.Admissible.Closure.Leray.Density.Temporal.Support
 import Mathlib.Analysis.Normed.Group.Bounded
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Spectral.Classicalization.Physical.Tail.Endpoint.Canonical.Old.Temporal.Derivative
 
 /-!
 # Classicalization: reduce supportwise temporal bounds to joint continuity
@@ -256,6 +257,219 @@ theorem h3PreterminalTailCanonicalVelocityIncrementPhysicalL2Hilbert_eq_BochnerP
   exact
     H3PreterminalTailCanonicalAllDivergenceFreeWeakTestsTemporalDerivativeLocallyBoundedOnSupport_of_jointlyContinuousNearSupport
       hNS ht htau hEnd hE hTail hEndpoint hJoint
+
+
+/-! ## Reduce endpoint joint continuity to an old-branch spacetime regularity field -/
+
+/-- The exact old-branch regularity missing from the current preterminal
+package: the ordinary temporal derivative of each logged velocity component is
+jointly continuous in absolute time and physical space on the open
+preterminal cylinder.
+
+This is intentionally stronger than the existing pointwise-in-space temporal
+`C¹` field.  No implication from the old regularity structure is asserted
+here. -/
+def H3PreterminalLoggedVelocityTemporalDerivativeJointlyContinuous
+    (u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three)
+    (T : ℝ) : Prop :=
+  ∀ i : Fin 3,
+    ContinuousOn
+      (fun z : ℝ × Point3 =>
+        temporal.d
+          (fun q : ℝ =>
+            loggedVelocityComponent
+              u q (h3AxisOfFin3 i) z.2)
+          z.1)
+      (Set.Ioo (0 : ℝ) T ×ˢ Set.univ)
+
+/-- Joint continuity of the old preterminal temporal derivative implies the
+endpoint joint-continuity condition near the support of one weak test.
+
+The endpoint derivative is already known to equal the shifted old derivative
+at every strict elapsed time.  We therefore choose a compact elapsed-time slab
+strictly inside `(0,τ)`, compose the old jointly continuous field with the
+translation `(r,x) ↦ (t+r,x)`, and rewrite pointwise. -/
+theorem H3PreterminalTailCanonicalWeakTemporalDerivativeJointlyContinuousNearSupportAt_of_oldJoint
+    {E : ℝ}
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T t tau : ℝ}
+    (hNS : LoggedPreterminalNavierStokesAdmissible u T)
+    (ht : t ∈ Set.Ioo (0 : ℝ) T)
+    (htau : 0 < tau)
+    (hEnd : t + tau < T)
+    (hE : 1 ≤ E)
+    (hTail : CanonicalH3TailDataFrom u t T E)
+    (hEndpoint :
+      H3PreterminalCanonicalL2EndpointContinuousOnElapsed
+        hNS ht hEnd hTail)
+    (hOldJoint :
+      H3PreterminalLoggedVelocityTemporalDerivativeJointlyContinuous
+        u T)
+    (s : ℝ)
+    (hs : s ∈ Set.Ioo (0 : ℝ) tau)
+    (φ : H3WeakTestVector) :
+    H3PreterminalTailCanonicalWeakTemporalDerivativeJointlyContinuousNearSupportAt
+      hNS ht htau hEnd hE hTail hEndpoint s φ := by
+  intro i
+
+  let a : ℝ := s / 2
+  let b : ℝ := (s + tau) / 2
+
+  have haPos : 0 < a := by
+    dsimp only [a]
+    linarith [hs.1]
+
+  have has : a < s := by
+    dsimp only [a]
+    linarith [hs.1]
+
+  have hsb : s < b := by
+    dsimp only [b]
+    linarith [hs.2]
+
+  have hbTau : b < tau := by
+    dsimp only [b]
+    linarith [hs.2]
+
+  have hSlab :
+      Set.Icc a b ⊆ Set.Ioo (0 : ℝ) tau := by
+    intro r hr
+    exact
+      ⟨
+        lt_of_lt_of_le haPos hr.1,
+        lt_of_le_of_lt hr.2 hbTau
+      ⟩
+
+  refine ⟨a, b, has, hsb, hSlab, ?_⟩
+
+  let oldDerivative : ℝ × Point3 → ℝ :=
+    fun z =>
+      temporal.d
+        (fun q : ℝ =>
+          loggedVelocityComponent
+            u q (h3AxisOfFin3 i) z.2)
+        z.1
+
+  let shiftPair : ℝ × Point3 → ℝ × Point3 :=
+    fun z => (t + z.1, z.2)
+
+  have hOld :
+      ContinuousOn
+        oldDerivative
+        (Set.Ioo (0 : ℝ) T ×ˢ Set.univ) := by
+    dsimp only [oldDerivative]
+    exact hOldJoint i
+
+  have hShift :
+      Continuous shiftPair := by
+    dsimp only [shiftPair]
+    fun_prop
+
+  have hMaps :
+      MapsTo
+        shiftPair
+        (Set.Icc a b ×ˢ
+          tsupport (φ i : Point3 → ℝ))
+        (Set.Ioo (0 : ℝ) T ×ˢ Set.univ) := by
+    intro z hz
+
+    have hr :
+        z.1 ∈ Set.Ioo (0 : ℝ) tau :=
+      hSlab hz.1
+
+    refine ⟨?_, Set.mem_univ z.2⟩
+
+    constructor
+
+    · linarith [ht.1, hr.1]
+
+    · linarith [hEnd, hr.2]
+
+  have hShifted :
+      ContinuousOn
+        (oldDerivative ∘ shiftPair)
+        (Set.Icc a b ×ˢ
+          tsupport (φ i : Point3 → ℝ)) :=
+    hOld.comp hShift.continuousOn hMaps
+
+  apply hShifted.congr
+
+  intro z hz
+
+  have hr :
+      z.1 ∈ Set.Ioo (0 : ℝ) tau :=
+    hSlab hz.1
+
+  have hEq :=
+    h3PreterminalTailCanonicalNormalizedRealPathOfL2Endpoint_component_temporal_d_eq_old
+      hNS ht htau hEnd hE hTail hEndpoint
+      hr i z.2
+
+  dsimp only [
+    oldDerivative,
+    shiftPair,
+    Function.comp_apply
+  ]
+
+  exact hEq
+
+/-- Old-branch joint continuity closes the generatorwise endpoint
+joint-continuity frontier for every divergence-free weak test. -/
+theorem H3PreterminalTailCanonicalAllDivergenceFreeWeakTestsTemporalDerivativeJointlyContinuousNearSupport_of_oldJoint
+    {E : ℝ}
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T t tau : ℝ}
+    (hNS : LoggedPreterminalNavierStokesAdmissible u T)
+    (ht : t ∈ Set.Ioo (0 : ℝ) T)
+    (htau : 0 < tau)
+    (hEnd : t + tau < T)
+    (hE : 1 ≤ E)
+    (hTail : CanonicalH3TailDataFrom u t T E)
+    (hEndpoint :
+      H3PreterminalCanonicalL2EndpointContinuousOnElapsed
+        hNS ht hEnd hTail)
+    (hOldJoint :
+      H3PreterminalLoggedVelocityTemporalDerivativeJointlyContinuous
+        u T) :
+    H3PreterminalTailCanonicalAllDivergenceFreeWeakTestsTemporalDerivativeJointlyContinuousNearSupport
+      hNS ht htau hEnd hE hTail hEndpoint := by
+  intro φ hDiv s hs
+
+  exact
+    H3PreterminalTailCanonicalWeakTemporalDerivativeJointlyContinuousNearSupportAt_of_oldJoint
+      hNS ht htau hEnd hE hTail hEndpoint
+      hOldJoint s hs φ
+
+/-- Consequently, the physical `L²` vector evolution identity is reduced to
+joint spacetime continuity of the old preterminal temporal derivative. -/
+theorem h3PreterminalTailCanonicalVelocityIncrementPhysicalL2Hilbert_eq_BochnerProjectedRHS_of_oldTemporalDerivativeJointlyContinuous
+    {E : ℝ}
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T t tau : ℝ}
+    (hNS : LoggedPreterminalNavierStokesAdmissible u T)
+    (ht : t ∈ Set.Ioo (0 : ℝ) T)
+    (htau : 0 < tau)
+    (hEnd : t + tau < T)
+    (hE : 1 ≤ E)
+    (hTail : CanonicalH3TailDataFrom u t T E)
+    (hEndpoint :
+      H3PreterminalCanonicalL2EndpointContinuousOnElapsed
+        hNS ht hEnd hTail)
+    (hOldJoint :
+      H3PreterminalLoggedVelocityTemporalDerivativeJointlyContinuous
+        u T) :
+    h3PreterminalTailCanonicalVelocityIncrementPhysicalL2Hilbert
+        hNS ht htau hEnd hTail
+      =
+    h3PreterminalTailCanonicalProjectedRHSPhysicalL2BochnerIntegralHilbert
+      hNS ht htau hEnd hE hTail hEndpoint := by
+  apply
+    h3PreterminalTailCanonicalVelocityIncrementPhysicalL2Hilbert_eq_BochnerProjectedRHS_of_temporalDerivativeJointlyContinuousNearSupport
+      hNS ht htau hEnd hE hTail hEndpoint
+
+  exact
+    H3PreterminalTailCanonicalAllDivergenceFreeWeakTestsTemporalDerivativeJointlyContinuousNearSupport_of_oldJoint
+      hNS ht htau hEnd hE hTail hEndpoint hOldJoint
 
 end
 
