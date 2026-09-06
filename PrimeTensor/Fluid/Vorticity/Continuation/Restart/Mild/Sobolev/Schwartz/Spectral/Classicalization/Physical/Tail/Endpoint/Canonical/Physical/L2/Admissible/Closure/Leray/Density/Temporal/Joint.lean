@@ -2,6 +2,7 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Sp
 import Mathlib.Analysis.Normed.Group.Bounded
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Spectral.Classicalization.Physical.Tail.Endpoint.Canonical.Old.Temporal.Derivative
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Spectral.Classicalization.Physical.Tail.Classical.Overlap
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Spectral.Classicalization.Selected.Pressure.Momentum.Local.Fill
 
 /-!
 # Classicalization: reduce supportwise temporal bounds to joint continuity
@@ -2026,6 +2027,439 @@ theorem h3PreterminalTailCanonicalVelocityIncrementPhysicalL2Hilbert_eq_BochnerP
     H3PreterminalMomentumJetsJointlyContinuousOnAbsoluteSlab_of_selectedVelocityJets_and_pressure
       hν hNS ht htau hEnd hE hTail
       hEvolution hTauR hSelected hPressure
+
+
+/-! ## Transfer the pressure force from the unit-viscosity selected restart -/
+
+/-- Joint spacetime continuity of the canonical selected pressure force on the
+absolute endpoint slab.
+
+The pressure itself is only defined up to the usual spatial constant for the
+momentum equation; the force `-∇p` is the invariant object needed here. -/
+def H3PreterminalTailCanonicalSelectedPressureForceJointlyContinuousOnAbsoluteSlab
+    {E : ℝ}
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T t tau : ℝ}
+    (hNS : LoggedPreterminalNavierStokesAdmissible u T)
+    (ht : t ∈ Set.Ioo (0 : ℝ) T)
+    (hE : 1 ≤ E)
+    (hTail : CanonicalH3TailDataFrom u t T E) : Prop :=
+  ∀ j : PrimeTensor.Axis Depth.three,
+    ContinuousOn
+      (fun z : ℝ × Point3 =>
+        PrimeTensor.Bridge.RealFluid.pressureForceComponent
+          spatial3
+          (h3PreterminalTailCanonicalSelectedPressureAbsolute
+            hNS ht hE hTail)
+          z.1 z.2 j)
+      (Set.Ioo t (t + tau) ×ˢ Set.univ)
+
+/-- On the genuine positive overlap of the unit-viscosity selected restart and
+the old preterminal solution, their pressure forces agree pointwise.
+
+The proof compares the two momentum equations.  The complete velocity fields
+agree on an open time neighborhood, so temporal derivatives agree by
+`EventuallyEq.deriv_eq`; advection and Laplacian agree directly from fixed-time
+field equality. -/
+theorem h3PreterminalTailCanonicalSelectedPressureForce_eq_old_on_absoluteSlab
+    {E : ℝ}
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T t tau : ℝ}
+    (hNS : LoggedPreterminalNavierStokesAdmissible u T)
+    (ht : t ∈ Set.Ioo (0 : ℝ) T)
+    (htau : 0 < tau)
+    (hEnd : t + tau < T)
+    (hE : 1 ≤ E)
+    (hTail : CanonicalH3TailDataFrom u t T E)
+    (hEvolution :
+      H3PreterminalTailPhysicalEvolutionOnRestartRadius
+        (1 : ℝ) E
+        (one_pos : (0 : ℝ) < 1)
+        u T t hNS ht hE hTail)
+    (hTauR :
+      tau ≤ h3FinHeatLerayRestartRadius (1 : ℝ) E)
+    {s : ℝ}
+    (hs : s ∈ Set.Ioo t (t + tau))
+    (x : Point3)
+    (j : PrimeTensor.Axis Depth.three) :
+    PrimeTensor.Bridge.RealFluid.pressureForceComponent
+        spatial3
+        (h3PreterminalTailCanonicalSelectedPressureAbsolute
+          hNS ht hE hTail)
+        s x j
+      =
+    PrimeTensor.Bridge.RealFluid.pressureForceComponent
+        spatial3
+        (Classical.choose hNS :
+          SpaceTimeScalarField ℝ ℝ ℝ Depth.three)
+        s x j := by
+  let pOld :
+      SpaceTimeScalarField ℝ ℝ ℝ Depth.three :=
+    Classical.choose hNS
+
+  let hPDE :
+      PreterminalNavierStokes3
+        (logSpaceTimeVectorField u)
+        pOld
+        T :=
+    Classical.choose_spec hNS
+
+  let W : ℝ → H3SpectralFinVectorState :=
+    h3PreterminalTailCanonicalSelectedRestart
+      (one_pos : (0 : ℝ) < 1)
+      hNS ht hE hTail
+
+  let vSelectedAbsolute :
+      SpaceTimeVectorField ℝ ℝ ℝ Depth.three :=
+    fun r =>
+      h3SpectralFinHeatLerayMildSolutionAtRestartRadiusSelectedRealVelocity
+        (one_pos : (0 : ℝ) < 1)
+        (h3PreterminalTailCanonicalAnchorSpectralState
+          hNS ht hTail)
+        (lt_of_lt_of_le zero_lt_one hE)
+        (norm_h3PreterminalTailCanonicalAnchorSpectralState_le
+          hNS ht hE hTail)
+        (r - t)
+
+  have hsOld :
+      s ∈ Set.Ioo (0 : ℝ) T := by
+    constructor
+    · exact lt_trans ht.1 hs.1
+    · exact lt_trans hs.2 hEnd
+
+  have hsSelected :
+      s ∈ Set.Ioo
+        t
+        (t + h3FinHeatLerayRestartRadius (1 : ℝ) E) := by
+    constructor
+    · exact hs.1
+    · have hElapsed : s - t < tau := by
+        linarith [hs.2]
+      have hElapsedR :
+          s - t < h3FinHeatLerayRestartRadius (1 : ℝ) E := by
+        exact lt_of_lt_of_le hElapsed hTauR
+      linarith
+
+  have hFieldEq
+      (r : ℝ)
+      (hr : r ∈ Set.Ioo t (t + tau)) :
+      vSelectedAbsolute r
+        =
+      logSpaceTimeVectorField u r := by
+    let q :
+        Set.Icc
+          (0 : ℝ)
+          (h3FinHeatLerayRestartRadius (1 : ℝ) E) :=
+      ⟨
+        r - t,
+        by linarith [hr.1],
+        le_trans (by linarith [hr.2]) hTauR
+      ⟩
+
+    have hqPos : 0 < (q : ℝ) := by
+      dsimp only [q]
+      linarith [hr.1]
+
+    have hBefore :
+        t + (q : ℝ) < T := by
+      dsimp only [q]
+      linarith [hr.2, hEnd]
+
+    have hEq :=
+      h3PreterminalTailCanonicalSelectedRestart_eq_old_on_positiveOverlap
+        (one_pos : (0 : ℝ) < 1)
+        hNS ht hE hTail hEvolution
+        q hqPos hBefore
+
+    have hTime :
+        t + (q : ℝ) = r := by
+      dsimp only [q]
+      ring
+
+    rw [hTime] at hEq
+
+    simpa only [vSelectedAbsolute, q] using hEq
+
+  have hNeighborhood :
+      Set.Ioo t (t + tau) ∈ 𝓝 s :=
+    Ioo_mem_nhds hs.1 hs.2
+
+  have hTimeEq :
+      (fun r : ℝ =>
+        (vSelectedAbsolute r x).component j)
+        =ᶠ[𝓝 s]
+      (fun r : ℝ =>
+        (logSpaceTimeVectorField u r x).component j) := by
+    filter_upwards [hNeighborhood] with r hr
+    rw [hFieldEq r hr]
+
+  have hTemporalEq :
+      (
+        PrimeTensor.Bridge.RealFluid.temporalVectorDerivative
+          temporal vSelectedAbsolute s x
+      ).component j
+        =
+      (
+        PrimeTensor.Bridge.RealFluid.temporalVectorDerivative
+          temporal (logSpaceTimeVectorField u) s x
+      ).component j := by
+    unfold PrimeTensor.Bridge.RealFluid.temporalVectorDerivative
+    change
+      deriv
+          (fun r : ℝ =>
+            (vSelectedAbsolute r x).component j)
+          s
+        =
+      deriv
+          (fun r : ℝ =>
+            (logSpaceTimeVectorField u r x).component j)
+          s
+    exact hTimeEq.deriv_eq
+
+  have hSliceEq :
+      h3SpectralRealVelocityOfPath W (s - t)
+        =
+      logSpaceTimeVectorField u s := by
+    have hAbs := hFieldEq s hs
+
+    dsimp only [vSelectedAbsolute] at hAbs
+
+    simpa only [
+      W,
+      h3PreterminalTailCanonicalSelectedRestart,
+      h3SpectralFinHeatLerayMildSolutionAtRestartRadiusSelectedRealVelocity
+    ] using hAbs
+
+  have hAdvectionEq :
+      (
+        PrimeTensor.Bridge.RealFluid.advection
+          spatial3
+          (h3SpectralRealVelocityOfPath W)
+          (s - t) x
+      ).component j
+        =
+      (
+        PrimeTensor.Bridge.RealFluid.advection
+          spatial3
+          (logSpaceTimeVectorField u)
+          s x
+      ).component j := by
+    unfold PrimeTensor.Bridge.RealFluid.advection
+    rw [hSliceEq]
+
+  have hLaplacianEq :
+      (
+        PrimeTensor.Bridge.RealFluid.laplacianVector
+          spatial3
+          (h3SpectralRealVelocityOfPath W)
+          (s - t) x
+      ).component j
+        =
+      (
+        PrimeTensor.Bridge.RealFluid.laplacianVector
+          spatial3
+          (logSpaceTimeVectorField u)
+          s x
+      ).component j := by
+    unfold
+      PrimeTensor.Bridge.RealFluid.laplacianVector
+      PrimeTensor.Bridge.RealFluid.laplacian
+    rw [hSliceEq]
+
+  have hSelectedMomentum :=
+    h3PreterminalTailCanonicalSelectedRestartAbsolute_pressure_momentum_axis
+      hNS ht hE hTail
+      hsSelected x j
+
+  have hOldMomentum :=
+    hPDE.momentum s hsOld x j
+
+  change
+    (
+      PrimeTensor.Bridge.RealFluid.temporalVectorDerivative
+        temporal
+        (logSpaceTimeVectorField u)
+        s x
+    ).component j
+      +
+    (
+      PrimeTensor.Bridge.RealFluid.advection
+        spatial3
+        (logSpaceTimeVectorField u)
+        s x
+    ).component j
+      =
+    PrimeTensor.Bridge.RealFluid.pressureForceComponent
+        spatial3 pOld s x j
+      +
+    (
+      PrimeTensor.Bridge.RealFluid.laplacianVector
+        spatial3
+        (logSpaceTimeVectorField u)
+        s x
+    ).component j
+    at hOldMomentum
+
+  dsimp only at hSelectedMomentum
+
+  rw [
+    hTemporalEq,
+    hAdvectionEq,
+    hLaplacianEq
+  ] at hSelectedMomentum
+
+  linarith
+
+/-- Joint continuity of the selected pressure force therefore transfers to
+joint continuity of the old pressure first spatial derivative on the endpoint
+slab. -/
+theorem H3PreterminalPressureFirstSpatialDerivativeJointlyContinuousOnAbsoluteSlab_of_selectedPressureForce
+    {E : ℝ}
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T t tau : ℝ}
+    (hNS : LoggedPreterminalNavierStokesAdmissible u T)
+    (ht : t ∈ Set.Ioo (0 : ℝ) T)
+    (htau : 0 < tau)
+    (hEnd : t + tau < T)
+    (hE : 1 ≤ E)
+    (hTail : CanonicalH3TailDataFrom u t T E)
+    (hEvolution :
+      H3PreterminalTailPhysicalEvolutionOnRestartRadius
+        (1 : ℝ) E
+        (one_pos : (0 : ℝ) < 1)
+        u T t hNS ht hE hTail)
+    (hTauR :
+      tau ≤ h3FinHeatLerayRestartRadius (1 : ℝ) E)
+    (hSelectedPressure :
+      H3PreterminalTailCanonicalSelectedPressureForceJointlyContinuousOnAbsoluteSlab
+        (tau := tau)
+        hNS ht hE hTail) :
+    H3PreterminalPressureFirstSpatialDerivativeJointlyContinuousOnAbsoluteSlab
+      (t := t) (tau := tau) hNS := by
+  unfold
+    H3PreterminalTailCanonicalSelectedPressureForceJointlyContinuousOnAbsoluteSlab
+    at hSelectedPressure
+
+  unfold
+    H3PreterminalPressureFirstSpatialDerivativeJointlyContinuousOnAbsoluteSlab
+
+  dsimp only
+
+  intro j
+
+  have hOldForce :
+      ContinuousOn
+        (fun z : ℝ × Point3 =>
+          PrimeTensor.Bridge.RealFluid.pressureForceComponent
+            spatial3
+            (Classical.choose hNS :
+              SpaceTimeScalarField ℝ ℝ ℝ Depth.three)
+            z.1 z.2 j)
+        (Set.Ioo t (t + tau) ×ˢ Set.univ) := by
+    apply (hSelectedPressure j).congr
+    intro z hz
+
+    exact
+      (h3PreterminalTailCanonicalSelectedPressureForce_eq_old_on_absoluteSlab
+        hNS ht htau hEnd hE hTail
+        hEvolution hTauR hz.1 z.2 j).symm
+
+  have hNeg := hOldForce.neg
+
+  apply hNeg.congr
+  intro z hz
+
+  unfold PrimeTensor.Bridge.RealFluid.pressureForceComponent
+  simp
+
+/-- The localized momentum-jet package is now reduced entirely to selected-side
+joint continuity: selected velocity jets and the selected pressure force. -/
+theorem H3PreterminalMomentumJetsJointlyContinuousOnAbsoluteSlab_of_selectedVelocityJets_and_selectedPressureForce
+    {E : ℝ}
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T t tau : ℝ}
+    (hNS : LoggedPreterminalNavierStokesAdmissible u T)
+    (ht : t ∈ Set.Ioo (0 : ℝ) T)
+    (htau : 0 < tau)
+    (hEnd : t + tau < T)
+    (hE : 1 ≤ E)
+    (hTail : CanonicalH3TailDataFrom u t T E)
+    (hEvolution :
+      H3PreterminalTailPhysicalEvolutionOnRestartRadius
+        (1 : ℝ) E
+        (one_pos : (0 : ℝ) < 1)
+        u T t hNS ht hE hTail)
+    (hTauR :
+      tau ≤ h3FinHeatLerayRestartRadius (1 : ℝ) E)
+    (hSelectedVelocity :
+      H3PreterminalTailSelectedVelocityJetsJointlyContinuousOnElapsed
+        (tau := tau)
+        (one_pos : (0 : ℝ) < 1)
+        hNS ht hE hTail)
+    (hSelectedPressure :
+      H3PreterminalTailCanonicalSelectedPressureForceJointlyContinuousOnAbsoluteSlab
+        (tau := tau)
+        hNS ht hE hTail) :
+    H3PreterminalMomentumJetsJointlyContinuousOnAbsoluteSlab
+      (t := t) (tau := tau) hNS := by
+  have hPressure :
+      H3PreterminalPressureFirstSpatialDerivativeJointlyContinuousOnAbsoluteSlab
+        (t := t) (tau := tau) hNS :=
+    H3PreterminalPressureFirstSpatialDerivativeJointlyContinuousOnAbsoluteSlab_of_selectedPressureForce
+      hNS ht htau hEnd hE hTail
+      hEvolution hTauR hSelectedPressure
+
+  exact
+    H3PreterminalMomentumJetsJointlyContinuousOnAbsoluteSlab_of_selectedVelocityJets_and_pressure
+      (one_pos : (0 : ℝ) < 1)
+      hNS ht htau hEnd hE hTail
+      hEvolution hTauR hSelectedVelocity hPressure
+
+/-- Selected velocity-jet continuity together with selected pressure-force
+continuity closes the physical `L²` vector evolution identity. -/
+theorem h3PreterminalTailCanonicalVelocityIncrementPhysicalL2Hilbert_eq_BochnerProjectedRHS_of_selectedMomentumFieldsJointlyContinuous
+    {E : ℝ}
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T t tau : ℝ}
+    (hNS : LoggedPreterminalNavierStokesAdmissible u T)
+    (ht : t ∈ Set.Ioo (0 : ℝ) T)
+    (htau : 0 < tau)
+    (hEnd : t + tau < T)
+    (hE : 1 ≤ E)
+    (hTail : CanonicalH3TailDataFrom u t T E)
+    (hEndpoint :
+      H3PreterminalCanonicalL2EndpointContinuousOnElapsed
+        hNS ht hEnd hTail)
+    (hEvolution :
+      H3PreterminalTailPhysicalEvolutionOnRestartRadius
+        (1 : ℝ) E
+        (one_pos : (0 : ℝ) < 1)
+        u T t hNS ht hE hTail)
+    (hTauR :
+      tau ≤ h3FinHeatLerayRestartRadius (1 : ℝ) E)
+    (hSelectedVelocity :
+      H3PreterminalTailSelectedVelocityJetsJointlyContinuousOnElapsed
+        (tau := tau)
+        (one_pos : (0 : ℝ) < 1)
+        hNS ht hE hTail)
+    (hSelectedPressure :
+      H3PreterminalTailCanonicalSelectedPressureForceJointlyContinuousOnAbsoluteSlab
+        (tau := tau)
+        hNS ht hE hTail) :
+    h3PreterminalTailCanonicalVelocityIncrementPhysicalL2Hilbert
+        hNS ht htau hEnd hTail
+      =
+    h3PreterminalTailCanonicalProjectedRHSPhysicalL2BochnerIntegralHilbert
+      hNS ht htau hEnd hE hTail hEndpoint := by
+  apply
+    h3PreterminalTailCanonicalVelocityIncrementPhysicalL2Hilbert_eq_BochnerProjectedRHS_of_localMomentumJetsJointlyContinuous
+      hNS ht htau hEnd hE hTail hEndpoint
+
+  exact
+    H3PreterminalMomentumJetsJointlyContinuousOnAbsoluteSlab_of_selectedVelocityJets_and_selectedPressureForce
+      hNS ht htau hEnd hE hTail
+      hEvolution hTauR
+      hSelectedVelocity hSelectedPressure
 
 end
 
