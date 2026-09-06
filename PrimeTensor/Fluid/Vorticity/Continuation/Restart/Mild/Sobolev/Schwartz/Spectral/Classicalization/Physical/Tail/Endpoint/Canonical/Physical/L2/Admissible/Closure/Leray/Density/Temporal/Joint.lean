@@ -765,6 +765,295 @@ theorem h3PreterminalTailCanonicalVelocityIncrementPhysicalL2Hilbert_eq_BochnerP
     H3PreterminalMomentumRHSJointlyContinuous_of_terms
       hNS hPressure hLaplacian hAdvection
 
+
+/-! ## Reduce the momentum terms to explicit jointly continuous spatial jets -/
+
+/-- Joint spacetime continuity of each logged velocity component. -/
+def H3PreterminalVelocityJointlyContinuous
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T : ℝ}
+    (_hNS : LoggedPreterminalNavierStokesAdmissible u T) : Prop :=
+  ∀ j : PrimeTensor.Axis Depth.three,
+    ContinuousOn
+      (fun z : ℝ × Point3 =>
+        loggedVelocityComponent u z.1 j z.2)
+      (Set.Ioo (0 : ℝ) T ×ˢ Set.univ)
+
+/-- Joint spacetime continuity of each first spatial derivative of each logged
+velocity component. -/
+def H3PreterminalVelocityFirstSpatialDerivativeJointlyContinuous
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T : ℝ}
+    (_hNS : LoggedPreterminalNavierStokesAdmissible u T) : Prop :=
+  ∀ a j : PrimeTensor.Axis Depth.three,
+    ContinuousOn
+      (fun z : ℝ × Point3 =>
+        spatial3.d
+          a
+          (loggedVelocityComponent u z.1 j)
+          z.2)
+      (Set.Ioo (0 : ℝ) T ×ˢ Set.univ)
+
+/-- Joint spacetime continuity of each pure second spatial derivative
+`∂ₐ² uⱼ`.  These are exactly the second derivatives appearing in the
+Laplacian. -/
+def H3PreterminalVelocityPureSecondSpatialDerivativeJointlyContinuous
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T : ℝ}
+    (_hNS : LoggedPreterminalNavierStokesAdmissible u T) : Prop :=
+  ∀ a j : PrimeTensor.Axis Depth.three,
+    ContinuousOn
+      (fun z : ℝ × Point3 =>
+        spatial3.d
+          a
+          (spatial3.d
+            a
+            (loggedVelocityComponent u z.1 j))
+          z.2)
+      (Set.Ioo (0 : ℝ) T ×ˢ Set.univ)
+
+/-- Joint spacetime continuity of each first spatial derivative of the old
+preterminal pressure witness. -/
+def H3PreterminalPressureFirstSpatialDerivativeJointlyContinuous
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T : ℝ}
+    (hNS : LoggedPreterminalNavierStokesAdmissible u T) : Prop :=
+  let p :
+      SpaceTimeScalarField ℝ ℝ ℝ Depth.three :=
+    Classical.choose hNS
+  ∀ j : PrimeTensor.Axis Depth.three,
+    ContinuousOn
+      (fun z : ℝ × Point3 =>
+        spatial3.d j (p z.1) z.2)
+      (Set.Ioo (0 : ℝ) T ×ˢ Set.univ)
+
+/-- A jointly continuous pressure first jet gives joint continuity of the
+pressure-force term. -/
+theorem H3PreterminalPressureForceJointlyContinuous_of_pressureFirstSpatialDerivative
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T : ℝ}
+    (hNS : LoggedPreterminalNavierStokesAdmissible u T)
+    (hPressure :
+      H3PreterminalPressureFirstSpatialDerivativeJointlyContinuous hNS) :
+    H3PreterminalPressureForceJointlyContinuous hNS := by
+  unfold
+    H3PreterminalPressureFirstSpatialDerivativeJointlyContinuous
+    at hPressure
+
+  unfold
+    H3PreterminalPressureForceJointlyContinuous
+
+  dsimp only at hPressure ⊢
+
+  intro i
+
+  unfold
+    PrimeTensor.Bridge.RealFluid.pressureForceComponent
+
+  exact
+    (hPressure (h3AxisOfFin3 i)).neg
+
+/-- Joint continuity of the pure second velocity jets gives joint continuity of
+the Laplacian term. -/
+theorem H3PreterminalLaplacianJointlyContinuous_of_pureSecondSpatialDerivative
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T : ℝ}
+    (hNS : LoggedPreterminalNavierStokesAdmissible u T)
+    (hSecond :
+      H3PreterminalVelocityPureSecondSpatialDerivativeJointlyContinuous
+        hNS) :
+    H3PreterminalLaplacianJointlyContinuous hNS := by
+  unfold
+    H3PreterminalVelocityPureSecondSpatialDerivativeJointlyContinuous
+    at hSecond
+
+  unfold
+    H3PreterminalLaplacianJointlyContinuous
+
+  intro i
+
+  change
+    ContinuousOn
+      (fun z : ℝ × Point3 =>
+        spatial3.d
+            xAxis
+            (spatial3.d
+              xAxis
+              (loggedVelocityComponent
+                u z.1 (h3AxisOfFin3 i)))
+            z.2
+          +
+        (
+          spatial3.d
+              yAxis
+              (spatial3.d
+                yAxis
+                (loggedVelocityComponent
+                  u z.1 (h3AxisOfFin3 i)))
+              z.2
+            +
+          spatial3.d
+              zAxis
+              (spatial3.d
+                zAxis
+                (loggedVelocityComponent
+                  u z.1 (h3AxisOfFin3 i)))
+              z.2
+        ))
+      (Set.Ioo (0 : ℝ) T ×ˢ Set.univ)
+
+  exact
+    (hSecond
+        xAxis
+        (h3AxisOfFin3 i)).add
+      ((hSecond
+          yAxis
+          (h3AxisOfFin3 i)).add
+        (hSecond
+          zAxis
+          (h3AxisOfFin3 i)))
+
+/-- Joint continuity of velocity and its first spatial jet gives joint
+continuity of the advection term. -/
+theorem H3PreterminalAdvectionJointlyContinuous_of_velocity_and_firstSpatialDerivative
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T : ℝ}
+    (hNS : LoggedPreterminalNavierStokesAdmissible u T)
+    (hVelocity :
+      H3PreterminalVelocityJointlyContinuous hNS)
+    (hFirst :
+      H3PreterminalVelocityFirstSpatialDerivativeJointlyContinuous hNS) :
+    H3PreterminalAdvectionJointlyContinuous hNS := by
+  unfold
+    H3PreterminalVelocityJointlyContinuous
+    at hVelocity
+
+  unfold
+    H3PreterminalVelocityFirstSpatialDerivativeJointlyContinuous
+    at hFirst
+
+  unfold
+    H3PreterminalAdvectionJointlyContinuous
+
+  intro i
+
+  change
+    ContinuousOn
+      (fun z : ℝ × Point3 =>
+        loggedVelocityComponent u z.1 xAxis z.2
+            *
+          spatial3.d
+            xAxis
+            (loggedVelocityComponent
+              u z.1 (h3AxisOfFin3 i))
+            z.2
+          +
+        (
+          loggedVelocityComponent u z.1 yAxis z.2
+              *
+            spatial3.d
+              yAxis
+              (loggedVelocityComponent
+                u z.1 (h3AxisOfFin3 i))
+              z.2
+            +
+          loggedVelocityComponent u z.1 zAxis z.2
+              *
+            spatial3.d
+              zAxis
+              (loggedVelocityComponent
+                u z.1 (h3AxisOfFin3 i))
+              z.2
+        ))
+      (Set.Ioo (0 : ℝ) T ×ˢ Set.univ)
+
+  exact
+    ((hVelocity xAxis).mul
+        (hFirst
+          xAxis
+          (h3AxisOfFin3 i))).add
+      (((hVelocity yAxis).mul
+          (hFirst
+            yAxis
+            (h3AxisOfFin3 i))).add
+        ((hVelocity zAxis).mul
+          (hFirst
+            zAxis
+            (h3AxisOfFin3 i))))
+
+/-- The explicit joint spacetime jet regularity needed by the classical
+momentum RHS. -/
+def H3PreterminalMomentumJetsJointlyContinuous
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T : ℝ}
+    (hNS : LoggedPreterminalNavierStokesAdmissible u T) : Prop :=
+  H3PreterminalVelocityJointlyContinuous hNS
+    ∧
+  H3PreterminalVelocityFirstSpatialDerivativeJointlyContinuous hNS
+    ∧
+  H3PreterminalVelocityPureSecondSpatialDerivativeJointlyContinuous hNS
+    ∧
+  H3PreterminalPressureFirstSpatialDerivativeJointlyContinuous hNS
+
+/-- Explicit joint continuity of the velocity and pressure jets appearing in
+the momentum equation closes the complete momentum-RHS continuity frontier. -/
+theorem H3PreterminalMomentumRHSJointlyContinuous_of_momentumJets
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T : ℝ}
+    (hNS : LoggedPreterminalNavierStokesAdmissible u T)
+    (hJets :
+      H3PreterminalMomentumJetsJointlyContinuous hNS) :
+    H3PreterminalMomentumRHSJointlyContinuous hNS := by
+  rcases hJets with
+    ⟨hVelocity, hFirst, hSecond, hPressure⟩
+
+  apply
+    H3PreterminalMomentumRHSJointlyContinuous_of_terms
+      hNS
+
+  · exact
+      H3PreterminalPressureForceJointlyContinuous_of_pressureFirstSpatialDerivative
+        hNS hPressure
+
+  · exact
+      H3PreterminalLaplacianJointlyContinuous_of_pureSecondSpatialDerivative
+        hNS hSecond
+
+  · exact
+      H3PreterminalAdvectionJointlyContinuous_of_velocity_and_firstSpatialDerivative
+        hNS hVelocity hFirst
+
+/-- Consequently, the physical `L²` vector evolution identity is reduced to
+joint spacetime continuity of exactly the classical velocity/pressure jets
+present in the momentum equation. -/
+theorem h3PreterminalTailCanonicalVelocityIncrementPhysicalL2Hilbert_eq_BochnerProjectedRHS_of_momentumJetsJointlyContinuous
+    {E : ℝ}
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T t tau : ℝ}
+    (hNS : LoggedPreterminalNavierStokesAdmissible u T)
+    (ht : t ∈ Set.Ioo (0 : ℝ) T)
+    (htau : 0 < tau)
+    (hEnd : t + tau < T)
+    (hE : 1 ≤ E)
+    (hTail : CanonicalH3TailDataFrom u t T E)
+    (hEndpoint :
+      H3PreterminalCanonicalL2EndpointContinuousOnElapsed
+        hNS ht hEnd hTail)
+    (hJets :
+      H3PreterminalMomentumJetsJointlyContinuous hNS) :
+    h3PreterminalTailCanonicalVelocityIncrementPhysicalL2Hilbert
+        hNS ht htau hEnd hTail
+      =
+    h3PreterminalTailCanonicalProjectedRHSPhysicalL2BochnerIntegralHilbert
+      hNS ht htau hEnd hE hTail hEndpoint := by
+  apply
+    h3PreterminalTailCanonicalVelocityIncrementPhysicalL2Hilbert_eq_BochnerProjectedRHS_of_momentumRHSJointlyContinuous
+      hNS ht htau hEnd hE hTail hEndpoint
+
+  exact
+    H3PreterminalMomentumRHSJointlyContinuous_of_momentumJets
+      hNS hJets
+
 end
 
 end Euclidean
