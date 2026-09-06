@@ -1054,6 +1054,583 @@ theorem h3PreterminalTailCanonicalVelocityIncrementPhysicalL2Hilbert_eq_BochnerP
     H3PreterminalMomentumRHSJointlyContinuous_of_momentumJets
       hNS hJets
 
+
+/-! ## Localize the momentum-jet frontier to the absolute endpoint slab -/
+
+/-- Joint spacetime continuity of each logged velocity component only on the
+absolute-time slab actually used by this endpoint increment. -/
+def H3PreterminalVelocityJointlyContinuousOnAbsoluteSlab
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T t tau : ℝ}
+    (_hNS : LoggedPreterminalNavierStokesAdmissible u T) : Prop :=
+  ∀ j : PrimeTensor.Axis Depth.three,
+    ContinuousOn
+      (fun z : ℝ × Point3 =>
+        loggedVelocityComponent u z.1 j z.2)
+      (Set.Ioo t (t + tau) ×ˢ Set.univ)
+
+/-- Joint spacetime continuity of each first spatial velocity derivative on
+the absolute endpoint slab. -/
+def H3PreterminalVelocityFirstSpatialDerivativeJointlyContinuousOnAbsoluteSlab
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T t tau : ℝ}
+    (_hNS : LoggedPreterminalNavierStokesAdmissible u T) : Prop :=
+  ∀ a j : PrimeTensor.Axis Depth.three,
+    ContinuousOn
+      (fun z : ℝ × Point3 =>
+        spatial3.d
+          a
+          (loggedVelocityComponent u z.1 j)
+          z.2)
+      (Set.Ioo t (t + tau) ×ˢ Set.univ)
+
+/-- Joint spacetime continuity of each pure second spatial velocity derivative
+on the absolute endpoint slab. -/
+def H3PreterminalVelocityPureSecondSpatialDerivativeJointlyContinuousOnAbsoluteSlab
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T t tau : ℝ}
+    (_hNS : LoggedPreterminalNavierStokesAdmissible u T) : Prop :=
+  ∀ a j : PrimeTensor.Axis Depth.three,
+    ContinuousOn
+      (fun z : ℝ × Point3 =>
+        spatial3.d
+          a
+          (spatial3.d
+            a
+            (loggedVelocityComponent u z.1 j))
+          z.2)
+      (Set.Ioo t (t + tau) ×ˢ Set.univ)
+
+/-- Joint spacetime continuity of each first spatial derivative of the old
+pressure witness on the absolute endpoint slab. -/
+def H3PreterminalPressureFirstSpatialDerivativeJointlyContinuousOnAbsoluteSlab
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T t tau : ℝ}
+    (hNS : LoggedPreterminalNavierStokesAdmissible u T) : Prop :=
+  let p :
+      SpaceTimeScalarField ℝ ℝ ℝ Depth.three :=
+    Classical.choose hNS
+  ∀ j : PrimeTensor.Axis Depth.three,
+    ContinuousOn
+      (fun z : ℝ × Point3 =>
+        spatial3.d j (p z.1) z.2)
+      (Set.Ioo t (t + tau) ×ˢ Set.univ)
+
+/-- Exact local spacetime jet package needed by the endpoint argument. -/
+def H3PreterminalMomentumJetsJointlyContinuousOnAbsoluteSlab
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T t tau : ℝ}
+    (hNS : LoggedPreterminalNavierStokesAdmissible u T) : Prop :=
+  H3PreterminalVelocityJointlyContinuousOnAbsoluteSlab
+      (t := t) (tau := tau) hNS
+    ∧
+  H3PreterminalVelocityFirstSpatialDerivativeJointlyContinuousOnAbsoluteSlab
+      (t := t) (tau := tau) hNS
+    ∧
+  H3PreterminalVelocityPureSecondSpatialDerivativeJointlyContinuousOnAbsoluteSlab
+      (t := t) (tau := tau) hNS
+    ∧
+  H3PreterminalPressureFirstSpatialDerivativeJointlyContinuousOnAbsoluteSlab
+      (t := t) (tau := tau) hNS
+
+/-- Joint continuity of the complete classical momentum RHS, localized to the
+absolute endpoint slab `(t,t+τ)`. -/
+def H3PreterminalMomentumRHSJointlyContinuousOnAbsoluteSlab
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T t tau : ℝ}
+    (hNS : LoggedPreterminalNavierStokesAdmissible u T) : Prop :=
+  let p :
+      SpaceTimeScalarField ℝ ℝ ℝ Depth.three :=
+    Classical.choose hNS
+  ∀ i : Fin 3,
+    ContinuousOn
+      (fun z : ℝ × Point3 =>
+        PrimeTensor.Bridge.RealFluid.pressureForceComponent
+            spatial3 p z.1 z.2 (h3AxisOfFin3 i)
+          +
+        (PrimeTensor.Bridge.RealFluid.laplacianVector
+            spatial3
+            (logSpaceTimeVectorField u)
+            z.1 z.2).component
+          (h3AxisOfFin3 i)
+          -
+        (PrimeTensor.Bridge.RealFluid.advection
+            spatial3
+            (logSpaceTimeVectorField u)
+            z.1 z.2).component
+          (h3AxisOfFin3 i))
+      (Set.Ioo t (t + tau) ×ˢ Set.univ)
+
+/-- The localized jet package gives localized momentum-RHS continuity. -/
+theorem H3PreterminalMomentumRHSJointlyContinuousOnAbsoluteSlab_of_momentumJets
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T t tau : ℝ}
+    (hNS : LoggedPreterminalNavierStokesAdmissible u T)
+    (hJets :
+      H3PreterminalMomentumJetsJointlyContinuousOnAbsoluteSlab
+        (t := t) (tau := tau) hNS) :
+    H3PreterminalMomentumRHSJointlyContinuousOnAbsoluteSlab
+      (t := t) (tau := tau) hNS := by
+  rcases hJets with
+    ⟨hVelocity, hFirst, hSecond, hPressure⟩
+
+  unfold
+    H3PreterminalVelocityJointlyContinuousOnAbsoluteSlab
+    at hVelocity
+
+  unfold
+    H3PreterminalVelocityFirstSpatialDerivativeJointlyContinuousOnAbsoluteSlab
+    at hFirst
+
+  unfold
+    H3PreterminalVelocityPureSecondSpatialDerivativeJointlyContinuousOnAbsoluteSlab
+    at hSecond
+
+  unfold
+    H3PreterminalPressureFirstSpatialDerivativeJointlyContinuousOnAbsoluteSlab
+    at hPressure
+
+  unfold
+    H3PreterminalMomentumRHSJointlyContinuousOnAbsoluteSlab
+
+  dsimp only at hPressure ⊢
+
+  intro i
+
+  have hPressureForce :
+      ContinuousOn
+        (fun z : ℝ × Point3 =>
+          PrimeTensor.Bridge.RealFluid.pressureForceComponent
+            spatial3
+            (Classical.choose hNS)
+            z.1 z.2
+            (h3AxisOfFin3 i))
+        (Set.Ioo t (t + tau) ×ˢ Set.univ) := by
+    unfold
+      PrimeTensor.Bridge.RealFluid.pressureForceComponent
+
+    exact
+      (hPressure (h3AxisOfFin3 i)).neg
+
+  have hLaplacian :
+      ContinuousOn
+        (fun z : ℝ × Point3 =>
+          (PrimeTensor.Bridge.RealFluid.laplacianVector
+            spatial3
+            (logSpaceTimeVectorField u)
+            z.1 z.2).component
+              (h3AxisOfFin3 i))
+        (Set.Ioo t (t + tau) ×ˢ Set.univ) := by
+    change
+      ContinuousOn
+        (fun z : ℝ × Point3 =>
+          spatial3.d
+              xAxis
+              (spatial3.d
+                xAxis
+                (loggedVelocityComponent
+                  u z.1 (h3AxisOfFin3 i)))
+              z.2
+            +
+          (
+            spatial3.d
+                yAxis
+                (spatial3.d
+                  yAxis
+                  (loggedVelocityComponent
+                    u z.1 (h3AxisOfFin3 i)))
+                z.2
+              +
+            spatial3.d
+                zAxis
+                (spatial3.d
+                  zAxis
+                  (loggedVelocityComponent
+                    u z.1 (h3AxisOfFin3 i)))
+                z.2
+          ))
+        (Set.Ioo t (t + tau) ×ˢ Set.univ)
+
+    exact
+      (hSecond
+          xAxis
+          (h3AxisOfFin3 i)).add
+        ((hSecond
+            yAxis
+            (h3AxisOfFin3 i)).add
+          (hSecond
+            zAxis
+            (h3AxisOfFin3 i)))
+
+  have hAdvection :
+      ContinuousOn
+        (fun z : ℝ × Point3 =>
+          (PrimeTensor.Bridge.RealFluid.advection
+            spatial3
+            (logSpaceTimeVectorField u)
+            z.1 z.2).component
+              (h3AxisOfFin3 i))
+        (Set.Ioo t (t + tau) ×ˢ Set.univ) := by
+    change
+      ContinuousOn
+        (fun z : ℝ × Point3 =>
+          loggedVelocityComponent u z.1 xAxis z.2
+              *
+            spatial3.d
+              xAxis
+              (loggedVelocityComponent
+                u z.1 (h3AxisOfFin3 i))
+              z.2
+            +
+          (
+            loggedVelocityComponent u z.1 yAxis z.2
+                *
+              spatial3.d
+                yAxis
+                (loggedVelocityComponent
+                  u z.1 (h3AxisOfFin3 i))
+                z.2
+              +
+            loggedVelocityComponent u z.1 zAxis z.2
+                *
+              spatial3.d
+                zAxis
+                (loggedVelocityComponent
+                  u z.1 (h3AxisOfFin3 i))
+                z.2
+          ))
+        (Set.Ioo t (t + tau) ×ˢ Set.univ)
+
+    exact
+      ((hVelocity xAxis).mul
+          (hFirst
+            xAxis
+            (h3AxisOfFin3 i))).add
+        (((hVelocity yAxis).mul
+            (hFirst
+              yAxis
+              (h3AxisOfFin3 i))).add
+          ((hVelocity zAxis).mul
+            (hFirst
+              zAxis
+              (h3AxisOfFin3 i))))
+
+  exact
+    (hPressureForce.add hLaplacian).sub
+      hAdvection
+
+/-- Localized momentum-RHS continuity gives localized joint continuity of the
+actual old temporal derivative. -/
+theorem H3PreterminalLoggedVelocityTemporalDerivativeJointlyContinuousOnAbsoluteSlab_of_momentumRHS
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T t tau : ℝ}
+    (hNS : LoggedPreterminalNavierStokesAdmissible u T)
+    (ht : t ∈ Set.Ioo (0 : ℝ) T)
+    (hEnd : t + tau < T)
+    (hRHS :
+      H3PreterminalMomentumRHSJointlyContinuousOnAbsoluteSlab
+        (t := t) (tau := tau) hNS) :
+    ∀ i : Fin 3,
+      ContinuousOn
+        (fun z : ℝ × Point3 =>
+          temporal.d
+            (fun q : ℝ =>
+              loggedVelocityComponent
+                u q (h3AxisOfFin3 i) z.2)
+            z.1)
+        (Set.Ioo t (t + tau) ×ˢ Set.univ) := by
+  unfold
+    H3PreterminalMomentumRHSJointlyContinuousOnAbsoluteSlab
+    at hRHS
+
+  let p :
+      SpaceTimeScalarField ℝ ℝ ℝ Depth.three :=
+    Classical.choose hNS
+
+  let hPDE :
+      PreterminalNavierStokes3
+        (logSpaceTimeVectorField u)
+        p
+        T :=
+    Classical.choose_spec hNS
+
+  dsimp only at hRHS
+
+  intro i
+
+  let rhs : ℝ × Point3 → ℝ :=
+    fun z =>
+      PrimeTensor.Bridge.RealFluid.pressureForceComponent
+          spatial3 p z.1 z.2 (h3AxisOfFin3 i)
+        +
+      (PrimeTensor.Bridge.RealFluid.laplacianVector
+          spatial3
+          (logSpaceTimeVectorField u)
+          z.1 z.2).component
+        (h3AxisOfFin3 i)
+        -
+      (PrimeTensor.Bridge.RealFluid.advection
+          spatial3
+          (logSpaceTimeVectorField u)
+          z.1 z.2).component
+        (h3AxisOfFin3 i)
+
+  have hContinuous :
+      ContinuousOn
+        rhs
+        (Set.Ioo t (t + tau) ×ˢ Set.univ) := by
+    dsimp only [rhs, p]
+    exact hRHS i
+
+  apply hContinuous.congr
+  intro z hz
+
+  have hzT :
+      z.1 ∈ Set.Ioo (0 : ℝ) T := by
+    constructor
+    · exact lt_trans ht.1 hz.1.1
+    · exact lt_trans hz.1.2 hEnd
+
+  have hMomentum :=
+    hPDE.momentum
+      z.1
+      hzT
+      z.2
+      (h3AxisOfFin3 i)
+
+  change
+    temporal.d
+        (fun q : ℝ =>
+          (logSpaceTimeVectorField u q z.2).component
+            (h3AxisOfFin3 i))
+        z.1
+      =
+    rhs z
+
+  change
+    temporal.d
+          (fun q : ℝ =>
+            (logSpaceTimeVectorField u q z.2).component
+              (h3AxisOfFin3 i))
+          z.1
+        +
+      (PrimeTensor.Bridge.RealFluid.advection
+          spatial3
+          (logSpaceTimeVectorField u)
+          z.1 z.2).component
+        (h3AxisOfFin3 i)
+      =
+    PrimeTensor.Bridge.RealFluid.pressureForceComponent
+        spatial3 p z.1 z.2 (h3AxisOfFin3 i)
+      +
+    (PrimeTensor.Bridge.RealFluid.laplacianVector
+        spatial3
+        (logSpaceTimeVectorField u)
+        z.1 z.2).component
+      (h3AxisOfFin3 i)
+    at hMomentum
+
+  dsimp only [rhs]
+
+  linarith
+
+/-- Only local old temporal-derivative joint continuity on `(t,t+τ)` is needed
+to obtain the endpoint joint-continuity condition near one weak-test support. -/
+theorem H3PreterminalTailCanonicalWeakTemporalDerivativeJointlyContinuousNearSupportAt_of_oldJointOnAbsoluteSlab
+    {E : ℝ}
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T t tau : ℝ}
+    (hNS : LoggedPreterminalNavierStokesAdmissible u T)
+    (ht : t ∈ Set.Ioo (0 : ℝ) T)
+    (htau : 0 < tau)
+    (hEnd : t + tau < T)
+    (hE : 1 ≤ E)
+    (hTail : CanonicalH3TailDataFrom u t T E)
+    (hEndpoint :
+      H3PreterminalCanonicalL2EndpointContinuousOnElapsed
+        hNS ht hEnd hTail)
+    (hOldJoint :
+      ∀ i : Fin 3,
+        ContinuousOn
+          (fun z : ℝ × Point3 =>
+            temporal.d
+              (fun q : ℝ =>
+                loggedVelocityComponent
+                  u q (h3AxisOfFin3 i) z.2)
+              z.1)
+          (Set.Ioo t (t + tau) ×ˢ Set.univ))
+    (s : ℝ)
+    (hs : s ∈ Set.Ioo (0 : ℝ) tau)
+    (φ : H3WeakTestVector) :
+    H3PreterminalTailCanonicalWeakTemporalDerivativeJointlyContinuousNearSupportAt
+      hNS ht htau hEnd hE hTail hEndpoint s φ := by
+  intro i
+
+  let a : ℝ := s / 2
+  let b : ℝ := (s + tau) / 2
+
+  have haPos : 0 < a := by
+    dsimp only [a]
+    linarith [hs.1]
+
+  have has : a < s := by
+    dsimp only [a]
+    linarith [hs.1]
+
+  have hsb : s < b := by
+    dsimp only [b]
+    linarith [hs.2]
+
+  have hbTau : b < tau := by
+    dsimp only [b]
+    linarith [hs.2]
+
+  have hSlab :
+      Set.Icc a b ⊆ Set.Ioo (0 : ℝ) tau := by
+    intro r hr
+    exact
+      ⟨
+        lt_of_lt_of_le haPos hr.1,
+        lt_of_le_of_lt hr.2 hbTau
+      ⟩
+
+  refine ⟨a, b, has, hsb, hSlab, ?_⟩
+
+  let oldDerivative : ℝ × Point3 → ℝ :=
+    fun z =>
+      temporal.d
+        (fun q : ℝ =>
+          loggedVelocityComponent
+            u q (h3AxisOfFin3 i) z.2)
+        z.1
+
+  let shiftPair : ℝ × Point3 → ℝ × Point3 :=
+    fun z => (t + z.1, z.2)
+
+  have hOld :
+      ContinuousOn
+        oldDerivative
+        (Set.Ioo t (t + tau) ×ˢ Set.univ) := by
+    dsimp only [oldDerivative]
+    exact hOldJoint i
+
+  have hShift :
+      Continuous shiftPair := by
+    dsimp only [shiftPair]
+    fun_prop
+
+  have hMaps :
+      MapsTo
+        shiftPair
+        (Set.Icc a b ×ˢ
+          tsupport (φ i : Point3 → ℝ))
+        (Set.Ioo t (t + tau) ×ˢ Set.univ) := by
+    intro z hz
+
+    have hr :
+        z.1 ∈ Set.Ioo (0 : ℝ) tau :=
+      hSlab hz.1
+
+    refine ⟨?_, Set.mem_univ z.2⟩
+
+    constructor <;> linarith [hr.1, hr.2]
+
+  have hShifted :
+      ContinuousOn
+        (oldDerivative ∘ shiftPair)
+        (Set.Icc a b ×ˢ
+          tsupport (φ i : Point3 → ℝ)) :=
+    hOld.comp hShift.continuousOn hMaps
+
+  apply hShifted.congr
+
+  intro z hz
+
+  have hr :
+      z.1 ∈ Set.Ioo (0 : ℝ) tau :=
+    hSlab hz.1
+
+  have hEq :=
+    h3PreterminalTailCanonicalNormalizedRealPathOfL2Endpoint_component_temporal_d_eq_old
+      hNS ht htau hEnd hE hTail hEndpoint
+      hr i z.2
+
+  dsimp only [
+    oldDerivative,
+    shiftPair,
+    Function.comp_apply
+  ]
+
+  exact hEq
+
+/-- Localized momentum jets on the single absolute endpoint slab are sufficient
+for every divergence-free weak test. -/
+theorem H3PreterminalTailCanonicalAllDivergenceFreeWeakTestsTemporalDerivativeJointlyContinuousNearSupport_of_localMomentumJets
+    {E : ℝ}
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T t tau : ℝ}
+    (hNS : LoggedPreterminalNavierStokesAdmissible u T)
+    (ht : t ∈ Set.Ioo (0 : ℝ) T)
+    (htau : 0 < tau)
+    (hEnd : t + tau < T)
+    (hE : 1 ≤ E)
+    (hTail : CanonicalH3TailDataFrom u t T E)
+    (hEndpoint :
+      H3PreterminalCanonicalL2EndpointContinuousOnElapsed
+        hNS ht hEnd hTail)
+    (hJets :
+      H3PreterminalMomentumJetsJointlyContinuousOnAbsoluteSlab
+        (t := t) (tau := tau) hNS) :
+    H3PreterminalTailCanonicalAllDivergenceFreeWeakTestsTemporalDerivativeJointlyContinuousNearSupport
+      hNS ht htau hEnd hE hTail hEndpoint := by
+  have hRHS :
+      H3PreterminalMomentumRHSJointlyContinuousOnAbsoluteSlab
+        (t := t) (tau := tau) hNS :=
+    H3PreterminalMomentumRHSJointlyContinuousOnAbsoluteSlab_of_momentumJets
+      hNS hJets
+
+  have hOldJoint :=
+    H3PreterminalLoggedVelocityTemporalDerivativeJointlyContinuousOnAbsoluteSlab_of_momentumRHS
+      hNS ht hEnd hRHS
+
+  intro φ hDiv s hs
+
+  exact
+    H3PreterminalTailCanonicalWeakTemporalDerivativeJointlyContinuousNearSupportAt_of_oldJointOnAbsoluteSlab
+      hNS ht htau hEnd hE hTail hEndpoint
+      hOldJoint s hs φ
+
+/-- Final localized reduction: the physical `L²` vector evolution identity
+requires joint spacetime regularity only on `(t,t+τ)`, not globally on `(0,T)`. -/
+theorem h3PreterminalTailCanonicalVelocityIncrementPhysicalL2Hilbert_eq_BochnerProjectedRHS_of_localMomentumJetsJointlyContinuous
+    {E : ℝ}
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T t tau : ℝ}
+    (hNS : LoggedPreterminalNavierStokesAdmissible u T)
+    (ht : t ∈ Set.Ioo (0 : ℝ) T)
+    (htau : 0 < tau)
+    (hEnd : t + tau < T)
+    (hE : 1 ≤ E)
+    (hTail : CanonicalH3TailDataFrom u t T E)
+    (hEndpoint :
+      H3PreterminalCanonicalL2EndpointContinuousOnElapsed
+        hNS ht hEnd hTail)
+    (hJets :
+      H3PreterminalMomentumJetsJointlyContinuousOnAbsoluteSlab
+        (t := t) (tau := tau) hNS) :
+    h3PreterminalTailCanonicalVelocityIncrementPhysicalL2Hilbert
+        hNS ht htau hEnd hTail
+      =
+    h3PreterminalTailCanonicalProjectedRHSPhysicalL2BochnerIntegralHilbert
+      hNS ht htau hEnd hE hTail hEndpoint := by
+  apply
+    h3PreterminalTailCanonicalVelocityIncrementPhysicalL2Hilbert_eq_BochnerProjectedRHS_of_temporalDerivativeJointlyContinuousNearSupport
+      hNS ht htau hEnd hE hTail hEndpoint
+
+  exact
+    H3PreterminalTailCanonicalAllDivergenceFreeWeakTestsTemporalDerivativeJointlyContinuousNearSupport_of_localMomentumJets
+      hNS ht htau hEnd hE hTail hEndpoint hJets
+
 end
 
 end Euclidean
