@@ -1086,3 +1086,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Sp
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Derivative.Integral
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Derivative.OrderZero
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Derivative.OrderOne
+import PrimeTensor.Fluid.Vorticity.H3.Energy.Derivative.OrderTwo
