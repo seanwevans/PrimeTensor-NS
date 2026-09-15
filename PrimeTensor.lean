@@ -1096,3 +1096,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Sp
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Derivative.EnergyClassTemporalRHS
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Derivative.OrderTwoTailLocal
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Derivative.OrderThreeTailLocal
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Spectral.Classicalization.Physical.Tail.Unit.Viscosity.Frontier.Endpoint.Continuity.Third.EnergyDerivativeTailLocalAssembly
