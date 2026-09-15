@@ -1087,3 +1087,4 @@ import PrimeTensor.Fluid.Vorticity.H3.Energy.Derivative.Integral
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Derivative.OrderZero
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Derivative.OrderOne
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Derivative.OrderTwo
+import PrimeTensor.Fluid.Vorticity.H3.Energy.Derivative.OrderThree
