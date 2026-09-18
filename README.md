@@ -1,143 +1,122 @@
 # PrimeTensor-NS
 
-A machine-checked Lean 4 research program toward a global H<sup>3</sup> bound for the three-dimensional incompressible Navier–Stokes equations on ℝ<sup>3</sup>.
+A Lean 4 research formalization of a continuation strategy for the three-dimensional incompressible Navier–Stokes equations on ℝ³, centered on explicit H³ energy estimates, a Landau/Gagliardo–Nirenberg transport analysis, and a Fourier/heat-semigroup restart construction.
 
-The project combines a multiplicative/logarithmic representation layer with a classical Euclidean PDE layer, an explicit H<sup>3</sup> energy analysis, Beale–Kato–Majda-style continuation machinery, and a Fourier/heat-semigroup construction of canonical local restarts.
+The repository also contains a positive multiplicative/logarithmic representation layer. Where the logarithmic bridge is available, that layer is related back to ordinary real-valued PDE quantities; it should be read as an alternative formal representation, not as a shortcut around the classical analytic difficulties.
 
-The central design principle is to make proof boundaries explicit. Analytic statements that have not yet been closed are represented as named propositions and interfaces.
+## Current proof status
 
-## What is formalized
+### Landau / H³ transport side
 
-### Multiplicative PrimeTensor layer
+The whole-space analytic machinery used by the explicit Landau estimate has been substantially internalized.
 
-PrimeTensor begins with a positive, multiplicative carrier and develops logarithmic coordinates that turn intrinsic multiplication, inversion, and the multiplicative pivot into the corresponding additive real operations.
-This gives a subtraction-free representation of several familiar Euclidean quantities.
+The repository now includes machine-checked proofs of:
 
-For example, the three components of classical vorticity are represented natively by ratios of multiplicative derivatives, and their logarithms recover the ordinary curl components exactly.
+- the whole-space \(C^1 \cap H^1 \to L^6\) Sobolev step on `Point3`, obtained through expanding smooth cutoffs;
+- the derived L⁴ interpolation step;
+- quartic whole-space integration by parts through a compact-cutoff argument;
+- decay of the quartic cutoff boundary error;
+- the scalar Landau inequality used by the third-order interpolation terms;
+- explicit order-by-order H³ transport bookkeeping.
 
-This layer is mathematically equivalent to ordinary real coordinates where the log bridge is available; it should be viewed as an alternative formal representation, not by itself as a new regularity theorem.
+The transport estimate has the concrete coefficient
 
-### Classical Euclidean Navier–Stokes bridge
+|T_H³(t)| ≤ 4422 h(t) E_H³(t)
 
-The project defines and relates:
+with the bookkeeping decomposition
 
-- velocity and vorticity fields on ℝ<sup>3</sup>;
-- incompressibility and the momentum equation;
-- spatial derivatives through order three;
-- concrete H<sup>3</sup>-type energy functionals;
-- transport, diffusion, and pressure contributions;
-- terminal continuation and restart predicates.
+0 + 6 + 18 + 4398 = 4422  
+4398 = 24 + 4374  
+4374 = 729 · 6
 
-### Explicit H<sup>3</sup> transport analysis
+The collision cases in the third-order derivative sums are handled explicitly; the proof does not assume that several potentially identical H³ summands can each be charged independently to the total energy.
 
-The transport term is expanded order by order.
+### Transport integration by parts: current reduction
 
-The current Landau/Gagliardo–Nirenberg route obtains the concrete estimate
+The lower-order whole-space transport integration-by-parts packages are no longer independent assumptions.
 
-<p align="center">|T<sub>H<sup>3</sup></sub>(t)| ≤ 4422 h(t) E<sub>H<sup>3</sup></sub>(t),</p>
+From canonical H³ data and the velocity-gradient envelope, the repository derives:
 
-with the coefficient decomposed as
+- order-zero transport IBP;
+- order-one transport IBP;
+- order-two transport IBP.
 
-<p align="center">0 + 6 + 18 + 4398 = 4422,<br>
-4398 = 24 + 4374,<br>
-4374 = 729 · 6.</p>
+At order three, the canonical PDE pairing package already gives integrability of the full differentiated transport pairing. The exact decomposition
 
-The third-order interpolation bookkeeping is written in a collision-safe form: when derivative indices coincide, individual H<sup>3</sup> energy domination is used rather than an invalid assumption that several possibly identical summands have an unweighted sum bounded by the total energy.
+D³u · D³((u · ∇)u) = D³u · C₃ + D³u · (u · ∇D³u)
 
-The scalar Landau step includes the explicit bound
+combined with independently proved commutator-pairing integrability recovers integrability of the pure transported-third-derivative pairing.
 
-<p align="center">‖g‖<sub>L<sup>4</sup></sub><sup>2</sup> ≤ 3h ‖∂g‖<sub>L<sup>2</sup></sub>,</p>
+Accordingly, the verified Landau tail interface has been reduced to
 
-derived through quartic integration by parts and cancellation without dividing by a quantity that may vanish.
+```lean
+H3ThirdDerivativeTransportFluxVanishesAt u t
+  ∧
+VelocityGradientEnvelope u h t
+```
 
-### BKM / continuation factorization
+at each strict tail time.
 
-The continuation side is factored into recognizable analytic pieces:
+In other words, the transport-side whole-space frontier is no longer a collection of order-zero-through-three IBP assumptions. It has been reduced to the top-order boundary-at-infinity cancellation together with the gradient envelope.
 
-1. a finite preterminal H<sup>3</sup> seed;
-2. an L<sub>t</sub><sup>1</sup>L<sub>x</sub><sup>∞</sup>-style vorticity bound;
-3. propagation of H<sup>3</sup> control to a terminal tail;
-4. a local restart with a uniform lifespan;
-5. continuation through the terminal time.
+The active development immediately beyond that verified reduction is aimed at internalizing the L¹-integrability of the top-order flux divergence from the already available PDE pairing data, without introducing an artificial D⁴u ∈ L² requirement.
 
-The repository deliberately isolates the genuinely hard global statement as a named proposition:
+### Continuation / restart side
 
-`SeededPreterminalNavierStokesForcesVorticityL1Linf`
+The restart/classicalization side is much further developed than the older monolithic `H3SchwartzCanonicalRestartClassicalization` description suggests.
 
-In the source it is explicitly described as the dangerous a-priori statement and is **not asserted as a theorem**.
+The spectral construction includes:
 
-### Spectral H<sup>3</sup> restart construction
-
-A second major branch constructs a canonical local restart in Fourier space using:
-
-- weighted spectral H<sup>3</sup> states;
+- weighted Fourier H³ states;
 - the heat semigroup;
-- the Leray projection;
-- bilinear convolution estimates;
-- Banach fixed-point / Picard construction;
-- real-valued and divergence-free spectral realizability;
-- Duhamel restart identities;
-- positive-time heat smoothing.
+- Leray projection;
+- convolution estimates;
+- a Banach fixed-point / Picard construction;
+- real-valued and divergence-free realizability;
+- Duhamel identities;
+- positive-time smoothing;
+- physical L² decoding;
+- selected-versus-old overlap machinery.
 
-The current classicalization frontier is represented by:
+The later physical-tail development factors classicalization and continuation into explicit local pieces rather than one opaque frontier. It contains pressure-free weak formulations, spatial integration by parts against real Schwartz tests, selected/old weak–strong comparison, temporal weak FTC identities, endpoint continuity reductions, and physical H³ L²-jet arguments.
 
-`H3SchwartzCanonicalRestartClassicalization`
+A particularly important later reduction proves that, under the retained canonical H³ tail hypotheses,
 
-This asks the selected Banach-fixed-point spectral path to admit the required real pointwise spacetime representative, with spatial C<sup>3</sup> regularity, time/mixed regularity, the Navier–Stokes equation with pressure, compatibility with the canonical L<sup>2</sup> Fourier decoder, and gluing to the preterminal solution.
+full physical H³ L²-jet continuity ↔ scalar physical H³-energy continuity.
 
-### Quarter-Hölder second-Duhamel endpoint analysis
+The pressure-free curl / weak-FTC route now supplies the abstract continuation statement `H3ControlProducesExtension` from the terminal H³ control side, so the Landau-facing continuation theorem no longer needs a separate abstract local-well-posedness or restart-lifespan hypothesis.
 
-The most developed current path attacks the endpoint regularity needed for classicalization.
+## Remaining high-level analytic interfaces
 
-A raw second heat moment has the terminal singularity
+The current Landau/BKM factorization still exposes several major mathematical interfaces as hypotheses.
 
-<p align="center">(t − s)<sup>−1</sup>.</p>
+### `H3SeedProducesEnergyClass`
 
-The forcing is split at the terminal value,
+Promotes a finite H³ seed into the high-order preterminal energy class used by the later energy argument.
 
-<p align="center">N(s) = (N(s) − N(t)) + N(t).</p>
+### `EnergyClassProducesCanonicalH3Data`
 
-For the difference term the selected mild path is shown to have a local 1/4-Hölder modulus, which transfers to the nonlinear forcing:
+Produces the canonical H³ tail package used by the explicit transport, PDE-pairing, and continuation machinery.
 
-<p align="center">‖N(s) − N(t)‖<sub>L<sub>ξ</sub><sup>1</sup></sub> ≲ (t − s)<sup>1/4</sup>.</p>
+### `EnergyClassProducesLandauTransportAnalytic`
 
-The cancelled second-moment singularity is therefore
+Supplies the remaining Landau tail data. After the recent transport reductions, its transport content is concentrated at the top-order scalar-flux cancellation together with the velocity-gradient envelope.
 
-<p align="center">(t − s)<sup>−3/4</sup>,</p>
+### `VorticityControlsGradientLogarithmically`
 
-which is integrable at the endpoint.
+The BKM/Landau endpoint estimate converting vorticity control into the velocity-gradient control required by the H³ growth inequality.
 
-The implementation then separates and closes:
+### `SeededPreterminalNavierStokesForcesVorticityL1Linf`
 
-- the old-history contribution;
-- the terminal half-tail;
-- the frozen terminal forcing;
-- the heat primitive for the frozen term;
-- the time/frequency Fubini exchange;
-- the combined selected forcing budget.
+The genuinely global a-priori statement that every seeded preterminal solution has the required finite L¹ₜL∞ₓ-type vorticity control.
 
-This is an explicit Lean realization of an analytic-semigroup endpoint-cancellation strategy.
+This last proposition is intentionally isolated in the source. It is **not** asserted as a theorem. Even after the continuation/restart machinery is closed, proving this a-priori statement would be a separate global-regularity problem.
 
-## What is not yet proved
-
-Several major mathematical boundaries are intentionally represented by named propositions. The most important current examples include:
-
-- `SeededPreterminalNavierStokesForcesVorticityL1Linf`;
-- `H3SchwartzCanonicalRestartClassicalization`;
-- high-level whole-space analytic interfaces used by the Landau/BKM route where their concrete hypotheses have not yet been discharged.
-
-These are ordinary Lean propositions passed as hypotheses to downstream theorems.
-
-## Verification status
-
-The project currently targets:
-
-- **Lean:** `leanprover/lean4:v4.34.0-rc1`
-- **mathlib:** pinned by `lake-manifest.json`
+With the first four interfaces supplied, the repository proves the seeded vorticity criterion implies extension. To conclude that every seeded preterminal solution extends, the additional a-priori vorticity interface is still required.
 
 ## Build
 
-Install Lean then:
+Install Lean via `elan`, then:
 
 ```bash
 git clone https://github.com/seanwevans/PrimeTensor-NS.git
@@ -147,30 +126,13 @@ lake env lean PrimeTensor.lean
 lake build
 ```
 
-The root `PrimeTensor.lean` file is the aggregate import surface.
+`PrimeTensor.lean` is the aggregate import surface for the library.
 
-## Continuous integration
-
-GitHub Actions runs `lake build` for every pull request targeting `main` and
-every push to `main`. The workflow uses the Lean version in `lean-toolchain`,
-the dependency versions in `lake-manifest.json`, and the Mathlib and Lake
-caches provided by `leanprover/lean-action`.
-
-## Numerical experiments
-
-The maintained probe in
-`experiments/prime_tensor_diagonal_obstruction.py` demonstrates why the raw
-same-depth finite coupling cannot be used without input-dependent precision
-scheduling. It constructs continued-fraction convergents to
-`log(3) / log(2)` and shows, with arbitrary-precision arithmetic, how atomic
-dyadic rounding errors are amplified on the diagonal. This is a diagnostic
-for the scheduling issue discussed in
-`PrimeTensor/Fluid/Coupling/Tail/Input.lean`; it is not part of the Lean build
-and is not evidence against the intended finite coupling target.
-
-Install the experiment dependency and run the probe from the repository root:
+For development on one theorem file, the usual faster loop is:
 
 ```bash
-python3 -m pip install -r experiments/requirements.txt
-python3 experiments/prime_tensor_diagonal_obstruction.py
+lake env lean path/to/File.lean
+lake build PrimeTensor.Fully.Qualified.Target
 ```
+
+followed by the aggregate checks when the local target is green.
