@@ -1295,3 +1295,4 @@ import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.LocalizedMultiplierScaling
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.DyadicKernelScaling
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.DyadicKernelBound
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.DyadicKernelConstant
+import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.DyadicShellSum
