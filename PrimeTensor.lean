@@ -1288,3 +1288,4 @@ import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.CanonicalSlice
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.PhysicalKernel
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.FrequencyShell
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.LocalizedMultiplier
+import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.LocalizedMultiplierSmooth
