@@ -127,12 +127,3 @@ lake build
 ```
 
 `PrimeTensor.lean` is the aggregate import surface for the library.
-
-For development on one theorem file, the usual faster loop is:
-
-```bash
-lake env lean path/to/File.lean
-lake build PrimeTensor.Fully.Qualified.Target
-```
-
-followed by the aggregate checks when the local target is green.
