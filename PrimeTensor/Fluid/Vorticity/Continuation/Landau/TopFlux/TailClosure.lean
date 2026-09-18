@@ -1,4 +1,5 @@
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.TopFlux.Automatic
+import PrimeTensor.Fluid.Vorticity.Continuation.Landau.GradientEnvelope
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Closure.Landau
 
 /-!
@@ -214,6 +215,28 @@ theorem energyClassProducesLandauTransportAnalytic_of_gradientEnvelope
         hData
         hEnvelope
     ⟩
+
+
+/--
+Canonical H³ tail data alone now produce the older Landau transport-analytic
+closure at the continuation layer.
+
+The gradient envelope is derived spectrally from the canonical H³ state, and
+the top-order whole-space flux cancellation is then reconstructed from that
+envelope together with the canonical PDE data.
+-/
+theorem energyClassProducesLandauTransportAnalytic_of_canonical
+    (
+      hCanonical :
+        EnergyClassProducesCanonicalH3Data
+    ) :
+    EnergyClassProducesLandauTransportAnalytic := by
+
+  exact
+    energyClassProducesLandauTransportAnalytic_of_gradientEnvelope
+      hCanonical
+      (energyClassProducesGradientEnvelope_of_canonical
+        hCanonical)
 
 end
 

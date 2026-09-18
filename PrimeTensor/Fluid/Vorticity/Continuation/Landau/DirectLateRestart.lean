@@ -10,8 +10,8 @@ high-order structural inputs:
 * `H3SeedProducesEnergyClass`;
 * `EnergyClassProducesCanonicalH3Data`.
 
-The transport side now asks only for `EnergyClassProducesGradientEnvelope`;
-top-order whole-space flux cancellation is derived downstream from those data.
+The transport-side gradient envelope and top-order whole-space flux
+cancellation are both derived downstream from canonical H³ data.
 
 Previously the Landau-facing continuation theorem still accepted an abstract
 `H3ControlProducesExtension` (or a separate local-well-posedness/lifespan
@@ -51,8 +51,6 @@ theorem seededVorticityL1LinfProducesExtension_of_landauClosure_zeroOldPressure
       H3SeedProducesEnergyClass)
     (hCanonical :
       EnergyClassProducesCanonicalH3Data)
-    (hGradient :
-      EnergyClassProducesGradientEnvelope)
     (hEndpoint :
       VorticityControlsGradientLogarithmically) :
     SeededVorticityL1LinfProducesExtension := by
@@ -60,7 +58,6 @@ theorem seededVorticityL1LinfProducesExtension_of_landauClosure_zeroOldPressure
     seededVorticityL1LinfProducesExtension_of_landauClosure
       hSmooth
       hCanonical
-      hGradient
       hEndpoint
 
   exact
@@ -81,16 +78,13 @@ theorem seededVorticityL1LinfProducesExtension_of_landauH3Control_and_directRest
       H3SeedProducesEnergyClass)
     (hCanonical :
       EnergyClassProducesCanonicalH3Data)
-    (hGradient :
-      EnergyClassProducesGradientEnvelope)
     (hEndpoint :
       VorticityControlsGradientLogarithmically) :
     SeededVorticityL1LinfProducesExtension := by
   have hLandau :
       EnergyClassProducesLandauTransportAnalytic :=
-    energyClassProducesLandauTransportAnalytic_of_gradientEnvelope
+    energyClassProducesLandauTransportAnalytic_of_canonical
       hCanonical
-      hGradient
 
   have hH3 :
       VorticityL1LinfProducesH3Control :=

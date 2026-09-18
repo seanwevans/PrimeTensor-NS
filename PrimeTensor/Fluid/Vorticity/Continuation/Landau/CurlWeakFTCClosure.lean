@@ -19,10 +19,9 @@ The remaining hypotheses are exactly the Landau-side analytic interfaces:
 
 * `H3SeedProducesEnergyClass`;
 * `EnergyClassProducesCanonicalH3Data`;
-* `EnergyClassProducesGradientEnvelope`;
 * `VorticityControlsGradientLogarithmically`.
 
-Under those four inputs, finite `L¹_t L∞_x` vorticity control implies extension.
+Under those three inputs, finite `L¹_t L∞_x` vorticity control implies extension.
 
 For the stronger statement that every seeded preterminal solution extends, one
 still needs the separate a-priori assertion
@@ -45,8 +44,6 @@ theorem seededVorticityL1LinfProducesExtension_of_landauClosure_tailH3_curl
       H3SeedProducesEnergyClass)
     (hCanonical :
       EnergyClassProducesCanonicalH3Data)
-    (hGradient :
-      EnergyClassProducesGradientEnvelope)
     (hEndpoint :
       VorticityControlsGradientLogarithmically) :
     SeededVorticityL1LinfProducesExtension := by
@@ -54,7 +51,6 @@ theorem seededVorticityL1LinfProducesExtension_of_landauClosure_tailH3_curl
     seededVorticityL1LinfProducesExtension_of_landauClosure
       hSmooth
       hCanonical
-      hGradient
       hEndpoint
       h3ControlProducesExtension_tailH3_curl
 
@@ -65,8 +61,6 @@ theorem everySeededPreterminalSolutionExtends_of_landauClosure_tailH3_curl
       H3SeedProducesEnergyClass)
     (hCanonical :
       EnergyClassProducesCanonicalH3Data)
-    (hGradient :
-      EnergyClassProducesGradientEnvelope)
     (hEndpoint :
       VorticityControlsGradientLogarithmically)
     (hApriori :
@@ -77,7 +71,6 @@ theorem everySeededPreterminalSolutionExtends_of_landauClosure_tailH3_curl
       (seededVorticityL1LinfProducesExtension_of_landauClosure_tailH3_curl
         hSmooth
         hCanonical
-        hGradient
         hEndpoint)
       hApriori
 
