@@ -12,7 +12,7 @@ The whole-space analytic machinery used by the explicit Landau estimate has been
 
 The repository now includes machine-checked proofs of:
 
-- the whole-space \(C^1 \cap H^1 \to L^6\) Sobolev step on `Point3`, obtained through expanding smooth cutoffs;
+- the whole-space C¹ ∩ H¹ → L⁶ Sobolev step on `Point3`, obtained through expanding smooth cutoffs;
 - the derived L⁴ interpolation step;
 - quartic whole-space integration by parts through a compact-cutoff argument;
 - decay of the quartic cutoff boundary error;
