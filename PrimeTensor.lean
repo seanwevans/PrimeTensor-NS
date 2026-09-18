@@ -1283,3 +1283,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Landau.TopFlux.TailClosure
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.GradientEnvelope
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.FourierAlgebra
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.FourierMultiplier
+import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.FourierBound
