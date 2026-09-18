@@ -26,9 +26,12 @@ open Set
 Uniform tail package for the concrete order-by-order Landau transport closure.
 
 At every strict tail time it supplies honest whole-space integration-by-parts
-data at orders zero through three, together with the nonredundant Landau
-analytic hypotheses required by
-`h3TransportCommutatorBoundAt_of_landauAnalyticData`.
+data at orders zero through three together with the actual remaining
+pointwise analytic datum: the velocity-gradient envelope.
+
+The former `H3OrderThreeInterpolationLandauCoreAnalyticDataAt` final field was
+definitionally just this envelope, so exposing it directly removes one
+redundant wrapper from the public tail frontier.
 -/
 def H3LandauTransportAnalyticOnTail
     (
@@ -48,7 +51,7 @@ def H3LandauTransportAnalyticOnTail
         ∧
       H3ThirdDerivativeTransportIntegrationByPartsAt u t
         ∧
-      H3OrderThreeInterpolationLandauCoreAnalyticDataAt u h t
+      VelocityGradientEnvelope u h t
 
 /--
 The uniform Landau analytic tail package supplies the older abstract transport
@@ -107,7 +110,7 @@ theorem h3TransportControlledOnTail_of_landauAnalytic
       hIBP1,
       hIBP2,
       hIBP3,
-      hAnalyticCore3
+      hGradient
     ⟩
 
   have htIco :
@@ -170,6 +173,12 @@ theorem h3TransportControlledOnTail_of_landauAnalytic
       ht
       hIBP3
 
+  have hAnalyticCore3 :
+      H3OrderThreeInterpolationLandauCoreAnalyticDataAt
+        u h t := by
+    simpa [H3OrderThreeInterpolationLandauCoreAnalyticDataAt] using
+      hGradient
+
   have hAnalytic3 :
       H3OrderThreeInterpolationLandauAnalyticDataAt
         u h t :=
@@ -179,12 +188,6 @@ theorem h3TransportControlledOnTail_of_landauAnalytic
       hClass
       ht
       hH3
-      hAnalyticCore3
-
-  have hGradient :
-      VelocityGradientEnvelope
-        u h t := by
-    simpa [H3OrderThreeInterpolationLandauCoreAnalyticDataAt] using
       hAnalyticCore3
 
   have hPairing1 :

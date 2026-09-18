@@ -98,11 +98,10 @@ theorem energyClassProducesH3GradientGrowth_of_landauClosure
         hIBP1,
         hIBP2,
         hIBP3,
-        hAnalyticCore3
+        hGradientAt
       ⟩
 
-    simpa [H3OrderThreeInterpolationLandauCoreAnalyticDataAt] using
-      hAnalyticCore3
+    exact hGradientAt
 
   refine
     ⟨
