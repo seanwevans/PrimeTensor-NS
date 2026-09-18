@@ -1272,3 +1272,4 @@ import PrimeTensor.Fluid.Vorticity.H3.Energy.Estimate.Landau.Canonical
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.IntegrationByParts.FluxCoordinate
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.IntegrationByParts.OrderZero
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.IntegrationByParts.OrderOneTwo
+import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Pairing.Integrability.FromPDE

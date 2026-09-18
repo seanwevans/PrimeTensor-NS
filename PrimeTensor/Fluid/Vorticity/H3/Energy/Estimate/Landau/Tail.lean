@@ -4,7 +4,7 @@ import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Regularity.Cl
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Gradient.Integrability.Closure
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.One.Pairing.Integrability.Closure
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Two.Pairing.Integrability.Closure
-import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Pairing.Integrability.Closure
+import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Pairing.Integrability.FromPDE
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.IntegrationByParts.OrderOneTwo
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Interpolation.Landau.Analytic.Closure
 
@@ -26,15 +26,13 @@ open Set
 Uniform tail package for the concrete order-by-order Landau transport closure.
 
 The order-zero, order-one, and order-two whole-space transport IBP packages
-are now theorem-level consequences of canonical H³ data plus the gradient
-envelope.  The remaining tail frontier is therefore exactly:
+are theorem-level consequences of canonical H³ data plus the gradient envelope.
+At order three, canonical PDE pairing integrability plus the independently
+integrable commutator recovers the pure-transport pairing integrability.
 
-* the top-order (`D³u`) transport integration-by-parts package;
-* the velocity-gradient envelope.
-
-This makes the unresolved derivative count explicit: the generic low-order
-flux argument reaches through `D³u ∈ L²`, while applying it directly to
-`D³u` would ask for one more spatial derivative.
+The only remaining whole-space transport boundary datum is therefore the
+vanishing of the top-order scalar flux integral, together with the velocity-
+gradient envelope used throughout the commutator estimate.
 -/
 def H3LandauTransportAnalyticOnTail
     (
@@ -46,7 +44,7 @@ def H3LandauTransportAnalyticOnTail
     (h : ℝ → ℝ) : Prop :=
   ∀ t : ℝ,
     t ∈ Set.Ioo a T →
-      H3ThirdDerivativeTransportIntegrationByPartsAt u t
+      H3ThirdDerivativeTransportFluxVanishesAt u t
         ∧
       VelocityGradientEnvelope u h t
 
@@ -103,7 +101,7 @@ theorem h3TransportControlledOnTail_of_landauAnalytic
 
   rcases hLandau t ht with
     ⟨
-      hIBP3,
+      hFlux3,
       hGradient
     ⟩
 
@@ -180,20 +178,6 @@ theorem h3TransportControlledOnTail_of_landauAnalytic
       ht
       hIBP2
 
-  have hFlux3 :
-      H3ThirdDerivativeTransportFluxVanishesAt
-        u t :=
-    h3ThirdDerivativeTransportFluxVanishesAt_of_integrationByParts
-      hIBP3
-
-  have hPurePairing3 :
-      H3OrderThreePureTransportPairingIntegrableAt
-        u t :=
-    h3OrderThreePureTransportPairingIntegrableAt_of_integrationByParts
-      hClass
-      ht
-      hIBP3
-
   have hAnalyticCore3 :
       H3OrderThreeInterpolationLandauCoreAnalyticDataAt
         u h t := by
@@ -259,15 +243,33 @@ theorem h3TransportControlledOnTail_of_landauAnalytic
     h3OrderThreeInterpolationPairingIntegrableAt_of_monomials
       hMonomialPairing3
 
+  have hPDEInt :
+      ∃ p :
+          PrimeTensor.SpaceTimeScalarField
+            ℝ ℝ ℝ Depth.three,
+        H3PDEPairingIntegrableAt
+          u p t := by
+    rcases hData.2.2 with
+      ⟨p, hNS, hAnalytic⟩
+
+    exact
+      ⟨
+        p,
+        (hAnalytic t ht).2.2.1
+      ⟩
+
+  rcases hPDEInt with
+    ⟨pEnergy, hPDEPairing⟩
+
   have hPairing3 :
       H3OrderThreeTransportPairingIntegrableAt
         u t :=
-    h3OrderThreeTransportPairingIntegrableAt_of_pure
+    h3OrderThreeTransportPairingIntegrableAt_of_pde
       hClass
       ht
+      hPDEPairing
       hGradientPairing3
       hInterpolationPairing3
-      hPurePairing3
 
   have hTransport :
       H3TransportCommutatorBoundAt
