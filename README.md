@@ -21,7 +21,7 @@ The repository now includes machine-checked proofs of:
 
 The transport estimate has the concrete coefficient
 
-|T_H³(t)| ≤ 4422 h(t) E_H³(t)
+|T_H³(t)| ≤ 4422 h(t) E_{H³}(t)
 
 with the bookkeeping decomposition
 
