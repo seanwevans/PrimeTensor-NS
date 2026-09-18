@@ -3,26 +3,16 @@ import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Pairing.Integ
 /-!
 # Top-order transport flux divergence is integrable
 
-The Landau tail frontier has been reduced to the top-order flux cancellation
+The canonical PDE package supplies integrability of the full third-order
+transport pairing.  Subtracting the independently integrable commutator
+pairing gives integrability of the pure transported-third-derivative pairing.
 
-    ∫ div (u (D³u)²) = 0.
+For incompressible velocity,
 
-The integrability half of that statement is already forced by the canonical
-PDE package.
+    div (u (D³u)²) = 2 D³u (u · ∇D³u),
 
-Indeed the PDE pairing data plus the independently integrable third-order
-commutator imply
-
-    D³u · (u · ∇D³u) ∈ L¹.
-
-For an incompressible velocity the pointwise scalar-flux identity is
-
-    div (u (D³u)²)
-      =
-    2 D³u (u · ∇D³u).
-
-Hence every top-order scalar-flux divergence is automatically integrable.
-No fourth-order `L²` derivative is used.
+so the top-order scalar-flux divergence is integrable without introducing a
+fourth-order L² derivative.
 -/
 
 namespace PrimeTensor
@@ -34,18 +24,14 @@ open MeasureTheory
 
 noncomputable section
 
-attribute [local instance]
-  point3MeasureSpaceH3OrderThreePairingClosure
-
 noncomputable local instance axisFintypeH3TopFluxDivergenceIntegrability
     (d : Depth) :
     Fintype (PrimeTensor.Axis d) :=
   Fintype.ofFinite (PrimeTensor.Axis d)
 
 /--
-Every third-derivative scalar-flux divergence is integrable once the canonical
-PDE transport pairing and the already-closed Landau commutator pairings are
-available.
+Canonical PDE pairing integrability plus the closed order-three commutator
+pairings force L¹-integrability of every top-order scalar-flux divergence.
 -/
 theorem h3ThirdDerivativeTransportFluxDivergence_integrable_of_pde
     {
@@ -82,33 +68,9 @@ theorem h3ThirdDerivativeTransportFluxDivergence_integrable_of_pde
       hInterpolationPairing :
         H3OrderThreeInterpolationPairingIntegrableAt
           u t
-    )
-    (i k l j : PrimeTensor.Axis Depth.three) :
-    MeasureTheory.Integrable
-      (
-        fun x : Point3 =>
-          transportScalarFluxDivergenceXYZ
-            (
-              PrimeTensor.Bridge.logSpaceTimeVectorField
-                u
-            )
-            t
-            (
-              spatial3.d
-                i
-                (
-                  spatial3.d
-                    k
-                    (
-                      spatial3.d
-                        l
-                        (loggedVelocityComponent u t j)
-                    )
-                )
-            )
-            x
-      )
-      volume := by
+    ) :
+    H3ThirdDerivativeTransportFluxDivergenceIntegrableAt
+      u t := by
 
   rcases hClass.pressure_witness with
     ⟨p₀, s, hp4⟩
@@ -129,6 +91,18 @@ theorem h3ThirdDerivativeTransportFluxDivergence_integrable_of_pde
       hClass
       ht
 
+  have hPairing3 :
+      H3OrderThreeTransportPairingIntegrableAt
+        u t :=
+    h3OrderThreeTransportPairingIntegrableAt_of_pde
+      hClass
+      ht
+      hPDE
+      hGradientPairing
+      hInterpolationPairing
+
+  intro i k l j
+
   have hSecond2 :
       SpatialC2
         (
@@ -137,7 +111,13 @@ theorem h3ThirdDerivativeTransportFluxDivergence_integrable_of_pde
             (
               spatial3.d
                 l
-                (loggedVelocityComponent u t j)
+                (
+                  fun q =>
+                    (
+                      PrimeTensor.Bridge.logSpaceTimeVectorField
+                        u t q
+                    ).component j
+                )
             )
         ) :=
     (hRegular k l j).2
@@ -153,7 +133,13 @@ theorem h3ThirdDerivativeTransportFluxDivergence_integrable_of_pde
                 (
                   spatial3.d
                     l
-                    (loggedVelocityComponent u t j)
+                    (
+                      fun q =>
+                        (
+                          PrimeTensor.Bridge.logSpaceTimeVectorField
+                            u t q
+                        ).component j
+                    )
                 )
             )
         ) := by
@@ -170,7 +156,13 @@ theorem h3ThirdDerivativeTransportFluxDivergence_integrable_of_pde
                   (
                     spatial3.d
                       l
-                      (loggedVelocityComponent u t j)
+                      (
+                        fun y =>
+                          (
+                            PrimeTensor.Bridge.logSpaceTimeVectorField
+                              u t y
+                          ).component j
+                      )
                   )
               )
               q
@@ -180,61 +172,8 @@ theorem h3ThirdDerivativeTransportFluxDivergence_integrable_of_pde
       PrimeTensor.Bridge.Euclidean.SpatialC2.partialDeriv_contDiff_one
         hSecond2 i
 
-  have hPairing3 :
-      H3OrderThreeTransportPairingIntegrableAt
-        u t :=
-    h3OrderThreeTransportPairingIntegrableAt_of_pde
-      hClass
-      ht
-      hPDE
-      hGradientPairing
-      hInterpolationPairing
-
   have hPure :=
     (hPairing3 i k l j).2
-
-  have hPure' :
-      MeasureTheory.Integrable
-        (
-          fun x : Point3 =>
-            spatial3.d
-                i
-                (
-                  spatial3.d
-                    k
-                    (
-                      spatial3.d
-                        l
-                        (loggedVelocityComponent u t j)
-                    )
-                )
-                x
-              *
-            h3ScalarTransport
-              (
-                PrimeTensor.Bridge.logSpaceTimeVectorField
-                  u
-              )
-              t
-              (
-                spatial3.d
-                  i
-                  (
-                    spatial3.d
-                      k
-                      (
-                        spatial3.d
-                          l
-                          (loggedVelocityComponent u t j)
-                      )
-                  )
-              )
-              x
-        )
-        volume := by
-
-    simpa only [thirdTransportedDerivative] using
-      hPure
 
   have hPointwise :
       (
@@ -254,7 +193,13 @@ theorem h3ThirdDerivativeTransportFluxDivergence_integrable_of_pde
                     (
                       spatial3.d
                         l
-                        (loggedVelocityComponent u t j)
+                        (
+                          fun q =>
+                            (
+                              PrimeTensor.Bridge.logSpaceTimeVectorField
+                                u t q
+                            ).component j
+                        )
                     )
                 )
             )
@@ -274,37 +219,32 @@ theorem h3ThirdDerivativeTransportFluxDivergence_integrable_of_pde
                     (
                       spatial3.d
                         l
-                        (loggedVelocityComponent u t j)
+                        (
+                          fun q =>
+                            (
+                              PrimeTensor.Bridge.logSpaceTimeVectorField
+                                u t q
+                            ).component j
+                        )
                     )
                 )
                 x
               *
-            h3ScalarTransport
+            thirdTransportedDerivative
               (
                 PrimeTensor.Bridge.logSpaceTimeVectorField
                   u
               )
-              t
-              (
-                spatial3.d
-                  i
-                  (
-                    spatial3.d
-                      k
-                      (
-                        spatial3.d
-                          l
-                          (loggedVelocityComponent u t j)
-                      )
-                  )
-              )
-              x
+              t i k l j x
           )
       ) := by
 
     funext x
 
-    simpa only [mul_assoc] using
+    simpa only [
+      thirdTransportedDerivative,
+      mul_assoc
+    ] using
       transportScalarFluxDivergenceXYZ_eq_two_mul_transport
         s
         htNS
@@ -314,7 +254,7 @@ theorem h3ThirdDerivativeTransportFluxDivergence_integrable_of_pde
   rw [hPointwise]
 
   exact
-    hPure'.const_mul 2
+    hPure.const_mul 2
 
 end
 

@@ -671,6 +671,53 @@ def H3ThirdDerivativeTransportFluxVanishesAt
     )
     t
 
+/--
+Integrability of the top-order scalar-flux divergence for every third velocity
+derivative entering the H³ transport block.
+
+This predicate is defined beside the order-three transport pairing predicate so
+both statements elaborate against the same `Point3` measurable-space instance.
+-/
+def H3ThirdDerivativeTransportFluxDivergenceIntegrableAt
+    (
+      u :
+        PrimeTensor.SpaceTimeVectorField
+          ℝ ℝ PrimeTensor.MulReal Depth.three
+    )
+    (t : ℝ) : Prop :=
+  ∀ i k l j : PrimeTensor.Axis Depth.three,
+    MeasureTheory.Integrable
+      (
+        fun x : Point3 =>
+          transportScalarFluxDivergenceXYZ
+            (
+              PrimeTensor.Bridge.logSpaceTimeVectorField
+                u
+            )
+            t
+            (
+              spatial3.d
+                i
+                (
+                  spatial3.d
+                    k
+                    (
+                      spatial3.d
+                        l
+                        (
+                          fun q =>
+                            (
+                              PrimeTensor.Bridge.logSpaceTimeVectorField
+                                u t q
+                            ).component j
+                        )
+                    )
+                )
+            )
+            x
+      )
+      volume
+
 def H3OrderThreeTransportPairingIntegrableAt
     (
       u :
