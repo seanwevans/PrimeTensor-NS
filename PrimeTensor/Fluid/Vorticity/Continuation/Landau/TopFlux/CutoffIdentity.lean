@@ -44,14 +44,6 @@ noncomputable local instance axisFintypeLandauTopFluxCutoffIdentity
     Fintype (PrimeTensor.Axis d) :=
   Fintype.ofFinite (PrimeTensor.Axis d)
 
-noncomputable local instance point3MeasureSpaceLandauTopFluxCutoffIdentity :
-    MeasureSpace Point3 :=
-  @MeasureTheory.MeasureSpace.pi
-    (PrimeTensor.Axis Depth.three)
-    (Fintype.ofFinite (PrimeTensor.Axis Depth.three))
-    (fun _ : PrimeTensor.Axis Depth.three => ℝ)
-    (fun _ : PrimeTensor.Axis Depth.three => Real.measureSpace)
-
 /--
 Compact-cutoff divergence identity on `Point3`.
 

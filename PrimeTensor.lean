@@ -1278,3 +1278,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Landau.TopFlux.VelocityEnvelope
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.TopFlux.CoordinateIntegrability
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.TopFlux.CutoffIdentity
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.TopFlux.CutoffLimit
+import PrimeTensor.Fluid.Vorticity.Continuation.Landau.TopFlux.Automatic

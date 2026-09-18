@@ -45,14 +45,6 @@ noncomputable local instance axisFintypeLandauTopFluxCutoffLimit
     Fintype (PrimeTensor.Axis d) :=
   Fintype.ofFinite (PrimeTensor.Axis d)
 
-noncomputable local instance point3MeasureSpaceLandauTopFluxCutoffLimit :
-    MeasureSpace Point3 :=
-  @MeasureTheory.MeasureSpace.pi
-    (PrimeTensor.Axis Depth.three)
-    (Fintype.ofFinite (PrimeTensor.Axis Depth.three))
-    (fun _ : PrimeTensor.Axis Depth.three => ℝ)
-    (fun _ : PrimeTensor.Axis Depth.three => Real.measureSpace)
-
 /--
 One coordinate of the cutoff-gradient boundary term tends to zero against any
 integrable scalar field.
