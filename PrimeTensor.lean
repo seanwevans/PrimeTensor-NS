@@ -1269,3 +1269,4 @@ import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Interpolation
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Interpolation.Landau.Analytic.Quartic.CutoffLimit
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Interpolation.Landau.Analytic.Quartic.Closure
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Estimate.Landau.Canonical
+import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.IntegrationByParts.FluxCoordinate
