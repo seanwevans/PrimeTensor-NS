@@ -1,5 +1,5 @@
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Closure
-import PrimeTensor.Fluid.Vorticity.H3.Energy.Estimate.Landau.Tail
+import PrimeTensor.Fluid.Vorticity.H3.Energy.Estimate.Landau.Canonical
 
 /-!
 # Landau specialization of the canonical H³ closure
@@ -26,18 +26,12 @@ open Set
 /--
 Energy-class closure obligation for the explicit Landau transport package.
 
-This closure obligation now factors into two standard whole-space analytic
-theorems, `WholeSpaceC1FDerivL2ToL6` and
-`WholeSpaceQuarticDerivativeIntegrationByParts`, plus the genuinely
-NS-specific statement that every preterminal H³ energy-class state admits
-one tail envelope `h` with the transport integration-by-parts data at
-orders zero through three.
+The generic whole-space Sobolev and quartic integration-by-parts frontiers are
+now theorems, so the remaining obligation is purely NS-specific: every
+preterminal H³ energy-class state admits one tail envelope `h` with the
+transport integration-by-parts data at orders zero through three.
 -/
 def EnergyClassProducesLandauTransportAnalytic : Prop :=
-  WholeSpaceC1FDerivL2ToL6
-    ∧
-  WholeSpaceQuarticDerivativeIntegrationByParts
-    ∧
   ∀
     (
       u :
@@ -84,16 +78,8 @@ theorem energyClassProducesH3GradientGrowth_of_landauClosure
     hCanonical
       u a T hClass
 
-  have hSobolevFDeriv6 :
-      WholeSpaceC1FDerivL2ToL6 :=
-    hLandau.1
-
-  have hQuarticIBP :
-      WholeSpaceQuarticDerivativeIntegrationByParts :=
-    hLandau.2.1
-
   rcases
-      hLandau.2.2
+      hLandau
         u a T hClass
     with
       ⟨h, hLandauTail⟩
@@ -134,9 +120,7 @@ theorem energyClassProducesH3GradientGrowth_of_landauClosure
   · norm_num
 
   · exact
-      h3GradientGrowthInequalityFrom_canonical_of_landauAnalytic
-        hSobolevFDeriv6
-        hQuarticIBP
+      h3GradientGrowthInequalityFrom_canonical_of_landauAnalytic_cutoff
         hClass
         hData
         hLandauTail
