@@ -4,11 +4,14 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Sp
 /-!
 # Landau continuation through the direct late H³ restart
 
-The Landau/BKM energy route and the explicit restart route now share the same
-two high-order analytic inputs:
+The Landau/BKM energy route and the explicit restart route share the same
+high-order structural inputs:
 
 * `H3SeedProducesEnergyClass`;
 * `EnergyClassProducesCanonicalH3Data`.
+
+The transport side now asks only for `EnergyClassProducesGradientEnvelope`;
+top-order whole-space flux cancellation is derived downstream from those data.
 
 Previously the Landau-facing continuation theorem still accepted an abstract
 `H3ControlProducesExtension` (or a separate local-well-posedness/lifespan
@@ -48,8 +51,8 @@ theorem seededVorticityL1LinfProducesExtension_of_landauClosure_zeroOldPressure
       H3SeedProducesEnergyClass)
     (hCanonical :
       EnergyClassProducesCanonicalH3Data)
-    (hLandau :
-      EnergyClassProducesLandauTransportAnalytic)
+    (hGradient :
+      EnergyClassProducesGradientEnvelope)
     (hEndpoint :
       VorticityControlsGradientLogarithmically) :
     SeededVorticityL1LinfProducesExtension := by
@@ -57,7 +60,7 @@ theorem seededVorticityL1LinfProducesExtension_of_landauClosure_zeroOldPressure
     seededVorticityL1LinfProducesExtension_of_landauClosure
       hSmooth
       hCanonical
-      hLandau
+      hGradient
       hEndpoint
 
   exact
@@ -78,11 +81,17 @@ theorem seededVorticityL1LinfProducesExtension_of_landauH3Control_and_directRest
       H3SeedProducesEnergyClass)
     (hCanonical :
       EnergyClassProducesCanonicalH3Data)
-    (hLandau :
-      EnergyClassProducesLandauTransportAnalytic)
+    (hGradient :
+      EnergyClassProducesGradientEnvelope)
     (hEndpoint :
       VorticityControlsGradientLogarithmically) :
     SeededVorticityL1LinfProducesExtension := by
+  have hLandau :
+      EnergyClassProducesLandauTransportAnalytic :=
+    energyClassProducesLandauTransportAnalytic_of_gradientEnvelope
+      hCanonical
+      hGradient
+
   have hH3 :
       VorticityL1LinfProducesH3Control :=
     vorticityL1LinfProducesH3Control_of_landauClosure

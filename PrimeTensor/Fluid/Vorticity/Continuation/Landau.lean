@@ -1,4 +1,5 @@
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Closure.Landau.Endpoint
+import PrimeTensor.Fluid.Vorticity.Continuation.Landau.TopFlux.TailClosure
 import PrimeTensor.Fluid.Vorticity.Continuation.Frontier
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.LocalWellPosedness
 
@@ -34,8 +35,12 @@ namespace Bridge
 namespace Euclidean
 
 /--
-The Landau H³ closure plus the classical tail-H³ continuation theorem gives
-the honest seeded vorticity `L¹_t L∞_x` continuation criterion.
+The canonical H³ closure plus the energy-class gradient-envelope frontier and
+the classical tail-H³ continuation theorem give the honest seeded vorticity
+`L¹_t L∞_x` continuation criterion.
+
+Top-order transport-flux cancellation is reconstructed internally and is no
+longer a public continuation hypothesis.
 -/
 theorem seededVorticityL1LinfProducesExtension_of_landauClosure
     (
@@ -47,8 +52,8 @@ theorem seededVorticityL1LinfProducesExtension_of_landauClosure
         EnergyClassProducesCanonicalH3Data
     )
     (
-      hLandau :
-        EnergyClassProducesLandauTransportAnalytic
+      hGradient :
+        EnergyClassProducesGradientEnvelope
     )
     (
       hEndpoint :
@@ -59,6 +64,12 @@ theorem seededVorticityL1LinfProducesExtension_of_landauClosure
         H3ControlProducesExtension
     ) :
     SeededVorticityL1LinfProducesExtension := by
+
+  have hLandau :
+      EnergyClassProducesLandauTransportAnalytic :=
+    energyClassProducesLandauTransportAnalytic_of_gradientEnvelope
+      hCanonical
+      hGradient
 
   apply
     seededVorticityL1LinfProducesExtension_of_H3Factorization
@@ -90,8 +101,8 @@ theorem seededVorticityL1LinfProducesExtension_of_landauClosure_uniformLifespan
         EnergyClassProducesCanonicalH3Data
     )
     (
-      hLandau :
-        EnergyClassProducesLandauTransportAnalytic
+      hGradient :
+        EnergyClassProducesGradientEnvelope
     )
     (
       hEndpoint :
@@ -107,7 +118,7 @@ theorem seededVorticityL1LinfProducesExtension_of_landauClosure_uniformLifespan
     seededVorticityL1LinfProducesExtension_of_landauClosure
       hSmooth
       hCanonical
-      hLandau
+      hGradient
       hEndpoint
       (h3ControlProducesExtension_of_uniformLifespan hUniform)
 
@@ -129,8 +140,8 @@ theorem seededVorticityL1LinfProducesExtension_of_landauClosure_canonicalEnergyL
         EnergyClassProducesCanonicalH3Data
     )
     (
-      hLandau :
-        EnergyClassProducesLandauTransportAnalytic
+      hGradient :
+        EnergyClassProducesGradientEnvelope
     )
     (
       hEndpoint :
@@ -146,7 +157,7 @@ theorem seededVorticityL1LinfProducesExtension_of_landauClosure_canonicalEnergyL
     seededVorticityL1LinfProducesExtension_of_landauClosure_uniformLifespan
       hSmooth
       hCanonical
-      hLandau
+      hGradient
       hEndpoint
       (uniformH3RealRestartLifespan_of_canonicalEnergy hUniform)
 
@@ -168,8 +179,8 @@ theorem seededVorticityL1LinfProducesExtension_of_landauClosure_localWellPosedne
         EnergyClassProducesCanonicalH3Data
     )
     (
-      hLandau :
-        EnergyClassProducesLandauTransportAnalytic
+      hGradient :
+        EnergyClassProducesGradientEnvelope
     )
     (
       hEndpoint :
@@ -185,7 +196,7 @@ theorem seededVorticityL1LinfProducesExtension_of_landauClosure_localWellPosedne
     seededVorticityL1LinfProducesExtension_of_landauClosure_canonicalEnergyLifespan
       hSmooth
       hCanonical
-      hLandau
+      hGradient
       hEndpoint
       (uniformCanonicalH3RealRestartLifespan_of_localWellPosedness hLocal)
 
