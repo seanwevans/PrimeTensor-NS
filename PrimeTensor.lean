@@ -1274,3 +1274,4 @@ import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.IntegrationByParts.OrderZ
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.IntegrationByParts.OrderOneTwo
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Pairing.Integrability.FromPDE
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Flux.DivergenceIntegrability
+import PrimeTensor.Fluid.Vorticity.Continuation.Landau.TopFlux.VelocityEnvelope
