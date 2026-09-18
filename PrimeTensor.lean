@@ -1290,3 +1290,4 @@ import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.FrequencyShell
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.LocalizedMultiplier
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.LocalizedMultiplierSmooth
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.DyadicKernel
+import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.DyadicKernelPhysical
