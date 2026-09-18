@@ -1293,3 +1293,4 @@ import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.DyadicKernel
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.DyadicKernelPhysical
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.LocalizedMultiplierScaling
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.DyadicKernelScaling
+import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.DyadicKernelBound
