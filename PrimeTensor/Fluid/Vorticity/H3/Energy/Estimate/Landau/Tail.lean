@@ -5,7 +5,7 @@ import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Gradient.Inte
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.One.Pairing.Integrability.Closure
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Two.Pairing.Integrability.Closure
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Pairing.Integrability.Closure
-import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.IntegrationByParts.Closure
+import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.IntegrationByParts.OrderOneTwo
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Interpolation.Landau.Analytic.Closure
 
 /-!
@@ -25,13 +25,16 @@ open Set
 /--
 Uniform tail package for the concrete order-by-order Landau transport closure.
 
-At every strict tail time it supplies honest whole-space integration-by-parts
-data at orders zero through three together with the actual remaining
-pointwise analytic datum: the velocity-gradient envelope.
+The order-zero, order-one, and order-two whole-space transport IBP packages
+are now theorem-level consequences of canonical H³ data plus the gradient
+envelope.  The remaining tail frontier is therefore exactly:
 
-The former `H3OrderThreeInterpolationLandauCoreAnalyticDataAt` final field was
-definitionally just this envelope, so exposing it directly removes one
-redundant wrapper from the public tail frontier.
+* the top-order (`D³u`) transport integration-by-parts package;
+* the velocity-gradient envelope.
+
+This makes the unresolved derivative count explicit: the generic low-order
+flux argument reaches through `D³u ∈ L²`, while applying it directly to
+`D³u` would ask for one more spatial derivative.
 -/
 def H3LandauTransportAnalyticOnTail
     (
@@ -43,12 +46,6 @@ def H3LandauTransportAnalyticOnTail
     (h : ℝ → ℝ) : Prop :=
   ∀ t : ℝ,
     t ∈ Set.Ioo a T →
-      H3TransportEnergyIntegrationByPartsAt u t
-        ∧
-      H3FirstDerivativeTransportIntegrationByPartsAt u t
-        ∧
-      H3SecondDerivativeTransportIntegrationByPartsAt u t
-        ∧
       H3ThirdDerivativeTransportIntegrationByPartsAt u t
         ∧
       VelocityGradientEnvelope u h t
@@ -106,9 +103,6 @@ theorem h3TransportControlledOnTail_of_landauAnalytic
 
   rcases hLandau t ht with
     ⟨
-      hIBP0,
-      hIBP1,
-      hIBP2,
       hIBP3,
       hGradient
     ⟩
@@ -124,6 +118,33 @@ theorem h3TransportControlledOnTail_of_landauAnalytic
       VelocityH3IntegrableAt
         u t :=
     hData.1 t htIco
+
+  have hIBP0 :
+      H3TransportEnergyIntegrationByPartsAt
+        u t :=
+    h3TransportEnergyIntegrationByPartsAt_of_energyClass
+      hClass
+      ht
+      hH3
+      hGradient
+
+  have hIBP1 :
+      H3FirstDerivativeTransportIntegrationByPartsAt
+        u t :=
+    h3FirstDerivativeTransportIntegrationByPartsAt_of_energyClass
+      hClass
+      ht
+      hH3
+      hGradient
+
+  have hIBP2 :
+      H3SecondDerivativeTransportIntegrationByPartsAt
+        u t :=
+    h3SecondDerivativeTransportIntegrationByPartsAt_of_energyClass
+      hClass
+      ht
+      hH3
+      hGradient
 
   have hFlux0 :
       H3TransportEnergyFluxVanishesAt

@@ -28,8 +28,9 @@ Energy-class closure obligation for the explicit Landau transport package.
 
 The generic whole-space Sobolev and quartic integration-by-parts frontiers are
 now theorems, so the remaining obligation is purely NS-specific: every
-preterminal H³ energy-class state admits one tail envelope `h` with the
-transport integration-by-parts data at orders zero through three.
+preterminal H³ energy-class state admits one tail envelope `h` together with
+the top-order transport integration-by-parts data.  Orders zero through two are
+now reconstructed from canonical H³ data and the same gradient envelope.
 -/
 def EnergyClassProducesLandauTransportAnalytic : Prop :=
   ∀
@@ -92,16 +93,8 @@ theorem energyClassProducesH3GradientGrowth_of_landauClosure
 
     intro t ht
 
-    rcases hLandauTail t ht with
-      ⟨
-        hIBP0,
-        hIBP1,
-        hIBP2,
-        hIBP3,
-        hGradientAt
-      ⟩
-
-    exact hGradientAt
+    exact
+      (hLandauTail t ht).2
 
   refine
     ⟨
