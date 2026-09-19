@@ -1378,3 +1378,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathCanonicalSelected
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathCanonicalDataReduction
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathDirectRestart
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathReducedAnalysis
+import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathAnalyticOnly
