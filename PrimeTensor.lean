@@ -1307,3 +1307,4 @@ import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.DyadicShellPartition
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.DyadicGradientReconstruction
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.CanonicalVorticityFourier
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.CanonicalCurlIntegrable
+import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.LocalizedCurlReconstruction
