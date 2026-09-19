@@ -1329,3 +1329,4 @@ import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.MiddleLocalizedGradientFourier
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.LogarithmicGradientInterface
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.ActualGradientClosure
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.FrequencyTrichotomy
+import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.FrequencyTrichotomySupport
