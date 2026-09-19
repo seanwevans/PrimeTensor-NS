@@ -1335,3 +1335,4 @@ import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.FrequencyTrichotomyGradientMass
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.LowFrequencyGradientL2
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.LowFrequencyGradientSpectral
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.LowFrequencyGradientPhysicalL2
+import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.HighFrequencyGradientL2
