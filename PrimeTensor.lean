@@ -1315,3 +1315,4 @@ import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.DyadicLocalizationContinuity
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.DyadicYoungContinuity
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.DyadicConvolutionClosure
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.DyadicSchwartzAnchor
+import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.DyadicYoungSchwartzBridge
