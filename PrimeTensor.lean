@@ -1326,3 +1326,4 @@ import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.MiddleLocalizedGradientPhysical
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.DyadicLocalizedGradientFourier
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.FrequencyShellTelescoping
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.MiddleLocalizedGradientFourier
+import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.LogarithmicGradientInterface
