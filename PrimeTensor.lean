@@ -1375,3 +1375,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Sp
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3Path
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathClosedRestart
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathCanonicalSelected
+import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathCanonicalDataReduction
