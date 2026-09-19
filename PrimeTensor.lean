@@ -1298,3 +1298,4 @@ import PrimeTensor.Tensor.Contract
 import PrimeTensor.Tensor.Laws
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.DyadicShellCount
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.DyadicShellLog
+import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.DyadicMiddleGradient
