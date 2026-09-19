@@ -1342,3 +1342,4 @@ import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.HighFrequencyGradientDyadicDecay
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.HighFrequencyGradientCutoffSelection
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.SelectedMiddleGradientLogBound
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.SelectedMiddleGradientPointwiseBound
+import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.DyadicLocalizedGradientPhysicalRepresentative
