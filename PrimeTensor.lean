@@ -1350,3 +1350,4 @@ import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.SelectedMiddleGradientFourierAmp
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.SelectedMiddleGradientReconstruction
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.SelectedGradientReconstruction
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.SelectedActualGradientBound
+import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.CanonicalSelectedLogBound
