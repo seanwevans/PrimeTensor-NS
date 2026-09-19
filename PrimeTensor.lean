@@ -1302,3 +1302,4 @@ import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.DyadicMiddleGradient
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.LocalizedGradientMultiplier
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.LocalizedGradientShellSum
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.MiddleMultiplierKernel
+import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.MiddleKernelBound
