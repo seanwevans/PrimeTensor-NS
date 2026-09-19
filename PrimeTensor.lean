@@ -1322,3 +1322,4 @@ import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.DyadicVorticityConvolutionRepres
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.DyadicVorticityConvolutionPhysical
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.DyadicLocalizedCurlPhysical
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.DyadicLocalizedGradientPhysical
+import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.MiddleLocalizedGradientPhysical
