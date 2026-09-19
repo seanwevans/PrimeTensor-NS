@@ -1331,3 +1331,4 @@ import PrimeTensor.Tensor.Calculus
 import PrimeTensor.Tensor.Contract
 import PrimeTensor.Tensor.Laws
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.FrequencyTrichotomyBound
+import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.FrequencyTrichotomyGradientMass
