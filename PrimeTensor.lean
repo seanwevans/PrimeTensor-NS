@@ -1355,3 +1355,4 @@ import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.CanonicalEndpointFromLowTail
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.KineticEnergyLowTail
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.KineticEnergyMonotonicity
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.CanonicalActualGradientClosure
+import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.CanonicalSelectedContinuation
