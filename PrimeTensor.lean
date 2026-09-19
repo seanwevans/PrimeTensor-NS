@@ -1346,3 +1346,4 @@ import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.DyadicLocalizedGradientPhysicalR
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.MiddleLocalizedGradientPhysicalRepresentative
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.SelectedMiddleGradientRepresentative
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.SelectedGradientModelBound
+import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.SelectedMiddleGradientFourierAmplitude
