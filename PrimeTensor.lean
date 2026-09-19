@@ -1311,3 +1311,4 @@ import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.LocalizedCurlReconstruction
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.PhysicalVorticityConvolutionL2
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.DyadicFourierFactors
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.DyadicFourierLocalization
+import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.DyadicLocalizationContinuity
