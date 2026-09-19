@@ -1318,3 +1318,4 @@ import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.DyadicSchwartzAnchor
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.DyadicYoungSchwartzBridge
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.DyadicVorticityConvolutionFourier
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.DyadicVorticityConvolutionReconstruction
+import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.DyadicVorticityConvolutionRepresentative
