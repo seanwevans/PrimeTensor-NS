@@ -1337,3 +1337,4 @@ import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.LowFrequencyGradientSpectral
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.LowFrequencyGradientPhysicalL2
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.HighFrequencyGradientL2
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.HighFrequencyGradientTailDecay
+import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.HighFrequencyGradientQuarterWeight
