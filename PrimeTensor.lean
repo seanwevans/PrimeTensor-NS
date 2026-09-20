@@ -1388,3 +1388,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathScalarEnergyFrontie
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathLowTailFullScalarFrontier
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathExactEnergyFrontier
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathEnergyDynamicsFrontier
+import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathMixedCommutationFrontier
