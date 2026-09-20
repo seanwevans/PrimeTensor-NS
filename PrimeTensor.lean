@@ -1393,3 +1393,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathOrderwiseMixedCommu
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathOrder2SelectedReduction
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Spectral.Classicalization.Selected.Velocity.Real.Time.Derivative.Spatial.C2
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Spectral.Classicalization.Selected.Velocity.Spatial.Second.Temporal.Derivative.PDE.Form
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Spectral.Classicalization.Selected.Velocity.Real.Second.Partial.Bridge
