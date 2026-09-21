@@ -1491,3 +1491,4 @@ import PrimeTensor.Tensor.Contract
 import PrimeTensor.Tensor.Laws
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedHighSpatialJetL2Frontier
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedHighFrechetL2Frontier
+import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedHighFrechetComplexL2Frontier
