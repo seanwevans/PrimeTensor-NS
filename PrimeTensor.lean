@@ -1479,3 +1479,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Sp
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathOrder3SelectedClosure
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathMixedCommutationClosure
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathMajorantFrontier
+import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathPathMajorantsDiffusionPressureClosure
