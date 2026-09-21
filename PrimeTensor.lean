@@ -1495,3 +1495,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedHighFrechet
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedHighFourierCoordinateL2Frontier
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedHighRadialFourierL2Frontier
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedHighRadialPointwiseFrontier
+import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedHighRadialDuhamelL2Frontier
