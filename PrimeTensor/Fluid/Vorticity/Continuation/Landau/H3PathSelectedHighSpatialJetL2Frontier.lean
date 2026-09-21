@@ -66,7 +66,7 @@ def H3CanonicalSelectedFourthFifthVelocityJetMemLp2OnRestartRadius : Prop :=
     (hTail : CanonicalH3TailDataFrom u t₀ T E),
       ∀ q : ℝ,
         q ∈
-          Set.Ioc
+          Set.Ioo
             (0 : ℝ)
             (h3FinHeatLerayRestartRadius (1 : ℝ) E) →
         (
@@ -166,14 +166,21 @@ theorem h3PathEnergyClassProducesFourthFifthVelocityJetMemLp2_of_selected
 
   have hqMem :
       q ∈
-        Set.Ioc
+        Set.Ioo
           (0 : ℝ)
           (h3FinHeatLerayRestartRadius (1 : ℝ) E) := by
     constructor
     · dsimp only [q]
       exact hq0
     · dsimp only [q]
-      exact le_of_lt hqR
+      exact hqR
+
+  have hqMemClosed :
+      q ∈
+        Set.Ioc
+          (0 : ℝ)
+          (h3FinHeatLerayRestartRadius (1 : ℝ) E) :=
+    ⟨hqMem.1, le_of_lt hqMem.2⟩
 
   have hWeakFTC :
       H3PreterminalTailUnitViscosityZeroProjectedRHSWeakFTCFrontierOnRestartRadius
@@ -203,7 +210,7 @@ theorem h3PathEnergyClassProducesFourthFifthVelocityJetMemLp2_of_selected
       Set.Ioc
         (0 : ℝ)
         (h3FinHeatLerayRestartRadius (1 : ℝ) E) :=
-    ⟨q, hqMem⟩
+    ⟨q, hqMemClosed⟩
 
   have hAgreement :
       H3PreterminalSelectedPhysicalAgreementAt
