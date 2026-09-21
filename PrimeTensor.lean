@@ -1485,3 +1485,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathPathMajorantsFullSc
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathTemporalPairingFrontier
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathTemporalJetL2Frontier
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathTemporalJetSquareFrontier
+import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathMomentumRHSSquareFrontier
