@@ -1481,3 +1481,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathMixedCommutationClo
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathMajorantFrontier
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathPathMajorantsDiffusionPressureClosure
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathPathMajorantsScalarEnergyClosure
+import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathPathMajorantsFullScalarClosure
