@@ -1509,3 +1509,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedForcingRadi
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedDuhamelTailWeightedKernelL2Closure
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedDuhamelTailRadialL2Closure
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedDuhamelTailRadialL2BKMClosure
+import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathTransportPressureL2SplitFrontier
