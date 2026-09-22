@@ -1504,3 +1504,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedForcingFour
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedForcingUniformRadialL2
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedForcingUniformRadialL2Generic
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedForcingRadialL2State
+import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedForcingRadialL2Difference
