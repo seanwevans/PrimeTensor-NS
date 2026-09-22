@@ -1501,3 +1501,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedDuhamelTail
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedDuhamelTailWeightedKernelL2
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedForcingRadialL2
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedForcingFourierLinf
+import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedForcingUniformRadialL2
