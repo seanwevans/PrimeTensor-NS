@@ -1514,3 +1514,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathClosedHighVelocityJ
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathClosedArbitraryFourthVelocityJets
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathTransportL2Closure
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedForcingPhysicalL2Zero
+import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedForcingPhysicalL2Jet
