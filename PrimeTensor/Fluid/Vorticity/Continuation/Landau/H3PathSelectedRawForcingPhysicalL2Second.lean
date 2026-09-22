@@ -42,7 +42,7 @@ noncomputable local instance point3MeasureSpaceH3PathSelectedRawForcingPhysicalL
 
 /-! ## Local copies of the generic first-coordinate bridge -/
 
-private theorem memLp_point3_fourierInv_of_integrable_memLp2_h3SelectedRawSecond
+theorem memLp_point3_fourierInv_of_integrable_memLp2_h3SelectedRawSecond
     {f : H3FourierPoint3 → ℂ}
     (hf1 : Integrable f (volume : Measure H3FourierPoint3))
     (hf2 : MemLp f 2 (volume : Measure H3FourierPoint3)) :
@@ -109,7 +109,7 @@ private theorem memLp_point3_fourierInv_of_integrable_memLp2_h3SelectedRawSecond
     (memLp_congr_ae hAE).2
       (MeasureTheory.Lp.memLp p2)
 
-private theorem memLp_re_of_memLp_complex_h3SelectedRawSecond
+theorem memLp_re_of_memLp_complex_h3SelectedRawSecond
     {f : Point3 → ℂ}
     (hf : MemLp f 2 (volume : Measure Point3)) :
     MemLp
@@ -310,7 +310,7 @@ private theorem fourierInv_re_onPoint3_spatialC1_of_integrable_firstMoment_h3Sel
 
   exact Complex.reCLM.contDiff.comp hComplex
 
-private theorem fourierInv_re_onPoint3_spatialDerivative_eq_h3SelectedRawSecond
+theorem fourierInv_re_onPoint3_spatialDerivative_eq_h3SelectedRawSecond
     {f : H3FourierPoint3 → ℂ}
     (hf : Integrable f (volume : Measure H3FourierPoint3))
     (hMoment :
