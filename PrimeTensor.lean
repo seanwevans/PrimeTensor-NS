@@ -1530,3 +1530,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedRawForcingT
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedRawForcingPhysicalL2Third
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedPressurePhysicalL2Third
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathPressureL2Closure
+import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathPDEPairingL2Closure
