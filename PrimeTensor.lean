@@ -1510,3 +1510,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedDuhamelTail
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedDuhamelTailRadialL2Closure
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedDuhamelTailRadialL2BKMClosure
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathTransportPressureL2SplitFrontier
+import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathClosedHighVelocityJets
