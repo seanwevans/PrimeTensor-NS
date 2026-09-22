@@ -1515,3 +1515,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathClosedArbitraryFour
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathTransportL2Closure
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedForcingPhysicalL2Zero
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedForcingPhysicalL2Jet
+import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedRawForcingPhysicalL2Zero
