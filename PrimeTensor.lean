@@ -1497,3 +1497,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedHighRadialF
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedHighRadialPointwiseFrontier
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedHighRadialDuhamelL2Frontier
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedHighRadialDuhamelTailL2Frontier
+import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedDuhamelTailCubicL2Baseline
