@@ -1532,3 +1532,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedPressurePhy
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathPressureL2Closure
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathPDEPairingL2Closure
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathDiffusionSignClosure
+import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathPressureCancellationHigher
