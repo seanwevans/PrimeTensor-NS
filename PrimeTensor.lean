@@ -1528,3 +1528,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedPressurePhy
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathPressureL2OrderTwo
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedRawForcingThirdMoment
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedRawForcingPhysicalL2Third
+import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedPressurePhysicalL2Third
