@@ -1553,3 +1553,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathOrderOneSelectedTem
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathOrderOneSelectedThirdVelocityL2Closure
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathOrderOneSelectedWeakFirstJetDerivative
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathOrderOneScalarWeakTestDensity
+import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathOrderOneSelectedRelativeStrongL2Reduction
