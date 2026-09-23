@@ -1545,3 +1545,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedSpectralSta
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedProjectedRHSOldBridge
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedVelocityOldBridge
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathOldPhysicalL2PairingBridge
+import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedOrderZeroCoefficientBridge
