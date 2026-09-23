@@ -1540,3 +1540,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedPhysicalL2D
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedPhysicalL2EnergyDerivative
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedPhysicalL2EnergyOldBridge
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedPhysicalL2EnergyAxisBridge
+import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedPhysicalL2EnergyGermBridge
