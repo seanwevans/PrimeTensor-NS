@@ -1564,3 +1564,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathOrderOneSelectedFor
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathOrderOneSelectedForcingFirstCoordinateOpenL2Continuity
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathOrderOneSelectedTemporalL2Continuity
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathOrderOneEnergyDerivativeClosure
+import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathOrder23MajorantFrontier
