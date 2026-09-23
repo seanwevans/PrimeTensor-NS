@@ -1536,3 +1536,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathPressureCancellatio
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathPressureCancellationZero
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathLowTailFromDerivativeIdentities
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedPhysicalL2Evolution
+import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedPhysicalL2Derivative
