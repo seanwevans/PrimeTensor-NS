@@ -1548,3 +1548,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathOldPhysicalL2Pairin
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedOrderZeroCoefficientBridge
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathOrderZeroEnergyDerivativeClosure
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathOrderOneSelectedEnergyReduction
+import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathOrderOneSelectedL2JetReduction
