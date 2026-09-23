@@ -1550,3 +1550,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathOrderZeroEnergyDeri
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathOrderOneSelectedEnergyReduction
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathOrderOneSelectedL2JetReduction
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathOrderOneSelectedTemporalL2Reduction
+import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathOrderOneSelectedThirdVelocityL2Closure
