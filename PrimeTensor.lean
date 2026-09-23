@@ -1569,3 +1569,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathOrder23MajorantBKMC
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathOrder23EnergyDerivativeFrontier
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathTemporalJetL2Closure
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSelectedSecondVelocityL2Closure
+import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathOrderTwoSelectedL2JetReduction
