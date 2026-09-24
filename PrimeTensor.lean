@@ -1626,3 +1626,4 @@ import PrimeTensor.Tensor.Contract
 import PrimeTensor.Tensor.Laws
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathLogEnergyGrowthRate
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathLogGrowthBlowupAlternative
+import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathFullDissipationExcessRate
