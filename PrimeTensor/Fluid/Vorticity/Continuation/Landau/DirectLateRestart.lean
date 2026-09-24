@@ -1,5 +1,5 @@
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Spectral.Classicalization.Physical.Tail.Unit.Viscosity.Frontier.Endpoint.Continuity.Third.EnergyLateRestartClosure
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Endpoint.Third.Energy.Late.Restart.Closure
 
 /-!
 # Landau continuation through the direct late H³ restart

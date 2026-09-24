@@ -1,6 +1,6 @@
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.TopFlux.CoordinateIntegrability
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Interpolation.Landau.Analytic.Quartic.BoundaryNorm
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Spectral.Classicalization.Physical.Tail.Unit.Viscosity.Frontier.Endpoint.Continuity.Third.SelectedOldWeakStrongPoint3DerivativeIntegral
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Endpoint.Third.Selected.Old.Weak.Strong.Point3.Derivative.Integral
 
 /-!
 # Compact-cutoff identity for an integrable three-dimensional divergence

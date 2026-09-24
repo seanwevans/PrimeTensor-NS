@@ -1,5 +1,5 @@
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Spectral.Classicalization.Physical.Tail.Unit.Viscosity.Frontier.Endpoint.Continuity.Third.SelectedOldWeakStrongCurlWeakFTCGlobalClosure
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Endpoint.Third.Selected.Old.Weak.Strong.Curl.Weak.FTC.Global.Closure
 
 /-!
 # Landau continuation with the continuation/restart frontier discharged by curl weak FTC
