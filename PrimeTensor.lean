@@ -1614,3 +1614,4 @@ import PrimeTensor.Tensor.Calculus
 import PrimeTensor.Tensor.Contract
 import PrimeTensor.Tensor.Laws
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathVorticityAprioriFrontier
+import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathVorticityEnergyEnvelope
