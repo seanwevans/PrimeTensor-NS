@@ -1617,3 +1617,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathVorticityAprioriFro
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathVorticityEnergyEnvelope
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSqrtEnergyIntegrabilityFrontier
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathSqrtEnergyGrowth
+import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathDiffusionDissipation
