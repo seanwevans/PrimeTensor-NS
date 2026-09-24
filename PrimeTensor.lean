@@ -1611,3 +1611,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Sp
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathOrderThreeSelectedWeakThirdJetDerivative
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathOrderThreeSelectedStrongL2FromCoefficientContinuity
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathOrderThreeSelectedEnergyAbsoluteClosure
+import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathOrderThreeEnergyDerivativeClosure
