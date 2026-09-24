@@ -1201,3 +1201,4 @@ import PrimeTensor.Tensor.Calculus
 import PrimeTensor.Tensor.Contract
 import PrimeTensor.Tensor.Laws
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Nonvacuity
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Sequence.Alternative
