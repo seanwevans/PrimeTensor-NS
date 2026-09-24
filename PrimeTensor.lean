@@ -1628,3 +1628,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathLogEnergyGrowthRate
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathLogGrowthBlowupAlternative
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathFullDissipationExcessRate
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathTerminalDichotomy
+import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathArbitrarilyNearTerminalAlternative
