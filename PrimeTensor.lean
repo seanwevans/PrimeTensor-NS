@@ -1623,3 +1623,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathExactDissipativeBal
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathLandauAbsorptionLoop
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathTransportAbsorptionContinuation
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathTransportExcessRate
+import PrimeTensor.Fluid.Vorticity.Continuation.Landau.H3PathPositiveEnergyGrowthRate
