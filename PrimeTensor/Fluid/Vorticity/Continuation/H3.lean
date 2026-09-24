@@ -172,3 +172,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Transport.L2.Closure
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Transport.Pressure.L2.Split.Frontier
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Vorticity.Apriori.Frontier
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Vorticity.Energy.Envelope
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Riccati.LowerBound
