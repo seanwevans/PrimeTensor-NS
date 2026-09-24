@@ -1,5 +1,6 @@
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Selected.Old.H3.Path.Admissible
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Dichotomy
 
 /-!
 # Non-vacuity of the preterminal H³ path class
@@ -465,6 +466,104 @@ theorem exists_loggedPreterminalH3PathAdmissible_and_energyClass :
       a,
       h3Nonvacuity_zeroNative_h3PathAdmissible,
       hClass
+    ⟩
+
+
+/-- The concrete zero H³ path also realizes the terminal-tail control class.
+Its normalized canonical H³ energy is exactly `1` on every time slice. -/
+theorem exists_loggedPreterminalH3PathAdmissible_and_terminalTailH3Control :
+    ∃
+      (u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three)
+      (T : ℝ),
+        LoggedPreterminalH3PathAdmissible u T
+          ∧
+        TerminalTailH3Control u T := by
+
+  have ha :
+      (1 / 2 : ℝ) ∈ Set.Ioo (0 : ℝ) 1 := by
+    norm_num
+
+  have hBound :
+      ∀ t : ℝ,
+        t ∈ Set.Ico (1 / 2 : ℝ) 1 →
+          velocityH3EnergyAt
+              h3NonvacuityZeroNativeVelocity
+              t
+            ≤
+          1 := by
+    intro t ht
+
+    rw [
+      h3Nonvacuity_zeroNative_velocityH3EnergyAt_eq_one
+        t
+    ]
+
+  have hTail :
+      TerminalTailH3Control
+        h3NonvacuityZeroNativeVelocity
+        1 :=
+    terminalTailH3Control_of_velocityH3EnergyBoundOnTail
+      h3Nonvacuity_zeroNative_h3PathAdmissible
+      ha
+      (by norm_num)
+      hBound
+
+  exact
+    ⟨
+      h3NonvacuityZeroNativeVelocity,
+      1,
+      h3Nonvacuity_zeroNative_h3PathAdmissible,
+      hTail
+    ⟩
+
+/-- The smooth-continuation branch of the terminal dichotomy is itself
+non-vacuous: the explicit zero H³ path has a smooth extension through `T = 1`.
+
+This uses the already-closed continuation theorem on the concrete constant
+energy bound `E_H3 = 1`; it is a regression/non-vacuity statement, not a new
+continuation estimate. -/
+theorem exists_loggedPreterminalH3PathAdmissible_and_smoothContinuation :
+    ∃
+      (u v : SpaceTimeVectorField ℝ ℝ MulReal Depth.three)
+      (T : ℝ),
+        LoggedPreterminalH3PathAdmissible u T
+          ∧
+        SmoothContinuationExtension u v T := by
+
+  have ha :
+      (1 / 2 : ℝ) ∈ Set.Ioo (0 : ℝ) 1 := by
+    norm_num
+
+  have hBound :
+      ∀ t : ℝ,
+        t ∈ Set.Ico (1 / 2 : ℝ) 1 →
+          velocityH3EnergyAt
+              h3NonvacuityZeroNativeVelocity
+              t
+            ≤
+          1 := by
+    intro t ht
+
+    rw [
+      h3Nonvacuity_zeroNative_velocityH3EnergyAt_eq_one
+        t
+    ]
+
+  obtain
+    ⟨v, hExtension⟩ :=
+    h3PathExtension_of_velocityH3EnergyBoundOnTail
+      h3Nonvacuity_zeroNative_h3PathAdmissible
+      ha
+      (by norm_num)
+      hBound
+
+  exact
+    ⟨
+      h3NonvacuityZeroNativeVelocity,
+      v,
+      1,
+      h3Nonvacuity_zeroNative_h3PathAdmissible,
+      hExtension
     ⟩
 
 end
