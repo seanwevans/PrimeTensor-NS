@@ -200,3 +200,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.AbsorptionDefectSequence
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.IndexedEnergySequence
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.IndexedCascade
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.SuperquadraticCascade
