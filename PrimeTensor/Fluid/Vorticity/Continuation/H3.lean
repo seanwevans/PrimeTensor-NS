@@ -197,3 +197,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.JointSequence
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.TransportHarmonicSequence
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.TransportCubicRate
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.AbsorptionDefectSequence
