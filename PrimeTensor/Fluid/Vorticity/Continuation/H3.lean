@@ -215,3 +215,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.NormalizedBalanceDichotomy
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.FullEnergyTransportSequence
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.NonnegativeGrowthNormalizedTransport
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.NormalizedBalanceGap
