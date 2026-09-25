@@ -1,129 +1,254 @@
 # PrimeTensor-NS
 
-A Lean 4 research formalization of a continuation strategy for the three-dimensional incompressible Navier–Stokes equations on ℝ³, centered on explicit H³ energy estimates, a Landau/Gagliardo–Nirenberg transport analysis, and a Fourier/heat-semigroup restart construction.
+Lean 4 / mathlib formalization of a continuation program for the three-dimensional incompressible Navier–Stokes equations on `ℝ³`.
 
-The repository also contains a positive multiplicative/logarithmic representation layer. Where the logarithmic bridge is available, that layer is related back to ordinary real-valued PDE quantities; it should be read as an alternative formal representation, not as a shortcut around the classical analytic difficulties.
+The current development focuses on extracting **necessary terminal behavior from hypothetical failure of smooth H³ continuation**, together with explicit positive continuation criteria obtained by contraposition.
 
-## Current proof status
+This repository does **not** currently prove finite-time blowup or unconditional global regularity.
 
-### Landau / H³ transport side
+## Main formalized claims
 
-The whole-space analytic machinery used by the explicit Landau estimate has been substantially internalized.
+For a preterminal H³ path, write
 
-The repository now includes machine-checked proofs of:
-
-- the whole-space C¹ ∩ H¹ → L⁶ Sobolev step on `Point3`, obtained through expanding smooth cutoffs;
-- the derived L⁴ interpolation step;
-- quartic whole-space integration by parts through a compact-cutoff argument;
-- decay of the quartic cutoff boundary error;
-- the scalar Landau inequality used by the third-order interpolation terms;
-- explicit order-by-order H³ transport bookkeeping.
-
-The transport estimate has the concrete coefficient
-
-|T_H³(t)| ≤ 4422 h(t) E_{H³}(t)
-
-with the bookkeeping decomposition
-
-0 + 6 + 18 + 4398 = 4422  
-4398 = 24 + 4374  
-4374 = 729 · 6
-
-The collision cases in the third-order derivative sums are handled explicitly; the proof does not assume that several potentially identical H³ summands can each be charged independently to the total energy.
-
-### Transport integration by parts: current reduction
-
-The lower-order whole-space transport integration-by-parts packages are no longer independent assumptions.
-
-From canonical H³ data and the velocity-gradient envelope, the repository derives:
-
-- order-zero transport IBP;
-- order-one transport IBP;
-- order-two transport IBP.
-
-At order three, the canonical PDE pairing package already gives integrability of the full differentiated transport pairing. The exact decomposition
-
-D³u · D³((u · ∇)u) = D³u · C₃ + D³u · (u · ∇D³u)
-
-combined with independently proved commutator-pairing integrability recovers integrability of the pure transported-third-derivative pairing.
-
-Accordingly, the verified Landau tail interface has been reduced to
-
-```lean
-H3ThirdDerivativeTransportFluxVanishesAt u t
-  ∧
-VelocityGradientEnvelope u h t
+```text
+E(t)    = full H³ energy
+E₃(t)   = top-order H³ energy
+D(t)    = full H³ dissipation
+D₃(t)   = top-order H³ dissipation
+T_H3(t) = H³ transport term
 ```
 
-at each strict tail time.
+The exact H³ balance is
 
-In other words, the transport-side whole-space frontier is no longer a collection of order-zero-through-three IBP assumptions. It has been reduced to the top-order boundary-at-infinity cancellation together with the gradient envelope.
+```text
+E'(t) + 2 D(t) = -T_H3(t).
+```
 
-The active development immediately beyond that verified reduction is aimed at internalizing the L¹-integrability of the top-order flux divergence from the already available PDE pairing data, without introducing an artificial D⁴u ∈ L² requirement.
+Assuming the path does **not** extend smoothly across terminal time `T`, the formalization proves the following necessary consequences.
 
-### Continuation / restart side
+### Terminal energy and dissipation cascade
 
-The restart/classicalization side is much further developed than the older monolithic `H3SchwartzCanonicalRestartClassicalization` description suggests.
+The Riccati lower bound gives
 
-The spectral construction includes:
+```text
+2 ≤ K (T - t) sqrt(E(t)),
+```
 
-- weighted Fourier H³ states;
-- the heat semigroup;
-- Leray projection;
-- convolution estimates;
-- a Banach fixed-point / Picard construction;
-- real-valued and divergence-free realizability;
-- Duhamel identities;
-- positive-time smoothing;
-- physical L² decoding;
-- selected-versus-old overlap machinery.
+hence
 
-The later physical-tail development factors classicalization and continuation into explicit local pieces rather than one opaque frontier. It contains pressure-free weak formulations, spatial integration by parts against real Schwartz tests, selected/old weak–strong comparison, temporal weak FTC identities, endpoint continuity reductions, and physical H³ L²-jet arguments.
+```text
+E(t) → +∞.
+```
 
-A particularly important later reduction proves that, under the retained canonical H³ tail hypotheses,
+Using the Fourier interpolation inequality
 
-full physical H³ L²-jet continuity ↔ scalar physical H³-energy continuity.
+```text
+E₃(t)^4 ≤ E₀(t) D₃(t)^3,
+```
 
-The pressure-free curl / weak-FTC route now supplies the abstract continuation statement `H3ControlProducesExtension` from the terminal H³ control side, so the Landau-facing continuation theorem no longer needs a separate abstract local-well-posedness or restart-lifespan hypothesis.
+the development derives
 
-## Remaining high-level analytic interfaces
+```text
+D₃(t) → +∞,
+D(t)  → +∞,
+D₃(t) / E₃(t) → +∞,
+D(t)  / E₃(t) → +∞.
+```
 
-The current Landau/BKM factorization still exposes several major mathematical interfaces as hypotheses.
+A late comparison between full and top-order energy further gives
 
-### `H3SeedProducesEnergyClass`
+```text
+D₃(t) / E(t) → +∞,
+D(t)  / E(t) → +∞.
+```
 
-Promotes a finite H³ seed into the high-order preterminal energy class used by the later energy argument.
+### Intrinsic H³ frequency cascade
 
-### `EnergyClassProducesCanonicalH3Data`
+Define
 
-Produces the canonical H³ tail package used by the explicit transport, PDE-pairing, and continuation machinery.
+```text
+Λ₃(t)^2 = D₃(t) / E₃(t),
+ℓ₃(t)   = 1 / Λ₃(t).
+```
 
-### `EnergyClassProducesLandauTransportAnalytic`
+Hypothetical nonextension forces
 
-Supplies the remaining Landau tail data. After the recent transport reductions, its transport content is concentrated at the top-order scalar-flux cancellation together with the velocity-gradient envelope.
+```text
+Λ₃(t) → +∞,
+ℓ₃(t) → 0.
+```
 
-### `VorticityControlsGradientLogarithmically`
+More quantitatively, sufficiently late,
 
-The BKM/Landau endpoint estimate converting vorticity control into the velocity-gradient control required by the H³ growth inequality.
+```text
+1 ≤ 3 K² (E₀(b)+1) (T-t)² Λ₃(t)^6.
+```
 
-### `SeededPreterminalNavierStokesForcesVorticityL1Linf`
+The critical quantity is nonintegrable on every strict terminal subtail:
 
-The genuinely global a-priori statement that every seeded preterminal solution has the required finite L¹ₜL∞ₓ-type vorticity control.
+```text
+Λ₃^3 ∉ L¹((b,T)).
+```
 
-This last proposition is intentionally isolated in the source. It is **not** asserted as a theorem. Even after the continuation/restart machinery is closed, proving this a-priori statement would be a separate global-regularity problem.
+Therefore integrability of `Λ₃^3` on one strict terminal subtail implies smooth continuation.
 
-With the first four interfaces supplied, the repository proves the seeded vorticity criterion implies extension. To conclude that every seeded preterminal solution extends, the additional a-priori vorticity interface is still required.
+### Full-energy normalized dissipation rate
+
+With
+
+```text
+A_b = 3 K² (E₀(b)+1) (4 + 3 E₀(b))³,
+```
+
+hypothetical nonextension forces
+
+```text
+1 ≤ A_b (T-t)² (D₃(t)/E(t))³,
+1 ≤ A_b (T-t)² (D(t) /E(t))³.
+```
+
+Thus normalized dissipation cannot remain bounded at terminal scale.
+
+A direct continuation criterion follows: if one fixed finite bound
+
+```text
+D(t) ≤ C E(t)
+```
+
+recurs arbitrarily late, the path extends smoothly.
+
+### Critical `(D/E)^(3/2)` obstruction
+
+Define
+
+```text
+Q(t) =
+  (D(t)/E(t)) *
+  sqrt(D(t)/E(t)).
+```
+
+Since
+
+```text
+Q(t)^2 = (D(t)/E(t))^3,
+```
+
+the quantitative rate yields a harmonic lower bound on a terminal tail, and therefore
+
+```text
+Q ∉ L¹((b,T))
+```
+
+for every strict terminal subtail under hypothetical nonextension.
+
+Equivalently, terminal integrability of `(D/E)^(3/2)` is a continuation criterion.
+
+### Exact normalized balance-gap divergence
+
+The exact H³ balance gives
+
+```text
+(-T_H3(t) - E'(t)) / E(t)
+  = 2 D(t) / E(t).
+```
+
+Therefore hypothetical nonextension forces
+
+```text
+(-T_H3(t) - E'(t)) / E(t) → +∞.
+```
+
+The quantitative version is
+
+```text
+8 ≤ A_b (T-t)²
+      ((-T_H3(t) - E'(t))/E(t))³.
+```
+
+This gives another direct threshold continuation criterion.
+
+### Adverse transport on nonnegative-growth times
+
+The formalization does not assume that adverse transport dominates at every terminal time.
+
+Instead, on sufficiently late times satisfying
+
+```text
+E'(t) ≥ 0,
+```
+
+hypothetical nonextension forces, for every finite `M`,
+
+```text
+M ≤ (-T_H3(t)) / E(t).
+```
+
+Thus any sufficiently late nondecreasing-energy time must carry arbitrarily large adverse transport relative to full H³ energy.
+
+A selected terminal sequence also synchronizes
+
+```text
+E'(t) → +∞,
+D₃(t) → +∞,
+D(t) → +∞,
+-T_H3(t) → +∞.
+```
+
+## Canonical Landau coefficient frontier
+
+The current Landau closure gives
+
+```text
+-T_H3(t)
+  ≤
+D(t) + c_L(t) E(t),
+```
+
+with canonical coefficient
+
+```text
+c_L(t)
+  =
+4422 *
+  (1 + C₁ * sqrt(E(t))).
+```
+
+The generic absorption theorem proves:
+
+```text
+c_L ∈ L¹((b,T))
+  ->
+smooth continuation across T.
+```
+
+Consequently, hypothetical nonextension forces
+
+```text
+c_L ∉ L¹((b,T))
+```
+
+on every strict terminal subtail.
+
+This isolates the present Landau frontier: the pointwise absorption estimate is available, but the current coefficient cannot be integrable on a nonextension branch. Closing the Landau route therefore requires a genuinely smaller temporal coefficient, additional cancellation, or another mechanism that bypasses this integrability obstruction.
+
+## Interpretation
+
+These are **conditional obstruction theorems**.
+
+A statement such as
+
+```text
+no smooth continuation
+  ->
+D(t)/E(t) → +∞
+```
+
+does not establish nonextension.
+
+Its value is contrapositive: any independent estimate incompatible with one of the forced terminal behaviors yields a continuation theorem.
 
 ## Build
 
-Install Lean via `elan`, then:
-
 ```bash
-git clone https://github.com/seanwevans/PrimeTensor-NS.git
-cd PrimeTensor-NS
-
-lake env lean PrimeTensor.lean
 lake build
 ```
-
-`PrimeTensor.lean` is the aggregate import surface for the library.
