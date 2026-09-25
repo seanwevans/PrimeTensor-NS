@@ -230,3 +230,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.ComponentAmplitude
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.ComponentSequences
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.VorticityGradientSynchronizedSequence
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.VorticityGradientSamePointSequence
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.EnstrophySequence
