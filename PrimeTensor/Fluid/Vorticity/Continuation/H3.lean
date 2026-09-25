@@ -177,3 +177,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Riccati.Integrabilit
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Sequence
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Third
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Third.Rate
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Third.Rate.Polynomial
