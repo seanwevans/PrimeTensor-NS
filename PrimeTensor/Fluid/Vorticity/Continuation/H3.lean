@@ -175,3 +175,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Vorticity.Energy.Envelope
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Riccati.LowerBound
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Riccati.Integrability
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Sequence
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Third
