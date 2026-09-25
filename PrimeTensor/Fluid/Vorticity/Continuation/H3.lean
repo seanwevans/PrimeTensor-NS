@@ -221,3 +221,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.NormalizedDissipationIntegrability
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Transport.Absorption.Landau.TerminalFrontier
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Transport.Absorption.Landau.HarmonicRate
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Transport.Absorption.Landau.AffineHarmonicRate
