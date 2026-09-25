@@ -243,3 +243,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.FixedCurlGradientDou
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeCurlGradientDoubleEscape
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeCurlGradientFiniteStateEscape
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeCurlGradientEnstrophyCascade
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeCurlGradientEnstrophyFiniteStateEscape
