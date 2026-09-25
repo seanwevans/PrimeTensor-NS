@@ -225,3 +225,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Transport.Absorption.Landau.A
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Transport.Absorption.Landau.SqrtEnergyEquivalence
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Transport.Absorption.Landau.VorticityEnvelopeEquivalence
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Vorticity.TailIntegrability
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Gradient.TailIntegrability
