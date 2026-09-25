@@ -93,12 +93,14 @@ import PrimeTensor.Fluid.Vorticity.BKM.Energy.Endpoint
 import PrimeTensor.Fluid.Vorticity.BKM.Growth.Frontier
 import PrimeTensor.Fluid.Vorticity.Continuation.Cascade
 import PrimeTensor.Fluid.Vorticity.Continuation.Frontier
+import PrimeTensor.Fluid.Vorticity.Continuation.H3
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Nonvacuity
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Sequence.Alternative
 import PrimeTensor.Fluid.Vorticity.Continuation.Handoff
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.CurlWeakFTCClosure
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.DirectLateRestart
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.GradientEnvelope
-import PrimeTensor.Fluid.Vorticity.Continuation.H3
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.TopFlux.Automatic
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.TopFlux.CoordinateIntegrability
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.TopFlux.CutoffIdentity
@@ -106,6 +108,7 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Landau.TopFlux.CutoffLimit
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.TopFlux.TailClosure
 import PrimeTensor.Fluid.Vorticity.Continuation.Landau.TopFlux.VelocityEnvelope
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Endpoint.Third
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Lifespan
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Bridge
@@ -366,7 +369,6 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Sp
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Spectral.Classicalization.Physical.Tail.Unit.Viscosity.Frontier
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Spectral.Classicalization.Physical.Tail.Unit.Viscosity.Frontier.Endpoint.Continuity.Closure
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Spectral.Classicalization.Physical.Tail.Unit.Viscosity.Frontier.Endpoint.Continuity.Split
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Endpoint.Third
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Spectral.Classicalization.Physical.Tail.Unit.Viscosity.Frontier.Endpoint.Continuity.Zero.Advection
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Spectral.Classicalization.Physical.Tail.Unit.Viscosity.Frontier.Endpoint.Continuity.Zero.Diffusion
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Spectral.Classicalization.Physical.Tail.Unit.Viscosity.Frontier.Endpoint.Continuity.Zero.DiffusionWeak
@@ -559,7 +561,6 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Sp
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Spectral.Classicalization.Selected.Forcing.Third.Frechet.Time.Continuity
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Spectral.Classicalization.Selected.Hessian.Trace.Time.Continuity
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Spectral.Classicalization.Selected.HighOrder.Absolute
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Selected.Old
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Spectral.Classicalization.Selected.HighOrder.Seed
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Spectral.Classicalization.Selected.Initial.Decoder
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Spectral.Classicalization.Selected.Initial.State
@@ -1068,6 +1069,7 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Young.Convo
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Young.Convolution.Representatives
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.State
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Picard
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Selected.Old
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Tail.Local.Well.Posedness
 import PrimeTensor.Fluid.Vorticity.Coupling.Continuity
 import PrimeTensor.Fluid.Vorticity.Diffusion.Branch
@@ -1200,5 +1202,3 @@ import PrimeTensor.Tensor.Basic
 import PrimeTensor.Tensor.Calculus
 import PrimeTensor.Tensor.Contract
 import PrimeTensor.Tensor.Laws
-import PrimeTensor.Fluid.Vorticity.Continuation.H3.Nonvacuity
-import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Sequence.Alternative
