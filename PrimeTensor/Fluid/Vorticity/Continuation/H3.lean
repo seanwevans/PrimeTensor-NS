@@ -235,3 +235,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeEnstrophyEscap
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.FixedVorticityComponent
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.FixedGradientComponent
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.FixedComponentSequences
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.FixedCurlGradientPair
