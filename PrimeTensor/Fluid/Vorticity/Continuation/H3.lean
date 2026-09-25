@@ -236,3 +236,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.FixedVorticityCompon
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.FixedGradientComponent
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.FixedComponentSequences
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.FixedCurlGradientPair
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.FixedCurlGradientSamePoint
