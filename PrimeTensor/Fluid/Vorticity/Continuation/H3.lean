@@ -179,3 +179,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Third
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Third.Rate
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Third.Rate.Polynomial
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Energy.Diffusion.Interpolation.Fourier.FourthSymbol
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Energy.Diffusion.Interpolation.Fourier.FourthCoordinate
