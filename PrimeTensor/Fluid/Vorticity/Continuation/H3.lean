@@ -252,3 +252,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.ComplementaryGradien
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.ComplementaryGradientNativeResidual
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.ComplementaryGradientResidualNegligible
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.ComplementaryGradientResidualCluster
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.ComplementaryGradientResidualIntrinsicCluster
