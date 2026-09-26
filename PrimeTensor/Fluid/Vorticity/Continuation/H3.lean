@@ -249,3 +249,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.ComplementaryGradien
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.ComplementaryGradientCancellationRefinement
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.ComplementaryGradientCancellationRatio
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.ComplementaryGradientCancellationSubsequence
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.ComplementaryGradientNativeResidual
