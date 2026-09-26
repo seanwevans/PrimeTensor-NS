@@ -1235,3 +1235,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualStrong
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualVelocityStrongH3Endpoint
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualVelocityComponentEscape
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualVelocityComponentBoundedness
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualVelocityEnergyBoundedness
