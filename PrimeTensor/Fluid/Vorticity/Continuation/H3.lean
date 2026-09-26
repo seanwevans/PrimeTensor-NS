@@ -248,3 +248,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeCurlEnstrophyQ
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.ComplementaryGradientDichotomy
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.ComplementaryGradientCancellationRefinement
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.ComplementaryGradientCancellationRatio
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.ComplementaryGradientCancellationSubsequence
