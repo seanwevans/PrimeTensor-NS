@@ -1207,3 +1207,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualOscill
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualBoundedFactorAlternative
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualBoundedExclusiveFactorDichotomy
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualPositiveClusterGap
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualCofinalSynchronization
