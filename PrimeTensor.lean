@@ -1214,3 +1214,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualPersis
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualTemporalVanishingGap
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualSpatialGeometricSeparation
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualSpatialClusterDichotomy
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualSpatialEscapeDichotomy
