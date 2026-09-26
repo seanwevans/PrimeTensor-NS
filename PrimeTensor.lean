@@ -1230,3 +1230,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualIntrin
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualSelectedClosureTrace
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualSelectedClosureTraceDecay
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualSelectedClosurePeakLocus
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualBoundedBranchPeakLocus
