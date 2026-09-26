@@ -1205,3 +1205,4 @@ import PrimeTensor.Tensor.Laws
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeConvergenceCauchyCriterion
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualOscillationDichotomy
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualBoundedFactorAlternative
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualBoundedExclusiveFactorDichotomy
