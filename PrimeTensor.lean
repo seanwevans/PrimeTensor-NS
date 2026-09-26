@@ -1210,3 +1210,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualPositi
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualCofinalSynchronization
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualPhysicalSynchronization
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualSpatialTemporalSynchronization
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualPersistentSpatialTemporalGap
