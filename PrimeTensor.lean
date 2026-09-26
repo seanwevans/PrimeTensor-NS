@@ -1227,3 +1227,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualDistin
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualDistinctFiniteTrace
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualFiniteCoreInfinityContrast
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualIntrinsicFiniteCoreTrace
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualSelectedClosureTrace
