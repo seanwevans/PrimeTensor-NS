@@ -1220,3 +1220,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualSpatia
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualTemporalEquicontinuityFrontier
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualEndpointSpatialContrast
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualTerminalSpatialContrastSeparation
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualFinalGeometryAlternative
