@@ -1217,3 +1217,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualSpatia
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualSpatialEscapeDichotomy
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualSpatialClusterProfiles
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualSpatialEquicontinuityFrontier
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualTemporalEquicontinuityFrontier
