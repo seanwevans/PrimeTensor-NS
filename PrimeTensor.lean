@@ -1222,3 +1222,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualEndpoi
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualTerminalSpatialContrastSeparation
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualFinalGeometryAlternative
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualSpatialDecayPivot
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualPivotSeparatedChannel
