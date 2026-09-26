@@ -1234,3 +1234,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualBounde
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualStrongH3EndpointPath
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualVelocityStrongH3Endpoint
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualVelocityComponentEscape
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.NativeResidualVelocityComponentBoundedness
