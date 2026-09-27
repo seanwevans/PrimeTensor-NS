@@ -1246,3 +1246,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.BKMFrequencyLogarithmicLowerBound
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.BKMFrequencyLinearLowerBound
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.BKMVorticityEnvelopeDivergence
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.ActualVorticitySynchronization
