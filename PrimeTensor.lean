@@ -1249,3 +1249,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.ActualVorticitySynchronization
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.SamePointVorticityGradient
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.FixedGradientChannel
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.FixedStructuralCurlGradient
