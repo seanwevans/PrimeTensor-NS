@@ -1295,3 +1295,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.ComplementEndpointNormalizedRate
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.ComplementCanonicalEndpointRate
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.ComplementNativeVorticitySynchronization
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.ComplementRelativeEnvelopeSynchronization
