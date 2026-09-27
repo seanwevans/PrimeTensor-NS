@@ -1243,3 +1243,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Transport.Excess.ExactDecompo
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.DissipationRiccatiCompetition
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.CharacteristicFrequencyAmplitudeCorridor
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.BKMFrequencyForcing
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.BKMFrequencyLogarithmicLowerBound
