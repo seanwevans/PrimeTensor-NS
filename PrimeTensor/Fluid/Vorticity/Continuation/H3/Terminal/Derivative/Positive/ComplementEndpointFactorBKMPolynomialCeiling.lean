@@ -18,7 +18,9 @@ open scoped BigOperators ENNReal NNReal Interval Topology
 
 noncomputable section
 
-private theorem polynomial_le_sqrtExponential
+/-- Every fixed polynomial is bounded by an exponential in the
+square root of its argument once that argument is at least one. -/
+theorem polynomial_le_sqrtExponential
     (C x : ℝ) (p : ℕ) (hC : 0 ≤ C) (hx : 1 ≤ x) :
     C * x ^ p ≤
       Real.exp ((C + 2 * (p : ℝ)) * Real.sqrt x) := by

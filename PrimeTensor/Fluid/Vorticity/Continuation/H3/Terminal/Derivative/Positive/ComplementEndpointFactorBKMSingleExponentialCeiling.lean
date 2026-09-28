@@ -18,7 +18,9 @@ open scoped BigOperators ENNReal NNReal Interval Topology
 
 noncomputable section
 
-private theorem singleExponential_lt_endpointScale
+/-- A single-exponential scale lies strictly below a fixed endpoint
+double-exponential scale after choosing its inner coefficient. -/
+theorem singleExponential_lt_endpointScale
     (A B s : ℝ) (hA : 0 ≤ A) (hB : 0 < B) (hs : 1 ≤ s) :
     Real.exp (A * s) <
       Real.exp (Real.exp ((B * (A + 2)) * s) / B - 1) ^ 2 := by
