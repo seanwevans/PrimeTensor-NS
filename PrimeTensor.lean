@@ -1378,3 +1378,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.ComplementEndpointFactorBKMExponentialDissipationRate
 
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.ComplementEndpointFactorBKMRawExponentialRates
+
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.ComplementEndpointFactorBKMExponentialExcessGap
