@@ -1452,3 +1452,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.ComplementEndpointFactorBKMNativeLandauClockObstruction
 
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.ComplementEndpointFactorBKMNativeLandauScaleGap
+
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.ComplementEndpointFactorBKMNativeAbsorptionClockFrontier
