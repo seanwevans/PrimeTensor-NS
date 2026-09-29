@@ -1464,3 +1464,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.ComplementEndpointFactorBKMNativeSelectedFixedActualVorticityRate
 
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.ComplementEndpointFactorBKMNativeSelectedEveryEnvelopeRate
+
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.ComplementEndpointFactorBKMNativeSelectedActualVorticityRatio
