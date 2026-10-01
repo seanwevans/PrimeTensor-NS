@@ -58,6 +58,14 @@ jobs:
 
     runs-on: ${{ matrix.runner }}
 
+    # The refactored Lean module tree contains paths longer than the legacy
+    # Windows MAX_PATH limit. Feed core.longpaths directly to every Git process
+    # in the Windows matrix job, including actions/checkout itself.
+    env:
+      GIT_CONFIG_COUNT: ${{ matrix.target == 'windows-x86_64' && '1' || '0' }}
+      GIT_CONFIG_KEY_0: core.longpaths
+      GIT_CONFIG_VALUE_0: 'true'
+
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
