@@ -10,9 +10,14 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: lean-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  build:
-    name: Build
+  pr-build:
+    name: PR / Linux x86_64
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
 
     steps:
@@ -23,3 +28,200 @@ jobs:
         uses: leanprover/lean-action@v1
         with:
           build: true
+
+  build-binaries:
+    name: Build / ${{ matrix.label }}
+    if: github.event_name != 'pull_request'
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - label: Linux x86_64
+            runner: ubuntu-latest
+            target: linux-x86_64
+            package: tar
+
+          - label: Linux ARM64
+            runner: ubuntu-24.04-arm
+            target: linux-arm64
+            package: tar
+
+          - label: Windows x86_64
+            runner: windows-latest
+            target: windows-x86_64
+            package: exe
+
+          - label: macOS ARM64
+            runner: macos-latest
+            target: macos-arm64
+            package: tar
+
+    runs-on: ${{ matrix.runner }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Build Lean project
+        uses: leanprover/lean-action@v1
+        with:
+          build: true
+
+      - name: Package Unix executable
+        if: matrix.package == 'tar'
+        shell: bash
+        run: |
+          set -euxo pipefail
+
+          test -x .lake/build/bin/primetensor
+
+          mkdir -p dist/package
+          cp .lake/build/bin/primetensor dist/package/primetensor
+          chmod +x dist/package/primetensor
+
+          tar -C dist/package -czf \
+            "dist/primetensor-${{ matrix.target }}.tar.gz" \
+            primetensor
+
+          rm -rf dist/package
+
+      - name: Stage Windows executable
+        if: matrix.package == 'exe'
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+
+          $source = '.lake/build/bin/primetensor.exe'
+          $target = 'dist/primetensor-${{ matrix.target }}.exe'
+
+          if (-not (Test-Path $source -PathType Leaf)) {
+            throw "Built executable not found: $source"
+          }
+
+          New-Item -ItemType Directory -Force -Path dist | Out-Null
+          Copy-Item $source $target
+
+      - name: Upload packaged binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-${{ matrix.target }}
+          path: dist/*
+          if-no-files-found: error
+          retention-days: 1
+
+  publish-binary-latest:
+    name: Publish binary-latest
+    needs: build-binaries
+    if: >-
+      github.ref == 'refs/heads/master' &&
+      (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Download all platform binaries
+        uses: actions/download-artifact@v4
+        with:
+          pattern: release-*
+          path: dist
+          merge-multiple: true
+
+      - name: Generate SHA-256 checksums
+        shell: bash
+        run: |
+          set -euxo pipefail
+
+          expected=(
+            primetensor-linux-x86_64.tar.gz
+            primetensor-linux-arm64.tar.gz
+            primetensor-windows-x86_64.exe
+            primetensor-macos-arm64.tar.gz
+          )
+
+          for name in "${expected[@]}"; do
+            test -f "dist/$name"
+            (
+              cd dist
+              sha256sum "$name" > "$name.sha256"
+            )
+          done
+
+          find dist -maxdepth 1 -type f -printf '%f\n' | sort
+
+      - name: Update rolling binary release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euxo pipefail
+
+          TAG='binary-latest'
+          TITLE='Latest PrimeTensor-NS Binary'
+
+          cat > release-notes.md <<'EOF'
+          Rolling prebuilt binaries from the current `master` branch.
+
+          Available targets:
+
+          - Linux x86_64
+          - Linux ARM64
+          - Windows x86_64
+          - macOS ARM64
+
+          The Linux and macOS downloads contain a `primetensor` executable.
+          The Windows download is the standalone `primetensor.exe`.
+
+          Each binary has a matching SHA-256 checksum asset.
+
+          The source revision is the commit associated with this release.
+          EOF
+
+          if gh api \
+              "repos/${GITHUB_REPOSITORY}/git/ref/tags/${TAG}" \
+              >/dev/null 2>&1; then
+            gh api \
+              --method PATCH \
+              "repos/${GITHUB_REPOSITORY}/git/refs/tags/${TAG}" \
+              -f sha="${GITHUB_SHA}" \
+              -F force=true \
+              >/dev/null
+          else
+            gh api \
+              --method POST \
+              "repos/${GITHUB_REPOSITORY}/git/refs" \
+              -f ref="refs/tags/${TAG}" \
+              -f sha="${GITHUB_SHA}" \
+              >/dev/null
+          fi
+
+          assets=(
+            dist/primetensor-linux-x86_64.tar.gz
+            dist/primetensor-linux-x86_64.tar.gz.sha256
+            dist/primetensor-linux-arm64.tar.gz
+            dist/primetensor-linux-arm64.tar.gz.sha256
+            dist/primetensor-windows-x86_64.exe
+            dist/primetensor-windows-x86_64.exe.sha256
+            dist/primetensor-macos-arm64.tar.gz
+            dist/primetensor-macos-arm64.tar.gz.sha256
+          )
+
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release edit "$TAG" \
+              --title "$TITLE" \
+              --notes-file release-notes.md \
+              --latest \
+              --target "$GITHUB_SHA"
+
+            gh release upload "$TAG" \
+              "${assets[@]}" \
+              --clobber
+          else
+            gh release create "$TAG" \
+              "${assets[@]}" \
+              --verify-tag \
+              --title "$TITLE" \
+              --notes-file release-notes.md \
+              --latest
+          fi
