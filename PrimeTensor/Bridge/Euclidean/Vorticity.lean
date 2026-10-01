@@ -1,4 +1,4 @@
-import PrimeTensor.Bridge.Euclidean.NavierStokes
+import PrimeTensor.Bridge.Euclidean.Navier.Stokes
 
 /-!
 # Multiplicative vorticity and enstrophy in three dimensions

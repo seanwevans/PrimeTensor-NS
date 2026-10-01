@@ -1,4 +1,4 @@
-import PrimeTensor.Bridge.Real.Log.LittleO
+import PrimeTensor.Bridge.Real.Log.Little.O
 import PrimeTensor.Bridge.Fluid.Log.Semantics
 
 /-!

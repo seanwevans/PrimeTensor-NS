@@ -1,5 +1,5 @@
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.Gradient.Middle.Selected.Reconstruction
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Spectral.H3.Real.C1.Point3Derivative
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Spectral.H3.Real.C1.Point3.Derivative
 
 /-!
 # BKM endpoint: reconstruct the complete selected gradient model

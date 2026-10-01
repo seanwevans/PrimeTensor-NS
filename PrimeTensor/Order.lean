@@ -1,4 +1,4 @@
-import PrimeTensor.MulRat
+import PrimeTensor.Mul.Rat
 
 /-!
 # Native order and multiplicative annuli on `MulRat`

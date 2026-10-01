@@ -1,4 +1,4 @@
-import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Interpolation.Landau.Analytic.WholeSpaceSobolev
+import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Interpolation.Landau.Analytic.Whole.Space.Sobolev
 
 /-!
 # Integrability facts for the whole-space quartic Landau identity

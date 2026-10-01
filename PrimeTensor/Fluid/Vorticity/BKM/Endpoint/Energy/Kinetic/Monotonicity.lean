@@ -1,5 +1,5 @@
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.Energy.Kinetic.Low.Tail
-import PrimeTensor.Fluid.Vorticity.Continuation.Landau.GradientEnvelope
+import PrimeTensor.Fluid.Vorticity.Continuation.Landau.Gradient.Envelope
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Estimate.Landau.Tail
 import Mathlib.Analysis.Calculus.Deriv.MeanValue
 

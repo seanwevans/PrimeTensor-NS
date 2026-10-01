@@ -1,4 +1,4 @@
-import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Riccati.LowerBound
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Riccati.Lower.Bound
 import Mathlib.Analysis.SpecialFunctions.NonIntegrable
 
 /-!

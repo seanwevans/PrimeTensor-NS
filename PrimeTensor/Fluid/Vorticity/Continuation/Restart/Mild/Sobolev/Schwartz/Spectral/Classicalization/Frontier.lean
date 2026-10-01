@@ -1,5 +1,5 @@
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Spectral.Preterminal.Canonical.Energy.Restart.Closure
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.LocalWellPosedness
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Local.Well.Posedness
 
 /-!
 # Classicalization frontier for the canonical spectral H³ restart

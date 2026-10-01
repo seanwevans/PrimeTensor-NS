@@ -1,4 +1,4 @@
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.LocalWellPosedness
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Local.Well.Posedness
 
 /-!
 # Tail-aware H³ local well-posedness

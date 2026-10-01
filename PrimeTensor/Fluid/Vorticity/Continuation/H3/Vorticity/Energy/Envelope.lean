@@ -1,5 +1,5 @@
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Vorticity.Apriori.Frontier
-import PrimeTensor.Fluid.Vorticity.Continuation.Landau.GradientEnvelope
+import PrimeTensor.Fluid.Vorticity.Continuation.Landau.Gradient.Envelope
 
 /-!
 # Canonical H³ energy envelope for preterminal vorticity

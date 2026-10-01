@@ -4,8 +4,8 @@ import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Regularity.Cl
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Gradient.Integrability.Closure
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.One.Pairing.Integrability.Closure
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Two.Pairing.Integrability.Closure
-import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Pairing.Integrability.FromPDE
-import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.IntegrationByParts.OrderOneTwo
+import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Pairing.Integrability.From.PDE
+import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.IntegrationByParts.Order.One.Two
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Interpolation.Landau.Analytic.Closure
 
 /-!

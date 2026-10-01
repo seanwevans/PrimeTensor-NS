@@ -1,6 +1,6 @@
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Energy.WholeSpace.Frontier
-import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.IntegrationByParts.OrderZero
-import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.IntegrationByParts.OrderOneTwo
+import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.IntegrationByParts.Order.Zero
+import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.IntegrationByParts.Order.One.Two
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.IntegrationByParts.Closure
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Interpolation.Landau.Pairing.Integrability
 

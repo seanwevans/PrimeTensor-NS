@@ -1,5 +1,5 @@
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Third
-import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Riccati.LowerBound
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Riccati.Lower.Bound
 
 /-!
 # Pointwise terminal rate in the top H³ derivative block

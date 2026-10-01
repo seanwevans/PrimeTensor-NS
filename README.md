@@ -2,250 +2,194 @@
 
 Lean 4 / mathlib formalization of a continuation program for the three-dimensional incompressible Navier–Stokes equations on `ℝ³`.
 
-The current development focuses on extracting **necessary terminal behavior from hypothetical failure of smooth H³ continuation**, together with explicit positive continuation criteria obtained by contraposition.
+The current development studies **necessary terminal behavior under hypothetical failure of smooth H³ continuation** and turns the negation of those behaviors into explicit continuation criteria.
 
-This repository does **not** currently prove finite-time blowup or unconditional global regularity.
+This repository does **not** prove finite-time blowup and does **not** prove unconditional global regularity.
 
-## Main formalized claims
+## Current endpoint setting
 
-For a preterminal H³ path, write
+The strongest terminal results currently use a logged preterminal H³ path together with:
+
+- a preterminal H³ energy class;
+- an actual-vorticity strong H³ endpoint path for one component;
+- raw velocity Fourier `L²` Cauchy convergence at the endpoint.
+
+These are retained hypotheses in the endpoint compactness theorems below. The conclusions should therefore be read conditionally on this setting.
+
+## Canonical top-order dissipation tail
+
+Let
 
 ```text
-E(t)    = full H³ energy
-E₃(t)   = top-order H³ energy
-D(t)    = full H³ dissipation
-D₃(t)   = top-order H³ dissipation
-T_H3(t) = H³ transport term
+Tail₃(t, R)
 ```
 
-The exact H³ balance is
+denote the canonical top-order H³ dissipation mass outside radial frequency `R`.
+
+At every fixed strict preterminal time `t < T`,
 
 ```text
-E'(t) + 2 D(t) = -T_H3(t).
+Tail₃(t, n + 1) → 0
 ```
 
-Assuming the path does **not** extend smoothly across terminal time `T`, the formalization proves the following necessary consequences.
+as `n → ∞`.
 
-### Terminal energy and dissipation cascade
+The endpoint issue is therefore not whether a fixed preterminal state has a high-frequency tail. Every fixed-time tail vanishes. The issue is whether that decay is **uniform as `t → T`**.
 
-The Riccati lower bound gives
+Define terminal uniform tail vanishing by:
 
 ```text
-2 ≤ K (T - t) sqrt(E(t)),
+for every ε > 0,
+there exist N and η > 0 such that
+
+  t < T,
+  dist(t, T) < η,
+  n ≥ N
+
+imply
+
+  Tail₃(t, n + 1) < ε.
 ```
 
-hence
+This is equivalent to canonical top-order radial-tail tightness.
+
+Under the retained endpoint hypotheses, uniform tail vanishing implies smooth continuation across `T`.
+
+Conversely, hypothetical nonextension forces failure of this uniformity even though the fixed-time tail still vanishes at every strict preterminal time.
+
+So the present compactness obstruction is a genuinely terminal one:
 
 ```text
-E(t) → +∞.
+fixed-time tail decay
+    +
+failure of uniformity as t → T.
 ```
 
-Using the Fourier interpolation inequality
+## Canonical cutoff scale
+
+For `ε > 0`, define the least natural cutoff index
 
 ```text
-E₃(t)^4 ≤ E₀(t) D₃(t)^3,
-```
-
-the development derives
-
-```text
-D₃(t) → +∞,
-D(t)  → +∞,
-D₃(t) / E₃(t) → +∞,
-D(t)  / E₃(t) → +∞.
-```
-
-A late comparison between full and top-order energy further gives
-
-```text
-D₃(t) / E(t) → +∞,
-D(t)  / E(t) → +∞.
-```
-
-### Intrinsic H³ frequency cascade
-
-Define
-
-```text
-Λ₃(t)^2 = D₃(t) / E₃(t),
-ℓ₃(t)   = 1 / Λ₃(t).
-```
-
-Hypothetical nonextension forces
-
-```text
-Λ₃(t) → +∞,
-ℓ₃(t) → 0.
-```
-
-More quantitatively, sufficiently late,
-
-```text
-1 ≤ 3 K² (E₀(b)+1) (T-t)² Λ₃(t)^6.
-```
-
-The critical quantity is nonintegrable on every strict terminal subtail:
-
-```text
-Λ₃^3 ∉ L¹((b,T)).
-```
-
-Therefore integrability of `Λ₃^3` on one strict terminal subtail implies smooth continuation.
-
-### Full-energy normalized dissipation rate
-
-With
-
-```text
-A_b = 3 K² (E₀(b)+1) (4 + 3 E₀(b))³,
-```
-
-hypothetical nonextension forces
-
-```text
-1 ≤ A_b (T-t)² (D₃(t)/E(t))³,
-1 ≤ A_b (T-t)² (D(t) /E(t))³.
-```
-
-Thus normalized dissipation cannot remain bounded at terminal scale.
-
-A direct continuation criterion follows: if one fixed finite bound
-
-```text
-D(t) ≤ C E(t)
-```
-
-recurs arbitrarily late, the path extends smoothly.
-
-### Critical `(D/E)^(3/2)` obstruction
-
-Define
-
-```text
-Q(t) =
-  (D(t)/E(t)) *
-  sqrt(D(t)/E(t)).
-```
-
-Since
-
-```text
-Q(t)^2 = (D(t)/E(t))^3,
-```
-
-the quantitative rate yields a harmonic lower bound on a terminal tail, and therefore
-
-```text
-Q ∉ L¹((b,T))
-```
-
-for every strict terminal subtail under hypothetical nonextension.
-
-Equivalently, terminal integrability of `(D/E)^(3/2)` is a continuation criterion.
-
-### Exact normalized balance-gap divergence
-
-The exact H³ balance gives
-
-```text
-(-T_H3(t) - E'(t)) / E(t)
-  = 2 D(t) / E(t).
-```
-
-Therefore hypothetical nonextension forces
-
-```text
-(-T_H3(t) - E'(t)) / E(t) → +∞.
-```
-
-The quantitative version is
-
-```text
-8 ≤ A_b (T-t)²
-      ((-T_H3(t) - E'(t))/E(t))³.
-```
-
-This gives another direct threshold continuation criterion.
-
-### Adverse transport on nonnegative-growth times
-
-The formalization does not assume that adverse transport dominates at every terminal time.
-
-Instead, on sufficiently late times satisfying
-
-```text
-E'(t) ≥ 0,
-```
-
-hypothetical nonextension forces, for every finite `M`,
-
-```text
-M ≤ (-T_H3(t)) / E(t).
-```
-
-Thus any sufficiently late nondecreasing-energy time must carry arbitrarily large adverse transport relative to full H³ energy.
-
-A selected terminal sequence also synchronizes
-
-```text
-E'(t) → +∞,
-D₃(t) → +∞,
-D(t) → +∞,
--T_H3(t) → +∞.
-```
-
-## Canonical Landau coefficient frontier
-
-The current Landau closure gives
-
-```text
--T_H3(t)
-  ≤
-D(t) + c_L(t) E(t),
-```
-
-with canonical coefficient
-
-```text
-c_L(t)
+Nε(t)
   =
-4422 *
-  (1 + C₁ * sqrt(E(t))).
+min { n : ℕ | Tail₃(t, n + 1) < ε }.
 ```
 
-The generic absorption theorem proves:
+`Nε(t)` is finite at every fixed strict time.
+
+Terminal uniform tail vanishing is exactly equivalent to:
 
 ```text
-c_L ∈ L¹((b,T))
-  ->
-smooth continuation across T.
+for every ε > 0,
+Nε(t) is bounded on some terminal neighborhood of T.
 ```
 
-Consequently, hypothetical nonextension forces
+Under the retained endpoint hypotheses, local boundedness of every `Nε` is therefore a continuation criterion.
+
+Hypothetical nonextension forces the complementary behavior: for some fixed `ε > 0`, the scale `Nε(t)` is unbounded in **every** terminal neighborhood.
+
+More strongly, for every prescribed natural profile
 
 ```text
-c_L ∉ L¹((b,T))
+g : ℕ → ℕ,
 ```
 
-on every strict terminal subtail.
+one can select strict terminal times `τₙ → T` such that
 
-This isolates the present Landau frontier: the pointwise absorption estimate is available, but the current coefficient cannot be integrable on a nonextension branch. Closing the Landau route therefore requires a genuinely smaller temporal coefficient, additional cancellation, or another mechanism that bypasses this integrability obstruction.
+```text
+dist(τₙ, T) < 1 / (n + 1)
+```
+
+and
+
+```text
+g(n) < Nε(τₙ).
+```
+
+This is a cofinality statement obtained by selecting the times according to `g`.
+
+It is **not** a physical-time growth estimate. In particular, the formalization does not infer a lower bound of the form
+
+```text
+Nε(t) ≥ F(T - t).
+```
+
+## Coercive spectral weights
+
+The radial-tail criterion has a weighted formulation.
+
+Let
+
+```text
+w : ℝ → ℝ
+```
+
+be any real radial weight satisfying only
+
+```text
+w(r) → +∞  as r → +∞.
+```
+
+No monotonicity assumption and no global sign assumption are required.
+
+A finite uniform terminal bound for the corresponding extended weighted top-order dissipation moment implies canonical radial-tail tightness and hence smooth continuation under the retained endpoint hypotheses.
+
+Equivalently, hypothetical nonextension rules out such a uniform ceiling for **every** coercive radial weight.
+
+The formalization also constructs one common terminal radial-escape sequence along which the extended weighted top-order dissipation moment diverges for every such weight.
+
+Polynomial higher moments and positive exponential radial weights occur as special cases of this more general coercive-weight mechanism.
+
+## Neutral endpoint alternatives
+
+The formalized results are deliberately stated neutrally.
+
+Typical endpoint alternatives have the form
+
+```text
+smooth continuation across T
+```
+
+or
+
+```text
+a fixed positive tail tolerance develops an unbounded
+canonical cutoff scale near T.
+```
+
+A stronger form replaces the second branch by arbitrary-profile cofinal escape of the cutoff scale.
+
+Another equivalent style uses universal divergence of coercively weighted top-dissipation moments along a terminal sequence.
+
+None of these alternatives asserts that the nonextension branch actually occurs.
+
+## Current frontier
+
+The project has reduced the surviving terminal obstruction to frequency-space compactness of the top-order H³ dissipation.
+
+The remaining problem is to obtain a continuation-producing compactness statement from the Navier–Stokes dynamics themselves—for example, terminal uniform radial-tail control or a uniform bound for one coercive weighted top-dissipation moment—without assuming the desired continuation conclusion.
+
+The current endpoint theorems also retain the actual-vorticity strong H³ endpoint-path and raw velocity Fourier `L²` Cauchy hypotheses described above.
+
+Earlier energy-growth, BKM, transport, Landau, moment-cascade, and balance-channel results remain part of the formal development, but they are now intermediate infrastructure rather than the cleanest statement of the present endpoint criterion.
 
 ## Interpretation
 
-These are **conditional obstruction theorems**.
+These are **conditional obstruction and continuation theorems**.
 
-A statement such as
+For example,
 
 ```text
 no smooth continuation
   ->
-D(t)/E(t) → +∞
+some Nε(t) is locally unbounded near T
 ```
 
 does not establish nonextension.
 
-Its value is contrapositive: any independent estimate incompatible with one of the forced terminal behaviors yields a continuation theorem.
+Its contrapositive value is that an independent estimate preventing that terminal frequency escape yields continuation.
+
+Likewise, divergence of weighted moments on a hypothetical nonextension branch should not be read as a claim that such a branch exists.
 
 ## Build
 

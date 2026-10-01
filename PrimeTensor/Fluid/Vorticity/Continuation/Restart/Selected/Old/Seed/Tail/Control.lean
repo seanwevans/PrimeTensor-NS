@@ -1,4 +1,4 @@
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.EnergyLifespan
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Energy.Lifespan
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Selected.Old.Sliding.Energy.Class
 
 /-!

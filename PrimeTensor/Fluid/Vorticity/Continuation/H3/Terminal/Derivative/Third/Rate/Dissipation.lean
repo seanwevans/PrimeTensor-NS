@@ -1,5 +1,5 @@
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Third.Rate.Polynomial
-import PrimeTensor.Fluid.Vorticity.Continuation.H3.Energy.Diffusion.Interpolation.Fourier.MomentCauchy
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Energy.Diffusion.Interpolation.Fourier.Moment.Cauchy
 
 /-!
 # Conditional terminal rate for the top H³ dissipation block

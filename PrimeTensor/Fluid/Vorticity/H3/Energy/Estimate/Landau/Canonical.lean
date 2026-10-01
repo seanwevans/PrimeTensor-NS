@@ -1,5 +1,5 @@
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Estimate.Landau.Tail
-import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Interpolation.Landau.Analytic.WholeSpaceSobolev
+import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Interpolation.Landau.Analytic.Whole.Space.Sobolev
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Interpolation.Landau.Analytic.Quartic.Closure
 
 /-!

@@ -1,5 +1,5 @@
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Energy.Dynamics.Frontier
-import PrimeTensor.Fluid.Vorticity.H3.Energy.Derivative.EnergyClassTemporalRHS
+import PrimeTensor.Fluid.Vorticity.H3.Energy.Derivative.Energy.Class.Temporal.RHS
 
 /-!
 # Reduce H³-path scalar differentiability to pure mixed time--space commutation

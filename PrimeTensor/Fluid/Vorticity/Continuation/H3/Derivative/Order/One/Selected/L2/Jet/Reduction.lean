@@ -1,6 +1,6 @@
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Derivative.Order.One.Selected.Energy.Reduction
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Endpoint.Third.Selected.Old.Weak.Strong.Difference.Derivative.L2
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Spectral.Classicalization.Physical.Tail.Unit.Viscosity.Frontier.Endpoint.Continuity.Zero.TemporalProjectedRHSMass
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Spectral.Classicalization.Physical.Tail.Unit.Viscosity.Frontier.Endpoint.Continuity.Zero.Temporal.Projected.RHS.Mass
 import Mathlib.Analysis.InnerProductSpace.Calculus
 
 /-!

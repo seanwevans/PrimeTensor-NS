@@ -1,5 +1,5 @@
 import PrimeTensor.Fluid.Vorticity.BKM.Endpoint.Gradient.Logarithmic.Interface
-import PrimeTensor.Fluid.Vorticity.Continuation.Landau.TopFlux.TailClosure
+import PrimeTensor.Fluid.Vorticity.Continuation.Landau.TopFlux.Tail.Closure
 
 /-!
 # BKM endpoint: closing the corrected actual-gradient interface

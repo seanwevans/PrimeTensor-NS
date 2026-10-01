@@ -1,4 +1,4 @@
-import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Interpolation.Landau.Analytic.Quartic.CutoffLimit
+import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Interpolation.Landau.Analytic.Quartic.Cutoff.Limit
 
 /-!
 # Whole-space quartic Landau integration by parts

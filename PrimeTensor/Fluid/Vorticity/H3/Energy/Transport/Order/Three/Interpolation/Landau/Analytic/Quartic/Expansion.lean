@@ -1,4 +1,4 @@
-import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Interpolation.Landau.Analytic.Quartic.CutoffIBP
+import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Interpolation.Landau.Analytic.Quartic.Cutoff.IBP
 
 /-!
 # Expansion of the compact-cutoff quartic Landau identity

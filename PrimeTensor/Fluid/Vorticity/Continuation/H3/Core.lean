@@ -1,5 +1,5 @@
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Selected.Old.H3.Path.Admissible
-import PrimeTensor.Fluid.Vorticity.Continuation.Landau.TopFlux.TailClosure
+import PrimeTensor.Fluid.Vorticity.Continuation.Landau.TopFlux.Tail.Closure
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Closure.Landau.Endpoint
 import PrimeTensor.Fluid.Vorticity.Logarithmic.Gronwall
 

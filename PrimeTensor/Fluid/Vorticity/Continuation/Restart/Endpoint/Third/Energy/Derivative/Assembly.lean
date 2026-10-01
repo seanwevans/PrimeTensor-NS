@@ -1,5 +1,5 @@
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Endpoint.Third.Energy.Derivative.Continuity
-import PrimeTensor.Fluid.Vorticity.H3.Energy.Derivative.OrderThree
+import PrimeTensor.Fluid.Vorticity.H3.Energy.Derivative.Order.Three
 
 /-!
 # Assemble the orderwise H³ energy derivatives on the controlled tail

@@ -1,5 +1,5 @@
 import Mathlib.Topology.MetricSpace.Contracting
-import PrimeTensor.Fluid.Vorticity.Continuation.Restart.LocalWellPosedness
+import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Local.Well.Posedness
 
 /-!
 # Picard construction for the H³ restart problem

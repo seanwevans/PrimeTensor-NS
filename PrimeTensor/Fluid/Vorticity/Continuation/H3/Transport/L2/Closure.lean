@@ -1,6 +1,6 @@
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Selected.Velocity.Jet.Four.Arbitrary.Closure
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Regularity.Closure
-import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.IntegrationByParts.OrderOneTwo
+import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.IntegrationByParts.Order.One.Two
 
 /-!
 # Close the H³ transport L² frontier

@@ -1,5 +1,5 @@
-import PrimeTensor.Fluid.Vorticity.Continuation.Landau.TopFlux.CutoffLimit
-import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Flux.DivergenceIntegrability
+import PrimeTensor.Fluid.Vorticity.Continuation.Landau.TopFlux.Cutoff.Limit
+import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Flux.Divergence.Integrability
 
 /-!
 # Automatic top-order H³ transport-flux cancellation

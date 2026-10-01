@@ -1,7 +1,7 @@
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Analysis.Reduced
 import PrimeTensor.Fluid.Vorticity.Logarithmic.Gronwall
 import PrimeTensor.Fluid.Vorticity.H3.Energy.Estimate.Landau.Canonical
-import PrimeTensor.Fluid.Vorticity.Continuation.Landau.TopFlux.TailClosure
+import PrimeTensor.Fluid.Vorticity.Continuation.Landau.TopFlux.Tail.Closure
 
 /-!
 # H³-path BKM continuation from the analytic tail alone

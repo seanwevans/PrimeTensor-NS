@@ -1,6 +1,6 @@
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Endpoint.Third.Energy.Derivative.Continuity
-import PrimeTensor.Fluid.Vorticity.H3.Energy.Derivative.OrderTwoTailLocal
-import PrimeTensor.Fluid.Vorticity.H3.Energy.Derivative.OrderThreeTailLocal
+import PrimeTensor.Fluid.Vorticity.H3.Energy.Derivative.Order.Two.Tail.Local
+import PrimeTensor.Fluid.Vorticity.H3.Energy.Derivative.Order.Three.Tail.Local
 
 /-!
 # Assemble the H³ energy derivative using only tail-local higher mixed regularity

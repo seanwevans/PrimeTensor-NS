@@ -1,4 +1,4 @@
-import PrimeTensor.Bridge.Bag.ClosedForm
+import PrimeTensor.Bridge.Bag.Closed.Form
 import PrimeTensor.Bridge.Kernel.Descent
 
 /-!

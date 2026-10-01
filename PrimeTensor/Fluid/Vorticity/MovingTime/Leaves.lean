@@ -1,4 +1,4 @@
-import PrimeTensor.Fluid.Vorticity.MovingTime
+import PrimeTensor.Fluid.Vorticity.Moving.Time
 
 /-!
 # Moving-time stretching descent and primitive cofinal leaves

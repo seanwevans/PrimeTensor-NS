@@ -1,4 +1,4 @@
-import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Interpolation.Landau.Analytic.CompactSupportSobolev
+import PrimeTensor.Fluid.Vorticity.H3.Energy.Transport.Order.Three.Interpolation.Landau.Analytic.Compact.Support.Sobolev
 import Mathlib.Analysis.Calculus.BumpFunction.InnerProduct
 
 /-!
