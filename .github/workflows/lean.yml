@@ -44,9 +44,7 @@ jobs:
             runner: ubuntu-24.04-arm
             target: linux-arm64
 
-          - label: macOS ARM64
-            runner: macos-latest
-            target: macos-arm64
+
 
     runs-on: ${{ matrix.runner }}
 
@@ -108,8 +106,7 @@ jobs:
 
           expected=(
             primetensor-linux-x86_64.tar.gz
-            primetensor-linux-arm64.tar.gz
-            primetensor-macos-arm64.tar.gz
+            primetensor-linux-arm64.tar.gz            
           )
 
           for name in "${expected[@]}"; do
@@ -138,8 +135,7 @@ jobs:
           Available targets:
 
           - Linux x86_64
-          - Linux ARM64
-          - macOS ARM64
+          - Linux ARM64          
 
           Each download contains a `primetensor` executable and has a matching
           SHA-256 checksum asset.
@@ -158,8 +154,6 @@ jobs:
             dist/primetensor-linux-x86_64.tar.gz.sha256
             dist/primetensor-linux-arm64.tar.gz
             dist/primetensor-linux-arm64.tar.gz.sha256
-            dist/primetensor-macos-arm64.tar.gz
-            dist/primetensor-macos-arm64.tar.gz.sha256
           )
 
           if gh release view "$TAG" >/dev/null 2>&1; then
