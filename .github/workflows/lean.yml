@@ -44,8 +44,6 @@ jobs:
             runner: ubuntu-24.04-arm
             target: linux-arm64
 
-
-
     runs-on: ${{ matrix.runner }}
 
     steps:
@@ -68,7 +66,9 @@ jobs:
           cp .lake/build/bin/primetensor dist/package/primetensor
           chmod +x dist/package/primetensor
 
-          tar -C dist/package -czf             "dist/primetensor-${{ matrix.target }}.tar.gz"             primetensor
+          tar -C dist/package -czf \
+            "dist/primetensor-${{ matrix.target }}.tar.gz" \
+            primetensor
 
           rm -rf dist/package
 
@@ -106,7 +106,7 @@ jobs:
 
           expected=(
             primetensor-linux-x86_64.tar.gz
-            primetensor-linux-arm64.tar.gz            
+            primetensor-linux-arm64.tar.gz
           )
 
           for name in "${expected[@]}"; do
@@ -122,6 +122,7 @@ jobs:
       - name: Update rolling binary release
         env:
           GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
         shell: bash
         run: |
           set -euxo pipefail
@@ -135,7 +136,7 @@ jobs:
           Available targets:
 
           - Linux x86_64
-          - Linux ARM64          
+          - Linux ARM64
 
           Each download contains a `primetensor` executable and has a matching
           SHA-256 checksum asset.
@@ -143,10 +144,22 @@ jobs:
           The source revision is the commit associated with this release.
           EOF
 
-          if gh api               "repos/${GITHUB_REPOSITORY}/git/ref/tags/${TAG}"               >/dev/null 2>&1; then
-            gh api               --method PATCH               "repos/${GITHUB_REPOSITORY}/git/refs/tags/${TAG}"               -f sha="${GITHUB_SHA}"               -F force=true               >/dev/null
+          if gh api \
+              "repos/${GITHUB_REPOSITORY}/git/ref/tags/${TAG}" \
+              >/dev/null 2>&1; then
+            gh api \
+              --method PATCH \
+              "repos/${GITHUB_REPOSITORY}/git/refs/tags/${TAG}" \
+              -f sha="${GITHUB_SHA}" \
+              -F force=true \
+              >/dev/null
           else
-            gh api               --method POST               "repos/${GITHUB_REPOSITORY}/git/refs"               -f ref="refs/tags/${TAG}"               -f sha="${GITHUB_SHA}"               >/dev/null
+            gh api \
+              --method POST \
+              "repos/${GITHUB_REPOSITORY}/git/refs" \
+              -f ref="refs/tags/${TAG}" \
+              -f sha="${GITHUB_SHA}" \
+              >/dev/null
           fi
 
           assets=(
@@ -157,9 +170,20 @@ jobs:
           )
 
           if gh release view "$TAG" >/dev/null 2>&1; then
-            gh release edit "$TAG"               --title "$TITLE"               --notes-file release-notes.md               --latest               --target "$GITHUB_SHA"
+            gh release edit "$TAG" \
+              --title "$TITLE" \
+              --notes-file release-notes.md \
+              --latest \
+              --target "$GITHUB_SHA"
 
-            gh release upload "$TAG"               "${assets[@]}"               --clobber
+            gh release upload "$TAG" \
+              "${assets[@]}" \
+              --clobber
           else
-            gh release create "$TAG"               "${assets[@]}"               --verify-tag               --title "$TITLE"               --notes-file release-notes.md               --latest
+            gh release create "$TAG" \
+              "${assets[@]}" \
+              --verify-tag \
+              --title "$TITLE" \
+              --notes-file release-notes.md \
+              --latest
           fi
