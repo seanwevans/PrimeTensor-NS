@@ -4,27 +4,24 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.
 # Cubic forcing mass diverges on every terminal tail
 
 The cubic forcing obstruction was originally packaged relative to a chosen
-`PreterminalH3EnergyClass u a T`.  The preceding arbitrary-start checkpoint
-shows that every strict physical time can itself be used as a new energy-class
-start.
+`PreterminalH3EnergyClass u a T`.  The arbitrary-start checkpoint shows that
+every strict physical time can itself be used as a new energy-class start.
 
 The scalar forcing mass is nevertheless a physical quantity: on overlapping
 times it is independent of which energy-class start was used to justify the
-high-order analysis.  The only class-dependent data entering its definition are
-proofs that the same physical time lies in `(0,T)`.
+high-order analysis.
 
-After recording that class-start independence, a nonextension branch can be
-restarted at any `c ∈ (a,T)`.  Applying the already-closed nonintegrability
-criterion to the energy class starting at `c` and transporting back to the
-original profile yields
+Therefore, on a nonextension branch, restart the energy class at any
+`c ∈ (a,T)`, apply the already-closed nonintegrability theorem there, and
+transport the result back to the original profile.  This yields
 
     G ∉ L¹((c,T))
 
-for every `c ∈ (a,T)`.
+for every strict `c<T`.
 
-Hence the previously identified infinite cubic-forcing mass is genuinely
-terminal: no matter how far forward one truncates the physical interval, the
-remaining tail still has infinite mass.
+Hence the infinite cubic-forcing mass is genuinely terminal: no matter how far
+forward one truncates the interval, the remaining tail still has infinite
+mass.
 -/
 
 namespace PrimeTensor
@@ -229,17 +226,13 @@ theorem not_integrableOn_fullForcingCubicMassProfile_every_terminalTail_of_veloc
               ht.2
             ⟩
 
-          have htC :
-              t ∈ Set.Ioo c T :=
-            ht
-
           exact
             h3TerminalPhysicalTopDissipationFullForcingCubicMassProfile_eq_of_energyClasses
               hH3
               hClass
               hClassC
               htA
-              htC)
+              ht)
         measurableSet_Ioo
 
   exact
