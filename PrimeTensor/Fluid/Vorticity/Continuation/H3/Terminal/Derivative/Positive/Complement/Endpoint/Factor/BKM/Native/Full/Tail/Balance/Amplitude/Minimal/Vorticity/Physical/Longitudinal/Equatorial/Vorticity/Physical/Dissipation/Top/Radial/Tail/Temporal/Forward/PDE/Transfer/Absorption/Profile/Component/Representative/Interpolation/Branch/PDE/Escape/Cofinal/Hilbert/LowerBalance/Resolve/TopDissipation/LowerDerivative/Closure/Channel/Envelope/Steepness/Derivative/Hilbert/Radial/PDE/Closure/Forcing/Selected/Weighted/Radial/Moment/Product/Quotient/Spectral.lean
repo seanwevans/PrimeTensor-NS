@@ -1,44 +1,19 @@
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.Complement.Endpoint.Factor.BKM.Native.Full.Tail.Balance.Amplitude.Minimal.Vorticity.Physical.Longitudinal.Equatorial.Vorticity.Physical.Dissipation.Top.Radial.Tail.Temporal.Forward.PDE.Transfer.Absorption.Profile.Component.Representative.Interpolation.Branch.PDE.Escape.Cofinal.Hilbert.LowerBalance.Resolve.TopDissipation.LowerDerivative.Closure.Channel.Envelope.Steepness.Derivative.Hilbert.Radial.PDE.Closure.Forcing.Selected.Weighted.Radial.Moment.Product.Quotient
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.Complement.Endpoint.Factor.BKM.Native.Full.Tail.Balance.Amplitude.Minimal.Vorticity.Physical.Longitudinal.Equatorial.Vorticity.Physical.Dissipation.Top.Radial.Tail.Temporal.Hilbert.Raw.Derivative
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Fin.Heat.Leray.Spectral.Realizability.Closure
 import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Mild.Sobolev.Schwartz.Spectral.Duhamel.Integral.Bridge
 
 /-!
 # Spectral selected slope error and exact raw-Fourier bridge
 
-The preceding checkpoint gives strong convergence of every natural radial
-velocity slope error, but the nonlinear forcing map consumes genuine weighted
-H³ spectral states.
+The preceding radial checkpoint gives strong convergence of every natural
+radial velocity slope error, while the nonlinear forcing map consumes genuine
+weighted H³ spectral states.
 
-This file installs the exact representation bridge.
-
-At a strict interior slab time `x`, let
-
-    W(t)
-
-be the selected weighted H³ mild state and let
-
-    R_H3(x)
-
-be the genuine weighted H³ encoding of the projected Navier--Stokes RHS.
-Define the spectral slope error
-
-    E_H3(h)
-      =
-    h⁻¹ • (W(x+h) - W(x)) - R_H3(x).
-
-Coordinatewise exact deweighting gives
-
-    raw(E_H3(h)_i)
-      =
-    h⁻¹ • (raw(W(x+h)_i) - raw(W(x)_i)) - R̂_i(x).
-
-The right side is packaged below as the raw selected slope error.  Its strong
-Fourier `L²` convergence to zero follows directly from the already-proved raw
-vector derivative.
-
-This checkpoint is representation-only: no nonlinear estimate is introduced.
-The next file can combine this exact spectral carrier with the arbitrary
-radial slope errors and the Bessel moment bridge.
+This file installs the exact representation bridge.  The selected raw Fourier
+coordinate derivative is taken from the already-proved scalar theorem rather
+than re-projecting the vector derivative through an ambiguous real module
+instance.
 -/
 
 namespace PrimeTensor
@@ -178,41 +153,10 @@ theorem tendsto_h3PreterminalSelectedVelocityRawSlopeErrorFourierL2OnSlab_zero
       x < Q :=
     hx.2
 
-  have hVec :=
-    h3SelectedRestartVelocityRawFourierVector_hasDerivAt_unit
+  have hCoord :=
+    h3SelectedRestartVelocityRawFourierL2_hasDerivAt_unit
       hNS ht₀ hQ hE hTail hQR.le
-      ⟨hx0, hxQ⟩
-
-  let P :
-      H3SpectralFinVectorState →L[ℝ]
-        H3FourierComplexL2 :=
-    ContinuousLinearMap.proj (R := ℝ) i
-
-  have hCoord :
-      HasDerivAt
-        (fun r : ℝ =>
-          h3SelectedRestartVelocityRawFourierVector
-            hNS ht₀ hE hTail r i)
-        (
-          h3PreterminalSelectedUnitProjectedRHSFourierL2OnRadius
-            hNS ht₀ hE hTail
-            (
-              h3PreterminalElapsedToSelectedUnitRadius
-                hQR.le
-                ⟨x, hx0.le, hxQ.le⟩
-            )
-            i
-        )
-        x := by
-
-    have h :=
-      P.hasFDerivAt.comp_hasDerivAt
-        x
-        hVec
-
-    simpa only [
-      Function.comp_def
-    ] using h
+      ⟨hx0, hxQ⟩ i
 
   let xSlab :
       Set.Icc (Q / 2) Q :=
@@ -267,7 +211,8 @@ theorem tendsto_h3PreterminalSelectedVelocityRawSlopeErrorFourierL2OnSlab_zero
     rw [← hRadius]
 
     simpa only [
-      xRadius
+      xRadius,
+      h3SelectedRestartVelocityRawFourierVector
     ] using hSlope
 
   have hErr :=
@@ -380,6 +325,56 @@ noncomputable def h3PreterminalSelectedVelocitySpectralSlopeErrorOnSlab
   h⁻¹ • (W (x + h) - W x) - R
 
 /--
+Coordinate application of the genuine spectral slope error.
+-/
+@[simp]
+theorem h3PreterminalSelectedVelocitySpectralSlopeErrorOnSlab_apply
+    {E : ℝ}
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T t₀ Q x : ℝ}
+    (hNS : LoggedPreterminalNavierStokesAdmissible u T)
+    (ht₀ : t₀ ∈ Set.Ioo (0 : ℝ) T)
+    (hE : 1 ≤ E)
+    (hTail : CanonicalH3TailDataFrom u t₀ T E)
+    (hQ : 0 < Q)
+    (hQR : Q < h3FinHeatLerayRestartRadius (1 : ℝ) E)
+    (i : Fin 3)
+    (hx : x ∈ Set.Ioo (Q / 2) Q)
+    (h : ℝ) :
+    h3PreterminalSelectedVelocitySpectralSlopeErrorOnSlab
+        hNS ht₀ hE hTail hQ hQR hx h i
+      =
+    (h⁻¹ : ℝ) •
+        (
+          (
+            h3SpectralFinHeatLerayMildSolutionAtRestartRadiusPhysicalExtension
+              (one_pos : (0 : ℝ) < 1)
+              (h3PreterminalSelectedDecoderAnchorState
+                hNS ht₀ hTail)
+              (lt_of_lt_of_le zero_lt_one hE)
+              (norm_h3PreterminalSelectedDecoderAnchorState_le
+                hNS ht₀ hE hTail)
+              (x + h)
+          ) i
+            -
+          (
+            h3SpectralFinHeatLerayMildSolutionAtRestartRadiusPhysicalExtension
+              (one_pos : (0 : ℝ) < 1)
+              (h3PreterminalSelectedDecoderAnchorState
+                hNS ht₀ hTail)
+              (lt_of_lt_of_le zero_lt_one hE)
+              (norm_h3PreterminalSelectedDecoderAnchorState_le
+                hNS ht₀ hE hTail)
+              x
+          ) i
+        )
+      -
+    h3PreterminalSelectedProjectedRHSH3SpectralStateOnSlab
+      hNS ht₀ hE hTail hQ hQR
+      ⟨x, hx.1.le, hx.2.le⟩ i := by
+  rfl
+
+/--
 Exact coordinatewise deweighting of the genuine spectral slope error recovers
 the raw Fourier slope-error package.
 -/
@@ -405,41 +400,25 @@ theorem h3SpectralScalarRawFourierL2_h3PreterminalSelectedVelocitySpectralSlopeE
     h3PreterminalSelectedVelocityRawSlopeErrorFourierL2OnSlab
       hNS ht₀ hE hTail hQ hQR i hx h := by
 
-  let W : ℝ → H3SpectralFinVectorState :=
-    h3SpectralFinHeatLerayMildSolutionAtRestartRadiusPhysicalExtension
-      (one_pos : (0 : ℝ) < 1)
-      (h3PreterminalSelectedDecoderAnchorState
-        hNS ht₀ hTail)
-      (lt_of_lt_of_le zero_lt_one hE)
-      (norm_h3PreterminalSelectedDecoderAnchorState_le
-        hNS ht₀ hE hTail)
-
-  let xSlab :
-      Set.Icc (Q / 2) Q :=
-    ⟨x, hx.1.le, hx.2.le⟩
-
-  let R : H3SpectralFinVectorState :=
-    h3PreterminalSelectedProjectedRHSH3SpectralStateOnSlab
-      hNS ht₀ hE hTail hQ hQR xSlab
-
-  have hR :=
-    h3SpectralScalarRawFourierL2_h3PreterminalSelectedProjectedRHSH3SpectralStateOnSlab_apply_eq
-      hNS ht₀ hE hTail hQ hQR xSlab i
-
-  unfold
-    h3PreterminalSelectedVelocitySpectralSlopeErrorOnSlab
-    h3PreterminalSelectedVelocityRawSlopeErrorFourierL2OnSlab
-
-  dsimp only [W, R, xSlab]
+  rw [
+    h3PreterminalSelectedVelocitySpectralSlopeErrorOnSlab_apply
+      hNS ht₀ hE hTail hQ hQR i hx h
+  ]
 
   simp only [
-    Pi.sub_apply,
-    Pi.smul_apply,
     h3SpectralScalarRawFourierL2_sub,
     h3SpectralScalarRawFourierL2_smul_real
   ]
 
-  rw [hR]
+  rw [
+    h3SpectralScalarRawFourierL2_h3PreterminalSelectedProjectedRHSH3SpectralStateOnSlab_apply_eq
+      hNS ht₀ hE hTail hQ hQR
+      ⟨x, hx.1.le, hx.2.le⟩ i
+  ]
+
+  unfold
+    h3PreterminalSelectedVelocityRawSlopeErrorFourierL2OnSlab
+    h3SelectedRestartVelocityRawFourierVector
 
   rfl
 
