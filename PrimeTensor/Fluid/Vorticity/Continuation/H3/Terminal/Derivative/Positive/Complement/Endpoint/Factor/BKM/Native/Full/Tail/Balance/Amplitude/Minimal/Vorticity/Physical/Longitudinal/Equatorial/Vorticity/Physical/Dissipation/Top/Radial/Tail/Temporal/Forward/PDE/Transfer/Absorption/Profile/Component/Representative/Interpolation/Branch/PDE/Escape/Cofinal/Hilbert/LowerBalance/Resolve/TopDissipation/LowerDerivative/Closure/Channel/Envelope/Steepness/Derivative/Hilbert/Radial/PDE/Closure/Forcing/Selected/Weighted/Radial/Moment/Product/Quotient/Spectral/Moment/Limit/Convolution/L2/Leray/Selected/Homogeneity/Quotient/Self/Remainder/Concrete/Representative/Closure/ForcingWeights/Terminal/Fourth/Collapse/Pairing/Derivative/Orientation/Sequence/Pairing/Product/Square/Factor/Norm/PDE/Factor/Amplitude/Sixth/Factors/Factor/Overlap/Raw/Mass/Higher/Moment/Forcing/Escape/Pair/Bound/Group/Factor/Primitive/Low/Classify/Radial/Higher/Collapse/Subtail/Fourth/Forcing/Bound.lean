@@ -69,6 +69,11 @@ theorem norm_deriv_h3TerminalPhysicalTopDissipationForcingFourthQFourierL2Path_l
             H3RawFourierMomentIntegrable
               (((2 * (4 + 1) : ℕ) : ℝ))
               (R k),
+        U =
+          h3TerminalVelocitySpectralStateAt
+            hH3 t
+            ⟨lt_trans hClass.terminal_start.1 ht.1, ht.2⟩
+          ∧
         ‖deriv
             (h3TerminalPhysicalTopDissipationForcingFourthQFourierL2Path
               hH3 hClass j)
@@ -105,7 +110,7 @@ theorem norm_deriv_h3TerminalPhysicalTopDissipationForcingFourthQFourierL2Path_l
         ) := by
 
   obtain
-    ⟨U, R, D, hU10, hR10, hDeriv, hDAE⟩ :=
+    ⟨U, R, D, hU10, hR10, hUTerm, hDeriv, hDAE⟩ :=
     h3TerminalPhysicalTopDissipationForcingFourthQFourierL2Path_deriv_exists_productRuleRepresentative
       hH3 hClass ht j
 
@@ -240,6 +245,7 @@ theorem norm_deriv_h3TerminalPhysicalTopDissipationForcingFourthQFourierL2Path_l
       R,
       hU,
       hR,
+      hUTerm,
       ?_
     ⟩
 

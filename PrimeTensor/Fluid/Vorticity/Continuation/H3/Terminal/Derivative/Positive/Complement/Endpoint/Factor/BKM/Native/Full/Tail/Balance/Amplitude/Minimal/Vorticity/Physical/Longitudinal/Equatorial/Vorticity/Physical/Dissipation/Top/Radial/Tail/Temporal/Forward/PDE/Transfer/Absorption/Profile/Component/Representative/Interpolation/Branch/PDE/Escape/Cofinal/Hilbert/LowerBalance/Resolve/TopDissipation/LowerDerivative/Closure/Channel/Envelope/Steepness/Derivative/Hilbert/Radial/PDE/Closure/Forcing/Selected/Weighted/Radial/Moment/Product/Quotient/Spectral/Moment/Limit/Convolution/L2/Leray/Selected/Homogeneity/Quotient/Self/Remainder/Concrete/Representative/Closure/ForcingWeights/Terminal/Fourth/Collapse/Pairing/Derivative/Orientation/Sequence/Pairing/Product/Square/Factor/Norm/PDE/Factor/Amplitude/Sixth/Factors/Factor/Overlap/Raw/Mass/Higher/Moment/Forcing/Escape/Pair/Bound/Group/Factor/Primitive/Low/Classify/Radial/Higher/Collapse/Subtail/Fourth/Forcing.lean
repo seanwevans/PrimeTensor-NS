@@ -81,6 +81,11 @@ theorem h3TerminalPhysicalTopDissipationForcingFourthQFourierL2Path_deriv_exists
             (10 : ℝ)
             (R k))
           ∧
+        U =
+          h3TerminalVelocitySpectralStateAt
+            hH3 t
+            ⟨lt_trans hClass.terminal_start.1 ht.1, ht.2⟩
+          ∧
         deriv
             (h3TerminalPhysicalTopDissipationForcingFourthQFourierL2Path
               hH3 hClass j)
@@ -350,6 +355,27 @@ theorem h3TerminalPhysicalTopDissipationForcingFourthQFourierL2Path_deriv_exists
         k
         qSlab
 
+  have hUTerm :
+      U =
+        h3TerminalVelocitySpectralStateAt
+          hH3 t
+          ⟨lt_trans hClass.terminal_start.1 ht.1, ht.2⟩ := by
+
+    dsimp only [U]
+
+    unfold h3PreterminalSelectedUnitSpectralStateOnRadius
+
+    rw [h3SelectedProjectedRHSSlabRadius_coe]
+
+    simpa only [q, qSlab] using
+      h3PreterminalSelectedSpectralStateOnOverlap_eq_terminalVelocitySpectralStateAt
+        hH3 hClass hNSShort ht₁ hE hTail₁ hPhysical
+        hQ hQR ht htS
+        ⟨
+          by simpa only [q] using hqLower.le,
+          by simpa only [q] using hqUpper.le
+        ⟩
+
   let D : H3FourierComplexL2 :=
     h3PreterminalSelectedForcingTimeDerivativeRadialFourierL2OnSlab
       4 hNSShort ht₁ hE hTail₁ hQ hQR j qSlab
@@ -531,6 +557,7 @@ theorem h3TerminalPhysicalTopDissipationForcingFourthQFourierL2Path_deriv_exists
       D,
       hU,
       hR,
+      hUTerm,
       ?_,
       ?_
     ⟩
