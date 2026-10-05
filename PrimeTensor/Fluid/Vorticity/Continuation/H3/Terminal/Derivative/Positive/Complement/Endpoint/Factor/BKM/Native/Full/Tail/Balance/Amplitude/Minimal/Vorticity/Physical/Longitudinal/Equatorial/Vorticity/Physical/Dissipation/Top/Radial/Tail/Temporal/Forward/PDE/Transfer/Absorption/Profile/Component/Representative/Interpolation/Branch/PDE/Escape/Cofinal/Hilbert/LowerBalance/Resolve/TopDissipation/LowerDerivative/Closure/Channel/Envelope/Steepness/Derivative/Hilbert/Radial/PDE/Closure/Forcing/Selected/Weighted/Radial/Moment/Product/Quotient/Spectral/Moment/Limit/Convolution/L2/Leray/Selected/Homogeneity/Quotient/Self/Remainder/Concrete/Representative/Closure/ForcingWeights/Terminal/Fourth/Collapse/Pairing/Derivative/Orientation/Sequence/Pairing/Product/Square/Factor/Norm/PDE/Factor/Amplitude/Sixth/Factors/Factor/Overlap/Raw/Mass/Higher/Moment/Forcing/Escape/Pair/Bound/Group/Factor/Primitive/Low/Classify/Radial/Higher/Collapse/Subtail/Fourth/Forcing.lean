@@ -86,6 +86,28 @@ theorem h3TerminalPhysicalTopDissipationForcingFourthQFourierL2Path_deriv_exists
             hH3 t
             ⟨lt_trans hClass.terminal_start.1 ht.1, ht.2⟩
           ∧
+        (∀ k : Fin 3,
+          (
+            (
+              h3SpectralScalarRawFourierL2 (R k) :
+              H3FourierComplexL2
+            ) :
+            H3FourierPoint3 → ℂ
+          )
+            =ᵐ[(volume : Measure H3FourierPoint3)]
+          (fun ξ : H3FourierPoint3 =>
+            -(h3FourierGradientSquare ξ : ℂ)
+                *
+              (
+                (
+                  h3SpectralScalarRawFourierL2 (U k) :
+                  H3FourierComplexL2
+                ) ξ
+              )
+              -
+            h3RawFinLerayOuterProductDivergence
+              U U k ξ))
+          ∧
         deriv
             (h3TerminalPhysicalTopDissipationForcingFourthQFourierL2Path
               hH3 hClass j)
@@ -376,6 +398,45 @@ theorem h3TerminalPhysicalTopDissipationForcingFourthQFourierL2Path_deriv_exists
           by simpa only [q] using hqUpper.le
         ⟩
 
+  have hRPDE :
+      ∀ k : Fin 3,
+        (
+          (
+            h3SpectralScalarRawFourierL2 (R k) :
+            H3FourierComplexL2
+          ) :
+          H3FourierPoint3 → ℂ
+        )
+          =ᵐ[(volume : Measure H3FourierPoint3)]
+        (fun ξ : H3FourierPoint3 =>
+          -(h3FourierGradientSquare ξ : ℂ)
+              *
+            (
+              (
+                h3SpectralScalarRawFourierL2 (U k) :
+                H3FourierComplexL2
+              ) ξ
+            )
+            -
+          h3RawFinLerayOuterProductDivergence
+            U U k ξ) := by
+
+    intro k
+
+    have hDeweight :=
+      h3SpectralScalarRawFourierL2_h3PreterminalSelectedProjectedRHSH3SpectralStateOnSlab_apply_eq
+        hNSShort ht₁ hE hTail₁ hQ hQR qSlab k
+
+    have hPDE :=
+      h3PreterminalSelectedUnitProjectedRHSFourierL2OnRadius_ae_eq_unitPDE
+        hNSShort ht₁ hE hTail₁
+        (h3SelectedProjectedRHSSlabRadius hE hQ hQR qSlab)
+        k
+
+    rw [hDeweight]
+
+    simpa only [U] using hPDE
+
   let D : H3FourierComplexL2 :=
     h3PreterminalSelectedForcingTimeDerivativeRadialFourierL2OnSlab
       4 hNSShort ht₁ hE hTail₁ hQ hQR j qSlab
@@ -558,6 +619,7 @@ theorem h3TerminalPhysicalTopDissipationForcingFourthQFourierL2Path_deriv_exists
       hU,
       hR,
       hUTerm,
+      hRPDE,
       ?_,
       ?_
     ⟩

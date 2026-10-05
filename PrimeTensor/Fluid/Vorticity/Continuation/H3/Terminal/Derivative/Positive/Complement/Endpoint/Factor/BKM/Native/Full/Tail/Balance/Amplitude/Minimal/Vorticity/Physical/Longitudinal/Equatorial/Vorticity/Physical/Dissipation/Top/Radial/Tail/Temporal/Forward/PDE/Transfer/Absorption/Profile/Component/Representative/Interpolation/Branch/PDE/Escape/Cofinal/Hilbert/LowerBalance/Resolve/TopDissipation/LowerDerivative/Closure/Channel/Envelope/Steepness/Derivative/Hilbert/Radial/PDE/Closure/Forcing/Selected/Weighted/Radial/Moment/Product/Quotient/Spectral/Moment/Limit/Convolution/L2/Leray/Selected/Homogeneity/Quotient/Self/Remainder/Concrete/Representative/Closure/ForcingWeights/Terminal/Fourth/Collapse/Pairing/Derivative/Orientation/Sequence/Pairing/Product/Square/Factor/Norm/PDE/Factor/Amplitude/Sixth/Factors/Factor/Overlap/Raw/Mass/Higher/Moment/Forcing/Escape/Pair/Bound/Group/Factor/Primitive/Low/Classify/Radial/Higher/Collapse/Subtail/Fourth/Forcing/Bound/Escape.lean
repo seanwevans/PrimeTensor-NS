@@ -83,6 +83,28 @@ theorem exists_h3TerminalFourthQForcingDerivativeLerayData_bound
           hH3 t
           ⟨lt_trans hClass.terminal_start.1 ht.1, ht.2⟩
         ∧
+      (∀ i : Fin 3,
+        (
+          (
+            h3SpectralScalarRawFourierL2 (d.R i) :
+            H3FourierComplexL2
+          ) :
+          H3FourierPoint3 → ℂ
+        )
+          =ᵐ[(volume : Measure H3FourierPoint3)]
+        (fun ξ : H3FourierPoint3 =>
+          -(h3FourierGradientSquare ξ : ℂ)
+              *
+            (
+              (
+                h3SpectralScalarRawFourierL2 (d.U i) :
+                H3FourierComplexL2
+              ) ξ
+            )
+            -
+          h3RawFinLerayOuterProductDivergence
+            d.U d.U i ξ))
+        ∧
       ‖deriv
           (h3TerminalPhysicalTopDissipationForcingFourthQFourierL2Path
             hH3 hClass j)
@@ -118,10 +140,54 @@ theorem exists_h3TerminalFourthQForcingDerivativeLerayData_bound
         )
       ) := by
 
-  obtain
-    ⟨U, R, hU, hR, hUTerm, hBound⟩ :=
+  have hBoundRep :=
     norm_deriv_h3TerminalPhysicalTopDissipationForcingFourthQFourierL2Path_le_two_radialLeray
       hH3 hClass ht j
+
+  let U : H3SpectralFinVectorState :=
+    Classical.choose hBoundRep
+
+  have hAfterU :=
+    Classical.choose_spec hBoundRep
+
+  let R : H3SpectralFinVectorState :=
+    Classical.choose hAfterU
+
+  have hAfterR :=
+    Classical.choose_spec hAfterU
+
+  let hU :
+      ∀ k : Fin 3,
+        H3RawFourierMomentIntegrable
+          (((2 * (4 + 1) : ℕ) : ℝ))
+          (U k) :=
+    Classical.choose hAfterR
+
+  have hAfterHU :=
+    Classical.choose_spec hAfterR
+
+  let hR :
+      ∀ k : Fin 3,
+        H3RawFourierMomentIntegrable
+          (((2 * (4 + 1) : ℕ) : ℝ))
+          (R k) :=
+    Classical.choose hAfterHU
+
+  have hData :=
+    Classical.choose_spec hAfterHU
+
+  have hUTerm :
+      U =
+        h3TerminalVelocitySpectralStateAt
+          hH3 t
+          ⟨lt_trans hClass.terminal_start.1 ht.1, ht.2⟩ :=
+    hData.1
+
+  have hRPDE :=
+    hData.2.1
+
+  have hBound :=
+    hData.2.2
 
   exact
     ⟨
@@ -132,6 +198,7 @@ theorem exists_h3TerminalFourthQForcingDerivativeLerayData_bound
         hR := hR
       },
       hUTerm,
+      hRPDE,
       hBound
     ⟩
 
@@ -199,7 +266,7 @@ theorem norm_deriv_h3TerminalPhysicalTopDissipationForcingFourthQFourierL2Path_l
   exact
     (Classical.choose_spec
       (exists_h3TerminalFourthQForcingDerivativeLerayData_bound
-        hH3 hClass ht j)).2
+        hH3 hClass ht j)).2.2
 
 /--
 The canonical chosen product-rule datum uses exactly the terminal physical
@@ -226,6 +293,47 @@ theorem h3TerminalFourthQForcingDerivativeLerayDataAt_U_eq_terminalVelocity
     (Classical.choose_spec
       (exists_h3TerminalFourthQForcingDerivativeLerayData_bound
         hH3 hClass ht j)).1
+
+/--
+The chosen projected-RHS slot retains the exact unit-viscosity raw Fourier PDE.
+-/
+theorem h3TerminalFourthQForcingDerivativeLerayDataAt_R_rawFourier_ae_eq_unitPDE
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T a t : ℝ}
+    (hH3 : LoggedPreterminalH3PathAdmissible u T)
+    (hClass : PreterminalH3EnergyClass u a T)
+    (ht : t ∈ Set.Ioo a T)
+    (j i : Fin 3) :
+    let d :=
+      h3TerminalFourthQForcingDerivativeLerayDataAt
+        hH3 hClass ht j
+    (
+      (
+        h3SpectralScalarRawFourierL2 (d.R i) :
+        H3FourierComplexL2
+      ) :
+      H3FourierPoint3 → ℂ
+    )
+      =ᵐ[(volume : Measure H3FourierPoint3)]
+    (fun ξ : H3FourierPoint3 =>
+      -(h3FourierGradientSquare ξ : ℂ)
+          *
+        (
+          (
+            h3SpectralScalarRawFourierL2 (d.U i) :
+            H3FourierComplexL2
+          ) ξ
+        )
+        -
+      h3RawFinLerayOuterProductDivergence
+        d.U d.U i ξ) := by
+
+  dsimp only
+
+  exact
+    (Classical.choose_spec
+      (exists_h3TerminalFourthQForcingDerivativeLerayData_bound
+        hH3 hClass ht j)).2.1 i
 
 /--
 One of the 18 scalar product-rule channels.  Orientation `0` is `N(R,U)`;

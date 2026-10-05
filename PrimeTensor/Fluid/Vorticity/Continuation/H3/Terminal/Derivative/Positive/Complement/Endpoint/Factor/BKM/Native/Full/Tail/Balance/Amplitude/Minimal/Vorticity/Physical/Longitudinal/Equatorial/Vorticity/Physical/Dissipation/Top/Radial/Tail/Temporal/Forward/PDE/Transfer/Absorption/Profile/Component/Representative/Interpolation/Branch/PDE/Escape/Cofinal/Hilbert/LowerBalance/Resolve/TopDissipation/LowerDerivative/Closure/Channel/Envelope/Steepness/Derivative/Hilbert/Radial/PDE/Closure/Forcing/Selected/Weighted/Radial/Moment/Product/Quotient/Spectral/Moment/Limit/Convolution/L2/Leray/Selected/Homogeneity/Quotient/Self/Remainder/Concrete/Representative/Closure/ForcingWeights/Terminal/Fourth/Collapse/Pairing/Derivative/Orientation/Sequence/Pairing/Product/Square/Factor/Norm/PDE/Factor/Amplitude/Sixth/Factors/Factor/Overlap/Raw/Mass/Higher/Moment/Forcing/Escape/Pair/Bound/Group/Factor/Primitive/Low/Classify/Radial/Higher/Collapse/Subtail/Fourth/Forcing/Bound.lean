@@ -74,6 +74,28 @@ theorem norm_deriv_h3TerminalPhysicalTopDissipationForcingFourthQFourierL2Path_l
             hH3 t
             ⟨lt_trans hClass.terminal_start.1 ht.1, ht.2⟩
           ∧
+        (∀ i : Fin 3,
+          (
+            (
+              h3SpectralScalarRawFourierL2 (R i) :
+              H3FourierComplexL2
+            ) :
+            H3FourierPoint3 → ℂ
+          )
+            =ᵐ[(volume : Measure H3FourierPoint3)]
+          (fun ξ : H3FourierPoint3 =>
+            -(h3FourierGradientSquare ξ : ℂ)
+                *
+              (
+                (
+                  h3SpectralScalarRawFourierL2 (U i) :
+                  H3FourierComplexL2
+                ) ξ
+              )
+              -
+            h3RawFinLerayOuterProductDivergence
+              U U i ξ))
+          ∧
         ‖deriv
             (h3TerminalPhysicalTopDissipationForcingFourthQFourierL2Path
               hH3 hClass j)
@@ -109,10 +131,57 @@ theorem norm_deriv_h3TerminalPhysicalTopDissipationForcingFourthQFourierL2Path_l
           )
         ) := by
 
-  obtain
-    ⟨U, R, D, hU10, hR10, hUTerm, hDeriv, hDAE⟩ :=
+  have hRep :=
     h3TerminalPhysicalTopDissipationForcingFourthQFourierL2Path_deriv_exists_productRuleRepresentative
       hH3 hClass ht j
+
+  let U : H3SpectralFinVectorState :=
+    Classical.choose hRep
+
+  have hAfterU :=
+    Classical.choose_spec hRep
+
+  let R : H3SpectralFinVectorState :=
+    Classical.choose hAfterU
+
+  have hAfterR :=
+    Classical.choose_spec hAfterU
+
+  let D : H3FourierComplexL2 :=
+    Classical.choose hAfterR
+
+  have hData :=
+    Classical.choose_spec hAfterR
+
+  have hU10 :
+      ∀ k : Fin 3,
+        H3RawFourierMomentIntegrable
+          (10 : ℝ)
+          (U k) :=
+    hData.1
+
+  have hR10 :
+      ∀ k : Fin 3,
+        H3RawFourierMomentIntegrable
+          (10 : ℝ)
+          (R k) :=
+    hData.2.1
+
+  have hUTerm :
+      U =
+        h3TerminalVelocitySpectralStateAt
+          hH3 t
+          ⟨lt_trans hClass.terminal_start.1 ht.1, ht.2⟩ :=
+    hData.2.2.1
+
+  have hRPDE :=
+    hData.2.2.2.1
+
+  have hDeriv :=
+    hData.2.2.2.2.1
+
+  have hDAE :=
+    hData.2.2.2.2.2
 
   let hU :
       ∀ k : Fin 3,
@@ -246,6 +315,7 @@ theorem norm_deriv_h3TerminalPhysicalTopDissipationForcingFourthQFourierL2Path_l
       hU,
       hR,
       hUTerm,
+      hRPDE,
       ?_
     ⟩
 
