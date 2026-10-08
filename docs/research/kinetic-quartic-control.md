@@ -164,3 +164,19 @@ so an already active absorbed branch remains active after reanchoring.
 
 These results refine the conditional continuation/nonextension alternative;
 they do not establish finite-time blowup or unconditional continuation.
+
+## Uniform exact adaptive regimes
+
+The exact threshold partitions the adaptive coefficient pointwise:
+when E(t) is at or below 1 + (3 + 81 B(t)^3 / 8) E0(b), the
+minimum is B(t); when E(t) is strictly above that threshold,
+it is the exact normalized absorption coefficient.
+
+If either branch is selected throughout a later strict tail, its
+integrability alone implies H3-path continuation. Conversely,
+nonextension forces that selected coefficient to be nonintegrable.
+The corresponding conditional obstruction holds on all later tails
+when the same regime persists throughout the original anchored tail.
+
+These are regime-dependent consequences of the existing adaptive
+criterion, not assertions that either regime must eventually persist.
