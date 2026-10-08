@@ -455,3 +455,24 @@ nonextension forces q_epsilon nonintegrable on every strict later tail for
 all epsilon >= 0. This anchor-independent family identifies an exact
 minimal PDE margin requirement; it does NOT prove such an estimate is
 satisfied, nor establish global regularity or blowup.
+
+## Explicit spectral dissipation-gap frontier
+
+The existing H3 nonlinear commutator bound gives -transport_H3 <= B(t) E(t),
+where B(t)=4422(1+C1 sqrt(E_H3(t))). Define the spectral dissipation gap
+
+    g_epsilon(t) = max(0, B(t) - (2-epsilon) D(t)/E(t)).
+
+The exact minimal normalized transport margin excess q_epsilon is pointwise
+bounded by g_epsilon on H3 energy-class times, because the actual transport
+pairing may enjoy cancellation beyond the commutator bound. For epsilon>=0,
+integrability of g_epsilon on a terminal energy-class interval gives the
+established H3 continuation criterion. Under hypothetical nonextension,
+g_epsilon must instead fail L1 on every late energy-class tail, and it must
+strictly exceed every proposed integrable comparison function somewhere
+on each such tail. At any positive kinetic anchor, a violation can be chosen
+at a time with exact direct coefficient selection and zero selected absorption.
+This is a conditional quantitative dissipation/transport gap frontier, not
+a proof that the gap is integrable or that nonextension occurs. The genuine
+missing estimate must improve commutator control or show that enough of the
+full dissipation compensates the nonlinear term.
