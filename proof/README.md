@@ -1,24 +1,30 @@
 # `proof/` — prose renderings of the Lean development
 
-Each Lean module under `PrimeTensor/` has a matching LaTeX fragment here at
-the same relative path, with `.lean` replaced by `.tex`, and a rendered PDF
-beside it with `.lean` replaced by `.pdf`:
+This directory contains selected prose renderings, not a complete mirror of
+all Lean modules. At the `1c4104d6` audit checkpoint there are 2,383 project
+modules and 22 prose fragments. A missing fragment means the source has not
+yet been rendered here; it says nothing about whether the Lean module builds.
 
+Most fragments use the same relative path as their source. Explicit historical
+exceptions live in `source-map.json`: `MulRat.tex` renders `Mul/Rat.lean` while
+retaining its existing fragment name, labels, and PDF path.
+
+`order.txt` is generated from the current source graph. It lists all existing
+project modules in dependency order over existing project import edges.
+Excluded modules and missing imports are recorded separately in
+`tools/audit/known-source-gaps.json`; appearing in this index is not a build
+certification. The header records the generating revision and source digest.
+It does not establish the provenance of an older `out.pdf`.
+
+```bash
+python3 proof/generate_index.py          # refresh after Lean source changes
+python3 proof/generate_index.py --check  # check without rewriting
+python3 proof/check_fragment.py --all
 ```
-PrimeTensor/Depth.lean            ->  proof/Depth.tex   ->  proof/Depth.pdf
-PrimeTensor/Bridge/Log/Scale.lean ->  proof/Bridge/Log/Scale.tex
-```
 
-The fragment states, in ordinary mathematical prose, what the module defines
-and proves, and gives human-readable proofs of the results it establishes.
-Every numbered item carries the name of the Lean declaration it corresponds
-to, and each fragment ends with a table listing every declaration in the
-module so that coverage is checkable by eye.
-
-`order.txt` lists all 766 modules in import-DAG topological order — the order
-the repository's `out.pdf` renders — and is the queue for this conversion.
-Fragments are written in that order; anything in `order.txt` without a `.tex`
-beside it is not yet converted.
+A fragment states what its source defines and proves, with verbatim Lean
+excerpts and human-readable explanations. Only existing fragments are included
+in the aggregate document. No PDF generation is required to run these checks.
 
 ## Fragments are `\input`-able
 
@@ -42,25 +48,21 @@ listing style, and the notation macros (`\Depth`, `\Axis`, `\fold`, `\leanfile`,
 | --- | --- |
 | `preamble.tex` | Shared packages, theorem environments, notation macros. No `\documentclass`. |
 | `main.tex` | The aggregate document. Its `\input` list is generated, so it is never edited by hand. |
-| `order.txt` | Every module in import-DAG topological order; the order fragments are assembled in. |
+| `order.txt` | Generated inventory, ordered by existing project imports. |
+| `generate_index.py` | Regenerates/checks the index and emits mapped fragment inputs. |
+| `source-map.json` | Explicit fragment-to-source path exceptions. |
 | `standalone.tex` | One-fragment wrapper used to render a single module to its own PDF. |
 | `build.sh` | Driver for both. Checks listings, then runs LuaLaTeX. |
 | `check_fragment.py` | Checks quoted snippets, label namespacing, and local references. |
 | `<Module>.tex` | The fragments, mirroring the `PrimeTensor/` tree. |
 
 `build.sh --main` regenerates `modules.tex` from `order.txt`, keeping the
-entries whose fragment exists, and `main.tex` inputs that. `modules.tex` is
-generated and not committed. This is deliberate: adding a module means adding
-one file and touching no shared file, so per-module branches never conflict
-with one another.
+entries whose fragment exists (including mapped historical names), and `main.tex` inputs that. `modules.tex` is
+generated and not committed. Regenerate the source index when Lean sources change; adding prose for an already indexed module requires only its fragment and any explicit path mapping.
 
 ## Building
 
-Builds with **LuaLaTeX**, not pdfLaTeX. The Lean sources use 128 distinct
-non-ASCII characters, and a Unicode engine lets the fragments quote them
-literally rather than transliterating them; `preamble.tex` is built on
-`fontspec` and `unicode-math`, and sets DejaVu Sans Mono for code, which
-carries 119 of those 128.
+Builds with **LuaLaTeX**, not pdfLaTeX. Lean sources contain Unicode characters. A Unicode engine lets fragments quote them literally; `preamble.tex` uses `fontspec` and `unicode-math`, with DejaVu Sans Mono for code.
 
 Lean snippets go in a `leancode` environment, which is fvextra's `Verbatim` —
 deliberately **not** `listings`. Under LuaLaTeX, `listings` reorders
@@ -87,7 +89,7 @@ cd proof
 ```
 
 Module names are given relative to `proof/` and without the extension, so they
-read exactly like the path under `PrimeTensor/`. Auxiliary files are written to
+normally match the path under `PrimeTensor/`; `source-map.json` records exceptions. Auxiliary files are written to
 a temporary directory and discarded; only the PDF is left behind.
 
 ## Fragment rules
@@ -101,7 +103,7 @@ render, so a fragment that breaks one fails the build:
    deliberately not a quote opts out with `% listing:paraphrase` on the
    preceding line.
 2. **Labels are namespaced by module**, as `<Module>:<name>` with `/` written
-   as `:` — `Depth:def:fold`, `Bridge:Log:Scale:lem:main`. All 766 fragments
+   as `:` — `Depth:def:fold`, `Bridge:Log:Scale:lem:main`. All included fragments
    share one document, and bare labels would collide.
 3. **References stay inside the fragment.** A fragment is rendered both alone
    and inside `main.tex`; a `\ref` into another fragment is undefined in the
@@ -121,9 +123,8 @@ body.
 ## Adding a module
 
 1. Write `proof/<Path>.tex` as a fragment, mirroring `PrimeTensor/<Path>.lean`.
-2. Run `./build.sh <Path>` and commit the `.tex` and the `.pdf`. Nothing else
-   needs editing: `<Path>` is already listed in `order.txt`, so the aggregate
-   document picks the fragment up on its next build.
+2. Run `python3 generate_index.py --check`; regenerate the index if sources changed.
+3. Run `python3 check_fragment.py <Path>`. Render with `./build.sh <Path>` when a PDF is wanted; commit the fragment and any deliberately regenerated PDF.
 
 One branch and one pull request per module, so that each conversion can be
 reviewed against its source file on its own.

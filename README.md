@@ -196,3 +196,11 @@ Likewise, divergence of weighted moments on a hypothetical nonextension branch s
 ```bash
 lake build
 ```
+
+## Audit and consolidation
+
+The [consolidation checkpoint](docs/audit/README.md) records the successful
+`1c4104d6` build baseline, the distinction between terminal extension and genuine
+post-terminal restart, and the five sources awaiting separate coverage review.
+The [proof documentation guide](proof/README.md) explains the generated source
+index and the partial prose-fragment coverage.

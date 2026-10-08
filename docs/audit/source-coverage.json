@@ -1,0 +1,43 @@
+{
+  "revision": "1c4104d6",
+  "scope": "Static classification; no excluded source has been deleted or added to the root.",
+  "modules": [
+    {
+      "path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Second/LowerTemporal/Amplitude/Forcing/Primitive.lean",
+      "classification": "mixed-duplicate-and-unique",
+      "action": "Compare unique statements with the active Escape/Pair/Bound chain before extracting or importing; do not delete or add wholesale to the root.",
+      "source_sha256": "ff846baa7d19b303d7f038b8da782369a84b63284a739eb52e3f6b8a5a1bee2e",
+      "evidence": "Named theorem overlap with the active Forcing/Escape, Escape/Pair, and Escape/Pair/Bound modules; additional uniquely named primitive-factor results remain."
+    },
+    {
+      "path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/Transfer/Absorption/Profile/Component/Representative/Interpolation/Branch/PDE/Escape/Cofinal/Hilbert/LowerBalance/Resolve/TopDissipation/LowerDerivative/Closure/Channel/Envelope/Steepness/Derivative/Hilbert/Radial/PDE/Closure/Forcing/Selected/Weighted/Radial/Moment/Product/Quotient/Spectral/Moment/Limit/Convolution/L2/Leray/Selected/Homogeneity/Quotient/Self/Remainder/Concrete/Representative/Closure/ForcingWeights/Terminal/Fourth/Collapse/Pairing/Derivative/Orientation/Sequence/Pairing/Product/Square/Factor/Norm/PDE/Factor/Amplitude/Sixth/Factors/Factor/Overlap/Raw/Mass/Higher/Moment/Forcing/Escape/Pair/Bound/Group/Factor/Primitive/Low/Classify/Radial/Higher/Collapse/Subtail/Fourth/Forcing/Bound/Escape/StateMass/Group/Factor/Primitive.lean",
+      "classification": "duplicate-with-obsolete-import",
+      "action": "Replace the old body with an import of the active canonical module, then compile the old target; preserve the historical import path.",
+      "source_sha256": "c852c3ef970c22bde33a13c1fb5fcf69579651ebb76cd1f206ba53132d22e086",
+      "canonical_path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Fourth/Raw/Higher/Subtail/StateMass/Group/Factor/Primitive.lean",
+      "evidence": "All lines after the first import line are identical to the canonical file.",
+      "canonical_sha256": "e3a6c6191b80b7f58e7f2a6a528877ba2e82f0674814b18cf3422f2aea8b590d"
+    },
+    {
+      "path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Hilbert/Weighted/Old/PDE/Terms.lean",
+      "classification": "standalone-candidate",
+      "action": "Compile independently and assess inclusion in supported module coverage.",
+      "source_sha256": "c7c70345b7a56a6cce5dc1d0e4cf4ed371c91ee77f86e986c3023a7f53ae024d",
+      "evidence": "Named results not found elsewhere in the current source scan; this is a retention candidate, not independently build-verified."
+    },
+    {
+      "path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/L2/Cauchy/Frontier.lean",
+      "classification": "standalone-candidate",
+      "action": "Compile independently; preserve the physical/Fourier Cauchy equivalence, then assess its public API.",
+      "source_sha256": "4936b7d56926be00e87d2dce9717bee0fd6ef3f9a264969c9bdce2cade10e662",
+      "evidence": "Named results not found elsewhere in the current source scan; this is a retention candidate, not independently build-verified."
+    },
+    {
+      "path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Strict/Time/Decay.lean",
+      "classification": "standalone-candidate",
+      "action": "Compile independently and assess inclusion in supported module coverage.",
+      "source_sha256": "ceeafed4cc6801dc878bc1291d10623330db1443cd7148a546e00ee32cbf9d93",
+      "evidence": "Named results not found elsewhere in the current source scan; this is a retention candidate, not independently build-verified."
+    }
+  ]
+}

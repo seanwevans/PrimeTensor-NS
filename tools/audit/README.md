@@ -28,7 +28,9 @@ The source inventory deliberately records five known modules outside the root
 import closure and one missing import at the original `fea879ee` checkpoint.
 `known-source-gaps.json` is a temporary explicit inventory, not a certification
 or an instruction to delete these modules. Changes to either list fail the
-check until reviewed. The next audit step must classify and repair them.
+check until reviewed. Their classification and repair order are recorded in
+`docs/audit/source-coverage.json` and `docs/audit/README.md`; they remain
+unrepaired until their individual validation steps succeed.
 
 A passing baseline covers the default Lake targets and selected contract
 checks. It does not claim all source files compile or that any conditional

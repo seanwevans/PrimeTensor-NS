@@ -2,7 +2,7 @@
 """Check a prose fragment against the module it renders.
 
 A fragment under proof/ renders exactly one module under PrimeTensor/.  Each
-of its lstlisting blocks is meant to be an excerpt of that module's source,
+of its leancode blocks is meant to be an excerpt of that module's source,
 copied character for character, so that a reader can trust the quoted code
 without diffing it against the repository by hand.
 
@@ -14,7 +14,7 @@ Three checks, all of them things that only bite once the tree is large:
    it:  % listing:paraphrase
 
 2. Every \\label is namespaced by the module, as <M>:<name> with '/' written
-   as ':'.  766 fragments share one document, and bare labels like
+   as ':'.  Fragments share one document, and bare labels like
    'def:eval' would collide.
 
 3. Every \\ref and \\eqref resolves inside the same fragment.  A fragment is
@@ -25,6 +25,7 @@ Three checks, all of them things that only bite once the tree is large:
 Usage:  check_fragment.py <module> [<module> ...]      (paths relative to proof/)
         check_fragment.py --all
 """
+import json
 import os
 import re
 import sys
@@ -52,11 +53,13 @@ def dedent(text):
 
 def check(module):
     tex = os.path.join(HERE, module + '.tex')
-    lean = os.path.join(REPO, 'PrimeTensor', module + '.lean')
+    with open(os.path.join(HERE, 'source-map.json'), encoding='utf-8') as fh:
+        source_module = json.load(fh).get(module, module)
+    lean = os.path.join(REPO, 'PrimeTensor', source_module + '.lean')
     if not os.path.isfile(tex):
         return [f'{module}: no fragment at proof/{module}.tex']
     if not os.path.isfile(lean):
-        return [f'{module}: no source at PrimeTensor/{module}.lean']
+        return [f'{module}: no source at PrimeTensor/{source_module}.lean']
 
     with open(tex, encoding='utf-8') as fh:
         fragment = fh.read()
@@ -96,7 +99,7 @@ def check(module):
         head = body.split('\n')[0] if body else '(empty)'
         problems.append(
             f'{module}.tex:{line}: block is not verbatim in '
-            f'PrimeTensor/{module}.lean\n    first line: {head!r}')
+            f'PrimeTensor/{source_module}.lean\n    first line: {head!r}')
     if not problems:
         print(f'  {module}: {checked} listing(s) verbatim, '
               f'{len(labels)} label(s) namespaced')

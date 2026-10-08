@@ -132,7 +132,7 @@ $\name{scalePow}(1, \ell) = 1$ for every level $\ell$.
 By structural recursion on the level.  At $\ctor{one}$ the value is the
 argument, so the claim is $\ctor{rfl}$.  At $\ctor{succ}\,d$ the value is
 $q \cdot q$ with $q = \name{scalePow}(1, d)$; the induction hypothesis rewrites
-$q$ to $1$, and $\name{one\_mul}$ from \texttt{PrimeTensor/MulRat.lean}
+$q$ to $1$, and $\name{one\_mul}$ from \texttt{PrimeTensor/Mul/Rat.lean}
 finishes.  Note the recursive call is made explicitly on $d$, the lemma being
 stated as a $\forall$ and proved by pattern matching rather than by
 $\ctor{induction}$.

@@ -11,7 +11,7 @@
 Two earlier modules left a gap that this one closes.
 \texttt{PrimeTensor/Ratio.lean} defined the cross-product strict order
 $\name{Lt}$ on representatives and proved nothing about it;
-\texttt{PrimeTensor/MulRat.lean} took the quotient and transported only the
+\texttt{PrimeTensor/Mul/Rat.lean} took the quotient and transported only the
 multiplicative structure across, leaving $\name{MulRat}$ with no order at all.
 Here $\name{Lt}$ is shown to respect the equivalence, lifted to
 $\name{MulRat}$, and proved irreflexive and transitive.
@@ -35,7 +35,7 @@ $0 < 1$ and $\name{PrimeBag.one\_le\_eval}$ compose.
 \end{proof}
 
 This is word for word the lemma proved in
-\texttt{PrimeTensor/MulRat.lean}, restated because that one is \lean{private}
+\texttt{PrimeTensor/Mul/Rat.lean}, restated because that one is \lean{private}
 and so not visible outside its own file.  Both are \lean{private}, and the
 names differ only by the suffix $\lean{\_order}$.  Everything below rests on
 it: each order proof cancels a factor, and cancellation of a strict inequality
@@ -141,7 +141,7 @@ and~\ref{Order:lem:trans-rep} are the same manoeuvre: multiply through by the
 denominator that the conclusion does not mention, walk a chain of
 $\ctor{ac\_rfl}$ reassociations punctuated by the hypotheses, then cancel.  It
 is the strict-inequality counterpart of the calculation proving transitivity of
-$\name{Same}$ in \texttt{PrimeTensor/MulRat.lean}, and it exists for the same
+$\name{Same}$ in \texttt{PrimeTensor/Mul/Rat.lean}, and it exists for the same
 reason: the natural formulation would divide, and $\mathbb{N}$ has no
 division.  Each use needs a positive factor, and each gets it from
 Lemma~\ref{Order:lem:pos}.
@@ -169,7 +169,7 @@ def lt (a b : MulRat) : Prop :=
 \end{leancode}
 
 \begin{remark}[This lift needs \lean{propext}]\label{Order:rem:propext}
-The lifts in \texttt{PrimeTensor/MulRat.lean} produced elements of
+The lifts in \texttt{PrimeTensor/Mul/Rat.lean} produced elements of
 $\name{MulRat}$, and their obligations were discharged by
 $\name{Quotient.sound}$, which turns a $\name{Same}$ into an equality of
 classes.  This one produces an element of $\mathrm{Prop}$, so its obligation is
@@ -219,7 +219,7 @@ $\name{ratio}(a,a) = 1$.
 
 \begin{proof}
 Unfolding, this is $a \cdot a^{-1} = 1$, which is \lean{MulRat.mul\_inv} from
-\texttt{PrimeTensor/MulRat.lean}.  It is tagged \lean{@[simp]}.
+\texttt{PrimeTensor/Mul/Rat.lean}.  It is tagged \lean{@[simp]}.
 \end{proof}
 
 This is a real strengthening over the representative level.  In

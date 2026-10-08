@@ -51,12 +51,12 @@ $a^{-1} \cdot a = 1$ for every $a : \name{MulRat}$.
 
 \begin{proof}
 Commute the product and apply $\name{mul\_inv}$ of
-\texttt{PrimeTensor/MulRat.lean}.
+\texttt{PrimeTensor/Mul/Rat.lean}.
 \end{proof}
 
 \begin{remark}[Filling a gap, not proving something new]
 \label{Scale:Laws:rem:inv-mul}
-\texttt{PrimeTensor/MulRat.lean} proved $a \cdot a^{-1} = 1$ and, separately,
+\texttt{PrimeTensor/Mul/Rat.lean} proved $a \cdot a^{-1} = 1$ and, separately,
 commutativity, but never stated the left-handed form; since $\name{MulRat}$
 carries a bare $\ctor{Mul}$ instance and not a group structure, nothing
 derives it automatically.  It is marked $\ctor{simp}$ here because the
@@ -167,7 +167,7 @@ $1 \leq \name{eval}$.
 \end{proof}
 
 \begin{remark}[The same lemma, a third time]\label{Scale:Laws:rem:third-time}
-This statement is proved privately in \texttt{PrimeTensor/MulRat.lean}, again
+This statement is proved privately in \texttt{PrimeTensor/Mul/Rat.lean}, again
 in \texttt{PrimeTensor/Order.lean} as $\name{multiset\_eval\_pos\_order}$, and
 again here.  Each copy is $\ctor{private}$, so no later file can reach the
 earlier one; the duplication is the price of that.  What it says is the

@@ -112,7 +112,7 @@ $\name{ratio}(a^{-1}, b^{-1}) = \name{ratio}(b, a)$.
 \begin{proof}
 $\name{ratio}(a^{-1},b^{-1}) = a^{-1}(b^{-1})^{-1} = a^{-1}b = ba^{-1} =
 \name{ratio}(b,a)$, using $\name{inv\_inv}$ and commutativity from
-\texttt{PrimeTensor/MulRat.lean}.
+\texttt{PrimeTensor/Mul/Rat.lean}.
 \end{proof}
 
 \subsection{The two analytic theorems}
@@ -302,7 +302,7 @@ by a representative stream, apply $\ctor{Quotient.sound}$ to reduce the claim
 to an asymptotic equivalence, apply
 Lemma~\ref{Algebra:lem:of-pointwise} to reduce that to a termwise equality, and
 close the termwise equality with the corresponding law of
-\texttt{PrimeTensor/MulRat.lean} --- $\name{one\_mul}$, $\name{mul\_one}$,
+\texttt{PrimeTensor/Mul/Rat.lean} --- $\name{one\_mul}$, $\name{mul\_one}$,
 $\name{mul\_assoc}$, $\name{mul\_comm}$, $\name{inv\_inv}$, $\name{mul\_inv}$
 respectively.  The unit cases additionally use that the constant stream at $1$
 has every term $1$.  The last law, $a^{-1}a = 1$, is obtained from the previous
