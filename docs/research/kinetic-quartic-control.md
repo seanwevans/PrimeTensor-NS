@@ -936,3 +936,34 @@ by the Navier--Stokes equations. Spatial interpolation alone supplies a
 4/3 top-energy dissipation exponent; the continuation threshold has a
 3/2 full-energy exponent. Their mismatch is the outstanding analytic gap.
 No unconditional regularity or singularity is proved.
+
+## High-energy degeneracy of the cubic Fourier moment corridor
+
+The previously derived necessary condition for high unabsorbed growth was
+
+    8 E3(t)^4 < (E0(b)+1) B_M(t)^3,
+    B_M(t) = A sqrt(E(t)) E(t) - M E(t), A=4422*C1>0.
+
+At M=0, the exact algebraic equality is
+
+    B_0(t)^3 = A^3 sqrt(E(t)) E(t)^4.
+
+Because 0<=E3(t)<=E(t) and E0(b)>=0, whenever
+
+    8 < A^3 sqrt(E(t)),
+
+the moment corridor already holds strictly, independently of dissipation,
+transport cancellation or any PDE estimate. Therefore the reverse weak
+moment barrier proposed as a sufficient criterion for U<=0 is *impossible*
+at high H3 energy. On the hypothetical nonextension branch, the previously
+proved physical full-tail divergence E(t)->+infinity as t approaches T
+from below ensures that the zero-threshold corridor holds at every
+sufficiently late time; its reverse fails everywhere on that late tail.
+
+This identifies a genuine limitation of using the Fourier interpolation
+E3^4<=E0 D3^3 alone to close the cubic dissipation frontier. The latter
+only controls D from below at an E3^(4/3) scale, whereas the Landau
+absorption threshold scales like E^(3/2). The zero-threshold moment
+corridor is not an independent high-energy PDE obstruction and should
+not be mistaken for one. No unconditional continuation, improved
+coercivity or existence of finite-time singularity is established.
