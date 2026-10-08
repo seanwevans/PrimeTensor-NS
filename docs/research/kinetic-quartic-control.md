@@ -195,3 +195,17 @@ for B(t) = 4422(1 + |h(t)|) under the closed gradient-envelope hypothesis.
 
 This decomposes an existing conditional obstruction; it does not establish
 that either regime dominates, nor unconditional continuation or blowup.
+
+## Persistent selected-share obstruction
+
+On a fixed kinetic anchor, integrability of each of the two selected
+coefficients on possibly different strict subtails would imply their joint
+integrability on the common later tail. This contradicts the previously
+established nonextension obstruction. Therefore, under nonextension, at
+least one *fixed selected share* is nonintegrable on every later subtail.
+The responsible share may depend on the kinetic anchor. The gradient-
+envelope specialization has the same conclusion.
+
+This is a measure-theoretic strengthening of the existing conditional
+alternative. It does not imply pointwise eventual regime selection and
+establishes neither unconditional continuation nor blowup.

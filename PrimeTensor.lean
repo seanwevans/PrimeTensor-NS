@@ -1963,3 +1963,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.KineticQuarticTwoAnch
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.KineticQuarticRegimes
 
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.KineticQuarticSelectedRegimes
+
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.KineticQuarticPersistentShares
