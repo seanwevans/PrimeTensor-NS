@@ -511,3 +511,31 @@ selection exact at every sample, while the selected absorbed share vanishes.
 The synchronization is conditional on hypothetical nonextension and positive
 kinetic anchor mass. It neither proves commutator-bound saturation nor the
 existence of a blowup solution or unconditional smooth continuation.
+
+## Exact transport cancellation budget on the synchronized direct clock
+
+Define B(t)=4422(1+C1 sqrt(E_H3(t))), the existing commutator envelope.
+The normalized *cancellation slack* is Delta(t) = B(t) + T_H3(t)/E_H3(t),
+where T_H3 is the signed transport derivative. The existing H3 commutator
+estimate proves Delta >= 0. Exact algebra gives
+
+    Delta(t) + (-T_H3(t)-2D(t))/E(t) = 4422 + S(t),
+
+where S(t)=4422*C1*sqrt(E(t))-2D(t)/E(t) is the baseline-free spectral
+shortfall. At times with positive actual normalized zero-margin excess q0,
+its max is inactive and Delta(t)+q0(t)=4422+S(t). On the already established
+common physical-clock sequence for hypothetical nonextension, positive kinetic
+anchor mass, and exact direct selection, q0(sigma_n)>n and S(sigma_n)>n;
+therefore 0<=Delta(sigma_n) and Delta(sigma_n)+n<4422+S(sigma_n).
+Neither the size nor the asymptotic fraction of Delta is determined.
+
+If on one terminal H3 energy-class tail the quantitative compensation bound
+
+    B(t) - (2-epsilon) D(t)/E(t) - r(t) <= Delta(t)
+
+holds for nonnegative epsilon and integrable r, then the exact signed PDE
+transport satisfies -T_H3<=(2-epsilon)D+rE, so continuation follows.
+Under hypothetical nonextension, every such bound must fail somewhere on
+every terminal subtail. This is a conditional cancellation-coercivity test,
+not proof that the missing estimate holds, and it establishes neither
+unconditional H3 continuation nor a finite-time blowup example.
