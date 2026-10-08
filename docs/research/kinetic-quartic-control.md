@@ -275,3 +275,16 @@ is integrable on a later subtail, or one anchor has an integrable direct
 share and every later kinetic anchor has a persistently nonintegrable
 selected absorbed share. This is a conditional obstruction, not a proof
 of temporal integrability or unconditional continuation.
+
+## Canonical absorbed-regime coefficient ceiling
+
+The canonical square-root-gradient coefficient B(t) = 4422(1+C1 sqrt(E(t)))
+obeys B(t) >= K sqrt(E(t)) with positive K = 4422 C1. The exact
+quartic activation threshold consequently forces 81 M K^2 B(t) < 8
+on the absorbed region, where M=E0(b) is the anchor kinetic mass.
+The threshold-selected absorbed coefficient A_b(t) therefore satisfies
+81 M K^2 A_b(t) <= 8 at every time, including direct-selection times.
+For strictly positive anchor mass, A_b is bounded by 8/(81 M K^2).
+This is pointwise; temporal integrability additionally needs measurable
+selection and the finite-time interval. No unconditional continuation or
+finite-time blowup is concluded.
