@@ -565,3 +565,38 @@ theorem h3PathExactAdaptiveGradientContinuationOrObstruction
 end Euclidean
 end Bridge
 end PrimeTensor
+
+namespace PrimeTensor
+namespace Bridge
+namespace Euclidean
+
+/-- Universal strict-subtail form of the exact gradient adaptive dichotomy. -/
+theorem h3PathExactAdaptiveGradientContinuationOrObstruction_on_every_strictSubtail
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T a : ℝ} {h : ℝ → ℝ}
+    (hH3 : LoggedPreterminalH3PathAdmissible u T)
+    (hClass : PreterminalH3EnergyClass u a T)
+    (hGradient : ∀ t : ℝ, t ∈ Set.Ioo a T → VelocityGradientEnvelope u h t) :
+    (∃ v : SpaceTimeVectorField ℝ ℝ MulReal Depth.three,
+      SmoothContinuationExtension u v T) ∨
+    ∀ b : ℝ, b ∈ Set.Ioo a T →
+      ¬ MeasureTheory.IntegrableOn
+        (fun t : ℝ => min (4422 * (1 + |h t|))
+          ((4422 * (1 + |h t|) +
+            (3 * (4422 * (1 + |h t|)) +
+              (3 * (4422 * (1 + |h t|))) ^ 4 / (2 : ℝ) ^ 3) *
+              velocityH3Energy0At u b) /
+            velocityH3EnergyAt u t)) (Set.Ioo b T) := by
+  by_cases hExtension : ∃ v : SpaceTimeVectorField ℝ ℝ MulReal Depth.three,
+      SmoothContinuationExtension u v T
+  · exact Or.inl hExtension
+  · right
+    intro b hb
+    apply not_integrableOn_minDirectExactQuarticGradient_on_strictSubtail_of_noH3PathExtension
+      hH3 hExtension hClass hb
+    intro t ht
+    exact hGradient t ⟨lt_trans hb.1 ht.1, ht.2⟩
+
+end Euclidean
+end Bridge
+end PrimeTensor

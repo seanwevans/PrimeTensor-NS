@@ -174,3 +174,7 @@ open PrimeTensor.Bridge.Euclidean
 #print axioms h3PathExactAdaptiveQuarticContinuationOrObstruction
 #check h3PathExactAdaptiveGradientContinuationOrObstruction
 #print axioms h3PathExactAdaptiveGradientContinuationOrObstruction
+
+-- Universal exact gradient dichotomy over every strict subtail.
+#check h3PathExactAdaptiveGradientContinuationOrObstruction_on_every_strictSubtail
+#print axioms h3PathExactAdaptiveGradientContinuationOrObstruction_on_every_strictSubtail

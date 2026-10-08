@@ -115,3 +115,7 @@ The exact branch is packaged as a neutral dichotomy on each anchored tail:
 either a `SmoothContinuationExtension` exists, or the exact adaptive minimum
 coefficient is nonintegrable. The gradient-envelope specialization supplies
 this alternative directly from the closed PDE transport estimate.
+
+The gradient dichotomy now has a universal strict-subtail form: either one
+continuation extension exists, or the exact adaptive coefficient is
+nonintegrable on every later tail inside the energy-class interval.
