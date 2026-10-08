@@ -1,6 +1,6 @@
 # Consolidation checkpoint
 
-## Current status (base: 03a5e2db)
+## Current status (base: 7737d332)
 
 User-confirmed local baselines have completed the source-coverage repairs,
 23-module clock/width path migration, and two limit-bundle refactorings:
@@ -19,6 +19,7 @@ User-confirmed local baselines have completed the source-coverage repairs,
 | Forward-width limit bundle | `80b1aea3` |
 | Full audit CI integration (local baseline) | `0bb4d596` |
 | Kernel-checked jet cardinality | `03a5e2db` |
+| Minimal restart and endpoint contract review | `7737d332` |
 
 The current inventory is 2,407 project modules: 2,402 reachable from the root
 and five covered through standalone targets, with no uncovered modules or
@@ -66,7 +67,10 @@ continuity at T. The checked bridge projects that stronger result to the
 terminal extension package. The full-data real-restart theorem retains
 `EnergyClassProducesCanonicalH3Data` as its premise. A second existing route
 uses the weaker `EnergyClassProducesCanonicalH3EnergyContinuity` premise;
-the expanded contract audit now prints both routes and their connecting theorem.
+the expanded contract audit prints both routes and their connecting theorem.
+For the H³ path class itself, `h3PathRealRestart_of_tailControl` already gives
+a real restart from terminal-tail H³ control with no separate canonical-data
+or energy-continuity interface. The follow-up audit includes this direct route.
 See [contract-boundaries.md](contract-boundaries.md) for the source-level review.
 
 The latest quantitative neutral endpoint alternative retains all of:
@@ -263,3 +267,13 @@ No library theorem, definition, assumption, or import is changed by this step.
 The new audit commands require the next local baseline for Lean validation.
 The findings and ordered follow-up questions are in
 [contract-boundaries.md](contract-boundaries.md).
+
+## Existing direct path restart (base: 7737d332)
+
+The initial expanded contract audit passed at `7737d332`. Tracing the proposed
+path-specific continuity specialization found it already proved in
+`H3/Restart/Direct.lean`, together with the late restart data, real restart,
+and extension projection. The roadmap now identifies terminal-tail H³ control
+as the retained input on this route rather than a new continuity obligation.
+The audit prints those existing theorem types and axiom dependencies. Library
+sources are unchanged; the added audit commands await the next baseline run.

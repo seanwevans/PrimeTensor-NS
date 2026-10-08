@@ -1,11 +1,11 @@
 # Continuation contract review
 
-Reviewed source base: `03a5e2db`. This is a review of the named contracts and
+Reviewed source base: `7737d332`. This is a review of the named contracts and
 routes below, not a claim that every mathematical dependency has been audited.
 The accompanying `tools/audit/Contracts.lean` prints their actual Lean types
-and selected transitive axiom dependencies. Its new commands await a local
-baseline run. The user's successful commit confirms the preceding cardinality
-proof compiled; the exact emitted axiom list and CI result are separate evidence.
+and selected transitive axiom dependencies. The initial expanded audit passed at `7737d332`. The additional path-specific
+commands in this revision await a local baseline run. Exact emitted axiom lists
+and CI results remain separate evidence.
 
 ## What the endpoint theorem says
 
@@ -86,16 +86,46 @@ Sources: [canonical data](../../PrimeTensor/Fluid/Vorticity/H3/Energy/Closure.le
 [minimal continuity](../../PrimeTensor/Fluid/Vorticity/Continuation/Restart/Endpoint/Third/Energy/Continuity/Minimal.lean),
 and [continuity restart closure](../../PrimeTensor/Fluid/Vorticity/Continuation/Restart/Endpoint/Third/Energy/Continuity/Tail/Control/Closure.lean).
 
+## The path-specific restart is already closed
+
+The further trace reaches
+[H3/Restart/Direct.lean](../../PrimeTensor/Fluid/Vorticity/Continuation/H3/Restart/Direct.lean),
+which already implements the path-specific argument considered in the previous
+review. There is no new restart theorem to prove here:
+
+- `LoggedPreterminalH3PathAdmissible.canonicalH3EnergyContinuousOnTail`
+  restricts `hH3.energy_continuousAt` to each compact [a,b] with a strict
+  preterminal left endpoint.
+- `h3PreterminalTailUnitViscosityLateEnergyContinuousRestartData_of_h3Path_tailControl`
+  chooses a sufficiently late anchor inside the controlled tail. Its remaining
+  interval is smaller than the positive restart radius, and it carries the
+  path's scalar energy continuity.
+- `h3PathRealRestart_of_tailControl` uses those data to produce velocity,
+  pressure, and S > T with the full real-restart conclusion.
+- `h3PathH3ControlProducesExtension` then projects the real restart to the
+  existing extension package.
+
+The real-restart theorem's only explicit hypotheses, apart from its field and
+terminal-time parameters, are `LoggedPreterminalH3PathAdmissible u T` and
+`TerminalTailH3Control u T`. It does not assume either global energy-class
+continuity interface, the full canonical-data package, a high-order energy
+class, or the endpoint theorem's strong-vorticity/Cauchy assumptions.
+
+This corrects the scope of the previous follow-up: the universal interfaces
+remain premises of their general-purpose routes, but are not an outstanding
+obligation for this already formalized path-specific restart. The additional
+contract commands print all four stages and their selected axiom dependencies.
+No library source has been changed to obtain this result.
+
 ## Follow-up order
 
-1. Validate the expanded contract output. Keep successful local build evidence
-   and the actual CI result distinct. Review the new axiom lists; they are
-   reports, not an enforced allowlist.
-2. Trace how the weaker restart route consumes continuity for one actual path.
-   `hH3` already contains strict-time scalar energy continuity for its path.
-   Determine whether the existing local lemmas give the required late-tail
-   continuity directly. Do not infer the global energy-class interface merely
-   from one path's hypotheses.
+1. Validate the path-specific contract output. Keep successful local build
+   evidence and the actual CI result distinct. Review the new axiom lists;
+   they are reports, not an enforced allowlist.
+2. Trace the sufficient conditions for `TerminalTailH3Control` on an admissible
+   H³ path. This is the input the direct restart still requires. Strict-time
+   integrability and continuity do not themselves state a uniform terminal-tail
+   bound; do not replace that bound with a qualitative regularity assertion.
 3. Track the strong endpoint and raw L² Cauchy assumptions separately. Identify
    exact existing sufficient conditions or genuinely missing estimates before
    attempting to remove either assumption from the endpoint theorem.

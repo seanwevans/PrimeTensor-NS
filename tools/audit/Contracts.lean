@@ -30,6 +30,17 @@ open PrimeTensor.Bridge.Euclidean
 #check h3ControlProducesExtension_of_unitViscosityEnergyContinuity
 #print axioms h3ControlProducesExtension_of_unitViscosityEnergyContinuity
 
+-- The H3 path already supplies continuity for its own direct restart.
+#check LoggedPreterminalH3PathAdmissible.canonicalH3EnergyContinuousOnTail
+#print axioms LoggedPreterminalH3PathAdmissible.canonicalH3EnergyContinuousOnTail
+#check h3PreterminalTailUnitViscosityLateEnergyContinuousRestartData_of_h3Path_tailControl
+#print axioms h3PreterminalTailUnitViscosityLateEnergyContinuousRestartData_of_h3Path_tailControl
+#check h3PathRealRestart_of_tailControl
+#print axioms h3PathRealRestart_of_tailControl
+#print H3PathH3ControlProducesExtension
+#check h3PathH3ControlProducesExtension
+#print axioms h3PathH3ControlProducesExtension
+
 #check smoothContinuationExtension_of_realRestart
 #print axioms smoothContinuationExtension_of_realRestart
 
