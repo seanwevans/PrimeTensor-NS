@@ -58,7 +58,7 @@ abbrev H3JetIndex : Type :=
 /-- The H³ jet has exactly 120 scalar L² coordinates. -/
 theorem h3JetIndex_card :
     Fintype.card H3JetIndex = 120 := by
-  native_decide
+  norm_num [H3JetIndex, H3JetIndex0, H3JetIndex1, H3JetIndex2, H3JetIndex3]
 
 /-- One real scalar `L²(Point3)` state. -/
 abbrev H3ScalarL2 : Type :=

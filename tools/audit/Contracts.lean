@@ -29,6 +29,6 @@ open PrimeTensor.Bridge.Euclidean
 #check smoothContinuationExtension_or_quantitativeCriticalAlternative_and_higherRadialUniversalEscape_after_resolvedPDEClosure
 #print axioms smoothContinuationExtension_or_quantitativeCriticalAlternative_and_higherRadialUniversalEscape_after_resolvedPDEClosure
 
--- Include the known native_decide use, so its trust dependencies are visible.
+-- Track the finite jet count after replacing native evaluation with cardinal arithmetic.
 #check h3JetIndex_card
 #print axioms h3JetIndex_card

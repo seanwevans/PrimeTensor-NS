@@ -1,6 +1,6 @@
 # Consolidation checkpoint
 
-## Current status (base: 80b1aea3)
+## Current status (base: 0bb4d596)
 
 User-confirmed local baselines have completed the source-coverage repairs,
 23-module clock/width path migration, and two limit-bundle refactorings:
@@ -17,13 +17,14 @@ User-confirmed local baselines have completed the source-coverage repairs,
 | Short clock/width paths with compatibility imports | `262b2e70` |
 | Interval-limit bundle | `570777b1` |
 | Forward-width limit bundle | `80b1aea3` |
+| Full audit CI integration (local baseline) | `0bb4d596` |
 
 The current inventory is 2,407 project modules: 2,402 reachable from the root
 and five covered through standalone targets, with no uncovered modules or
 missing project imports. These counts describe the current source graph;
 the commits above record the user's successful local validation workflow.
 
-The next patch makes the same baseline a CI requirement for pull requests and
+Commit `0bb4d596` makes the same baseline a CI requirement for pull requests and
 both Linux binary builds. It reuses the initial build, then checks all standalone
 targets, compatibility imports, selected API/contracts and axiom reports,
 clock-path snapshots, the source index, and the 22 prose fragments. Audit reports
@@ -230,3 +231,19 @@ Geometry refactoring, retaining both original migration hashes. The baseline
 checks the new equivalence and conversion axioms as well as the old radial
 witness theorem. Local static checks pass; Lean validation awaits the user's
 baseline run.
+
+## Kernel-checked jet cardinality (base: 0bb4d596)
+
+The local audit passed at `0bb4d596`; this does not itself establish the result
+of the subsequent GitHub Actions run. The next small trust cleanup replaces
+`native_decide` in `h3JetIndex_card` with `norm_num` over the five existing jet
+index abbreviations. The cardinality is the sum of the component/direction
+products, 3 + 9 + 27 + 81 = 120. Its theorem statement and index types are
+unchanged. No other Lean proof is modified.
+
+The initial baseline recorded a native-evaluation axiom for this theorem.
+`Contracts.lean` continues to print its transitive axiom dependencies so the
+next successful Lean baseline can verify removal of that dependency. Static
+source scanning alone does not verify the new proof. Because the state module
+is upstream of the continuation development, changing this one proof may
+rebuild many dependent modules even with `--reuse-build`.
