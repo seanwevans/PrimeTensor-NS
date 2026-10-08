@@ -762,3 +762,27 @@ at which Q(t)+r(t) < A*sqrt(E(t)). In particular, Q alone must fall below
 A*sqrt(E) at some time in every terminal subtail. This leaves open which
 of the two nonnegative channels supplies a potential analytic coercivity
 bound; no unconditional regularity or singularity conclusion is claimed.
+
+## Positive unabsorbed Riccati rate and terminal nonintegrability
+
+With the existing exact energy identity E'/E + Q = 4422 + A sqrt(E),
+where A=4422*C1 and Q=Delta+2D/E, define the nonnegative *unabsorbed*
+leading Riccati rate
+
+  U(t) = max(0, A*sqrt(E(t)) - Q(t)).
+
+At each strict H3 energy-class time, the exact signed PDE balance gives
+
+  U(t) = max(0, E'(t)/E(t) - 4422),
+  E'(t) <= (4422+U(t))*E(t).
+
+If U is integrable on any terminal H3 energy-class tail, 4422+U is an
+integrable scalar growth majorant; the previously closed continuation
+criterion yields a smooth extension. Therefore hypothetical nonextension
+forces U to be nonintegrable on every strict terminal H3 energy-class
+subtail. The previously proved integrable-compensation obstruction also
+implies that on every such subtail U exceeds any prescribed integrable
+scalar remainder somewhere; taking constant remainders shows pointwise
+unboundedness of U there. The rate is a diagnostic of *unabsorbed*
+nonlinear transport, not a new lower bound for cancellation or dissipation.
+No unconditional smooth continuation or singular solution is asserted.
