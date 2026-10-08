@@ -79,3 +79,11 @@ open PrimeTensor.Bridge.Euclidean
 -- Track the finite jet count after replacing native evaluation with cardinal arithmetic.
 #check h3JetIndex_card
 #print axioms h3JetIndex_card
+
+-- Conditional dissipation threshold: its floor/deficit premise stays explicit.
+#check deriv_velocityH3EnergyAt_le_of_nonlinearDissipationDeficit
+#print axioms deriv_velocityH3EnergyAt_le_of_nonlinearDissipationDeficit
+#check h3PathExtension_of_integrableNonlinearDissipationDeficitOnTail
+#print axioms h3PathExtension_of_integrableNonlinearDissipationDeficitOnTail
+#check h3PathExtension_of_nonlinearDissipationFloorOnTail
+#print axioms h3PathExtension_of_nonlinearDissipationFloorOnTail
