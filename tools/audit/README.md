@@ -76,3 +76,10 @@ forwarding paths; the second checks old/new endpoint import compatibility.
 See `docs/audit/clock-path-map.json` for the complete mapping. These checks are
 part of every baseline run. The original body hashes are a migration guard,
 not a prohibition on separately reviewed future proof changes.
+
+The first documented Geometry refactoring adds `H3TerminalIntervalLimits` and
+its conjunction equivalence/common-subsequence transport in `IntervalLimits`.
+`ClockPaths.lean` checks the new API and key axiom reports. For that one migrated
+module, the manifest retains the original hash and an explicit refactoring
+record; the checker requires its base revision and explanation before using
+the new hash. It does not silently reset the original migration record.

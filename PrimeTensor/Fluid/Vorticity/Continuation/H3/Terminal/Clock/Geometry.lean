@@ -1,4 +1,4 @@
-import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Clock.Synchronized
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Clock.IntervalLimits
 
 /-!
 # Terminal interval geometry on the synchronized radial witness
@@ -27,25 +27,6 @@ noncomputable section
 
 set_option maxHeartbeats 1800000
 
-/-- Clock collapse makes the elapsed interval fill the left terminal clock. -/
-theorem h3Terminal_elapsedRatio_tendsto_one_of_clockRatio_zero
-    (T : ℝ) (s τ : ℕ → ℝ)
-    (hs : ∀ n : ℕ, s n < T)
-    (hRatio : Tendsto (fun n : ℕ => (T - τ n) / (T - s n)) atTop (𝓝 0)) :
-    Tendsto (fun n : ℕ => (τ n - s n) / (T - s n)) atTop (𝓝 1) := by
-  have hEq :
-      (fun n : ℕ => (τ n - s n) / (T - s n)) =
-        (fun n : ℕ => 1 - (T - τ n) / (T - s n)) := by
-    funext n
-    have hDen : T - s n ≠ 0 := ne_of_gt (sub_pos.mpr (hs n))
-    field_simp [hDen] <;> ring
-  rw [hEq]
-  have hLimit :
-      Tendsto (fun n : ℕ => (1 : ℝ) - (T - τ n) / (T - s n))
-        atTop (𝓝 (1 - 0)) :=
-    tendsto_const_nhds.sub hRatio
-  simpa only [sub_zero] using hLimit
-
 /-- The containing forward interval has the same normalized width. -/
 theorem h3Terminal_intervalGeometry_of_sampleClockRatio_zero
     (T : ℝ) (s τ σ : ℕ → ℝ)
@@ -57,34 +38,8 @@ theorem h3Terminal_intervalGeometry_of_sampleClockRatio_zero
     Tendsto (fun n : ℕ => (σ n - s n) / (T - s n)) atTop (𝓝 1) ∧
     Tendsto (fun n : ℕ => (T - σ n) / (T - s n)) atTop (𝓝 0) ∧
     Tendsto (fun n : ℕ => (σ n - τ n) / (T - s n)) atTop (𝓝 0) := by
-  have hDen : ∀ n : ℕ, 0 < T - s n := fun n => sub_pos.mpr (hs n)
-  have hUpper : ∀ n : ℕ,
-      (T - σ n) / (T - s n) ≤ (T - τ n) / (T - s n) := by
-    intro n
-    apply (div_le_div_iff₀ (hDen n) (hDen n)).2
-    exact mul_le_mul_of_nonneg_right (sub_le_sub_left (hOrder n) T) (hDen n).le
-  have hSigmaZero :
-      Tendsto (fun n : ℕ => (T - σ n) / (T - s n)) atTop (𝓝 0) := by
-    apply tendsto_order.2
-    constructor
-    · intro b hb
-      exact Filter.Eventually.of_forall (fun n : ℕ =>
-        lt_of_lt_of_le hb (div_nonneg (sub_pos.mpr (hσ n)).le (hDen n).le))
-    · intro b hb
-      filter_upwards [(tendsto_order.1 hRatio).2 b hb] with n hn
-      exact lt_of_le_of_lt (hUpper n) hn
-  have hElapsed := h3Terminal_elapsedRatio_tendsto_one_of_clockRatio_zero T s τ hs hRatio
-  have hWidth := h3Terminal_elapsedRatio_tendsto_one_of_clockRatio_zero T s σ hs hSigmaZero
-  have hRemaining :
-      Tendsto (fun n : ℕ => (σ n - τ n) / (T - s n)) atTop (𝓝 0) := by
-    have hEq :
-        (fun n : ℕ => (σ n - τ n) / (T - s n)) =
-          (fun n : ℕ => (σ n - s n) / (T - s n) - (τ n - s n) / (T - s n)) := by
-      funext n
-      ring
-    rw [hEq]
-    simpa only [sub_self] using hWidth.sub hElapsed
-  exact ⟨hElapsed, hWidth, hSigmaZero, hRemaining⟩
+  exact (h3TerminalIntervalLimits_iff T s τ σ).1
+    (h3Terminal_intervalLimits_of_sampleClockRatio_zero T s τ σ hs hOrder hσ hRatio)
 
 /-- One radial witness retains its analytic bounds and terminal interval limits. -/
 def H3TerminalHigherRadialPositiveFloorAndTerminalIntervalGeometry
@@ -144,13 +99,13 @@ theorem h3TerminalHigherRadial_intervalGeometry_of_synchronized_collapse
     H3TerminalHigherRadialPositiveFloorAndTerminalIntervalGeometry
       hH3 hClass τ hτ s σ radialOrder C := by
   obtain ⟨hC, v, hMono, hTau, hLower, hNonzero, hHigher, hZero, hRatio⟩ := hWitness
-  obtain ⟨hElapsed, hWidth, hSigmaZero, hRemaining⟩ :=
-    h3Terminal_intervalGeometry_of_sampleClockRatio_zero T
+  have hGeometry :=
+    h3Terminal_intervalLimits_of_sampleClockRatio_zero T
       (fun n : ℕ => s (v n)) (fun n : ℕ => τ (v n)) (fun n : ℕ => σ (v n))
       (fun n : ℕ => hs (v n)) (fun n : ℕ => hOrder (v n)) (fun n : ℕ => hσ (v n))
       hRatio
   exact ⟨hC, v, hMono, hTau, hLower, hNonzero, hHigher, hZero, hRatio,
-    hElapsed, hWidth, hSigmaZero, hRemaining⟩
+    hGeometry.elapsed, hGeometry.width, hGeometry.terminalGap, hGeometry.sampleGap⟩
 
 /-- Under sampled normalized vanishing, retain energy escape or a radial witness
 with the normalized terminal interval geometry. -/

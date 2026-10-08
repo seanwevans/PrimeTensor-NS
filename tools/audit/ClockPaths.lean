@@ -6,3 +6,11 @@ open PrimeTensor.Bridge.Euclidean
 
 #check smoothContinuationExtension_or_quantitativeCriticalAlternative_and_higherRadialUniversalEscape_after_resolvedPDEClosure
 #print axioms smoothContinuationExtension_or_quantitativeCriticalAlternative_and_higherRadialUniversalEscape_after_resolvedPDEClosure
+
+-- Named interval limits retain the old logical content and common subsequence.
+#check H3TerminalIntervalLimits
+#check h3TerminalIntervalLimits_iff
+#check H3TerminalIntervalLimits.comp
+#print axioms h3TerminalIntervalLimits_iff
+#print axioms H3TerminalIntervalLimits.comp
+#print axioms h3TerminalHigherRadial_intervalGeometry_of_synchronized_collapse

@@ -151,3 +151,21 @@ modules because the old 23 paths remain available as wrappers.
 The body-hash guard deliberately freezes this mechanical migration; when later
 proof refactoring is explicitly reviewed, update or retire the affected guard
 with an explanation rather than silently refreshing its hashes.
+
+## First witness consolidation (base: 262b2e70)
+
+The user confirmed the 23-module path migration at `262b2e70`. The next bounded
+refactoring introduces `Clock/IntervalLimits.lean`: four named limit fields
+for one fixed triple of sequences, an equivalence with the old conjunction,
+and a common-subsequence transport theorem. The existing Geometry theorem
+keeps its statement and delegates to the named bundle; the radial geometry
+proof uses the bundle's named fields on its original selected subsequence.
+No new subsequence is selected, no order assumptions are added, and the
+existing radial witness definitions and public theorem signatures are retained.
+
+The original migration body hash remains in `clock-path-map.json`. Its Geometry
+entry now additionally records this refactoring's base revision, reason, and
+new body hash; the checker validates that explicit snapshot. Other migrated
+bodies remain frozen at their original hashes. This is the first small witness
+refactoring, not completion of the larger package consolidation. Lean build,
+compatibility, equivalence, and axiom checks are pending the next baseline run.
