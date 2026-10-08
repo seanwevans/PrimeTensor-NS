@@ -147,3 +147,20 @@ This also applies to the closed gradient-envelope coefficient.
 Later kinetic anchors decrease the adaptive minimum pointwise.
 
 These are conditional continuation/obstruction statements.
+
+## Two-anchor obstruction and activation threshold
+
+For every interior kinetic anchor b and later start c, the exact adaptive
+nonextension obstruction holds on (c,T) with the kinetic ceiling fixed at b.
+This quantifies over both anchors simultaneously; it does not introduce new
+PDE estimates or temporal assumptions. The gradient-envelope version uses
+the closed coefficient B(t) = 4422(1+|h(t)|).
+
+For B>0 and E>0 the exact absorbed coefficient is below direct B exactly
+when E > 1 + (3 + (81/8) B^3) E0(b). Below or at this threshold the
+adaptive minimum is direct B, and strictly above it the absorbed branch
+is selected. Kinetic monotonicity lowers the threshold at later anchors,
+so an already active absorbed branch remains active after reanchoring.
+
+These results refine the conditional continuation/nonextension alternative;
+they do not establish finite-time blowup or unconditional continuation.
