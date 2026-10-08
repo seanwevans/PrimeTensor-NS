@@ -1130,3 +1130,40 @@ threshold, then the actual signed third-order pairing must satisfy D<-T3.
 Neither that first-order ceiling nor a favorable bound on T3 is proved.
 In particular this is a genuine improvement of the lower-order PDE estimate,
 not unconditional Navier--Stokes continuation or blowup existence.
+
+## Absorb all lower-order H3 transport by kinetic Fourier moments
+
+For the physical radial Fourier moment q=|xi|^2, the pointwise inequality
+2q<=1+q^2 and the established Plancherel identifications imply
+
+    2 E1(t) <= E0(t) + E2(t).
+
+The first-order and second-order commutator allowances satisfy, with
+h=C1*sqrt(E) and b an earlier kinetic anchor,
+
+    6h E1 + 18h E2 <= 3h E0(b) + 21h E2.
+
+The physical Fourier bound E2^2<=E0(b)*D and quadratic Young absorption
+give for eps>0
+
+    E' + (2-eps)*D
+       <= 3h E0(b) + (21h)^2 E0(b)/eps - T3.
+
+At eps=1 this becomes
+
+    E' + D <= 3*C1*sqrt(E)*E0(b)
+              + 441*C1^2*E0(b)*E - T3.
+
+Since normalized H3 energy E>=1, sqrt(E)<=E. Both lower-order
+commutator costs therefore have a bounded normalized coefficient.
+
+The established unbounded actual unabsorbed rate under hypothetical
+nonextension implies: for every M>=0 and every strict terminal subtail
+(d,T), there exists t in (d,T) such that
+
+    -T3(t) > D(t) + M*E(t).
+
+This excludes lower-order commutators as an independent obstruction
+at arbitrarily high normalized rates. It neither proves favorable
+third-order cancellation nor establishes regularity or singularity
+existence. The remaining frontier is signed third-order transport.
