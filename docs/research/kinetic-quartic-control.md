@@ -133,3 +133,17 @@ either one continuation extension exists, or the exact minimum coefficient is
 nonintegrable on every later anchored tail. The transport and coefficient
 hypotheses are inherited by restriction, so this does not introduce a new
 analytic assumption.
+
+## Fixed-anchor later-tail obstruction
+
+The exact adaptive coefficient retains a fixed kinetic-energy anchor b
+while the integrability interval is restricted to any later (c,T).
+
+Integrability on one later tail implies continuation. Under
+nonextension, the fixed-anchor coefficient is nonintegrable on
+every later strict subtail.
+
+This also applies to the closed gradient-envelope coefficient.
+Later kinetic anchors decrease the adaptive minimum pointwise.
+
+These are conditional continuation/obstruction statements.
