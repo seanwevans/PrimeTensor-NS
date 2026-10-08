@@ -1,4 +1,4 @@
-# Generated from revision: fc3c2701b36100c19f26a2f5bc25869c7bd87842
+# Generated from revision: afa7536a5a4943527fdd2d6bd17ffc6a49b8c2eb
 # Source SHA-256: 64f561b7cc2c3e3bdc25079b2327c406f5ed236f3ac77a522621191140b61e9e
 # Existing project import edges only; excluded/missing sources are tracked in tools/audit/known-source-gaps.json.
 Depth
