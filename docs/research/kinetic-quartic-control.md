@@ -102,3 +102,7 @@ The exact adaptive continuation theorem is now specialized to
 `B(t)=4422(1+|h(t)|)` under the existing closed `VelocityGradientEnvelope`
 hypothesis. Its only new temporal premise is integrability of the exact
 minimum coefficient on the anchored tail.
+
+The gradient specialization also has its exact contrapositive: under
+nonextension, the exact minimum coefficient built from `4422(1+|h|)` is
+nonintegrable on every strict anchored subtail.

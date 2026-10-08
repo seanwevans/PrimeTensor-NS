@@ -160,3 +160,7 @@ open PrimeTensor.Bridge.Euclidean
 -- Exact adaptive criterion specialized to the closed gradient envelope.
 #check h3PathExtension_of_integrableMinDirectExactQuarticGradientOnSubtail
 #print axioms h3PathExtension_of_integrableMinDirectExactQuarticGradientOnSubtail
+
+-- Exact gradient adaptive nonextension obstruction.
+#check not_integrableOn_minDirectExactQuarticGradient_on_strictSubtail_of_noH3PathExtension
+#print axioms not_integrableOn_minDirectExactQuarticGradient_on_strictSubtail_of_noH3PathExtension

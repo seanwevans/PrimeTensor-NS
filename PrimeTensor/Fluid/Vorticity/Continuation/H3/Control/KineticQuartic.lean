@@ -448,3 +448,34 @@ theorem h3PathExtension_of_integrableMinDirectExactQuarticGradientOnSubtail
 end Euclidean
 end Bridge
 end PrimeTensor
+
+namespace PrimeTensor
+namespace Bridge
+namespace Euclidean
+
+/-- Under nonextension, the exact gradient-specialized adaptive coefficient is
+nonintegrable on every strict anchored subtail. -/
+theorem not_integrableOn_minDirectExactQuarticGradient_on_strictSubtail_of_noH3PathExtension
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T a b : ℝ} {h : ℝ → ℝ}
+    (hH3 : LoggedPreterminalH3PathAdmissible u T)
+    (hNoExtension :
+      ¬ ∃ v : SpaceTimeVectorField ℝ ℝ MulReal Depth.three,
+        SmoothContinuationExtension u v T)
+    (hClass : PreterminalH3EnergyClass u a T) (hb : b ∈ Set.Ioo a T)
+    (hGradient : ∀ t : ℝ, t ∈ Set.Ioo b T → VelocityGradientEnvelope u h t) :
+    ¬ MeasureTheory.IntegrableOn
+      (fun t : ℝ => min (4422 * (1 + |h t|))
+        ((4422 * (1 + |h t|) +
+          (3 * (4422 * (1 + |h t|)) +
+            (3 * (4422 * (1 + |h t|))) ^ 4 / (2 : ℝ) ^ 3) *
+            velocityH3Energy0At u b) /
+          velocityH3EnergyAt u t)) (Set.Ioo b T) := by
+  intro hMinimum
+  exact hNoExtension
+    (h3PathExtension_of_integrableMinDirectExactQuarticGradientOnSubtail
+      hH3 hClass hb hGradient hMinimum)
+
+end Euclidean
+end Bridge
+end PrimeTensor
