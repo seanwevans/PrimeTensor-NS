@@ -209,3 +209,16 @@ envelope specialization has the same conclusion.
 This is a measure-theoretic strengthening of the existing conditional
 alternative. It does not imply pointwise eventual regime selection and
 establishes neither unconditional continuation nor blowup.
+
+## Order of selected shares across kinetic anchors
+
+The selected direct coefficient is pointwise nonincreasing when the
+kinetic anchor advances, because the exact activation threshold falls.
+Whenever the earlier anchor already selects absorption, later anchors
+also select absorption and their exact absorbed coefficient is no larger.
+
+Without earlier activation, the selected absorbed coefficient need not be
+monotone: it can change from zero to positive under later anchoring.
+This scalar obstruction prevents treating the two selected shares as
+symmetric. No integral-transfer or anchor-independent regime assertion
+is claimed without additional measurability and analytic information.
