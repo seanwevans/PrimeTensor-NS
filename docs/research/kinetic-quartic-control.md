@@ -995,3 +995,30 @@ positive relative to the original coefficient.
 Integrability of the refined positive remainder suffices for
 continuation. That integrability is not established for all
 Navier--Stokes paths, and unconditional regularity is not proved.
+
+## Signed third-order transport retention
+
+Writing E for normalized H3 energy, D for full H3 dissipation,
+T3 for the actual signed third-order nonlinear transport pairing and
+h=C1*sqrt(E), the proved lower-order commutator bounds contribute at
+most 6hE + 18hE = 24hE; the zeroth-order flux cancels. Therefore,
+
+    E' + 2D <= 24hE - T3.
+
+The signed top transport rate and positive remainder are
+
+    S3 = 24h - (T3+2D)/E,
+    W3 = max(0,S3-4422).
+
+The existing exact unabsorbed Riccati growth U satisfies U<=W3.
+Integrability of W3 on one H3 energy-class terminal tail suffices for
+continuation; hypothetical nonextension forces W3 nonintegrable on
+all such strict subtails. Every time U>M>=0 also satisfies
+
+    (4422+M)E+2D < 24hE-T3.
+
+This identifies the *signed* third-order PDE term that a genuine
+cancellation/absorption estimate must control. The estimate leaves
+T3 untouched; no new bound on its adverse sign, no integrability of
+W3 for arbitrary paths, and no unconditional continuation or singularity
+existence is asserted.
