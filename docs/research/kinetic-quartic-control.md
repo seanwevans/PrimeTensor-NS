@@ -222,3 +222,14 @@ monotone: it can change from zero to positive under later anchoring.
 This scalar obstruction prevents treating the two selected shares as
 symmetric. No integral-transfer or anchor-independent regime assertion
 is claimed without additional measurability and analytic information.
+
+## Selected-share compensation under reanchoring
+
+Let D_b and A_b denote the threshold-selected direct and absorbed
+coefficients computed using kinetic anchor b. For b < c, the exact minimum
+is antitone in the kinetic ceiling, hence D_c + A_c <= D_b + A_b.
+Equivalently, A_c - A_b <= D_b - D_c: any selected absorbed-share gain
+is offset by direct-share loss. In particular, when absorption newly
+activates at c, its coefficient is strictly smaller than the earlier
+direct coefficient B. This is pointwise, does not require temporal
+measurability, and does not yet transfer integrability between anchors.

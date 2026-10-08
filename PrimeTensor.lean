@@ -1967,3 +1967,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.KineticQuarticSelecte
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.KineticQuarticPersistentShares
 
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.KineticQuarticAnchorOrder
+
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.KineticQuarticAnchorCompensation
