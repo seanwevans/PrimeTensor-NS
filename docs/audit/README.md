@@ -42,8 +42,9 @@ record of these types and dependencies.
 Exact source paths, source hashes, and actions are in
 [source-coverage.json](source-coverage.json). Five files remain outside the root import closure. The historical primitive
 copy now forwards to its active canonical implementation and is explicitly
-built by the baseline. The weighted PDE-terms module is now enrolled for independent build validation;
-three other candidates remain pending. The compatibility checks passed in the
+built by the baseline. The weighted PDE-terms wrapper passed in `4b8360c7`. The physical L²
+Cauchy-frontier module is now enrolled for independent validation; strict-time
+decay and the mixed aggregate remain pending. The compatibility checks passed in the
 user-reported `0a9ce644` baseline.
 
 | Source role | Classification | Next action |
@@ -51,7 +52,7 @@ user-reported `0a9ce644` baseline.
 | Fourth-q forcing primitive mass aggregate | Mixed duplicated and unique results | Compare with the active Escape/Pair/Bound chain; preserve unique statements. |
 | Older fourth-q derivative primitive module | Compatibility import of the active canonical implementation | Baseline builds the old target and checks coexistence with the root API. |
 | Separated weighted PDE terms | Statement-preserving wrapper enrolled as a standalone build target | Build independently and check its theorem/axioms alongside the root. |
-| Physical L² Cauchy frontier | Standalone candidate with unique results | Compile separately and preserve its physical/Fourier equivalence. |
+| Physical L² Cauchy frontier | Unchanged source enrolled for standalone validation | Build independently; check the physical/Fourier identity, equivalence, and conditional closure. |
 | Strict-time vorticity decay | Standalone candidate with unique results | Compile separately, then decide supported coverage. |
 
 An unreferenced file is not automatically obsolete. Adding all five to the root
@@ -81,8 +82,8 @@ python3 proof/generate_index.py --check
 python3 proof/check_fragment.py --all
 ```
 
-Next, run the baseline for the enrolled weighted PDE-terms target. Then check
-the remaining standalone candidates and resolve the mixed aggregate before beginning the
+Next, run the baseline for the enrolled physical L² Cauchy-frontier target. Then check
+strict-time decay and resolve the mixed aggregate before beginning the
 clock/width path migration. Keep source moves separate from theorem changes.
 
 The separated weighted PDE theorem supplies L² representatives of the diffusion
@@ -90,4 +91,12 @@ and forcing terms at a strict time, under the existing H³ path and energy-class
 hypotheses. This is a representation/integrability result, not a terminal bound.
 Its original duplicate proof failed on stale slab arguments and rewriting.
 The retained statement now delegates to the already covered strict-time
-weighted PDE factors theorem while standalone coverage is checked. A failed check must be repaired before committing this enrollment.
+weighted PDE factors theorem while standalone coverage is checked. The weighted PDE repair passed the user-supplied baseline at `4b8360c7`.
+
+The physical L² Cauchy-frontier module identifies the raw Fourier square defect
+with the sum of three physical velocity L² distance squares. Its equivalence
+reformulates the retained endpoint Cauchy hypothesis; it does not establish
+that hypothesis unconditionally. The subsequent radial closure still assumes
+nonextension, energy-class regularity, a selected strong vorticity endpoint,
+physical L² Cauchy control, and a positive threshold. Its proofs remain
+unchanged in this coverage step, pending the actual Lean build.

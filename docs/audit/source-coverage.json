@@ -1,6 +1,6 @@
 {
-  "revision": "0a9ce644",
-  "scope": "Historical compatibility path validated; weighted PDE terms enrolled for independent build validation; three other source candidates remain pending.",
+  "revision": "4b8360c7",
+  "scope": "Compatibility and weighted PDE paths validated; physical L2 Cauchy frontier enrolled for standalone validation; strict-time decay and mixed aggregate remain pending.",
   "modules": [
     {
       "path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Second/LowerTemporal/Amplitude/Forcing/Primitive.lean",
@@ -25,15 +25,16 @@
       "action": "Build the historical module and check its retained theorem and axioms in tools/audit/Standalone.lean.",
       "source_sha256": "3345bafe5b3a1cb5c88b663bf4dccfd927cb6f7b34cba94fb3cb1c86db9b2afb",
       "evidence": "The public statement agrees with exists_h3TerminalPhysicalTopDissipationStrictTimeWeightedPDEFactors modulo bound-variable names and formatting. The old theorem now delegates to it.",
-      "validation": "Initial standalone build exposed stale slab arguments and rewriting; wrapper repair awaits Lean baseline validation.",
+      "validation": "User-supplied build log confirms the wrapper and baseline passed in 4b8360c7; its theorem reported propext, Classical.choice, and Quot.sound.",
       "canonical_path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Hilbert/Weighted/Old/Derivative/Factors.lean"
     },
     {
       "path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/L2/Cauchy/Frontier.lean",
-      "classification": "standalone-candidate",
-      "action": "Compile independently; preserve the physical/Fourier Cauchy equivalence, then assess its public API.",
+      "classification": "standalone-build-target",
+      "action": "Build the unchanged physical L2 Cauchy-frontier module independently; check its public declarations alongside the root and print dependencies of the identification, equivalence, and conditional closure theorems.",
       "source_sha256": "4936b7d56926be00e87d2dce9717bee0fd6ef3f9a264969c9bdce2cade10e662",
-      "evidence": "Named results not found elsewhere in the current source scan; this is a retention candidate, not independently build-verified."
+      "evidence": "Named results not found elsewhere in the current source scan; this is a retention candidate, not independently build-verified.",
+      "validation": "Referenced source declarations reviewed; actual Lean build and axiom checks await the baseline run."
     },
     {
       "path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Strict/Time/Decay.lean",

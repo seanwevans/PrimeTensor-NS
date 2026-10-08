@@ -52,3 +52,9 @@ module. `Standalone.lean` checks its unique theorem alongside the root and
 prints its axiom dependencies. Its import path and theorem statement are preserved; the theorem delegates to
 the existing strict-time weighted PDE factors result. Its inclusion in the roster requests validation; only a successful
 baseline run establishes that it builds with the current dependencies.
+
+The roster also includes the physical L² Cauchy-frontier module, with its source
+unchanged. `Standalone.lean` checks its eight named declarations and prints
+axiom dependencies for the exact physical/Fourier defect identity, endpoint
+Cauchy equivalence, and conditional radial closure. This does not assert that
+the endpoint Cauchy condition follows from the other path hypotheses.
