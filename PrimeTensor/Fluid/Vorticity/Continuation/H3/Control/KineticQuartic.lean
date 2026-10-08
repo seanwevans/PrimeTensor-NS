@@ -237,3 +237,96 @@ theorem not_integrableOn_minDirectQuarticCoefficient_on_strictSubtail_of_noH3Pat
 end Euclidean
 end Bridge
 end PrimeTensor
+
+namespace PrimeTensor
+namespace Bridge
+namespace Euclidean
+
+/-- Retain the exact ε = 2 remainder before bounding lower powers of B. -/
+theorem h3FullTransportAbsorptionRemainderAt_le_exact_kinetic_remainder
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {t B M : ℝ} (hB : 0 ≤ B)
+    (hKinetic : velocityH3Energy0At u t ≤ M) :
+    h3FullTransportAbsorptionRemainderAt u t B 2 ≤
+      B + (3 * B + (3 * B) ^ 4 / (2 : ℝ) ^ 3) * M := by
+  have hCoefficient : 0 ≤ 3 * B + (3 * B) ^ 4 / (2 : ℝ) ^ 3 := by
+    positivity
+  have hProduct := mul_le_mul_of_nonneg_right hKinetic hCoefficient
+  unfold h3FullTransportAbsorptionRemainderAt
+  nlinarith
+
+/-- The exact anchored remainder gives a sharper normalized growth majorant. -/
+theorem deriv_velocityH3EnergyAt_le_anchored_exact_quartic_majorant
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T a b t B : ℝ}
+    (hH3 : LoggedPreterminalH3PathAdmissible u T)
+    (hClass : PreterminalH3EnergyClass u a T)
+    (hb : b ∈ Set.Ioo a T) (ht : t ∈ Set.Ioo b T)
+    (hB : 0 ≤ B)
+    (hTransport : |velocityH3TransportDerivativeAt u t| ≤
+      B * velocityH3EnergyAt u t) :
+    deriv (velocityH3EnergyAt u) t ≤
+      ((B + (3 * B + (3 * B) ^ 4 / (2 : ℝ) ^ 3) *
+        velocityH3Energy0At u b) / velocityH3EnergyAt u t) *
+        velocityH3EnergyAt u t := by
+  have htOld : t ∈ Set.Ioo a T := ⟨lt_trans hb.1 ht.1, ht.2⟩
+  have hAnti := antitoneOn_velocityH3Energy0At_of_h3Path_derivativeIdentities
+    h3PathEnergyClassProducesOrderEnergyDerivativeIdentities_closed hH3 hClass
+  have hKinetic : velocityH3Energy0At u t ≤ velocityH3Energy0At u b :=
+    hAnti hb htOld (le_of_lt ht.1)
+  have hRemainder := h3FullTransportAbsorptionRemainderAt_le_exact_kinetic_remainder
+    (B := B) hB hKinetic
+  have hAbsorbed := deriv_velocityH3EnergyAt_add_remaining_dissipation_le_remainder
+    hH3 hClass htOld (by positivity) (show (0 : ℝ) < 2 by norm_num) hTransport
+  have hDerivative : deriv (velocityH3EnergyAt u) t ≤
+      h3FullTransportAbsorptionRemainderAt u t B 2 := by
+    simpa only [sub_self, zero_mul, add_zero] using hAbsorbed
+  have hEnergyPos : 0 < velocityH3EnergyAt u t :=
+    lt_of_lt_of_le zero_lt_one (one_le_velocityH3EnergyAt u t)
+  have hEnergyNe : velocityH3EnergyAt u t ≠ 0 := ne_of_gt hEnergyPos
+  calc
+    deriv (velocityH3EnergyAt u) t ≤
+        B + (3 * B + (3 * B) ^ 4 / (2 : ℝ) ^ 3) * velocityH3Energy0At u b :=
+      le_trans hDerivative hRemainder
+    _ = ((B + (3 * B + (3 * B) ^ 4 / (2 : ℝ) ^ 3) *
+        velocityH3Energy0At u b) / velocityH3EnergyAt u t) *
+        velocityH3EnergyAt u t := by
+      field_simp [hEnergyNe]
+
+/-- Integrability of the minimum of direct and exact anchored growth suffices. -/
+theorem h3PathExtension_of_integrableMinDirectExactQuarticCoefficientOnSubtail
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T a b : ℝ} {B : ℝ → ℝ}
+    (hH3 : LoggedPreterminalH3PathAdmissible u T)
+    (hClass : PreterminalH3EnergyClass u a T) (hb : b ∈ Set.Ioo a T)
+    (hB : ∀ t : ℝ, t ∈ Set.Ioo b T → 1 ≤ B t)
+    (hTransport : ∀ t : ℝ, t ∈ Set.Ioo b T →
+      |velocityH3TransportDerivativeAt u t| ≤ B t * velocityH3EnergyAt u t)
+    (hMinimum : MeasureTheory.IntegrableOn
+      (fun t : ℝ => min (B t)
+        ((B t + (3 * B t + (3 * B t) ^ 4 / (2 : ℝ) ^ 3) *
+          velocityH3Energy0At u b) / velocityH3EnergyAt u t)) (Set.Ioo b T)) :
+    ∃ v : SpaceTimeVectorField ℝ ℝ MulReal Depth.three,
+      SmoothContinuationExtension u v T := by
+  have hClassB : PreterminalH3EnergyClass u b T :=
+    preterminalH3EnergyClass_restrict_left hClass (le_of_lt hb.1) hb.2
+  apply h3PathExtension_of_integrableLinearEnergyGrowthMajorantOnTail
+    hH3 hClassB hMinimum
+  intro t ht
+  have hDirect : deriv (velocityH3EnergyAt u) t ≤ B t * velocityH3EnergyAt u t := by
+    have hBalance := deriv_velocityH3EnergyAt_add_two_dissipation_eq_neg_transport
+      hH3 hClass (⟨lt_trans hb.1 ht.1, ht.2⟩)
+    have hD := velocityH3DissipationAt_nonneg u t
+    have hNeg := neg_le_abs (velocityH3TransportDerivativeAt u t)
+    linarith only [hBalance, hD, hNeg, hTransport t ht]
+  have hExact := deriv_velocityH3EnergyAt_le_anchored_exact_quartic_majorant
+    hH3 hClass hb ht (le_trans zero_le_one (hB t ht)) (hTransport t ht)
+  by_cases hCompare : B t ≤
+      (B t + (3 * B t + (3 * B t) ^ 4 / (2 : ℝ) ^ 3) *
+        velocityH3Energy0At u b) / velocityH3EnergyAt u t
+  · simpa only [min_eq_left hCompare] using hDirect
+  · simpa only [min_eq_right (le_of_not_ge hCompare)] using hExact
+
+end Euclidean
+end Bridge
+end PrimeTensor

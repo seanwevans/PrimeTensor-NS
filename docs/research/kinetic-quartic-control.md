@@ -67,3 +67,14 @@ the coefficient
 is nonintegrable, provided the transport bound and B ≥ 1 hold there. This is
 a neutral obstruction statement: it does not select the direct or absorbed
 branch and does not assert that either branch diverges separately.
+
+## Exact remainder branch
+
+The latest refinement keeps the exact anchored remainder
+
+    B + (3B + (81/8)B⁴) E₀(b)
+
+before replacing it by `(1 + (105/8) E₀(b)) B⁴`. A second adaptive criterion
+uses the minimum of B and this exact remainder divided by E. It is therefore
+pointwise at least as sharp as the coefficient bound. The previous coarse
+criterion remains available for estimates stated only in terms of B⁴/E.
