@@ -539,3 +539,22 @@ Under hypothetical nonextension, every such bound must fail somewhere on
 every terminal subtail. This is a conditional cancellation-coercivity test,
 not proof that the missing estimate holds, and it establishes neither
 unconditional H3 continuation nor a finite-time blowup example.
+
+## Compact normalized transport-cancellation share
+
+On positive actual-excess H3 energy-class times, the nonnegative commutator
+cancellation slack Delta and the positive actual full-dissipation transport
+excess q0 satisfy Delta+q0=4422+S, where S is the baseline-free canonical
+spectral shortfall. Normalize by their positive sum: cancellation share is
+Delta/(Delta+q0), and growth share is q0/(Delta+q0). Both lie in [0,1] and
+sum exactly to one. Under hypothetical nonextension and at any positive-mass
+kinetic anchor, an earlier physical terminal-clock sequence has q0 and S
+both tending to +infinity with exact direct selection and no selected
+absorption. By compactness of [0,1], one can select a cofinal subsequence on
+which cancellation share tends to theta in [0,1], and the complementary
+actual-growth share tends to 1-theta, while q0 and S STILL diverge along
+that same subsequence. The endpoint theta=1 does not imply q0 bounded;
+its fraction can vanish despite absolute divergence if the total budget
+grows sufficiently fast. This is a neutral quantitative classification,
+not a new cancellation estimate and not a proof of global regularity or
+finite-time blowup.
