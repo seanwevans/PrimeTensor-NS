@@ -25,15 +25,18 @@ recording a baseline; it contains:
 - an explicit exit status and result, including failure when a command fails.
 
 The source inventory deliberately records five known modules outside the root
-import closure and one missing import at the original `fea879ee` checkpoint.
+import closure at the original `fea879ee` checkpoint. The missing import in the historical
+primitive module is repaired by forwarding to its active canonical copy.
+`standalone-targets.txt` makes the baseline build that old path explicitly;
+`Compatibility.lean` checks its public API alongside the root import.
 `known-source-gaps.json` is a temporary explicit inventory, not a certification
 or an instruction to delete these modules. Changes to either list fail the
 check until reviewed. Their classification and repair order are recorded in
-`docs/audit/source-coverage.json` and `docs/audit/README.md`; they remain
-unrepaired until their individual validation steps succeed.
+`docs/audit/source-coverage.json` and `docs/audit/README.md`; the other four candidates remain
+pending until their individual validation steps succeed.
 
-A passing baseline covers the default Lake targets and selected contract
-checks. It does not claim all source files compile or that any conditional
+A passing baseline covers the default Lake targets, explicit standalone
+targets, compatibility API checks, and selected contract checks. It does not claim all source files compile or that any conditional
 endpoint alternative has been eliminated. Token scanning is not a Lean parser;
 use the actual printed axiom dependencies when reviewing proof trust. Ordinary
 Lean axioms and native-evaluation dependencies must be interpreted explicitly,

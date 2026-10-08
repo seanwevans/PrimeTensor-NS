@@ -35,6 +35,11 @@ if [[ "$mode" == --fresh ]]; then
   lake clean 2>&1 | tee "$report/clean.log"
 fi
 lake build 2>&1 | tee "$report/build.log"
+while IFS= read -r target || [[ -n "$target" ]]; do
+  case "$target" in ''|'#'*) continue ;; esac
+  lake build "$target"
+done < tools/audit/standalone-targets.txt 2>&1 | tee "$report/standalone-build.log"
+lake env lean tools/audit/Compatibility.lean 2>&1 | tee "$report/compatibility.log"
 lake env lean PrimeTensor.lean 2>&1 | tee "$report/root.log"
 lake env lean tools/audit/Contracts.lean 2>&1 | tee "$report/contracts-and-axioms.log"
 python3 tools/audit/inspect_source.py "$report/after" > "$report/after.log"

@@ -1,6 +1,6 @@
 {
-  "revision": "1c4104d6",
-  "scope": "Static classification; no excluded source has been deleted or added to the root.",
+  "revision": "8a0ecdb7",
+  "scope": "Four source candidates remain pending; the historical duplicate is a compatibility import with an explicit baseline target.",
   "modules": [
     {
       "path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Second/LowerTemporal/Amplitude/Forcing/Primitive.lean",
@@ -11,12 +11,13 @@
     },
     {
       "path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/Transfer/Absorption/Profile/Component/Representative/Interpolation/Branch/PDE/Escape/Cofinal/Hilbert/LowerBalance/Resolve/TopDissipation/LowerDerivative/Closure/Channel/Envelope/Steepness/Derivative/Hilbert/Radial/PDE/Closure/Forcing/Selected/Weighted/Radial/Moment/Product/Quotient/Spectral/Moment/Limit/Convolution/L2/Leray/Selected/Homogeneity/Quotient/Self/Remainder/Concrete/Representative/Closure/ForcingWeights/Terminal/Fourth/Collapse/Pairing/Derivative/Orientation/Sequence/Pairing/Product/Square/Factor/Norm/PDE/Factor/Amplitude/Sixth/Factors/Factor/Overlap/Raw/Mass/Higher/Moment/Forcing/Escape/Pair/Bound/Group/Factor/Primitive/Low/Classify/Radial/Higher/Collapse/Subtail/Fourth/Forcing/Bound/Escape/StateMass/Group/Factor/Primitive.lean",
-      "classification": "duplicate-with-obsolete-import",
-      "action": "Replace the old body with an import of the active canonical module, then compile the old target; preserve the historical import path.",
-      "source_sha256": "c852c3ef970c22bde33a13c1fb5fcf69579651ebb76cd1f206ba53132d22e086",
+      "classification": "compatibility-import",
+      "action": "Build the historical target and tools/audit/Compatibility.lean; retain this target in every baseline run.",
+      "source_sha256": "11b8e5de81da6a158d56cfc3e5a83bf1c1f6d679d270b7a8577505f52d10356f",
       "canonical_path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Fourth/Raw/Higher/Subtail/StateMass/Group/Factor/Primitive.lean",
-      "evidence": "All lines after the first import line are identical to the canonical file.",
-      "canonical_sha256": "e3a6c6191b80b7f58e7f2a6a528877ba2e82f0674814b18cf3422f2aea8b590d"
+      "evidence": "Original body was identical to canonical source after its first import; now forwards to that canonical module.",
+      "canonical_sha256": "e3a6c6191b80b7f58e7f2a6a528877ba2e82f0674814b18cf3422f2aea8b590d",
+      "validation": "Static import and API checks completed during patch preparation; Lean validation is performed by the accompanying baseline command."
     },
     {
       "path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Hilbert/Weighted/Old/PDE/Terms.lean",

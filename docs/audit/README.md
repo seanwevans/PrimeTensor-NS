@@ -40,20 +40,22 @@ record of these types and dependencies.
 ## Five files outside root coverage
 
 Exact source paths, source hashes, and actions are in
-[source-coverage.json](source-coverage.json). The existing gap inventory remains
-unchanged until each source is repaired or independently checked.
+[source-coverage.json](source-coverage.json). Five files remain outside the root import closure. The historical primitive
+copy now forwards to its active canonical implementation and is explicitly
+built by the baseline. Four candidates remain pending.
 
 | Source role | Classification | Next action |
 |---|---|---|
 | Fourth-q forcing primitive mass aggregate | Mixed duplicated and unique results | Compare with the active Escape/Pair/Bound chain; preserve unique statements. |
-| Older fourth-q derivative primitive module | Exact duplicate after its first import line; that import is missing | Convert the old file into a compatibility import of its active copy and build the old target. |
+| Older fourth-q derivative primitive module | Compatibility import of the active canonical implementation | Baseline builds the old target and checks coexistence with the root API. |
 | Separated weighted PDE terms | Standalone candidate with unique results | Compile separately, then decide supported coverage. |
 | Physical L² Cauchy frontier | Standalone candidate with unique results | Compile separately and preserve its physical/Fourier equivalence. |
 | Strict-time vorticity decay | Standalone candidate with unique results | Compile separately, then decide supported coverage. |
 
 An unreferenced file is not automatically obsolete. Adding all five to the root
-would introduce duplicate declaration conflicts and a known missing import.
-No Lean source changes are made by this documentation patch.
+would still introduce duplicate declaration conflicts in the mixed aggregate.
+The compatibility repair changes only the old duplicate implementation; the
+canonical theorem bodies and statements are unchanged.
 
 ## Documentation repair
 
@@ -77,6 +79,6 @@ python3 proof/generate_index.py --check
 python3 proof/check_fragment.py --all
 ```
 
-Next, repair and validate the duplicate module's compatibility path. Then check
+Next, validate the compatibility path with the baseline command. Then check
 the standalone candidates and resolve the mixed aggregate before beginning the
 clock/width path migration. Keep source moves separate from theorem changes.
