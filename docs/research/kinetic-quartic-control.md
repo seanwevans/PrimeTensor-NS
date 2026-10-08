@@ -318,3 +318,20 @@ kinetic mass anchor, absorbed activation is confined to a bounded H3-energy
 region. These are pointwise facts; they do not establish that high energies
 occur, persist, or contribute a finite terminal integral. The conditional
 continuation/nonextension alternatives remain unresolved.
+
+## High-energy localization of canonical selected direct obstruction
+
+For every real cutoff L, split the canonical selected direct coefficient into
+its restrictions to E_H3(t) <= L and E_H3(t) > L, using complementary indicator
+functions. On the first region, the exact direct share is bounded above by
+4422 (1 + C1 sqrt(L)). The H3 energy derivative identities and canonical
+transport coefficient imply both restrictions are measurable relative to any
+strict terminal-tail measure. Since such tails have finite measure, the
+bounded-energy selected direct restriction is integrable on each tail.
+
+At any kinetic anchor with E0(b)>0, the previously proved absorbed-share
+integrability and selected continuation criterion show that, under
+hypothetical nonextension, the high-energy direct restriction must be
+nonintegrable on every strict subtail, for every fixed cutoff L. This is a
+conditional localization, not an assertion of blowup or of the integrability
+of the remaining high-energy share.
