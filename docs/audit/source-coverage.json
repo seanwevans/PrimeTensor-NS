@@ -1,6 +1,6 @@
 {
-  "revision": "4b8360c7",
-  "scope": "Compatibility and weighted PDE paths validated; physical L2 Cauchy frontier enrolled for standalone validation; strict-time decay and mixed aggregate remain pending.",
+  "revision": "e6e3b9fd",
+  "scope": "Compatibility, weighted PDE, and physical L2 Cauchy paths validated; strict-time decay enrolled for validation; mixed primitive aggregate remains pending.",
   "modules": [
     {
       "path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Second/LowerTemporal/Amplitude/Forcing/Primitive.lean",
@@ -34,14 +34,15 @@
       "action": "Build the unchanged physical L2 Cauchy-frontier module independently; check its public declarations alongside the root and print dependencies of the identification, equivalence, and conditional closure theorems.",
       "source_sha256": "4936b7d56926be00e87d2dce9717bee0fd6ef3f9a264969c9bdce2cade10e662",
       "evidence": "Named results not found elsewhere in the current source scan; this is a retention candidate, not independently build-verified.",
-      "validation": "Referenced source declarations reviewed; actual Lean build and axiom checks await the baseline run."
+      "validation": "User-supplied baseline log passed and was pushed as e6e3b9fd; two nonblocking intro-style warnings were reported."
     },
     {
       "path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Strict/Time/Decay.lean",
-      "classification": "standalone-candidate",
-      "action": "Compile independently and assess inclusion in supported module coverage.",
+      "classification": "standalone-build-target",
+      "action": "Build unchanged strict-time decay source and check both public theorems and their axiom dependencies alongside the root.",
       "source_sha256": "ceeafed4cc6801dc878bc1291d10623330db1443cd7148a546e00ee32cbf9d93",
-      "evidence": "Named results not found elsewhere in the current source scan; this is a retention candidate, not independently build-verified."
+      "evidence": "Named results not found elsewhere in the current source scan; this is a retention candidate, not independently build-verified.",
+      "validation": "Source proof and dependencies reviewed; Lean compilation pending the accompanying baseline run."
     }
   ]
 }

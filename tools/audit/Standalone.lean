@@ -1,3 +1,4 @@
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.Complement.Endpoint.Factor.BKM.Native.Full.Tail.Balance.Amplitude.Minimal.Vorticity.Physical.Strict.Time.Decay
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.Complement.Endpoint.Factor.BKM.Native.Full.Tail.Balance.Amplitude.Minimal.Vorticity.Physical.Longitudinal.Equatorial.Vorticity.Physical.L2.Cauchy.Frontier
 import PrimeTensor
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.Complement.Endpoint.Factor.BKM.Native.Full.Tail.Balance.Amplitude.Minimal.Vorticity.Physical.Longitudinal.Equatorial.Vorticity.Physical.Dissipation.Top.Radial.Tail.Temporal.Hilbert.Weighted.Old.PDE.Terms
@@ -21,3 +22,9 @@ open PrimeTensor.Bridge.Euclidean
 #print axioms h3TerminalRawVelocityFourierTotalSquareDefect_velocitySpectralStateAt_eq_physical
 #print axioms velocityRawFourierL2CauchyAtEndpoint_iff_physicalL2CauchyAtEndpoint
 #print axioms exists_failing_complementary_vorticityComponent_highRadialRaw_of_velocityPhysicalL2Cauchy_of_actualVorticityStrongH3EndpointPath_of_noH3PathExtension
+
+-- Fixed-time spatial decay; no uniform terminal-time claim.
+#check h3TerminalCurlFieldForPair_strictTime_tendsto_zero_of_h3Path
+#print axioms h3TerminalCurlFieldForPair_strictTime_tendsto_zero_of_h3Path
+#check h3NativeActualVorticityComponentAt_strictTime_tendsto_zero_of_h3Path
+#print axioms h3NativeActualVorticityComponentAt_strictTime_tendsto_zero_of_h3Path

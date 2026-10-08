@@ -58,3 +58,8 @@ unchanged. `Standalone.lean` checks its eight named declarations and prints
 axiom dependencies for the exact physical/Fourier defect identity, endpoint
 Cauchy equivalence, and conditional radial closure. This does not assert that
 the endpoint Cauchy condition follows from the other path hypotheses.
+
+Strict-time vorticity decay is also enrolled in the standalone roster, with
+both public theorems checked in `Standalone.lean`. This is decay along spatial
+escape at each fixed strict preterminal time, not a uniform-in-time estimate
+near the endpoint. Detailed audit output remains enabled.
