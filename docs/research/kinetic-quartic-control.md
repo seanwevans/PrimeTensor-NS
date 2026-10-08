@@ -435,3 +435,23 @@ nonnegative epsilon at every positive-kinetic-mass anchor. A constant r=M
 is a special case. This is a *conditional criterion* only: no new PDE
 transport estimate is asserted, and neither universal continuation nor
 finite-time blowup is proved.
+
+## Minimal normalized dissipation-margin excess rate
+
+For any real margin epsilon, define q_epsilon(t) as the positive part of
+(-transport_H3(t) - (2-epsilon) D_H3(t)) / E_H3(t). The exact physical
+H3 balance makes this the positive part of (E'_H3(t) + epsilon D_H3(t))
+/ E_H3(t) on each H3 energy-class interval. It is nonnegative and is
+pointwise minimal among nonnegative coefficients r satisfying
+
+    -transport_H3(t) <= (2-epsilon) D_H3(t) + r(t) E_H3(t).
+
+As epsilon increases, q_epsilon increases, because D_H3 is nonnegative.
+For epsilon >= 0 the rate dominates the known full-dissipation positive
+logarithmic growth rate. If q_epsilon is integrable on one terminal H3
+energy-class interval, the exact balance and the existing scalar linear
+growth theorem imply smooth continuation. Conversely, hypothetical
+nonextension forces q_epsilon nonintegrable on every strict later tail for
+all epsilon >= 0. This anchor-independent family identifies an exact
+minimal PDE margin requirement; it does NOT prove such an estimate is
+satisfied, nor establish global regularity or blowup.
