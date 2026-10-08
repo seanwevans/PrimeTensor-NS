@@ -479,3 +479,29 @@ theorem not_integrableOn_minDirectExactQuarticGradient_on_strictSubtail_of_noH3P
 end Euclidean
 end Bridge
 end PrimeTensor
+
+namespace PrimeTensor
+namespace Bridge
+namespace Euclidean
+
+/-- With nonnegative B, the ε = 2 remainder is no larger than any remainder
+with 0 < ε ≤ 2. -/
+theorem h3FullTransportAbsorptionRemainderAt_two_le_of_epsilon
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {t B ε : ℝ} (hB : 0 ≤ B) (hε : 0 < ε) (hεTwo : ε ≤ 2) :
+    h3FullTransportAbsorptionRemainderAt u t B 2 ≤
+      h3FullTransportAbsorptionRemainderAt u t B ε := by
+  have hE0 := velocityH3Energy0At_nonneg u t
+  have hε3 : ε ^ 3 ≤ (2 : ℝ) ^ 3 :=
+    pow_le_pow_left₀ hε.le hεTwo 3
+  have hFraction :
+      (3 * B) ^ 4 / (2 : ℝ) ^ 3 ≤ (3 * B) ^ 4 / ε ^ 3 := by
+    apply (div_le_div_iff₀ (by positivity) (by positivity)).2
+    exact mul_le_mul_of_nonneg_left hε3 (by positivity)
+  have hProduct := mul_le_mul_of_nonneg_right hFraction hE0
+  unfold h3FullTransportAbsorptionRemainderAt
+  nlinarith
+
+end Euclidean
+end Bridge
+end PrimeTensor

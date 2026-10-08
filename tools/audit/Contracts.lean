@@ -164,3 +164,7 @@ open PrimeTensor.Bridge.Euclidean
 -- Exact gradient adaptive nonextension obstruction.
 #check not_integrableOn_minDirectExactQuarticGradient_on_strictSubtail_of_noH3PathExtension
 #print axioms not_integrableOn_minDirectExactQuarticGradient_on_strictSubtail_of_noH3PathExtension
+
+-- Full absorption budget minimizes the remainder over 0 < epsilon <= 2.
+#check h3FullTransportAbsorptionRemainderAt_two_le_of_epsilon
+#print axioms h3FullTransportAbsorptionRemainderAt_two_le_of_epsilon
