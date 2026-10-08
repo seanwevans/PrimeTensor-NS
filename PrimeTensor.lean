@@ -1953,3 +1953,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.ThirdOrderAbsorption
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FullTransportAbsorption
 
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.NormalizedRemainder
+
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.KineticQuartic
