@@ -42,13 +42,15 @@ record of these types and dependencies.
 Exact source paths, source hashes, and actions are in
 [source-coverage.json](source-coverage.json). Five files remain outside the root import closure. The historical primitive
 copy now forwards to its active canonical implementation and is explicitly
-built by the baseline. Four candidates remain pending.
+built by the baseline. The weighted PDE-terms module is now enrolled for independent build validation;
+three other candidates remain pending. The compatibility checks passed in the
+user-reported `0a9ce644` baseline.
 
 | Source role | Classification | Next action |
 |---|---|---|
 | Fourth-q forcing primitive mass aggregate | Mixed duplicated and unique results | Compare with the active Escape/Pair/Bound chain; preserve unique statements. |
 | Older fourth-q derivative primitive module | Compatibility import of the active canonical implementation | Baseline builds the old target and checks coexistence with the root API. |
-| Separated weighted PDE terms | Standalone candidate with unique results | Compile separately, then decide supported coverage. |
+| Separated weighted PDE terms | Statement-preserving wrapper enrolled as a standalone build target | Build independently and check its theorem/axioms alongside the root. |
 | Physical L² Cauchy frontier | Standalone candidate with unique results | Compile separately and preserve its physical/Fourier equivalence. |
 | Strict-time vorticity decay | Standalone candidate with unique results | Compile separately, then decide supported coverage. |
 
@@ -79,6 +81,13 @@ python3 proof/generate_index.py --check
 python3 proof/check_fragment.py --all
 ```
 
-Next, validate the compatibility path with the baseline command. Then check
-the standalone candidates and resolve the mixed aggregate before beginning the
+Next, run the baseline for the enrolled weighted PDE-terms target. Then check
+the remaining standalone candidates and resolve the mixed aggregate before beginning the
 clock/width path migration. Keep source moves separate from theorem changes.
+
+The separated weighted PDE theorem supplies L² representatives of the diffusion
+and forcing terms at a strict time, under the existing H³ path and energy-class
+hypotheses. This is a representation/integrability result, not a terminal bound.
+Its original duplicate proof failed on stale slab arguments and rewriting.
+The retained statement now delegates to the already covered strict-time
+weighted PDE factors theorem while standalone coverage is checked. A failed check must be repaired before committing this enrollment.

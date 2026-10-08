@@ -1,6 +1,6 @@
 {
-  "revision": "8a0ecdb7",
-  "scope": "Four source candidates remain pending; the historical duplicate is a compatibility import with an explicit baseline target.",
+  "revision": "0a9ce644",
+  "scope": "Historical compatibility path validated; weighted PDE terms enrolled for independent build validation; three other source candidates remain pending.",
   "modules": [
     {
       "path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Second/LowerTemporal/Amplitude/Forcing/Primitive.lean",
@@ -17,14 +17,16 @@
       "canonical_path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Fourth/Raw/Higher/Subtail/StateMass/Group/Factor/Primitive.lean",
       "evidence": "Original body was identical to canonical source after its first import; now forwards to that canonical module.",
       "canonical_sha256": "e3a6c6191b80b7f58e7f2a6a528877ba2e82f0674814b18cf3422f2aea8b590d",
-      "validation": "Static import and API checks completed during patch preparation; Lean validation is performed by the accompanying baseline command."
+      "validation": "User-reported baseline passed and was committed as 0a9ce644, including the historical target and five public API checks."
     },
     {
       "path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Hilbert/Weighted/Old/PDE/Terms.lean",
-      "classification": "standalone-candidate",
-      "action": "Compile independently and assess inclusion in supported module coverage.",
-      "source_sha256": "c7c70345b7a56a6cce5dc1d0e4cf4ed371c91ee77f86e986c3023a7f53ae024d",
-      "evidence": "Named results not found elsewhere in the current source scan; this is a retention candidate, not independently build-verified."
+      "classification": "standalone-wrapper",
+      "action": "Build the historical module and check its retained theorem and axioms in tools/audit/Standalone.lean.",
+      "source_sha256": "3345bafe5b3a1cb5c88b663bf4dccfd927cb6f7b34cba94fb3cb1c86db9b2afb",
+      "evidence": "The public statement agrees with exists_h3TerminalPhysicalTopDissipationStrictTimeWeightedPDEFactors modulo bound-variable names and formatting. The old theorem now delegates to it.",
+      "validation": "Initial standalone build exposed stale slab arguments and rewriting; wrapper repair awaits Lean baseline validation.",
+      "canonical_path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Hilbert/Weighted/Old/Derivative/Factors.lean"
     },
     {
       "path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/L2/Cauchy/Frontier.lean",

@@ -46,3 +46,9 @@ not treated as proof holes merely because they appear in this output.
 imported back into the library. The first patch does not change CI or theorem
 statements. Once the baseline has succeeded, CI evidence retention can reuse
 these checks without forcing a second clean build.
+
+The standalone roster now also includes the separated weighted PDE-terms
+module. `Standalone.lean` checks its unique theorem alongside the root and
+prints its axiom dependencies. Its import path and theorem statement are preserved; the theorem delegates to
+the existing strict-time weighted PDE factors result. Its inclusion in the roster requests validation; only a successful
+baseline run establishes that it builds with the current dependencies.

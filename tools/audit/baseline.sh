@@ -39,6 +39,7 @@ while IFS= read -r target || [[ -n "$target" ]]; do
   case "$target" in ''|'#'*) continue ;; esac
   lake build "$target"
 done < tools/audit/standalone-targets.txt 2>&1 | tee "$report/standalone-build.log"
+lake env lean tools/audit/Standalone.lean 2>&1 | tee "$report/standalone-api.log"
 lake env lean tools/audit/Compatibility.lean 2>&1 | tee "$report/compatibility.log"
 lake env lean PrimeTensor.lean 2>&1 | tee "$report/root.log"
 lake env lean tools/audit/Contracts.lean 2>&1 | tee "$report/contracts-and-axioms.log"
