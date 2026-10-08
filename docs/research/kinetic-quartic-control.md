@@ -682,3 +682,30 @@ it is the intrinsic inverse-square time bound evaluated in a freely chosen
 quadratically narrowing window. No unconditional extension or finite-time
 singular solution is claimed. The current work reuses the already existing
 Riccati lower bound rather than presenting it as a newly discovered estimate.
+
+## Exact Riccati growth defect and terminal coefficient refinement
+
+The existing autonomous H3 Riccati bound is E'<=K*sqrt(E)*E with
+K=4422*(C1+1). On every strict H3 energy-class time the exact signed
+PDE balance yields the nonnegative three-channel defect identity
+
+  K*sqrt(E) - E'/E = 4422*(sqrt(E)-1) + Delta + 2*D/E,
+
+where Delta=B+T_H3/E is canonical commutator cancellation slack,
+B=4422*(1+C1*sqrt(E)), and D is the nonnegative full H3 dissipation.
+This identifies the 4422*(sqrt(E)-1) overhead introduced when bounding
+the fixed baseline 4422 by 4422*sqrt(E). For any eta>0, wherever
+4422<=eta*sqrt(E), the closed energy inequality improves pointwise to
+
+  E' <= (4422*C1+eta)*sqrt(E)*E.
+
+The already proved intrinsic Riccati floor for a hypothetical
+nonextendible H3 path, 2<=K*(T-t)*sqrt(E(t)) at every energy-class
+time, forces the high-energy premise for all sufficiently late times,
+with the explicit terminal-width cutoff 2*eta/(K*4422). Thus, under
+hypothetical nonextension, for every eta>0 there is a final energy-class
+tail where the refined pointwise growth coefficient holds throughout.
+This refines an upper differential inequality only; it does not yet
+re-run the inverse-root Riccati comparison with the smaller coefficient,
+prove a stronger intrinsic terminal floor, force cancellation, prove
+smooth continuation, or construct a finite-time singularity.
