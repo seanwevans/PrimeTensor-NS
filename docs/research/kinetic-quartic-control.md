@@ -78,3 +78,8 @@ before replacing it by `(1 + (105/8) E₀(b)) B⁴`. A second adaptive criterion
 uses the minimum of B and this exact remainder divided by E. It is therefore
 pointwise at least as sharp as the coefficient bound. The previous coarse
 criterion remains available for estimates stated only in terms of B⁴/E.
+
+The exact-coefficient continuation theorem has the matching contrapositive:
+under nonextension, its minimum coefficient is nonintegrable on every strict
+anchored subtail. This preserves the sharper lower-order dependence in the
+obstruction statement.

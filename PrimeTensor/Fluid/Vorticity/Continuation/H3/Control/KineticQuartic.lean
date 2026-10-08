@@ -330,3 +330,33 @@ theorem h3PathExtension_of_integrableMinDirectExactQuarticCoefficientOnSubtail
 end Euclidean
 end Bridge
 end PrimeTensor
+
+namespace PrimeTensor
+namespace Bridge
+namespace Euclidean
+
+/-- Under nonextension, the exact adaptive minimum coefficient is
+nonintegrable on every strict anchored subtail. -/
+theorem not_integrableOn_minDirectExactQuarticCoefficient_on_strictSubtail_of_noH3PathExtension
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T a b : ℝ} {B : ℝ → ℝ}
+    (hH3 : LoggedPreterminalH3PathAdmissible u T)
+    (hNoExtension :
+      ¬ ∃ v : SpaceTimeVectorField ℝ ℝ MulReal Depth.three,
+        SmoothContinuationExtension u v T)
+    (hClass : PreterminalH3EnergyClass u a T) (hb : b ∈ Set.Ioo a T)
+    (hB : ∀ t : ℝ, t ∈ Set.Ioo b T → 1 ≤ B t)
+    (hTransport : ∀ t : ℝ, t ∈ Set.Ioo b T →
+      |velocityH3TransportDerivativeAt u t| ≤ B t * velocityH3EnergyAt u t) :
+    ¬ MeasureTheory.IntegrableOn
+      (fun t : ℝ => min (B t)
+        ((B t + (3 * B t + (3 * B t) ^ 4 / (2 : ℝ) ^ 3) *
+          velocityH3Energy0At u b) / velocityH3EnergyAt u t)) (Set.Ioo b T) := by
+  intro hMinimum
+  exact hNoExtension
+    (h3PathExtension_of_integrableMinDirectExactQuarticCoefficientOnSubtail
+      hH3 hClass hb hB hTransport hMinimum)
+
+end Euclidean
+end Bridge
+end PrimeTensor
