@@ -7,7 +7,7 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.BKM.Closure
 
 The closed kinetic-energy identity bounds E₀(t) by E₀(b) after an interior
 anchor b. For B ≥ 1 and absorption budget ε = 2, the explicit remainder is
-at most (1 + 14 E₀(b)) B⁴. Thus integrability of B⁴/E on that later tail
+at most (1 + (105/8) E₀(b)) B⁴. Thus integrability of B⁴/E on that later tail
 suffices for continuation. The kinetic bound is derived from the PDE;
 the quartic normalized coefficient remains an explicit temporal hypothesis.
 -/
@@ -21,19 +21,19 @@ theorem h3FullTransportAbsorptionRemainderAt_le_kinetic_quartic
     {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
     {t B M : ℝ} (hB : 1 ≤ B)
     (hKinetic : velocityH3Energy0At u t ≤ M) :
-    h3FullTransportAbsorptionRemainderAt u t B 2 ≤ (1 + 14 * M) * B ^ 4 := by
+    h3FullTransportAbsorptionRemainderAt u t B 2 ≤ (1 + (105 / 8) * M) * B ^ 4 := by
   have hB0 : 0 ≤ B := le_trans zero_le_one hB
   have hSquare : B ≤ B ^ 2 := by
     nlinarith [mul_nonneg hB0 (sub_nonneg.mpr hB)]
   have hSquareOne : 1 ≤ B ^ 2 := le_trans hB hSquare
   have hFourth : B ≤ B ^ 4 := by
     nlinarith [mul_nonneg (sq_nonneg B) (sub_nonneg.mpr hSquareOne)]
-  have hCoefficient : 3 * B + (3 * B) ^ 4 / (2 : ℝ) ^ 3 ≤ 14 * B ^ 4 := by
+  have hCoefficient : 3 * B + (3 * B) ^ 4 / (2 : ℝ) ^ 3 ≤ (105 / 8) * B ^ 4 := by
     nlinarith [sq_nonneg (B ^ 2)]
   have hE0 := velocityH3Energy0At_nonneg u t
   have hProduct := mul_le_mul_of_nonneg_right hCoefficient hE0
   have hCeiling := mul_le_mul_of_nonneg_left hKinetic
-    (show 0 ≤ 14 * B ^ 4 by positivity)
+    (show 0 ≤ (105 / 8) * B ^ 4 by positivity)
   unfold h3FullTransportAbsorptionRemainderAt
   nlinarith only [hFourth, hProduct, hCeiling]
 
@@ -47,7 +47,7 @@ theorem deriv_velocityH3EnergyAt_le_anchored_quartic_majorant
     (hTransport : |velocityH3TransportDerivativeAt u t| ≤
       B * velocityH3EnergyAt u t) :
     deriv (velocityH3EnergyAt u) t ≤
-      ((1 + 14 * velocityH3Energy0At u b) * (B ^ 4 / velocityH3EnergyAt u t)) *
+      ((1 + (105 / 8) * velocityH3Energy0At u b) * (B ^ 4 / velocityH3EnergyAt u t)) *
         velocityH3EnergyAt u t := by
   have htOld : t ∈ Set.Ioo a T := ⟨lt_trans hb.1 ht.1, ht.2⟩
   have hAnti := antitoneOn_velocityH3Energy0At_of_h3Path_derivativeIdentities
@@ -65,9 +65,9 @@ theorem deriv_velocityH3EnergyAt_le_anchored_quartic_majorant
     lt_of_lt_of_le zero_lt_one (one_le_velocityH3EnergyAt u t)
   have hEnergyNe : velocityH3EnergyAt u t ≠ 0 := ne_of_gt hEnergyPos
   calc
-    deriv (velocityH3EnergyAt u) t ≤ (1 + 14 * velocityH3Energy0At u b) * B ^ 4 :=
+    deriv (velocityH3EnergyAt u) t ≤ (1 + (105 / 8) * velocityH3Energy0At u b) * B ^ 4 :=
       le_trans hDerivative hRemainder
-    _ = ((1 + 14 * velocityH3Energy0At u b) * (B ^ 4 / velocityH3EnergyAt u t)) *
+    _ = ((1 + (105 / 8) * velocityH3Energy0At u b) * (B ^ 4 / velocityH3EnergyAt u t)) *
         velocityH3EnergyAt u t := by
       field_simp [hEnergyNe]
 
@@ -87,7 +87,7 @@ theorem h3PathExtension_of_integrableQuarticTransportCoefficientOnSubtail
   have hClassB : PreterminalH3EnergyClass u b T :=
     preterminalH3EnergyClass_restrict_left hClass (le_of_lt hb.1) hb.2
   have hMajorant : MeasureTheory.IntegrableOn
-      (fun t : ℝ => (1 + 14 * velocityH3Energy0At u b) *
+      (fun t : ℝ => (1 + (105 / 8) * velocityH3Energy0At u b) *
         ((B t) ^ 4 / velocityH3EnergyAt u t)) (Set.Ioo b T) :=
     hQuartic.const_mul _
   apply h3PathExtension_of_integrableLinearEnergyGrowthMajorantOnTail
@@ -141,7 +141,7 @@ theorem deriv_velocityH3EnergyAt_le_min_direct_quartic_majorant
     (hTransport : |velocityH3TransportDerivativeAt u t| ≤
       B * velocityH3EnergyAt u t) :
     deriv (velocityH3EnergyAt u) t ≤
-      min B ((1 + 14 * velocityH3Energy0At u b) * (B ^ 4 / velocityH3EnergyAt u t)) *
+      min B ((1 + (105 / 8) * velocityH3Energy0At u b) * (B ^ 4 / velocityH3EnergyAt u t)) *
         velocityH3EnergyAt u t := by
   have htOld : t ∈ Set.Ioo a T := ⟨lt_trans hb.1 ht.1, ht.2⟩
   have hBalance := deriv_velocityH3EnergyAt_add_two_dissipation_eq_neg_transport
@@ -153,7 +153,7 @@ theorem deriv_velocityH3EnergyAt_le_min_direct_quartic_majorant
   have hQuartic := deriv_velocityH3EnergyAt_le_anchored_quartic_majorant
     hH3 hClass hb ht hB hTransport
   by_cases hCompare : B ≤
-      (1 + 14 * velocityH3Energy0At u b) * (B ^ 4 / velocityH3EnergyAt u t)
+      (1 + (105 / 8) * velocityH3Energy0At u b) * (B ^ 4 / velocityH3EnergyAt u t)
   · simpa only [min_eq_left hCompare] using hDirect
   · simpa only [min_eq_right (le_of_not_ge hCompare)] using hQuartic
 
@@ -168,7 +168,7 @@ theorem h3PathExtension_of_integrableMinDirectQuarticCoefficientOnSubtail
       |velocityH3TransportDerivativeAt u t| ≤ B t * velocityH3EnergyAt u t)
     (hMinimum : MeasureTheory.IntegrableOn
       (fun t : ℝ => min (B t)
-        ((1 + 14 * velocityH3Energy0At u b) * ((B t) ^ 4 / velocityH3EnergyAt u t)))
+        ((1 + (105 / 8) * velocityH3Energy0At u b) * ((B t) ^ 4 / velocityH3EnergyAt u t)))
       (Set.Ioo b T)) :
     ∃ v : SpaceTimeVectorField ℝ ℝ MulReal Depth.three,
       SmoothContinuationExtension u v T := by
@@ -189,7 +189,7 @@ theorem h3PathExtension_of_integrableMinDirectQuarticGradientOnSubtail
     (hGradient : ∀ t : ℝ, t ∈ Set.Ioo b T → VelocityGradientEnvelope u h t)
     (hMinimum : MeasureTheory.IntegrableOn
       (fun t : ℝ => min (4422 * (1 + |h t|))
-        ((1 + 14 * velocityH3Energy0At u b) *
+        ((1 + (105 / 8) * velocityH3Energy0At u b) *
           ((4422 * (1 + |h t|)) ^ 4 / velocityH3EnergyAt u t))) (Set.Ioo b T)) :
     ∃ v : SpaceTimeVectorField ℝ ℝ MulReal Depth.three,
       SmoothContinuationExtension u v T := by
@@ -227,7 +227,7 @@ theorem not_integrableOn_minDirectQuarticCoefficient_on_strictSubtail_of_noH3Pat
       |velocityH3TransportDerivativeAt u t| ≤ B t * velocityH3EnergyAt u t) :
     ¬ MeasureTheory.IntegrableOn
       (fun t : ℝ => min (B t)
-        ((1 + 14 * velocityH3Energy0At u b) *
+        ((1 + (105 / 8) * velocityH3Energy0At u b) *
           ((B t) ^ 4 / velocityH3EnergyAt u t))) (Set.Ioo b T) := by
   intro hMinimum
   exact hNoExtension

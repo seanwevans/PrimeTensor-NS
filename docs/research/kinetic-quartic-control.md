@@ -11,13 +11,13 @@ gives E₀(t) ≤ E₀(b) for b < t < T without another analytic assumption.
 For B ≥ 1 and ε = 2,
 
     R = B + (3B + (81/8) B⁴) E₀
-      ≤ (1 + 14 E₀(b)) B⁴.
+      ≤ (1 + (105/8) E₀(b)) B⁴.
 
-Here B ≤ B⁴, and 3B + (81/8)B⁴ ≤ 14B⁴. The coefficient 14 is a
+Here B ≤ B⁴, and 3B + (81/8)B⁴ ≤ 14B⁴. The coefficient 105/8 is a
 convenient upper bound, not an optimized constant. The exact PDE balance
 and positivity of E give
 
-    E′ ≤ [(1 + 14 E₀(b)) B⁴/E] E.
+    E′ ≤ [(1 + (105/8) E₀(b)) B⁴/E] E.
 
 Consequently integrability of B⁴/E on (b,T) supplies continuation whenever
 |T_H3| ≤ B E. A final theorem uses B = 4422(1 + |h|) from the closed
@@ -38,7 +38,7 @@ Lean is unavailable in the packaging environment.
 
 The follow-up based on `6aafe8d0` stays in the same Lean module. Both the
 exact balance and the anchored absorption theorem apply at every strict
-subtail time. With C = 1 + 14 E₀(b), they yield
+subtail time. With C = 1 + (105/8) E₀(b), they yield
 
     E′ ≤ min(B, C B⁴/E) E.
 
@@ -62,7 +62,7 @@ The adaptive theorem has the matching contrapositive. If no
 `SmoothContinuationExtension` exists, then on every strict anchored subtail
 the coefficient
 
-    min(B, (1 + 14 E₀(b)) B⁴/E)
+    min(B, (1 + (105/8) E₀(b)) B⁴/E)
 
 is nonintegrable, provided the transport bound and B ≥ 1 hold there. This is
 a neutral obstruction statement: it does not select the direct or absorbed
