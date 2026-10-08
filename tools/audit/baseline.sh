@@ -13,7 +13,7 @@ finish() {
   local status=$?
   printf '%s\n' "$status" > "$report/exit-code.txt"
   if (( status == 0 )); then
-    printf 'PASS: supported root build and selected contract checks. Known source gaps remain.\n' > "$report/result.txt"
+    printf 'PASS: all project modules covered by root/standalone builds; selected API and contract checks passed.\n' > "$report/result.txt"
   else
     printf 'FAIL: baseline incomplete (exit %s).\n' "$status" > "$report/result.txt"
   fi

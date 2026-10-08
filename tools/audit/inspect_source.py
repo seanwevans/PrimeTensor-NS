@@ -74,6 +74,20 @@ def main():
     excluded = sorted(m.replace('.', '/')+'.lean' for m in graph if m.startswith('PrimeTensor.') and m not in reached)
     expected = json.loads((root/'tools/audit/known-source-gaps.json').read_text())
     errors = []
+    roster = root/'tools/audit/standalone-targets.txt'
+    standalone = [line.strip() for line in roster.read_text().splitlines()
+                  if line.strip() and not line.lstrip().startswith('#')]
+    for target in standalone:
+        if target not in graph: errors.append(f'Unknown standalone target: {target}')
+    covered = set(reached)
+    queue = list(standalone)
+    while queue:
+        target = queue.pop()
+        if target in covered: continue
+        covered.add(target)
+        queue.extend(internal.get(target, []))
+    uncovered = sorted(m for m in graph if m.startswith('PrimeTensor.') and m not in covered)
+    if uncovered: errors.append('Project modules missing root/standalone coverage: ' + ', '.join(uncovered))
     if missing != expected['missing_imports']: errors.append('Missing-import inventory changed; review known-source-gaps.json.')
     if excluded != expected['not_root_reachable']: errors.append('Root-coverage inventory changed; review known-source-gaps.json.')
     depths = {}
@@ -88,11 +102,12 @@ def main():
         'longest_dependency_chain_modules': max(depths.values(), default=0),
         'not_root_reachable': excluded, 'missing_imports': missing,
         'source_flags': flags, 'coverage_errors': errors,
-        'scope': 'Static scan only; known excluded sources are not certified by the root build.',
+        'standalone_targets': standalone, 'uncovered_project_modules': uncovered,
+        'scope': 'Static coverage only; baseline must compile root and standalone targets to validate all project modules.',
     }
     (args.output/'coverage.json').write_text(json.dumps(summary, indent=2)+'\n')
     (args.output/'imports.json').write_text(json.dumps(graph, indent=2)+'\n')
-    print(f"Source inventory: {len(paths)-2} modules; {len(reached)} root-reachable; {len(excluded)} known exclusions; {len(missing)} missing project imports.")
+    print(f"Source inventory: {len(paths)-2} modules; {len(reached)} root-reachable; {len(standalone)} standalone targets; {len(uncovered)} uncovered modules; {len(missing)} missing project imports.")
     for error in errors: print(error)
     return bool(errors)
 

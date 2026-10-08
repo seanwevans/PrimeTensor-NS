@@ -24,20 +24,21 @@ recording a baseline; it contains:
 - printed continuation contracts, selected theorem types, and `#print axioms`;
 - an explicit exit status and result, including failure when a command fails.
 
-The source inventory deliberately records five known modules outside the root
-import closure at the original `fea879ee` checkpoint. The missing import in the historical
-primitive module is repaired by forwarding to its active canonical copy.
-`standalone-targets.txt` makes the baseline build that old path explicitly;
-`Compatibility.lean` checks its public API alongside the root import.
-`known-source-gaps.json` is a temporary explicit inventory, not a certification
-or an instruction to delete these modules. Changes to either list fail the
-check until reviewed. Their classification and repair order are recorded in
-`docs/audit/source-coverage.json` and `docs/audit/README.md`; the other four candidates remain
-pending until their individual validation steps succeed.
+Five project modules remain outside the root import closure and are listed in
+`known-source-gaps.json`. All five are now explicit standalone targets. The
+source inspector rejects any project module not covered by the root or those
+targets. `Standalone.lean` and `Compatibility.lean` also check coexistence with
+the root API. A successful baseline requires all those builds/checks to pass;
+static coverage alone is not compilation evidence.
 
-A passing baseline covers the default Lake targets, explicit standalone
-targets, compatibility API checks, and selected contract checks. It does not claim all source files compile or that any conditional
-endpoint alternative has been eliminated. Token scanning is not a Lean parser;
+The primitive aggregate imports its 14 shared declarations and retains its six
+unique declarations. The exact map is in
+`docs/audit/primitive-declaration-map.json`. The final aggregate repair still
+requires the accompanying Lean baseline run before it can be called validated.
+
+A passing baseline covers every project module and the selected contract/API
+checks. It does not establish that a conditional endpoint alternative has
+been eliminated. Token scanning is not a Lean parser;
 use the actual printed axiom dependencies when reviewing proof trust. Ordinary
 Lean axioms and native-evaluation dependencies must be interpreted explicitly,
 not treated as proof holes merely because they appear in this output.
@@ -63,3 +64,8 @@ Strict-time vorticity decay is also enrolled in the standalone roster, with
 both public theorems checked in `Standalone.lean`. This is decay along spatial
 escape at each fixed strict preterminal time, not a uniform-in-time estimate
 near the endpoint. Detailed audit output remains enabled.
+
+The first aggregate build exposed an unavailable `MulRightStrictMono ℝ`
+instance in a retained cancellation step. The repair uses the existing positive
+coefficient hypothesis and `mul_le_mul_of_nonneg_left` by contradiction.
+The statement and assumptions are unchanged; Lean revalidation is pending.

@@ -1,13 +1,15 @@
 {
-  "revision": "e6e3b9fd",
-  "scope": "Compatibility, weighted PDE, and physical L2 Cauchy paths validated; strict-time decay enrolled for validation; mixed primitive aggregate remains pending.",
+  "revision": "e091312a",
+  "scope": "All five sources are now explicit standalone targets; final aggregate repair awaits Lean build validation.",
   "modules": [
     {
       "path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Second/LowerTemporal/Amplitude/Forcing/Primitive.lean",
-      "classification": "mixed-duplicate-and-unique",
-      "action": "Compare unique statements with the active Escape/Pair/Bound chain before extracting or importing; do not delete or add wholesale to the root.",
-      "source_sha256": "ff846baa7d19b303d7f038b8da782369a84b63284a739eb52e3f6b8a5a1bee2e",
-      "evidence": "Named theorem overlap with the active Forcing/Escape, Escape/Pair, and Escape/Pair/Bound modules; additional uniquely named primitive-factor results remain."
+      "classification": "standalone-aggregate",
+      "action": "Build the aggregate and check all original declaration names alongside the root; inspect retained theorem axioms.",
+      "source_sha256": "45c79b05738adebb08767bb3901d66e7ba859a00d8704f56b37aea06266385e4",
+      "evidence": "14 duplicate declarations supplied by active imports; six unique statements retained. One retained cancellation proof repaired without changing its statement.",
+      "canonical_path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Second/LowerTemporal/Amplitude/Forcing/Escape/Pair/Bound.lean",
+      "validation": "First build exposed MulRightStrictMono cancellation in a retained proof. Replaced it with contradiction using positive-coefficient weak monotonicity; Lean revalidation pending."
     },
     {
       "path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/Transfer/Absorption/Profile/Component/Representative/Interpolation/Branch/PDE/Escape/Cofinal/Hilbert/LowerBalance/Resolve/TopDissipation/LowerDerivative/Closure/Channel/Envelope/Steepness/Derivative/Hilbert/Radial/PDE/Closure/Forcing/Selected/Weighted/Radial/Moment/Product/Quotient/Spectral/Moment/Limit/Convolution/L2/Leray/Selected/Homogeneity/Quotient/Self/Remainder/Concrete/Representative/Closure/ForcingWeights/Terminal/Fourth/Collapse/Pairing/Derivative/Orientation/Sequence/Pairing/Product/Square/Factor/Norm/PDE/Factor/Amplitude/Sixth/Factors/Factor/Overlap/Raw/Mass/Higher/Moment/Forcing/Escape/Pair/Bound/Group/Factor/Primitive/Low/Classify/Radial/Higher/Collapse/Subtail/Fourth/Forcing/Bound/Escape/StateMass/Group/Factor/Primitive.lean",
@@ -42,7 +44,7 @@
       "action": "Build unchanged strict-time decay source and check both public theorems and their axiom dependencies alongside the root.",
       "source_sha256": "ceeafed4cc6801dc878bc1291d10623330db1443cd7148a546e00ee32cbf9d93",
       "evidence": "Named results not found elsewhere in the current source scan; this is a retention candidate, not independently build-verified.",
-      "validation": "Source proof and dependencies reviewed; Lean compilation pending the accompanying baseline run."
+      "validation": "User confirmed successful checkpoint e091312a."
     }
   ]
 }
