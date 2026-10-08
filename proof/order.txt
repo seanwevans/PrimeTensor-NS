@@ -1,5 +1,5 @@
-# Generated from revision: a1629f233265b9afb708c37d6742b8ed6c8f9289
-# Source SHA-256: c654963de9d5679614d9940f6eb86a31821c69ba18285783223b7d2e7e7e4117
+# Generated from revision: 58e356817de333c62e51f0826d0616057ce7497e
+# Source SHA-256: f6782fed1553efcdcf7546150bca4353e216ce0fff005a91bdf43febbccbe532
 # Existing project import edges only; excluded/missing sources are tracked in tools/audit/known-source-gaps.json.
 Depth
 Prime
@@ -1772,6 +1772,7 @@ Fluid/Vorticity/Continuation/H3/Terminal/Native/Residual/Distinct/Channel/Spatia
 Fluid/Vorticity/Continuation/H3/Control/KineticQuarticCanonicalEventuallyDirect
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Full/Energy/Normalized/Cascade
 Fluid/Vorticity/Continuation/H3/Terminal/Native/Residual/Distinct/Finite/Trace
+Fluid/Vorticity/Continuation/H3/Control/KineticQuarticCanonicalDirectDefect
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Full/Energy/Dissipation/Continuation
 Fluid/Vorticity/Continuation/H3/Terminal/Native/Residual/Finite/Core/Infinity/Contrast
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Normalized/Balance/Dichotomy

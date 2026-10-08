@@ -383,3 +383,20 @@ set has the full measure T-c there. The selected direct share also inherits
 the known positive harmonic terminal lower bound on this final interval.
 These assertions are conditional on hypothetical nonextension and positive
 anchor kinetic mass; they neither establish nor exclude finite-time blowup.
+
+## Selected direct transport and the exact dissipation defect
+
+The closed physical H3 energy identity states E'(t)+2D(t)=-T_H3(t).
+Under hypothetical nonextension, an already established strict terminal
+sequence has E'(sigma_n) -> +infinity and hence signed full-dissipation
+transport excess -T_H3(sigma_n)-2D(sigma_n) -> +infinity. Eventual
+canonical direct selection at each positive-kinetic-mass anchor can be
+synchronized with the *same* sequence: eventually the selected direct
+coefficient is exactly 4422(1+C1 sqrt(E(sigma_n))) and selected absorption
+is zero. Therefore every later tail contains an exactly direct-selected
+time where the signed full-dissipation transport excess exceeds any
+prescribed real bound. Conversely, an upper bound on this signed excess
+at all sufficiently late direct-selected times for one positive-mass
+anchor would imply smooth continuation. These remain conditional results:
+no bound of this type is asserted for all Navier--Stokes paths, and no
+unconditional regularity or blowup result is claimed.
