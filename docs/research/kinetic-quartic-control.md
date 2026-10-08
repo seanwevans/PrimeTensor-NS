@@ -110,3 +110,8 @@ nonintegrable on every strict anchored subtail.
 Finally, for any B and `0 < ε ≤ 2`, the exact remainder at ε=2 is
 no larger than the remainder at ε. Thus the fixed full absorption budget used
 above is optimal within this one-parameter family for the remainder bound.
+
+The exact branch is packaged as a neutral dichotomy on each anchored tail:
+either a `SmoothContinuationExtension` exists, or the exact adaptive minimum
+coefficient is nonintegrable. The gradient-envelope specialization supplies
+this alternative directly from the closed PDE transport estimate.

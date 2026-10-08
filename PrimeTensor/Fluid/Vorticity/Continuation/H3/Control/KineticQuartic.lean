@@ -504,3 +504,64 @@ theorem h3FullTransportAbsorptionRemainderAt_two_le_of_epsilon
 end Euclidean
 end Bridge
 end PrimeTensor
+
+namespace PrimeTensor
+namespace Bridge
+namespace Euclidean
+
+/-- Exact adaptive continuation/nonextension dichotomy on one anchored tail. -/
+theorem h3PathExactAdaptiveQuarticContinuationOrObstruction
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T a b : ℝ} {B : ℝ → ℝ}
+    (hH3 : LoggedPreterminalH3PathAdmissible u T)
+    (hClass : PreterminalH3EnergyClass u a T) (hb : b ∈ Set.Ioo a T)
+    (hB : ∀ t : ℝ, t ∈ Set.Ioo b T → 1 ≤ B t)
+    (hTransport : ∀ t : ℝ, t ∈ Set.Ioo b T →
+      |velocityH3TransportDerivativeAt u t| ≤ B t * velocityH3EnergyAt u t) :
+    (∃ v : SpaceTimeVectorField ℝ ℝ MulReal Depth.three,
+      SmoothContinuationExtension u v T) ∨
+    ¬ MeasureTheory.IntegrableOn
+      (fun t : ℝ => min (B t)
+        ((B t + (3 * B t + (3 * B t) ^ 4 / (2 : ℝ) ^ 3) *
+          velocityH3Energy0At u b) / velocityH3EnergyAt u t)) (Set.Ioo b T) := by
+  by_cases hExtension : ∃ v : SpaceTimeVectorField ℝ ℝ MulReal Depth.three,
+      SmoothContinuationExtension u v T
+  · exact Or.inl hExtension
+  · exact Or.inr
+      (not_integrableOn_minDirectExactQuarticCoefficient_on_strictSubtail_of_noH3PathExtension
+        hH3 hExtension hClass hb hB hTransport)
+
+/-- Gradient-envelope specialization of the exact adaptive dichotomy. -/
+theorem h3PathExactAdaptiveGradientContinuationOrObstruction
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T a b : ℝ} {h : ℝ → ℝ}
+    (hH3 : LoggedPreterminalH3PathAdmissible u T)
+    (hClass : PreterminalH3EnergyClass u a T) (hb : b ∈ Set.Ioo a T)
+    (hGradient : ∀ t : ℝ, t ∈ Set.Ioo b T → VelocityGradientEnvelope u h t) :
+    (∃ v : SpaceTimeVectorField ℝ ℝ MulReal Depth.three,
+      SmoothContinuationExtension u v T) ∨
+    ¬ MeasureTheory.IntegrableOn
+      (fun t : ℝ => min (4422 * (1 + |h t|))
+        ((4422 * (1 + |h t|) +
+          (3 * (4422 * (1 + |h t|)) +
+            (3 * (4422 * (1 + |h t|))) ^ 4 / (2 : ℝ) ^ 3) *
+            velocityH3Energy0At u b) /
+          velocityH3EnergyAt u t)) (Set.Ioo b T) := by
+  have hB : ∀ t : ℝ, t ∈ Set.Ioo b T → 1 ≤ 4422 * (1 + |h t|) := by
+    intro t ht
+    nlinarith [abs_nonneg (h t)]
+  have hClassB : PreterminalH3EnergyClass u b T :=
+    preterminalH3EnergyClass_restrict_left hClass (le_of_lt hb.1) hb.2
+  have hTransport : ∀ t : ℝ, t ∈ Set.Ioo b T →
+      |velocityH3TransportDerivativeAt u t| ≤
+        (4422 * (1 + |h t|)) * velocityH3EnergyAt u t := by
+    intro t ht
+    exact (h3TransportControlledOnTail_of_h3Path_exactPDEPairing
+      h3PathEnergyClassProducesPDEPairingIntegrability_closed
+      hH3 hClassB hGradient t ht).2
+  exact h3PathExactAdaptiveQuarticContinuationOrObstruction
+    hH3 hClass hb hB hTransport
+
+end Euclidean
+end Bridge
+end PrimeTensor

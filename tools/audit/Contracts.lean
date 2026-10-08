@@ -168,3 +168,9 @@ open PrimeTensor.Bridge.Euclidean
 -- Full absorption budget minimizes the remainder over 0 < epsilon <= 2.
 #check h3FullTransportAbsorptionRemainderAt_two_le_of_epsilon
 #print axioms h3FullTransportAbsorptionRemainderAt_two_le_of_epsilon
+
+-- Neutral exact adaptive continuation/obstruction dichotomies.
+#check h3PathExactAdaptiveQuarticContinuationOrObstruction
+#print axioms h3PathExactAdaptiveQuarticContinuationOrObstruction
+#check h3PathExactAdaptiveGradientContinuationOrObstruction
+#print axioms h3PathExactAdaptiveGradientContinuationOrObstruction
