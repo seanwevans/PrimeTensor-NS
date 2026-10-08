@@ -1,6 +1,6 @@
 # Consolidation checkpoint
 
-## Current status (base: 7737d332)
+## Current status (base: 968e6cda)
 
 User-confirmed local baselines have completed the source-coverage repairs,
 23-module clock/width path migration, and two limit-bundle refactorings:
@@ -20,6 +20,7 @@ User-confirmed local baselines have completed the source-coverage repairs,
 | Full audit CI integration (local baseline) | `0bb4d596` |
 | Kernel-checked jet cardinality | `03a5e2db` |
 | Minimal restart and endpoint contract review | `7737d332` |
+| Direct H³-path restart audit | `968e6cda` |
 
 The current inventory is 2,407 project modules: 2,402 reachable from the root
 and five covered through standalone targets, with no uncovered modules or
@@ -277,3 +278,16 @@ and extension projection. The roadmap now identifies terminal-tail H³ control
 as the retained input on this route rather than a new continuity obligation.
 The audit prints those existing theorem types and axiom dependencies. Library
 sources are unchanged; the added audit commands await the next baseline run.
+
+## Control-route checkpoint (base: 968e6cda)
+
+The direct path-restart audit passed at `968e6cda`. The next source trace reaches
+`H3/BKM/Closure.lean`: the path-specific BKM criterion is already proved without
+the older reduced canonical-analysis premise. The audit now prints that closed
+criterion, its concrete vorticity control definition, the tail-local variant,
+and the scalar energy-ceiling and positive-log-growth sufficient conditions.
+The updated contract report separates these proved implications from the
+retained a-priori bounds. No library source is modified. The engineering and
+bounded consolidation work can stop here; further mathematical progress requires
+an estimate supplying one of those bounds, not additional packaging. The added
+contract commands still require a successful local baseline.

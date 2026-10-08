@@ -1,11 +1,12 @@
 # Continuation contract review
 
-Reviewed source base: `7737d332`. This is a review of the named contracts and
+Reviewed source base: `968e6cda`. This is a review of the named contracts and
 routes below, not a claim that every mathematical dependency has been audited.
 The accompanying `tools/audit/Contracts.lean` prints their actual Lean types
-and selected transitive axiom dependencies. The initial expanded audit passed at `7737d332`. The additional path-specific
-commands in this revision await a local baseline run. Exact emitted axiom lists
-and CI results remain separate evidence.
+and selected transitive axiom dependencies. The path-specific restart audit passed at `968e6cda`. This revision adds the
+closed BKM theorem and the terminal-tail sufficient conditions. The additional
+commands await a local baseline; exact emitted axiom lists and CI results
+remain separate evidence.
 
 ## What the endpoint theorem says
 
@@ -117,23 +118,66 @@ obligation for this already formalized path-specific restart. The additional
 contract commands print all four stages and their selected axiom dependencies.
 No library source has been changed to obtain this result.
 
-## Follow-up order
+## Existing sufficient controls and the current boundary
 
-1. Validate the path-specific contract output. Keep successful local build
-   evidence and the actual CI result distinct. Review the new axiom lists;
-   they are reports, not an enforced allowlist.
-2. Trace the sufficient conditions for `TerminalTailH3Control` on an admissible
-   H³ path. This is the input the direct restart still requires. Strict-time
-   integrability and continuity do not themselves state a uniform terminal-tail
-   bound; do not replace that bound with a qualitative regularity assertion.
-3. Track the strong endpoint and raw L² Cauchy assumptions separately. Identify
-   exact existing sufficient conditions or genuinely missing estimates before
-   attempting to remove either assumption from the endpoint theorem.
-4. Analyze exclusions of the remaining alternative branches with explicit
-   hypotheses and on the same selected sequences. Stronger escape packaging
-   by itself does not exclude escape.
+Tracing beyond the older `Analysis/Reduced.lean` route reaches
+[H3/BKM/Closure.lean](../../PrimeTensor/Fluid/Vorticity/Continuation/H3/BKM/Closure.lean).
+`h3PathVorticityL1LinfProducesExtension_closed` proves the path-specific BKM
+criterion without an extra canonical-analysis premise. The orderwise energy
+identities have already been assembled. The older reduced-analysis theorem
+remains a valid conditional route, but its premise must not be presented as
+an outstanding requirement of the later closed BKM theorem.
 
-Further path shortening is a separate maintenance task. The completed pilot
-preserved old imports and mathematical interfaces; the source graph still
-contains the deeper historical dependency chain. No additional path migration
-or mathematical strengthening is part of this contract-review patch.
+| Existing route | Sufficient input beyond the admissible H³ path | Result |
+|---|---|---|
+| Closed BKM | `VorticityL1LinfControl u T` | Extension package |
+| Tail-local BKM | Energy-class tail and an integrable common vorticity envelope on that tail | Extension package |
+| Scalar energy ceiling | Interior tail start, M ≥ 1, and canonical H³ energy ≤ M at every time in [a,T) | `TerminalTailH3Control` |
+| Positive logarithmic growth | Energy-class tail and integrability of `max 0 (deriv (log ∘ energy))` on (a,T) | `TerminalTailH3Control` |
+
+`VorticityL1LinfControl` is explicitly an integrable scalar envelope bounding
+all three classical vorticity components at every spatial point and strict
+time. Its definition does not invoke a spatial supremum or essential supremum.
+The tail-local version only needs this control on one terminal energy-class
+tail. The scalar routes feed the already closed direct real restart, so their
+control conclusion is enough for an actual PDE restart beyond T.
+
+Sources: [vorticity control](../../PrimeTensor/Fluid/Vorticity/L1Linf/Control.lean),
+[tail-local BKM](../../PrimeTensor/Fluid/Vorticity/Continuation/H3/Vorticity/Tail/Integrability.lean),
+[energy ceiling](../../PrimeTensor/Fluid/Vorticity/Continuation/H3/Terminal/Dichotomy.lean),
+and [positive logarithmic growth](../../PrimeTensor/Fluid/Vorticity/Continuation/H3/Terminal/Log/Alternative.lean).
+
+The named global a-priori input is
+`H3PathPreterminalNavierStokesForcesVorticityL1Linf` in
+[Vorticity/Apriori/Frontier.lean](../../PrimeTensor/Fluid/Vorticity/Continuation/H3/Vorticity/Apriori/Frontier.lean).
+It asks every admissible H³ path to supply the required vorticity control. The
+file defines that proposition and proves continuation assuming it; defining the
+proposition does not establish it. This audit does not prove any of the
+sufficient bounds in the table for every admissible path.
+
+## Consolidation checkpoint and next mathematical work
+
+The engineering pass has established full source build coverage through the
+root plus five standalone targets, repaired the documentation index and stale
+standalone proofs, preserved historical imports during a bounded path migration,
+and added two small limit bundles with unchanged legacy interfaces. CI now
+runs the full audit. The jet cardinality proof uses kernel-checked arithmetic.
+User-confirmed local baselines support those checkpoints; this report does not
+claim an independently observed successful CI run.
+
+The contract pass now distinguishes the already closed path restart and BKM
+criterion from their retained control inputs and the stronger endpoint
+assumptions. No further proof packaging is needed to state this boundary.
+
+The next mathematical task should target an actual estimate: trace a candidate
+terminal-tail vorticity envelope or positive logarithmic energy-growth majorant,
+and identify exactly which existing hypotheses establish its integrability.
+Use the named sufficient criteria above as the acceptance condition. Do not
+introduce another equivalent control proposition as a substitute for that
+estimate, or infer a terminal bound from strict-time continuity alone.
+
+The strong endpoint and raw L² Cauchy inputs of the quantitative endpoint
+alternative remain a separate line of inquiry. Its escape branches also
+remain possible conclusions of that theorem; no contradiction or blow-up
+existence claim follows from the audit. Further path shortening can proceed
+independently when justified by navigation needs, preserving compatibility.
