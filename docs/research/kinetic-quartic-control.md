@@ -809,3 +809,23 @@ intrinsic Riccati-derived quartic indexed-energy floor. Neither the
 bounded baseline comparison nor a freely chosen narrow window provides a
 new independent physical-time exponent or an analytic estimate making U
 integrable. This is a neutral necessary-condition synchronization only.
+
+## Essential temporal barrier for unabsorbed Riccati growth
+
+On the strict H3 energy-class terminal tail, the exact unabsorbed growth
+rate U = max(0,4422*C1*sqrt(E)-(Delta+2*D/E)) agrees with
+max(0,E'/E-4422). Tail-local temporal continuity of E and measurability
+of its derivative establish almost-everywhere strong measurability of U
+for the restricted Lebesgue measure. If U is dominated almost everywhere
+by any integrable real-valued remainder r, then |U|<=|r| almost everywhere;
+U is integrable, and the existing continuation criterion yields a smooth
+extension. Hence hypothetical nonextension forbids a.e. domination of U
+by every integrable remainder on each strict terminal energy-class
+subtail. In particular, for every finite M, it is impossible that
+U(t)<=M almost everywhere on such a tail: the exceedance has non-null
+temporal presence, not merely a possible isolated selected witness.
+Equivalently, almost-everywhere compensation of the leading nonlinear
+term 4422*C1*sqrt(E) by Delta+2*D/E plus an integrable remainder is
+impossible on any such tail under nonextension. No quantitative measure,
+time occupation fraction, new PDE coercivity, unconditional continuation,
+or existence of blowup is asserted.
