@@ -660,3 +660,25 @@ freedom to choose late witnesses, not evidence of a new Navier--Stokes
 physical-time growth bound. The earlier possible positive width cluster
 was always conditional on witness selection. Neither the existence of a
 blowup solution nor unconditional smooth continuation is established.
+
+## Intrinsic Riccati terminal clock and freely selected fast witnesses
+
+The repository already proves an intrinsic pointwise Riccati lower bound in
+PrimeTensor/Fluid/Vorticity/Continuation/H3/Terminal/Riccati/Lower/Bound.lean:
+conditional on hypothetical nonextension, every strict energy-class time t
+satisfies 2 <= K*(T-t)*sqrt(E_H3(t)), with K=4422*(C1+1)>0. It follows that
+4 <= K^2*(T-t)^2*E_H3(t), independent of how witnesses are chosen. In
+particular a single strict-tail time with K^2*(T-t)^2*E_H3(t)<4 (or with
+K*(T-t)*sqrt(E_H3(t))<2) suffices for smooth continuation, by contraposition.
+
+The earlier fast-clock theorem permits exact direct-selected witnesses at
+0<T-t_n<1/(n+1)^2, with actual normalized full-dissipation transport excess
+and spectral shortfall both above n. The intrinsic Riccati bound then also
+forces 4*(n+1)^4 <= K^2*E_H3(t_n). A cofinal cancellation-share cluster
+retains this eventual quartic indexed energy floor and its zero indexed
+width n*(T-t_n)->0, along with divergence of both excesses. The quartic
+index result does not represent a new independent physical-time exponent:
+it is the intrinsic inverse-square time bound evaluated in a freely chosen
+quadratically narrowing window. No unconditional extension or finite-time
+singular solution is claimed. The current work reuses the already existing
+Riccati lower bound rather than presenting it as a newly discovered estimate.

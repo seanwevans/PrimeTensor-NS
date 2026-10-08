@@ -2017,3 +2017,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.KineticQuarticCanonic
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.KineticQuarticCanonicalClockWidthCluster
 
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.KineticQuarticCanonicalFastClockSelection
+
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.KineticQuarticCanonicalIntrinsicClockBridge
