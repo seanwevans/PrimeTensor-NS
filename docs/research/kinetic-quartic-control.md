@@ -905,3 +905,34 @@ linear-energy margin fails on a non-null subset of every such tail.
 
 No independent bound D >= c*E^(3/2), unconditional continuation,
 or singularity existence is established.
+
+## Anchored top Fourier moment versus cubic dissipation deficit
+
+The independently established spatial Fourier interpolation inequality
+E3(t)^4 <= E0(t)*D3(t)^3, kinetic antitonicity, and D3<=D combine at
+any strict time t later than a fixed kinetic anchor b to yield
+
+    E3(t)^4 <= (E0(b)+1)*D(t)^3.
+
+The exact normalized H3 energy balance and the earlier pure-dissipation
+shortfall theorem show that if unabsorbed growth U(t)>M>=0, then
+
+    2*D(t) < B_M(t),
+    B_M(t) = A*sqrt(E(t))*E(t)-M*E(t), A=4422*C1.
+
+Consequently, with no added assumptions on the PDE, every high-U time
+obeys the strictly bounded Fourier moment corridor
+
+    8*E3(t)^4 < (E0(b)+1)*B_M(t)^3.
+
+Conversely, the reverse weak inequality at a time gives U(t)<=M.
+If the reverse weak inequality is valid for every time in one strict
+terminal H3 energy-class tail, the bounded U has an integrable temporal
+majorant and smooth continuation follows. Under hypothetical nonextension,
+arbitrarily late arbitrarily high U times satisfy the strict corridor.
+
+The reverse moment barrier is NOT established by Fourier interpolation or
+by the Navier--Stokes equations. Spatial interpolation alone supplies a
+4/3 top-energy dissipation exponent; the continuation threshold has a
+3/2 full-energy exponent. Their mismatch is the outstanding analytic gap.
+No unconditional regularity or singularity is proved.
