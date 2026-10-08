@@ -186,3 +186,7 @@ open PrimeTensor.Bridge.Euclidean
 -- Later anchors improve the exact coefficient.
 #check exact_kinetic_quartic_coefficient_mono_anchor
 #print axioms exact_kinetic_quartic_coefficient_mono_anchor
+
+-- Universal exact scalar dichotomy over every strict subtail.
+#check h3PathExactAdaptiveQuarticContinuationOrObstruction_on_every_strictSubtail
+#print axioms h3PathExactAdaptiveQuarticContinuationOrObstruction_on_every_strictSubtail

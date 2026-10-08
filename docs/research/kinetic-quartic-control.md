@@ -127,3 +127,9 @@ can only lower the exact coefficient on the remaining tail.
 The scalar monotonicity now lifts to anchors: if `b < c < t` on the energy
 class tail, the coefficient anchored at c is no larger than the coefficient
 anchored at b. This follows from the closed antitone kinetic-energy identity.
+
+The scalar exact adaptive dichotomy is also universal over strict subtails:
+either one continuation extension exists, or the exact minimum coefficient is
+nonintegrable on every later anchored tail. The transport and coefficient
+hypotheses are inherited by restriction, so this does not introduce a new
+analytic assumption.

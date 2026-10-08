@@ -650,3 +650,39 @@ theorem exact_kinetic_quartic_coefficient_mono_anchor
 end Euclidean
 end Bridge
 end PrimeTensor
+
+namespace PrimeTensor
+namespace Bridge
+namespace Euclidean
+
+/-- Universal strict-subtail form of the exact scalar adaptive dichotomy. -/
+theorem h3PathExactAdaptiveQuarticContinuationOrObstruction_on_every_strictSubtail
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T a : ℝ} {B : ℝ → ℝ}
+    (hH3 : LoggedPreterminalH3PathAdmissible u T)
+    (hClass : PreterminalH3EnergyClass u a T)
+    (hB : ∀ t : ℝ, t ∈ Set.Ioo a T → 1 ≤ B t)
+    (hTransport : ∀ t : ℝ, t ∈ Set.Ioo a T →
+      |velocityH3TransportDerivativeAt u t| ≤ B t * velocityH3EnergyAt u t) :
+    (∃ v : SpaceTimeVectorField ℝ ℝ MulReal Depth.three,
+      SmoothContinuationExtension u v T) ∨
+    ∀ b : ℝ, b ∈ Set.Ioo a T →
+      ¬ MeasureTheory.IntegrableOn
+        (fun t : ℝ => min (B t)
+          ((B t + (3 * B t + (3 * B t) ^ 4 / (2 : ℝ) ^ 3) *
+            velocityH3Energy0At u b) / velocityH3EnergyAt u t)) (Set.Ioo b T) := by
+  by_cases hExtension : ∃ v : SpaceTimeVectorField ℝ ℝ MulReal Depth.three,
+      SmoothContinuationExtension u v T
+  · exact Or.inl hExtension
+  · right
+    intro b hb
+    apply not_integrableOn_minDirectExactQuarticCoefficient_on_strictSubtail_of_noH3PathExtension
+      hH3 hExtension hClass hb
+    · intro t ht
+      exact hB t ⟨lt_trans hb.1 ht.1, ht.2⟩
+    · intro t ht
+      exact hTransport t ⟨lt_trans hb.1 ht.1, ht.2⟩
+
+end Euclidean
+end Bridge
+end PrimeTensor
