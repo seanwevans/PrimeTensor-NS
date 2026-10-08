@@ -48,6 +48,48 @@ theorem h3Terminal_ratio_tendsto_rebased_of_widthRatio_one
   rw [hPointwise] at hDiv
   simpa only [div_one] using hDiv
 
+/-- Four forward-width limits on the same three sequences. -/
+structure H3TerminalForwardWidthLimits (T : ℝ) (s τ σ : ℕ → ℝ) : Prop where
+  sampleClock : Tendsto (fun n : ℕ => (T - τ n) / (σ n - s n)) atTop (𝓝 0)
+  elapsed : Tendsto (fun n : ℕ => (τ n - s n) / (σ n - s n)) atTop (𝓝 1)
+  terminalGap : Tendsto (fun n : ℕ => (T - σ n) / (σ n - s n)) atTop (𝓝 0)
+  sampleGap : Tendsto (fun n : ℕ => (σ n - τ n) / (σ n - s n)) atTop (𝓝 0)
+
+/-- The forward-width bundle has exactly the existing conjunction's content. -/
+theorem h3TerminalForwardWidthLimits_iff (T : ℝ) (s τ σ : ℕ → ℝ) :
+    H3TerminalForwardWidthLimits T s τ σ ↔
+    Tendsto (fun n : ℕ => (T - τ n) / (σ n - s n)) atTop (𝓝 0) ∧
+    Tendsto (fun n : ℕ => (τ n - s n) / (σ n - s n)) atTop (𝓝 1) ∧
+    Tendsto (fun n : ℕ => (T - σ n) / (σ n - s n)) atTop (𝓝 0) ∧
+    Tendsto (fun n : ℕ => (σ n - τ n) / (σ n - s n)) atTop (𝓝 0) := by
+  constructor
+  · intro h
+    exact ⟨h.sampleClock, h.elapsed, h.terminalGap, h.sampleGap⟩
+  · rintro ⟨hSampleClock, hElapsed, hTerminalGap, hSampleGap⟩
+    exact ⟨hSampleClock, hElapsed, hTerminalGap, hSampleGap⟩
+
+/-- Change all four denominators together, without selecting a subsequence. -/
+theorem H3TerminalIntervalLimits.toForwardWidth
+    {T : ℝ} {s τ σ : ℕ → ℝ}
+    (h : H3TerminalIntervalLimits T s τ σ)
+    (hLeft : ∀ n : ℕ, T - s n ≠ 0)
+    (hWidth : ∀ n : ℕ, σ n - s n ≠ 0)
+    (hRatio : Tendsto (fun n : ℕ => (T - τ n) / (T - s n)) atTop (𝓝 0)) :
+    H3TerminalForwardWidthLimits T s τ σ := by
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · exact h3Terminal_ratio_tendsto_rebased_of_widthRatio_one
+      (fun n => T - s n) (fun n => σ n - s n)
+      (fun n => T - τ n) 0 hLeft hWidth hRatio h.width
+  · exact h3Terminal_ratio_tendsto_rebased_of_widthRatio_one
+      (fun n => T - s n) (fun n => σ n - s n)
+      (fun n => τ n - s n) 1 hLeft hWidth h.elapsed h.width
+  · exact h3Terminal_ratio_tendsto_rebased_of_widthRatio_one
+      (fun n => T - s n) (fun n => σ n - s n)
+      (fun n => T - σ n) 0 hLeft hWidth h.terminalGap h.width
+  · exact h3Terminal_ratio_tendsto_rebased_of_widthRatio_one
+      (fun n => T - s n) (fun n => σ n - s n)
+      (fun n => σ n - τ n) 0 hLeft hWidth h.sampleGap h.width
+
 /-- Any fixed coefficient loss is eventually available at an asymptotically equal width. -/
 theorem h3Terminal_forwardWidth_floor_of_widthRatio_one
     (left width : ℕ → ℝ) (M : ℕ → ℝ≥0∞) (C : ℝ)
@@ -139,22 +181,10 @@ theorem h3TerminalHigherRadial_forwardWidthGeometry_of_terminalIntervalGeometry
   have hLeftNe : ∀ n : ℕ, T - s (v n) ≠ 0 := fun n => ne_of_gt (hLeftPos n)
   have hWidthNe : ∀ n : ℕ, σ (v n) - s (v n) ≠ 0 :=
     fun n => ne_of_gt (sub_pos.mpr (hForward (v n)))
-  have hSampleWidth :=
-    h3Terminal_ratio_tendsto_rebased_of_widthRatio_one
-      (fun n : ℕ => T - s (v n)) (fun n : ℕ => σ (v n) - s (v n))
-      (fun n : ℕ => T - τ (v n)) 0 hLeftNe hWidthNe hRatio hWidth
-  have hElapsedWidth :=
-    h3Terminal_ratio_tendsto_rebased_of_widthRatio_one
-      (fun n : ℕ => T - s (v n)) (fun n : ℕ => σ (v n) - s (v n))
-      (fun n : ℕ => τ (v n) - s (v n)) 1 hLeftNe hWidthNe hElapsed hWidth
-  have hSigmaWidth :=
-    h3Terminal_ratio_tendsto_rebased_of_widthRatio_one
-      (fun n : ℕ => T - s (v n)) (fun n : ℕ => σ (v n) - s (v n))
-      (fun n : ℕ => T - σ (v n)) 0 hLeftNe hWidthNe hSigmaZero hWidth
-  have hRemainingWidth :=
-    h3Terminal_ratio_tendsto_rebased_of_widthRatio_one
-      (fun n : ℕ => T - s (v n)) (fun n : ℕ => σ (v n) - s (v n))
-      (fun n : ℕ => σ (v n) - τ (v n)) 0 hLeftNe hWidthNe hRemaining hWidth
+  have hGeometry : H3TerminalIntervalLimits T
+      (fun n => s (v n)) (fun n => τ (v n)) (fun n => σ (v n)) :=
+    ⟨hElapsed, hWidth, hSigmaZero, hRemaining⟩
+  have hForwardLimits := hGeometry.toForwardWidth hLeftNe hWidthNe hRatio
   have hFloors :=
     h3Terminal_forwardWidth_floor_of_widthRatio_one
       (fun n : ℕ => T - s (v n)) (fun n : ℕ => σ (v n) - s (v n))
@@ -162,7 +192,8 @@ theorem h3TerminalHigherRadial_forwardWidthGeometry_of_terminalIntervalGeometry
         hH3 hClass radialOrder (τ (v n)) (hτ (v n))) C hLeftPos hLower hWidth
   exact ⟨hC, v, hMono, hTau, hLower, hNonzero, hHigher, hZero, hRatio,
     hElapsed, hWidth, hSigmaZero, hRemaining,
-    hSampleWidth, hElapsedWidth, hSigmaWidth, hRemainingWidth, hFloors⟩
+    hForwardLimits.sampleClock, hForwardLimits.elapsed,
+    hForwardLimits.terminalGap, hForwardLimits.sampleGap, hFloors⟩
 
 /-- Energy escape or a radial witness with forward-width normalized geometry. -/
 theorem resolvedCanonicalForcing_energy_or_forwardWidthGeometry

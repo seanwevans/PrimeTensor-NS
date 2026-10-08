@@ -14,3 +14,11 @@ open PrimeTensor.Bridge.Euclidean
 #print axioms h3TerminalIntervalLimits_iff
 #print axioms H3TerminalIntervalLimits.comp
 #print axioms h3TerminalHigherRadial_intervalGeometry_of_synchronized_collapse
+
+-- Forward-width rebasing preserves the original witness and floor statement.
+#check H3TerminalForwardWidthLimits
+#check h3TerminalForwardWidthLimits_iff
+#check H3TerminalIntervalLimits.toForwardWidth
+#print axioms h3TerminalForwardWidthLimits_iff
+#print axioms H3TerminalIntervalLimits.toForwardWidth
+#print axioms h3TerminalHigherRadial_forwardWidthGeometry_of_terminalIntervalGeometry

@@ -169,3 +169,23 @@ new body hash; the checker validates that explicit snapshot. Other migrated
 bodies remain frozen at their original hashes. This is the first small witness
 refactoring, not completion of the larger package consolidation. Lean build,
 compatibility, equivalence, and axiom checks are pending the next baseline run.
+
+## Forward-width bundle (base: 570777b1)
+
+The interval-limit bundle passed the user's baseline and was committed at
+`570777b1`. The next bounded refactoring stays in `Clock/ForwardWidth.lean`:
+`H3TerminalForwardWidthLimits` names the four rebased limits, and an equivalence
+retains the exact content of their original conjunction. The new
+`H3TerminalIntervalLimits.toForwardWidth` converts all four limits together
+using the existing scalar rebasing theorem and the original nonzero-denominator
+and sample-clock hypotheses.
+
+The radial witness proof calls this conversion on its already selected
+subsequence. Its statement, the witness definition, the floor estimate, and
+all other existing declarations in ForwardWidth are preserved. No new module,
+import, subsequence selection, or endpoint assumption is introduced. The path
+manifest records the ForwardWidth refactoring separately from the earlier
+Geometry refactoring, retaining both original migration hashes. The baseline
+checks the new equivalence and conversion axioms as well as the old radial
+witness theorem. Local static checks pass; Lean validation awaits the user's
+baseline run.

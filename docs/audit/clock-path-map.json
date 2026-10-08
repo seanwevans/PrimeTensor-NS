@@ -70,7 +70,12 @@
     {
       "old_path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Second/LowerTemporal/Amplitude/Forcing/Escape/Pair/Bound/Group/Factor/Primitive/Low/Classify/Radial/Higher/Collapse/Subtail/LowerTemporal/Subtail/Factor/Fourth/Top/Amplitude/Lower/Final/Longitudinal/Concentration/NormalizedCurl/Vorticity/Radial/High/Dissipation/Physical/Geometry/Compactness/Radial/Temporal/Integral/Forcing/Pointwise/Component/Representative/Adjacent/Envelope/Pair/StateMass/Primitive/Rate/Classify/Radial/Resolve/Package/NoExtension/Higher/Rate/Branch/Higher/Direct/Branch/Scale/Width/InverseSqrt/Package/Normalized/Package/PhysicalClock/Sample/Collapse/Synchronized/Geometry/Width.lean",
       "new_path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Terminal/Clock/ForwardWidth.lean",
-      "implementation_body_sha256": "70197afdf5aef23729fb62d4f1e227d1afc5261473d0016f1ed4011638677349"
+      "implementation_body_sha256": "70197afdf5aef23729fb62d4f1e227d1afc5261473d0016f1ed4011638677349",
+      "refactoring": {
+        "base_revision": "570777b1",
+        "reason": "Bundle the four forward-width limits and convert the existing interval bundle on the same selected subsequence. Existing declaration signatures, witness definition, and floor estimate are unchanged.",
+        "body_sha256": "a8c868db8e1637eb086438e3a436c355ad239a97ceddd27f03743daccf1de119"
+      }
     },
     {
       "old_path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Second/LowerTemporal/Amplitude/Forcing/Escape/Pair/Bound/Group/Factor/Primitive/Low/Classify/Radial/Higher/Collapse/Subtail/LowerTemporal/Subtail/Factor/Fourth/Top/Amplitude/Lower/Final/Longitudinal/Concentration/NormalizedCurl/Vorticity/Radial/High/Dissipation/Physical/Geometry/Compactness/Radial/Temporal/Integral/Forcing/Pointwise/Component/Representative/Adjacent/Envelope/Pair/StateMass/Primitive/Rate/Classify/Radial/Resolve/Package/NoExtension/Higher/Rate/Branch/Higher/Direct/Branch/Scale/Width/InverseSqrt/Package/Normalized/Package/PhysicalClock/Sample/Collapse/Synchronized/Geometry.lean",
