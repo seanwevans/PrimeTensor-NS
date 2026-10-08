@@ -107,6 +107,6 @@ The gradient specialization also has its exact contrapositive: under
 nonextension, the exact minimum coefficient built from `4422(1+|h|)` is
 nonintegrable on every strict anchored subtail.
 
-Finally, for nonnegative B and `0 < ε ≤ 2`, the exact remainder at ε=2 is
+Finally, for any B and `0 < ε ≤ 2`, the exact remainder at ε=2 is
 no larger than the remainder at ε. Thus the fixed full absorption budget used
 above is optimal within this one-parameter family for the remainder bound.

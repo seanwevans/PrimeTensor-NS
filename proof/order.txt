@@ -1,5 +1,5 @@
 # Generated from revision: 6aafe8d04502ee0b468de50e692771b1d75b1f14
-# Source SHA-256: a6a88fffae1dfa7c1a237223628d3d12a6b29101031ff651f7ce754a178f7998
+# Source SHA-256: 4a0e0f5e27a105c591dfc9497ab5164ca71c1354c300fbc055cd6ca36a67a8e3
 # Existing project import edges only; excluded/missing sources are tracked in tools/audit/known-source-gaps.json.
 Depth
 Prime
