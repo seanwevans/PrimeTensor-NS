@@ -1949,3 +1949,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Derivative.Positive.
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.DissipationFloor
 
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.ThirdOrderAbsorption
+
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FullTransportAbsorption
