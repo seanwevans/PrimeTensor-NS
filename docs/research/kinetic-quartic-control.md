@@ -368,3 +368,18 @@ tail under nonextension, independently of positive kinetic mass at any
 anchor. These are conditional necessary conditions, not a construction of
 blowup or a proof of unconditional continuation. The direct-share route
 still requires positive kinetic anchor mass where indicated.
+
+## Eventual exact direct selection on the terminal clock
+
+Hypothetical H3 nonextension forces the canonical normalized energy beyond
+any fixed cutoff throughout a sufficiently late final interval by the already
+closed Riccati terminal clock. At any fixed kinetic anchor with positive mass
+M=E0(b), the exact quartic threshold admits a finite energy cutoff beyond
+which 81 M (4422 C1)^3 sqrt(E_H3(t)) >= 8, forcing the direct regime.
+Consequently the selected direct share equals the full canonical gradient
+transport coefficient and the selected absorbed share vanishes at *every*
+time on a sufficiently late strict terminal interval. The direct-selection
+set has the full measure T-c there. The selected direct share also inherits
+the known positive harmonic terminal lower bound on this final interval.
+These assertions are conditional on hypothetical nonextension and positive
+anchor kinetic mass; they neither establish nor exclude finite-time blowup.
