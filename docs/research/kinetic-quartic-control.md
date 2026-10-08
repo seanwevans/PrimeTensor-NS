@@ -1097,3 +1097,36 @@ and exceed twice the full viscous dissipation. The argument does not
 prove that either alternative can be excluded, nor integrability of
 the sharper scalar remainder. No unconditional continuation or blowup
 existence is established.
+
+## Kinetic Fourier absorption of second-order H3 transport
+
+The existing Cauchy--Schwarz estimate on Fourier radial moments and the
+independent physical identifications M0=E0, M2=E2, M4=D3 imply
+
+    E2(t)^2 <= E0(t)*D3(t).
+
+Kinetic antitonicity and D3<=D give, for any fixed earlier kinetic anchor b,
+
+    E2(t)^2 <= E0(b)*D(t).
+
+A quadratic Young inequality therefore absorbs the whole second-order
+commutator allowance for eps>0, h=C1*sqrt(E):
+
+    18*h*E2 <= eps*D + (18*h)^2*E0(b)/eps.
+
+Combining with the already-closed signed orderwise transport bound gives
+
+    E' + (2-eps)*D <= 6*h*E1 + (18*h)^2*E0(b)/eps - T3.
+
+With eps=1, the remainder is exactly 324*C1^2*E0(b)*E, so its normalized
+contribution is constant on the kinetic-anchored tail. The independent
+second-order transport obstruction has been removed at the expense of one
+unit of D. Every high-U instant U>M>=0 consequently satisfies
+
+    (4422+M-324*C1^2*E0(b))*E + D < 6*h*E1 - T3.
+
+If the remaining first-order commutator is at most the displayed energy
+threshold, then the actual signed third-order pairing must satisfy D<-T3.
+Neither that first-order ceiling nor a favorable bound on T3 is proved.
+In particular this is a genuine improvement of the lower-order PDE estimate,
+not unconditional Navier--Stokes continuation or blowup existence.
