@@ -415,3 +415,23 @@ tail. Conversely, if one such restricted rate is integrable on one terminal
 tail at a positive-mass anchor, smooth continuation follows. This is a
 conditional L1 obstruction, not a newly proved dissipative transport bound,
 and it establishes neither unconditional regularity nor blowup.
+
+## Integrable dissipation-margin envelope frontier
+
+The exact H3 PDE balance gives E'(t)+2D(t)=-transport_H3(t). For a fixed
+positive-kinetic-mass anchor, any hypothetical nonextendible path eventually
+selects the entire direct transport coefficient on a final interval. Suppose
+an integrable real-valued temporal remainder r(t) and any epsilon>=0 bound
+the adverse nonlinear transport on all sufficiently late directly selected
+times by
+
+    -transport_H3(t) <= (2-epsilon) D(t) + r(t) E(t).
+
+Nonnegative dissipation implies E'(t)<=r(t)E(t) on that final interval;
+the already-closed linear-growth continuation theorem then supplies a smooth
+extension. Contrapositively, nonextension forces a strict violation of this
+bound on every terminal interval, for every integrable remainder r and every
+nonnegative epsilon at every positive-kinetic-mass anchor. A constant r=M
+is a special case. This is a *conditional criterion* only: no new PDE
+transport estimate is asserted, and neither universal continuation nor
+finite-time blowup is proved.
