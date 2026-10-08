@@ -1,6 +1,6 @@
 # Consolidation checkpoint
 
-## Current status (base: 0bb4d596)
+## Current status (base: 03a5e2db)
 
 User-confirmed local baselines have completed the source-coverage repairs,
 23-module clock/width path migration, and two limit-bundle refactorings:
@@ -18,6 +18,7 @@ User-confirmed local baselines have completed the source-coverage repairs,
 | Interval-limit bundle | `570777b1` |
 | Forward-width limit bundle | `80b1aea3` |
 | Full audit CI integration (local baseline) | `0bb4d596` |
+| Kernel-checked jet cardinality | `03a5e2db` |
 
 The current inventory is 2,407 project modules: 2,402 reachable from the root
 and five covered through standalone targets, with no uncovered modules or
@@ -62,8 +63,11 @@ a Navier–Stokes solution after T.
 `H3ControlProducesRealRestart` explicitly supplies S > T, velocity and pressure,
 agreement before T, Navier–Stokes on (0,S), spatial C³ regularity, and third-jet
 continuity at T. The checked bridge projects that stronger result to the
-terminal extension package. The checked real-restart theorem retains
-`EnergyClassProducesCanonicalH3Data` as its premise.
+terminal extension package. The full-data real-restart theorem retains
+`EnergyClassProducesCanonicalH3Data` as its premise. A second existing route
+uses the weaker `EnergyClassProducesCanonicalH3EnergyContinuity` premise;
+the expanded contract audit now prints both routes and their connecting theorem.
+See [contract-boundaries.md](contract-boundaries.md) for the source-level review.
 
 The latest quantitative neutral endpoint alternative retains all of:
 
@@ -247,3 +251,15 @@ next successful Lean baseline can verify removal of that dependency. Static
 source scanning alone does not verify the new proof. Because the state module
 is upstream of the continuation development, changing this one proof may
 rebuild many dependent modules even with `--reuse-build`.
+
+## Contract review (base: 03a5e2db)
+
+The kernel-checked cardinality proof passed the user's local baseline at
+`03a5e2db`. That commit confirms compilation; this review does not substitute
+for inspecting the emitted axiom list or the separate GitHub Actions result.
+The expanded audit adds the existing scalar-continuity restart route, unfolds
+the strong endpoint assumption, and prints the surviving critical alternatives.
+No library theorem, definition, assumption, or import is changed by this step.
+The new audit commands require the next local baseline for Lean validation.
+The findings and ordered follow-up questions are in
+[contract-boundaries.md](contract-boundaries.md).
