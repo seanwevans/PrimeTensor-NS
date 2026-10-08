@@ -180,3 +180,18 @@ when the same regime persists throughout the original anchored tail.
 
 These are regime-dependent consequences of the existing adaptive
 criterion, not assertions that either regime must eventually persist.
+
+## Mixed exact adaptive regimes
+
+The exact minimum is a sum of threshold-selected direct and absorbed
+contributions. At any time exactly one contribution is selected (at equality
+the direct one). This identity accommodates arbitrary temporal switching.
+
+Integrability of both selected contributions on one fixed-anchor later tail
+implies continuation. Therefore, under nonextension, on every two-anchor
+subtail at least one selected contribution is nonintegrable. Which contribution
+fails is allowed to depend on the subtail. The same obstruction is available
+for B(t) = 4422(1 + |h(t)|) under the closed gradient-envelope hypothesis.
+
+This decomposes an existing conditional obstruction; it does not establish
+that either regime dominates, nor unconditional continuation or blowup.
