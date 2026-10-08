@@ -558,3 +558,19 @@ its fraction can vanish despite absolute divergence if the total budget
 grows sufficiently fast. This is a neutral quantitative classification,
 not a new cancellation estimate and not a proof of global regularity or
 finite-time blowup.
+
+## Relative cancellation and actual-growth share cluster
+
+On the conditional synchronized H3 terminal-clock sequence, the nonnegative
+commutator cancellation gap Delta and positive actual normalized excess q0
+form complementary shares theta=Delta/(Delta+q0) and gamma=q0/(Delta+q0).
+The previous compactness result extracts a subsequence with theta -> theta_*
+in [0,1] and gamma -> 1-theta_* while q0 and the spectral shortfall both
+remain divergent and exact direct selection persists. The new relative-rate
+classification is exhaustive: if theta_* < 1, then Delta/q0 tends to the
+finite rate theta_*/(1-theta_*). This includes theta_*=0, where Delta/q0
+vanishes. If theta_*=1, then q0/Delta tends to zero (the cancellation gap
+is eventually positive). In the latter case q0 still tends to infinity:
+relative negligibility must not be confused with absolute boundedness.
+All conclusions remain conditional on hypothetical nonextension; no
+Navier--Stokes cancellation or regularity estimate is assumed or proved.
