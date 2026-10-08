@@ -494,3 +494,20 @@ not the actual signed nonlinear transport. None of these statements prove
 that the commutator bound is sharp, that shortfall integrability fails for
 an actual solution without the hypothetical no-extension premise, or that
 finite-time blowup occurs.
+
+## Simultaneous actual transport excess and spectral shortfall
+
+Under hypothetical H3 nonextension, the existing constant-margin theorem
+at any positive-mass kinetic anchor yields arbitrarily late exact direct-
+selected times at which -transport_H3(t)-2*D_H3(t)>R*E_H3(t), for any
+prescribed constant R. Taking R=4422+max(M,0) forces both the actual minimal
+normalized zero-margin excess q_0=max(0,(-transport-2D)/E) and the baseline-free
+spectral shortfall S=4422*C1*sqrt(E)-2D/E above M, at *the same* time.
+Here S is only the commutator envelope minus dissipation; the actual signed
+transport may be strictly below its commutator bound. Selecting one witness
+inside each (T-1/(n+1),T) produces an explicit physical-clock sequence
+converging to T with both q_0 and S tending to +infinity and direct
+selection exact at every sample, while the selected absorbed share vanishes.
+The synchronization is conditional on hypothetical nonextension and positive
+kinetic anchor mass. It neither proves commutator-bound saturation nor the
+existence of a blowup solution or unconditional smooth continuation.
