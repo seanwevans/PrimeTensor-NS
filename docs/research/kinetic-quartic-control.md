@@ -876,3 +876,32 @@ This is a repackaging of already-established PDE balance and essential
 nonintegrability, not an independently closed coercivity theorem, not a
 quantitative occupation-time bound, and not a proof of unconditional
 continuation or existence of finite-time singularities.
+
+## Critical cubic viscous-dissipation shortfall
+
+The exact H3 balance splits leading normalized energy growth as
+
+  E'/E + Delta + 2*D/E = 4422 + A*sqrt(E),  A=4422*C1.
+
+The actual unabsorbed nonlinear Riccati rate U=max(0,A*sqrt(E)-Delta-2*D/E)
+is bounded above by the dissipation-only rate
+
+  V=max(0,A*sqrt(E)-2*D/E).
+
+Nonnegative transport cancellation gives the sharp comparison
+
+  U <= V <= U+Delta.
+
+Thus V is a physical upper envelope for U. Whenever V is integrable on
+one strict terminal H3 energy-class tail, continuation follows.
+
+For M>=0, V>M holds exactly when
+
+  2*D+M*E < A*sqrt(E)*E.
+
+Under hypothetical nonextension V is nonintegrable on every strict
+terminal subtail, and this cubic viscous floor with any fixed
+linear-energy margin fails on a non-null subset of every such tail.
+
+No independent bound D >= c*E^(3/2), unconditional continuation,
+or singularity existence is established.
