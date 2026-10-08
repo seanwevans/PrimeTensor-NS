@@ -620,3 +620,33 @@ theorem exact_kinetic_quartic_coefficient_mono_mass
 end Euclidean
 end Bridge
 end PrimeTensor
+
+namespace PrimeTensor
+namespace Bridge
+namespace Euclidean
+
+/-- Later anchors improve the exact coefficient because kinetic energy is
+antitone on the closed energy-class tail. -/
+theorem exact_kinetic_quartic_coefficient_mono_anchor
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T a b c t B : ℝ}
+    (hH3 : LoggedPreterminalH3PathAdmissible u T)
+    (hClass : PreterminalH3EnergyClass u a T)
+    (hb : b ∈ Set.Ioo a T) (hc : c ∈ Set.Ioo b T)
+    (ht : t ∈ Set.Ioo c T) (hB : 0 ≤ B) :
+    (B + (3 * B + (3 * B) ^ 4 / (2 : ℝ) ^ 3) *
+      velocityH3Energy0At u c) / velocityH3EnergyAt u t ≤
+    (B + (3 * B + (3 * B) ^ 4 / (2 : ℝ) ^ 3) *
+      velocityH3Energy0At u b) / velocityH3EnergyAt u t := by
+  have hAnti := antitoneOn_velocityH3Energy0At_of_h3Path_derivativeIdentities
+    h3PathEnergyClassProducesOrderEnergyDerivativeIdentities_closed hH3 hClass
+  have hMass : velocityH3Energy0At u c ≤ velocityH3Energy0At u b :=
+    hAnti hb ⟨lt_trans hb.1 hc.1, hc.2⟩ (le_of_lt hc.1)
+  have hEnergyPos : 0 < velocityH3EnergyAt u t :=
+    lt_of_lt_of_le zero_lt_one (one_le_velocityH3EnergyAt u t)
+  exact exact_kinetic_quartic_coefficient_mono_mass
+    hB hMass hEnergyPos
+
+end Euclidean
+end Bridge
+end PrimeTensor

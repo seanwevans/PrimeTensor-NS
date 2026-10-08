@@ -123,3 +123,7 @@ nonintegrable on every later tail inside the energy-class interval.
 The exact normalized coefficient is monotone in the anchored kinetic ceiling
 M. Combined with the closed antitone `E₀` estimate, moving the anchor later
 can only lower the exact coefficient on the remaining tail.
+
+The scalar monotonicity now lifts to anchors: if `b < c < t` on the energy
+class tail, the coefficient anchored at c is no larger than the coefficient
+anchored at b. This follows from the closed antitone kinetic-energy identity.

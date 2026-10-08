@@ -182,3 +182,7 @@ open PrimeTensor.Bridge.Euclidean
 -- Exact coefficient monotonicity in the kinetic anchor.
 #check exact_kinetic_quartic_coefficient_mono_mass
 #print axioms exact_kinetic_quartic_coefficient_mono_mass
+
+-- Later anchors improve the exact coefficient.
+#check exact_kinetic_quartic_coefficient_mono_anchor
+#print axioms exact_kinetic_quartic_coefficient_mono_anchor
