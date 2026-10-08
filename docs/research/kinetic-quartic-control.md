@@ -97,3 +97,8 @@ The exact coefficient is formally bounded by the simplified coefficient
 `((1 + (105/8) E₀(b)) B⁴)/E` whenever B≥1, E₀(b)≥0, and E>0. Thus the
 exact adaptive criterion is pointwise at least as strong as the sharpened
 coarse criterion.
+
+The exact adaptive continuation theorem is now specialized to
+`B(t)=4422(1+|h(t)|)` under the existing closed `VelocityGradientEnvelope`
+hypothesis. Its only new temporal premise is integrability of the exact
+minimum coefficient on the anchored tail.

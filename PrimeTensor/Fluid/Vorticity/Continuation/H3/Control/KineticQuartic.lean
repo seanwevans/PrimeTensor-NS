@@ -413,3 +413,38 @@ theorem exact_kinetic_quartic_coefficient_le_sharp_coefficient
 end Euclidean
 end Bridge
 end PrimeTensor
+
+namespace PrimeTensor
+namespace Bridge
+namespace Euclidean
+
+/-- Exact adaptive continuation criterion for the closed gradient envelope. -/
+theorem h3PathExtension_of_integrableMinDirectExactQuarticGradientOnSubtail
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T a b : ℝ} {h : ℝ → ℝ}
+    (hH3 : LoggedPreterminalH3PathAdmissible u T)
+    (hClass : PreterminalH3EnergyClass u a T) (hb : b ∈ Set.Ioo a T)
+    (hGradient : ∀ t : ℝ, t ∈ Set.Ioo b T → VelocityGradientEnvelope u h t)
+    (hMinimum : MeasureTheory.IntegrableOn
+      (fun t : ℝ => min (4422 * (1 + |h t|))
+        ((4422 * (1 + |h t|) +
+          (3 * (4422 * (1 + |h t|)) +
+            (3 * (4422 * (1 + |h t|))) ^ 4 / (2 : ℝ) ^ 3) *
+            velocityH3Energy0At u b) /
+          velocityH3EnergyAt u t)) (Set.Ioo b T)) :
+    ∃ v : SpaceTimeVectorField ℝ ℝ MulReal Depth.three,
+      SmoothContinuationExtension u v T := by
+  have hClassB : PreterminalH3EnergyClass u b T :=
+    preterminalH3EnergyClass_restrict_left hClass (le_of_lt hb.1) hb.2
+  apply h3PathExtension_of_integrableMinDirectExactQuarticCoefficientOnSubtail
+    hH3 hClass hb _ _ hMinimum
+  · intro t ht
+    nlinarith [abs_nonneg (h t)]
+  · intro t ht
+    exact (h3TransportControlledOnTail_of_h3Path_exactPDEPairing
+      h3PathEnergyClassProducesPDEPairingIntegrability_closed
+      hH3 hClassB hGradient t ht).2
+
+end Euclidean
+end Bridge
+end PrimeTensor

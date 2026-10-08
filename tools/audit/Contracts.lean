@@ -156,3 +156,7 @@ open PrimeTensor.Bridge.Euclidean
 -- Exact coefficient dominance over the sharp coarse coefficient.
 #check exact_kinetic_quartic_coefficient_le_sharp_coefficient
 #print axioms exact_kinetic_quartic_coefficient_le_sharp_coefficient
+
+-- Exact adaptive criterion specialized to the closed gradient envelope.
+#check h3PathExtension_of_integrableMinDirectExactQuarticGradientOnSubtail
+#print axioms h3PathExtension_of_integrableMinDirectExactQuarticGradientOnSubtail
