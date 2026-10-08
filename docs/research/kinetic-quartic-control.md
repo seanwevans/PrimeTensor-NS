@@ -304,3 +304,17 @@ Consequently, hypothetical nonextension forces the selected *direct* share
 to be nonintegrable on every later subtail of each positive-kinetic-mass
 anchor. Neither positive kinetic mass at every anchor nor integrability of
 the direct share is claimed without proof; no unconditional result follows.
+
+## Canonical absorption activation energy threshold
+
+The canonical coefficient B(t)=4422(1+C1 sqrt(E(t))) dominates
+K sqrt(E(t)), where K=4422 C1>0. For kinetic mass M=E0(b)>=0,
+the strict absorbed activation inequality forces both
+81 M K^2 B(t)<8 and 81 M K^3 sqrt(E(t))<8.
+Contrapositively, if either corresponding weighted expression is at least
+8, the exact threshold selects direct transport: its selected share equals
+B(t) and the selected absorbed share vanishes. Thus for any *positive*
+kinetic mass anchor, absorbed activation is confined to a bounded H3-energy
+region. These are pointwise facts; they do not establish that high energies
+occur, persist, or contribute a finite terminal integral. The conditional
+continuation/nonextension alternatives remain unresolved.
