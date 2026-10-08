@@ -615,3 +615,26 @@ conditions only, not physical-time power-law blowup rates, new PDE coercive
 bounds, evidence for commutator saturation, or a proof of NS regularity or
 finite-time singularity. In particular k(n) has no prescribed relation to
 1/(T-sigma(k(n))) beyond the explicit localization upper width.
+
+## Indexed terminal clock-width cluster and physical-rate frontier
+
+The direct H3 witnesses from the prior compact cancellation-share cluster
+satisfy k < q0(t), k < S(t), and 0 < T-t < 1/(k+1). Define the indexed
+physical terminal width w=k*(T-t), necessarily in [0,1]. Exact H3 balance
+and the nonnegative dissipation imply
+
+    w < (T-t)*E'(t)/E(t),
+    w < (T-t)*4422*C1*sqrt(E(t))
+
+at every selected witness. Compactness gives a further cofinal subsequence
+on which w tends to chi in [0,1], preserving the earlier cancellation-share
+limit theta, convergence of physical time to T, divergence of actual excess
+and spectral shortfall, and exact direct selection. If chi>0, the two
+physical-time normalized quantities above are eventually greater than
+chi/2 on that selected subsequence. If chi=0, no inverse-terminal-width
+bound follows from this indexed argument. In fact, for each threshold M and
+every width delta>0 the direct witness can be selected within (T-delta,T),
+independently of M; the width of the chosen terminal window is not fixed by
+the PDE. A positive chi is a conditional property of a particular witness
+selection, not a forced consequence of nonextension. No global regularity,
+finite-time singularity, or universal physical-time exponent is proved.
