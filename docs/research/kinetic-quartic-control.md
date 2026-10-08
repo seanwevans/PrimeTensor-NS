@@ -574,3 +574,21 @@ is eventually positive). In the latter case q0 still tends to infinity:
 relative negligibility must not be confused with absolute boundedness.
 All conclusions remain conditional on hypothetical nonextension; no
 Navier--Stokes cancellation or regularity estimate is assumed or proved.
+
+## Quantitative spectral-budget fractions along the direct terminal clock
+
+The exact positive-actual-excess H3 budget is Delta(t)+q0(t)=4422+S(t),
+where Delta is nonnegative commutator cancellation slack, q0 is the actual
+normalized positive transport excess after the full two copies of viscous
+dissipation, and S is the baseline-free canonical spectral shortfall.
+On the previously extracted conditional direct terminal-clock subsequence,
+the cancellation share converges to theta in [0,1] and the actual-growth
+share converges to 1-theta; q0 and S both diverge absolutely.
+
+If theta<1, then for every fixed eta with 0<eta<1-theta, eventually
+eta*(4422+S(t_n))<q0(t_n): actual growth retains a definite fraction of
+the spectral budget. If theta=1, then for every eta>0, eventually
+q0(t_n)<eta*(4422+S(t_n)), even though q0(t_n)->+infinity. The ratio
+conclusions are algebraic consequences of the established compact share
+cluster; neither endpoint is excluded and no new PDE transport estimate,
+unconditional regularity, or blowup result is asserted.
