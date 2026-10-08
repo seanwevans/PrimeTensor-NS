@@ -1,5 +1,5 @@
-# Generated from revision: fd045bc4e3f87d5bb0c8bfc36ca8f354cc010854
-# Source SHA-256: b2fe2fb7e6b2321b025af5066b5ce097d0a0d0b7e302d22dec1376d82f3efb59
+# Generated from revision: 884982c6832209065ffbafcfe4fff230d0a56866
+# Source SHA-256: 37c7d915b6420a5925731ec1737698707101a4e117d1e7a85e5f917f540d37e2
 # Existing project import edges only; excluded/missing sources are tracked in tools/audit/known-source-gaps.json.
 Depth
 Prime
@@ -1856,6 +1856,7 @@ Fluid/Vorticity/Continuation/H3/Control/KineticQuarticCanonicalMomentCorridor
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Relative/Rate/Trichotomy
 Fluid/Vorticity/Continuation/H3/Control/KineticQuarticCanonicalMomentCorridorDegeneracy
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Resolved/Relative/Rate/Cascade
+Fluid/Vorticity/Continuation/H3/Control/KineticQuarticCanonicalOrderwiseTransportRefinement
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Relative/Matching/Scale
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Relative/Synchronized/Cascade
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Relative/Matching/Cascade

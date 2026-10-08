@@ -967,3 +967,31 @@ absorption threshold scales like E^(3/2). The zero-threshold moment
 corridor is not an independent high-energy PDE obstruction and should
 not be mistaken for one. No unconditional continuation, improved
 coercivity or existence of finite-time singularity is established.
+
+## Retained-order H3 nonlinear transport coefficient
+
+The established orderwise transport estimates give
+
+    |transport| <= C1*sqrt(E)*(24*E + 4398*E3).
+
+The first two commutator blocks contribute 6E and 18E.
+The third block contributes 4398E3; the zeroth-order flux
+cancels exactly.
+
+Using the closed PDE pairing and exact H3 energy balance gives
+
+    E' + 2D <= C1*sqrt(E)*(24*E + 4398*E3),
+    E'/E <= C1*sqrt(E)*(24 + 4398*E3/E).
+
+Therefore the positive unabsorbed Riccati growth obeys
+
+    U <= max(0, C1*sqrt(E)*(24 + 4398*E3/E) - 4422).
+
+Because the canonical E includes a positive constant,
+E3<E strictly. Thus the new coefficient is strictly below
+4422*C1*sqrt(E), although the gain need not stay uniformly
+positive relative to the original coefficient.
+
+Integrability of the refined positive remainder suffices for
+continuation. That integrability is not established for all
+Navier--Stokes paths, and unconditional regularity is not proved.
