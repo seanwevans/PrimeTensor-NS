@@ -69,7 +69,7 @@ theorem deriv_velocityH3EnergyAt_le_anchored_quartic_majorant
       le_trans hDerivative hRemainder
     _ = ((1 + 14 * velocityH3Energy0At u b) * (B ^ 4 / velocityH3EnergyAt u t)) *
         velocityH3EnergyAt u t := by
-      field_simp [hEnergyNe] <;> ring
+      field_simp [hEnergyNe]
 
 /-- Only the normalized quartic coefficient needs a temporal integrability input. -/
 theorem h3PathExtension_of_integrableQuarticTransportCoefficientOnSubtail
@@ -112,6 +112,91 @@ theorem h3PathExtension_of_integrableQuarticGradientCoefficientOnSubtail
     preterminalH3EnergyClass_restrict_left hClass (le_of_lt hb.1) hb.2
   apply h3PathExtension_of_integrableQuarticTransportCoefficientOnSubtail
     hH3 hClass hb _ _ hQuartic
+  · intro t ht
+    nlinarith [abs_nonneg (h t)]
+  · intro t ht
+    exact (h3TransportControlledOnTail_of_h3Path_exactPDEPairing
+      h3PathEnergyClassProducesPDEPairingIntegrability_closed
+      hH3 hClassB hGradient t ht).2
+
+/-- The quartic coefficient is strictly better exactly above this energy threshold. -/
+theorem h3_quartic_coefficient_lt_direct_iff
+    {B C E : ℝ} (hB : 0 < B) (hE : 0 < E) :
+    C * (B ^ 4 / E) < B ↔ C * B ^ 3 < E := by
+  have hRewrite : C * (B ^ 4 / E) = (B * (C * B ^ 3)) / E := by ring
+  rw [hRewrite, div_lt_iff₀ hE]
+  constructor
+  · intro h
+    exact lt_of_mul_lt_mul_left h (le_of_lt hB)
+  · intro h
+    exact mul_lt_mul_of_pos_left h hB
+
+/-- Retain the better of direct transport growth and spatial absorption at each time. -/
+theorem deriv_velocityH3EnergyAt_le_min_direct_quartic_majorant
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T a b t B : ℝ}
+    (hH3 : LoggedPreterminalH3PathAdmissible u T)
+    (hClass : PreterminalH3EnergyClass u a T)
+    (hb : b ∈ Set.Ioo a T) (ht : t ∈ Set.Ioo b T) (hB : 1 ≤ B)
+    (hTransport : |velocityH3TransportDerivativeAt u t| ≤
+      B * velocityH3EnergyAt u t) :
+    deriv (velocityH3EnergyAt u) t ≤
+      min B ((1 + 14 * velocityH3Energy0At u b) * (B ^ 4 / velocityH3EnergyAt u t)) *
+        velocityH3EnergyAt u t := by
+  have htOld : t ∈ Set.Ioo a T := ⟨lt_trans hb.1 ht.1, ht.2⟩
+  have hBalance := deriv_velocityH3EnergyAt_add_two_dissipation_eq_neg_transport
+    hH3 hClass htOld
+  have hDirect : deriv (velocityH3EnergyAt u) t ≤ B * velocityH3EnergyAt u t := by
+    have hD := velocityH3DissipationAt_nonneg u t
+    have hNeg := neg_le_abs (velocityH3TransportDerivativeAt u t)
+    linarith only [hBalance, hD, hNeg, hTransport]
+  have hQuartic := deriv_velocityH3EnergyAt_le_anchored_quartic_majorant
+    hH3 hClass hb ht hB hTransport
+  by_cases hCompare : B ≤
+      (1 + 14 * velocityH3Energy0At u b) * (B ^ 4 / velocityH3EnergyAt u t)
+  · simpa only [min_eq_left hCompare] using hDirect
+  · simpa only [min_eq_right (le_of_not_ge hCompare)] using hQuartic
+
+/-- Neither coefficient must be integrable separately when their minimum is integrable. -/
+theorem h3PathExtension_of_integrableMinDirectQuarticCoefficientOnSubtail
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T a b : ℝ} {B : ℝ → ℝ}
+    (hH3 : LoggedPreterminalH3PathAdmissible u T)
+    (hClass : PreterminalH3EnergyClass u a T) (hb : b ∈ Set.Ioo a T)
+    (hB : ∀ t : ℝ, t ∈ Set.Ioo b T → 1 ≤ B t)
+    (hTransport : ∀ t : ℝ, t ∈ Set.Ioo b T →
+      |velocityH3TransportDerivativeAt u t| ≤ B t * velocityH3EnergyAt u t)
+    (hMinimum : MeasureTheory.IntegrableOn
+      (fun t : ℝ => min (B t)
+        ((1 + 14 * velocityH3Energy0At u b) * ((B t) ^ 4 / velocityH3EnergyAt u t)))
+      (Set.Ioo b T)) :
+    ∃ v : SpaceTimeVectorField ℝ ℝ MulReal Depth.three,
+      SmoothContinuationExtension u v T := by
+  have hClassB : PreterminalH3EnergyClass u b T :=
+    preterminalH3EnergyClass_restrict_left hClass (le_of_lt hb.1) hb.2
+  apply h3PathExtension_of_integrableLinearEnergyGrowthMajorantOnTail
+    hH3 hClassB hMinimum
+  intro t ht
+  exact deriv_velocityH3EnergyAt_le_min_direct_quartic_majorant
+    hH3 hClass hb ht (hB t ht) (hTransport t ht)
+
+/-- Apply the minimum criterion to the actual gradient-envelope coefficient. -/
+theorem h3PathExtension_of_integrableMinDirectQuarticGradientOnSubtail
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T a b : ℝ} {h : ℝ → ℝ}
+    (hH3 : LoggedPreterminalH3PathAdmissible u T)
+    (hClass : PreterminalH3EnergyClass u a T) (hb : b ∈ Set.Ioo a T)
+    (hGradient : ∀ t : ℝ, t ∈ Set.Ioo b T → VelocityGradientEnvelope u h t)
+    (hMinimum : MeasureTheory.IntegrableOn
+      (fun t : ℝ => min (4422 * (1 + |h t|))
+        ((1 + 14 * velocityH3Energy0At u b) *
+          ((4422 * (1 + |h t|)) ^ 4 / velocityH3EnergyAt u t))) (Set.Ioo b T)) :
+    ∃ v : SpaceTimeVectorField ℝ ℝ MulReal Depth.three,
+      SmoothContinuationExtension u v T := by
+  have hClassB : PreterminalH3EnergyClass u b T :=
+    preterminalH3EnergyClass_restrict_left hClass (le_of_lt hb.1) hb.2
+  apply h3PathExtension_of_integrableMinDirectQuarticCoefficientOnSubtail
+    hH3 hClass hb _ _ hMinimum
   · intro t ht
     nlinarith [abs_nonneg (h t)]
   · intro t ht

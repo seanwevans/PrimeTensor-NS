@@ -33,3 +33,25 @@ The new results are included in the root imports and selected contract/axiom
 audit. Packaging checks source coverage, generated index, compatibility
 paths, and whitespace. Lean compilation must run via the local baseline;
 Lean is unavailable in the packaging environment.
+
+## Direct versus absorbed growth
+
+The follow-up based on `6aafe8d0` stays in the same Lean module. Both the
+exact balance and the anchored absorption theorem apply at every strict
+subtail time. With C = 1 + 14 E₀(b), they yield
+
+    E′ ≤ min(B, C B⁴/E) E.
+
+For B > 0 and E > 0, the absorbed coefficient is strictly smaller than B
+if and only if C B³ < E. This scalar equivalence is proved separately.
+Thus the minimum never worsens the direct pointwise coefficient. It allows
+the choice of estimate to vary in time without choosing a single branch
+for the entire tail. The continuation theorem assumes integrability of
+this minimum; it does not separately assume integrability of either branch.
+A specialization supplies B from the closed gradient-envelope estimate.
+
+This combines existing estimates and identifies their exact comparison
+threshold. It does not prove the required time-integrability bound, nor
+establish that this condition is strictly weaker on actual PDE solutions.
+In particular the coarse B proportional to sqrt(E) is not improved at
+large E by the quartic branch. A sharper analytic input remains necessary.
