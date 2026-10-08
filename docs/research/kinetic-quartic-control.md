@@ -1058,3 +1058,42 @@ large to prove the required integrability by itself. Any continuation
 advance must exploit genuine favorable orientation, cancellation,
 frequency localization, or stronger PDE information about A3_eps.
 This theorem does not establish such an estimate or a singular solution.
+
+## Signed top transport with separate first- and second-order energies
+
+The established actual first- and second-order commutator estimates are
+|T1|<=6h E1 and |T2|<=18h E2, where h=C1*sqrt(E). A previous
+signed-third-order estimate weakened their sum to 24h E. Retaining the
+actual derivative-order energies instead yields
+
+    E' + 2D <= h*(6 E1 + 18 E2) - T3.
+
+After retaining a nonnegative epsilon share of top dissipation D3 and
+setting A3_eps=max(0,-T3-eps D3), the exact PDE balance implies
+
+    E' + (2-eps) D <= h*(6 E1 + 18 E2) + A3_eps.
+
+For 0<=eps<=2, the positive part of
+
+    (h*(6 E1 + 18 E2)+A3_eps)/E - 4422
+
+bounds actual unabsorbed H3 growth. Integrability of that normalized
+positive part on one strict energy-class terminal tail implies smooth
+continuation. Conversely, hypothetical nonextension forces its
+nonintegrability on every strict subtail.
+
+More structurally, any physical time with unabsorbed growth U>M>=0 has
+one of two properties:
+
+    (4422+M) E < h*(6 E1 + 18 E2),
+
+or
+
+    2D < -T3.
+
+Thus if the genuine low-order nonlinear cost stays below the indicated
+threshold at such a time, the signed third-order pairing must be adverse
+and exceed twice the full viscous dissipation. The argument does not
+prove that either alternative can be excluded, nor integrability of
+the sharper scalar remainder. No unconditional continuation or blowup
+existence is established.
