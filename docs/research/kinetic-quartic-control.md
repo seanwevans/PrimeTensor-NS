@@ -736,3 +736,29 @@ eta>0 force smooth continuation by contraposition.
 This improves an intrinsic necessary condition under hypothetical
 nonextension; it neither proves unconditional smooth continuation
 nor constructs a finite-time singularity.
+
+## Effective Riccati defect and the leading nonlinear coercivity barrier
+
+The earlier exact defect decomposition gives an H3 energy-class identity
+
+  E'/E + Q = 4422 + A*sqrt(E),
+  Q = Delta + 2*D/E >= 0,   A = 4422*C1 > 0.
+
+Here Delta is the gap between the canonical commutator transport envelope
+and actual signed H3 transport, D is full nonnegative H3 dissipation,
+and Q is the *effective* dissipative/cancellation defect. Nonnegativity
+of Q by itself does not absorb the nonlinear Riccati term A*sqrt(E).
+
+On any strict terminal energy-class tail, the extra coercivity premise
+
+  A*sqrt(E(t)) <= Q(t) + r(t)
+
+with any integrable scalar remainder r yields E'(t) <= (4422+r(t))*E(t)
+pointwise, so the established linear-growth continuation theorem applies.
+This assumption is **not established** by the existing commutator estimate.
+Conversely, a hypothetical nonextendible H3 path must, on every strict
+terminal subtail and for every integrable r on that subtail, admit a time
+at which Q(t)+r(t) < A*sqrt(E(t)). In particular, Q alone must fall below
+A*sqrt(E) at some time in every terminal subtail. This leaves open which
+of the two nonnegative channels supplies a potential analytic coercivity
+bound; no unconditional regularity or singularity conclusion is claimed.
