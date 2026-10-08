@@ -1,0 +1,8 @@
+import PrimeTensor
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Clock.Endpoint
+
+/-! The canonical endpoint coexists with all historical root imports. -/
+open PrimeTensor.Bridge.Euclidean
+
+#check smoothContinuationExtension_or_quantitativeCriticalAlternative_and_higherRadialUniversalEscape_after_resolvedPDEClosure
+#print axioms smoothContinuationExtension_or_quantitativeCriticalAlternative_and_higherRadialUniversalEscape_after_resolvedPDEClosure

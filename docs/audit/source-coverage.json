@@ -1,6 +1,6 @@
 {
-  "revision": "e091312a",
-  "scope": "All five sources are now explicit standalone targets; final aggregate repair awaits Lean build validation.",
+  "revision": "70895056",
+  "scope": "All five original root-excluded modules passed explicit standalone coverage at 70895056; retained as standalone targets.",
   "modules": [
     {
       "path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Second/LowerTemporal/Amplitude/Forcing/Primitive.lean",
@@ -9,7 +9,7 @@
       "source_sha256": "45c79b05738adebb08767bb3901d66e7ba859a00d8704f56b37aea06266385e4",
       "evidence": "14 duplicate declarations supplied by active imports; six unique statements retained. One retained cancellation proof repaired without changing its statement.",
       "canonical_path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Second/LowerTemporal/Amplitude/Forcing/Escape/Pair/Bound.lean",
-      "validation": "First build exposed MulRightStrictMono cancellation in a retained proof. Replaced it with contradiction using positive-coefficient weak monotonicity; Lean revalidation pending."
+      "validation": "User confirmed successful full-coverage baseline checkpoint 70895056."
     },
     {
       "path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/Transfer/Absorption/Profile/Component/Representative/Interpolation/Branch/PDE/Escape/Cofinal/Hilbert/LowerBalance/Resolve/TopDissipation/LowerDerivative/Closure/Channel/Envelope/Steepness/Derivative/Hilbert/Radial/PDE/Closure/Forcing/Selected/Weighted/Radial/Moment/Product/Quotient/Spectral/Moment/Limit/Convolution/L2/Leray/Selected/Homogeneity/Quotient/Self/Remainder/Concrete/Representative/Closure/ForcingWeights/Terminal/Fourth/Collapse/Pairing/Derivative/Orientation/Sequence/Pairing/Product/Square/Factor/Norm/PDE/Factor/Amplitude/Sixth/Factors/Factor/Overlap/Raw/Mass/Higher/Moment/Forcing/Escape/Pair/Bound/Group/Factor/Primitive/Low/Classify/Radial/Higher/Collapse/Subtail/Fourth/Forcing/Bound/Escape/StateMass/Group/Factor/Primitive.lean",

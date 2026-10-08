@@ -69,3 +69,10 @@ The first aggregate build exposed an unavailable `MulRightStrictMono ℝ`
 instance in a retained cancellation step. The repair uses the existing positive
 coefficient hypothesis and `mul_le_mul_of_nonneg_left` by contradiction.
 The statement and assumptions are unchanged; Lean revalidation is pending.
+
+The clock/width migration is checked by `check_clock_paths.py` and
+`ClockPaths.lean`. The first verifies preserved implementation bodies and old
+forwarding paths; the second checks old/new endpoint import compatibility.
+See `docs/audit/clock-path-map.json` for the complete mapping. These checks are
+part of every baseline run. The original body hashes are a migration guard,
+not a prohibition on separately reviewed future proof changes.

@@ -128,3 +128,26 @@ The first aggregate build exposed an unavailable `MulRightStrictMono ℝ`
 instance in a retained cancellation step. The repair uses the existing positive
 coefficient hypothesis and `mul_le_mul_of_nonneg_left` by contradiction.
 The statement and assumptions are unchanged; Lean revalidation is pending.
+
+## Clock/width path pilot (base: 70895056)
+
+The user confirmed the full-source baseline at `70895056`. This pilot moves
+23 implementations into sibling modules under
+`PrimeTensor/Fluid/Vorticity/Continuation/H3/Terminal/Clock/`.
+The current public endpoint is `Clock/Endpoint.lean`. The old 23 paths remain
+compatibility imports; theorem namespaces, statements, and proof text remain
+unchanged. Imports between migrated implementations use the new canonical paths.
+`clock-path-map.json` records every old/new path and the original body hash.
+
+Run `python3 tools/audit/check_clock_paths.py` to check that only import lines
+changed, that old shims forward correctly, and that new paths satisfy the pilot
+budget. The baseline runs this automatically, rebuilds old paths via the root,
+and elaborates `ClockPaths.lean` with the new endpoint plus historical imports.
+Lean validation of this migration is pending that baseline run.
+
+This preserves dependency structure. It does not claim a shorter dependency
+chain, faster builds, or stronger mathematics. There are now 2,406 project
+modules because the old 23 paths remain available as wrappers.
+The body-hash guard deliberately freezes this mechanical migration; when later
+proof refactoring is explicitly reviewed, update or retire the affected guard
+with an explanation rather than silently refreshing its hashes.

@@ -1,0 +1,113 @@
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Terminal.Clock.NormalizedNoExtension
+
+/-!
+# Neutral endpoint alternative with a critical-width normalized floor
+
+Either smooth continuation exists, or one terminal parent sequence carries
+the bad-cone obstruction, the energy-or-positive-normalized-floor forcing
+package, and the universal higher-radial escape cascade.
+This is an exhaustive disjunction, with neither alternative excluded.
+-/
+
+namespace PrimeTensor
+namespace Bridge
+namespace Euclidean
+
+open Set Filter MeasureTheory FourierTransform
+open scoped BigOperators ENNReal NNReal Interval Topology InnerProductSpace
+  RealInnerProductSpace
+
+noncomputable section
+
+set_option maxHeartbeats 1800000
+
+/--
+Neutral endpoint alternative: either a smooth continuation exists, or the
+positive square-root-width normalized higher-radial floor and universal
+higher-radial cascade occur on one common terminal parent sequence.
+-/
+theorem smoothContinuationExtension_or_sqrtWidthPositiveFloor_and_higherRadialUniversalEscape_after_resolvedPDEClosure
+    {u : SpaceTimeVectorField ℝ ℝ MulReal Depth.three}
+    {T a : ℝ}
+    (hH3 : LoggedPreterminalH3PathAdmissible u T)
+    (hClass : PreterminalH3EnergyClass u a T)
+    {i : Fin 3}
+    (hPhysical :
+      H3TerminalActualVorticityStrongH3EndpointPath hH3 i)
+    (hCauchy :
+      H3TerminalVelocityRawFourierL2CauchyAtEndpoint hH3)
+    {ε : ℝ}
+    (hε : 0 < ε) :
+    (
+      ∃ v : SpaceTimeVectorField ℝ ℝ MulReal Depth.three,
+        SmoothContinuationExtension u v T
+    )
+      ∨
+    (
+      ∃ k : ℕ → ℕ,
+        StrictMono k
+          ∧
+        Tendsto
+          (
+            fun n : ℕ =>
+              (1 : ℝ) / (((k n : ℕ) : ℝ) + 1)
+          )
+          atTop
+          (𝓝 0)
+          ∧
+        ∃ σ : ℕ → ℝ,
+          ∃ hσ :
+            ∀ n : ℕ,
+              σ n ∈ Set.Ioo a T,
+            Tendsto σ atTop (𝓝 T)
+              ∧
+            (
+              ∀ n : ℕ,
+                ENNReal.ofReal (ε ^ 2 / 64)
+                  <
+                16 *
+                  h3TerminalPhysicalDissipationBadConeHighRadialMass
+                    hH3
+                    i
+                    ((1 : ℝ) / (((k n : ℕ) : ℝ) + 1))
+                    1
+                    (σ n)
+                    ⟨
+                      lt_trans hClass.terminal_start.1
+                        (hσ n).1,
+                      (hσ n).2
+                    ⟩
+            )
+              ∧
+            H3TerminalPhysicalTopDissipationResolvedCanonicalForcingSqrtWidthPositiveFloorEscapeSubsequenceOf
+              hH3 hClass σ
+              ∧
+            H3TerminalPhysicalExtendedHigherRadialMomentUniversalEscapeSubsequenceOf
+              hH3 hClass σ
+    ) := by
+
+  by_cases hExtension :
+      ∃ v : SpaceTimeVectorField ℝ ℝ MulReal Depth.three,
+        SmoothContinuationExtension u v T
+
+  · exact
+      Or.inl
+        hExtension
+
+  · exact
+      Or.inr
+        (
+          exists_fixed_terminalSequence_with_sqrtWidthPositiveFloor_and_higherRadialUniversalEscape_after_resolvedPDEClosure_of_velocityRawFourierL2Cauchy_of_actualVorticityStrongH3EndpointPath_of_noExtension
+            hH3
+            hClass
+            hPhysical
+            hCauchy
+            hExtension
+            hε
+        )
+
+end
+
+end Euclidean
+end Bridge
+end PrimeTensor
