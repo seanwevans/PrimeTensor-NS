@@ -148,3 +148,7 @@ open PrimeTensor.Bridge.Euclidean
 -- Exact adaptive nonextension obstruction.
 #check not_integrableOn_minDirectExactQuarticCoefficient_on_strictSubtail_of_noH3PathExtension
 #print axioms not_integrableOn_minDirectExactQuarticCoefficient_on_strictSubtail_of_noH3PathExtension
+
+-- Exact absorbed/direct threshold.
+#check h3_exact_quartic_coefficient_lt_direct_iff
+#print axioms h3_exact_quartic_coefficient_lt_direct_iff

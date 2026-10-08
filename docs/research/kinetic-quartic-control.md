@@ -83,3 +83,12 @@ The exact-coefficient continuation theorem has the matching contrapositive:
 under nonextension, its minimum coefficient is nonintegrable on every strict
 anchored subtail. This preserves the sharper lower-order dependence in the
 obstruction statement.
+
+The exact branch also has a scalar activation threshold. For B>0 and E>0,
+its coefficient is strictly below direct B exactly when
+
+    1 + (3 + (81/8) B³) E₀(b) < E.
+
+This threshold is stated independently of the PDE path and can be used to
+identify the absorbed region without replacing the exact coefficient by the
+coarser `(105/8)` bound.

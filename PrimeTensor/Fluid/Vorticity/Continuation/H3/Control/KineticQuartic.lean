@@ -360,3 +360,28 @@ theorem not_integrableOn_minDirectExactQuarticCoefficient_on_strictSubtail_of_no
 end Euclidean
 end Bridge
 end PrimeTensor
+
+namespace PrimeTensor
+namespace Bridge
+namespace Euclidean
+
+/-- The exact absorbed coefficient beats direct transport precisely above its
+anchored energy threshold. -/
+theorem h3_exact_quartic_coefficient_lt_direct_iff
+    {B M E : ℝ} (hB : 0 < B) (hE : 0 < E) :
+    (B + (3 * B + (3 * B) ^ 4 / (2 : ℝ) ^ 3) * M) / E < B ↔
+      1 + (3 + (81 / 8 : ℝ) * B ^ 3) * M < E := by
+  have hRewrite :
+      B + (3 * B + (3 * B) ^ 4 / (2 : ℝ) ^ 3) * M =
+        B * (1 + (3 + (81 / 8 : ℝ) * B ^ 3) * M) := by
+    ring
+  rw [hRewrite, div_lt_iff₀ hE]
+  constructor
+  · intro h
+    exact lt_of_mul_lt_mul_left h (le_of_lt hB)
+  · intro h
+    exact mul_lt_mul_of_pos_left h hB
+
+end Euclidean
+end Bridge
+end PrimeTensor
