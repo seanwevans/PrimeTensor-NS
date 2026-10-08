@@ -132,3 +132,7 @@ open PrimeTensor.Bridge.Euclidean
 #print axioms h3PathExtension_of_integrableMinDirectQuarticCoefficientOnSubtail
 #check h3PathExtension_of_integrableMinDirectQuarticGradientOnSubtail
 #print axioms h3PathExtension_of_integrableMinDirectQuarticGradientOnSubtail
+
+-- Nonextension forces the adaptive minimum coefficient to diverge in L1.
+#check not_integrableOn_minDirectQuarticCoefficient_on_strictSubtail_of_noH3PathExtension
+#print axioms not_integrableOn_minDirectQuarticCoefficient_on_strictSubtail_of_noH3PathExtension

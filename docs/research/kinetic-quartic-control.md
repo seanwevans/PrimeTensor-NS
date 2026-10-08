@@ -55,3 +55,15 @@ threshold. It does not prove the required time-integrability bound, nor
 establish that this condition is strictly weaker on actual PDE solutions.
 In particular the coarse B proportional to sqrt(E) is not improved at
 large E by the quartic branch. A sharper analytic input remains necessary.
+
+## Nonextension obstruction
+
+The adaptive theorem has the matching contrapositive. If no
+`SmoothContinuationExtension` exists, then on every strict anchored subtail
+the coefficient
+
+    min(B, (1 + 14 E₀(b)) B⁴/E)
+
+is nonintegrable, provided the transport bound and B ≥ 1 hold there. This is
+a neutral obstruction statement: it does not select the direct or absorbed
+branch and does not assert that either branch diverges separately.
