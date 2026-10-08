@@ -400,3 +400,18 @@ at all sufficiently late direct-selected times for one positive-mass
 anchor would imply smooth continuation. These remain conditional results:
 no bound of this type is asserted for all Navier--Stokes paths, and no
 unconditional regularity or blowup result is claimed.
+
+## L1 obstruction on exactly direct-selected times
+
+Define q(t) = max(0, (-transport_H3(t)-2*dissipation_H3(t))/E_H3(t)).
+The exact PDE balance identifies q with positive logarithmic H3-energy growth.
+For a fixed kinetic anchor b, restrict q to the set on which the selected
+canonical direct coefficient equals the full canonical transport coefficient.
+On a hypothetical nonextendible path and any anchor with E0(b)>0, earlier
+results force this set to contain a full final time interval. The previously
+proved nonintegrability of q on every terminal energy-class tail then implies
+nonintegrability of this *direct-selected restricted* q on every strict later
+tail. Conversely, if one such restricted rate is integrable on one terminal
+tail at a positive-mass anchor, smooth continuation follows. This is a
+conditional L1 obstruction, not a newly proved dissipative transport bound,
+and it establishes neither unconditional regularity nor blowup.
