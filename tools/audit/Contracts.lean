@@ -1,0 +1,34 @@
+import PrimeTensor
+
+/-!
+Audit-only entrypoint. Print actual Lean types and transitive axiom dependencies.
+This does not change the library's imports or strengthen its conclusions.
+Keep the terminal extension package distinct from the genuine real restart.
+-/
+
+open PrimeTensor.Bridge.Euclidean
+
+#print LoggedPreterminalH3PathAdmissible
+#print PreterminalH3EnergyClass
+#print H3TerminalActualVorticityStrongH3EndpointPath
+#print H3TerminalVelocityRawFourierL2CauchyAtEndpoint
+#print TerminalTailH3Control
+
+#print SmoothContinuationExtension
+#print H3ControlProducesRealRestart
+
+#check smoothContinuationExtension_of_realRestart
+#print axioms smoothContinuationExtension_of_realRestart
+
+#check h3ControlProducesRealRestart_of_unitViscosityCanonicalEnergy
+#print axioms h3ControlProducesRealRestart_of_unitViscosityCanonicalEnergy
+
+#check h3ControlProducesExtension_of_realRestart
+#print axioms h3ControlProducesExtension_of_realRestart
+
+#check smoothContinuationExtension_or_quantitativeCriticalAlternative_and_higherRadialUniversalEscape_after_resolvedPDEClosure
+#print axioms smoothContinuationExtension_or_quantitativeCriticalAlternative_and_higherRadialUniversalEscape_after_resolvedPDEClosure
+
+-- Include the known native_decide use, so its trust dependencies are visible.
+#check h3JetIndex_card
+#print axioms h3JetIndex_card
