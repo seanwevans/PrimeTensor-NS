@@ -829,3 +829,21 @@ term 4422*C1*sqrt(E) by Delta+2*D/E plus an integrable remainder is
 impossible on any such tail under nonextension. No quantitative measure,
 time occupation fraction, new PDE coercivity, unconditional continuation,
 or existence of blowup is asserted.
+
+## High-amplitude unabsorbed Riccati superlevel tails
+
+Write U(t)=max(0,A*sqrt(E(t))-Q(t)), where A=4422*C1 and
+Q=Delta+2D/E. For every fixed real threshold M, define
+
+    U_M(t)=max(0,U(t)-M).
+
+The pointwise bound 0<=U<=U_M+max(0,M) shows that integrability of
+U_M on any finite strict terminal H3 energy-class tail implies
+integrability of U and therefore smooth continuation.
+
+Consequently hypothetical nonextension forces U_M to be
+nonintegrable on every such terminal subtail, for every fixed M.
+The high-rate excess above each finite threshold must carry
+infinite L1 time cost. This is stronger than pointwise or essential
+unboundedness, but does not supply a quantitative occupation-time
+fraction or any new PDE coercivity estimate.
