@@ -288,3 +288,19 @@ For strictly positive anchor mass, A_b is bounded by 8/(81 M K^2).
 This is pointwise; temporal integrability additionally needs measurable
 selection and the finite-time interval. No unconditional continuation or
 finite-time blowup is concluded.
+
+## Integrability of canonical selected absorption
+
+On an H3 energy-class tail, the canonical energy and square-root-gradient
+coefficient are continuous. The full exact absorption quotient is continuous
+there because the normalized H3 energy stays at least one; the threshold
+selected absorbed share is therefore almost everywhere strongly measurable
+on each strict terminal interval. If the fixed kinetic anchor b has E0(b)>0,
+the earlier quartic activation ceiling makes the selected absorbed share
+uniformly bounded by 8/(81 E0(b) (4422 C1)^2). The interval has finite volume,
+so this selected absorbed share is integrable on every strict later subtail.
+
+Consequently, hypothetical nonextension forces the selected *direct* share
+to be nonintegrable on every later subtail of each positive-kinetic-mass
+anchor. Neither positive kinetic mass at every anchor nor integrability of
+the direct share is claimed without proof; no unconditional result follows.

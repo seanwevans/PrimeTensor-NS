@@ -1977,3 +1977,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.KineticQuarticLocalMe
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.KineticQuarticCanonicalMeasurability
 
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.KineticQuarticCanonicalAbsorptionCeiling
+
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.KineticQuarticCanonicalAbsorbedIntegrability
