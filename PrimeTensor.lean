@@ -1971,3 +1971,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.KineticQuarticAnchorO
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.KineticQuarticAnchorCompensation
 
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.KineticQuarticAnchorIntegrability
+
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.KineticQuarticLocalMeasurability

@@ -246,3 +246,15 @@ any anchor or some direct-integrable anchor forces persistent absorbed
 obstructions at all later anchors. This is conditional on measurability;
 pointwise order alone does not prove it. No unconditional continuation or
 blowup is claimed.
+
+## Tail-local selected-share measurability
+
+The closed H3 derivative identities show that canonical H3 energy is
+continuous on every strict energy-class tail. Assuming measurable B, the
+threshold-selection region is null measurable with respect to the restricted
+time measure, so the selected direct coefficient is almost everywhere
+strongly measurable on that tail. The direct-share integrability transfer and
+the anchor-synchronized nonextension obstruction now use this local result,
+without demanding globally measurable energy or selected-share functions.
+Measurability of B is retained explicitly; the temporal integrability
+obstruction is not discharged by measurability alone.
