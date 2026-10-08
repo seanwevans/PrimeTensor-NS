@@ -1022,3 +1022,39 @@ cancellation/absorption estimate must control. The estimate leaves
 T3 untouched; no new bound on its adverse sign, no integrability of
 W3 for arbitrary paths, and no unconditional continuation or singularity
 existence is asserted.
+
+## Signed top-order transport with a viscous Young share
+
+Write E for the canonical H3 energy, E0 for the kinetic block, E3 for
+its top H3 block, D for full H3 dissipation, D3 for top viscous
+dissipation, and T3 for signed third-order nonlinear transport. Set
+
+    h = C1*sqrt(E), K = 4398*h,
+    A3_eps = max(0, -T3-eps*D3).
+
+The exact physical order-three Landau estimate and independently proved
+Fourier interpolation/Young inequality yield for eps>0
+
+    |T3| <= K*E3 <= eps*D3 + K^4*E0/eps^3,
+    0 <= A3_eps <= K^4*E0/eps^3.
+
+Retaining the exact sign of T3 and the lower-order 24hE estimate gives,
+for eps>=0,
+
+    E' + (2-eps)*D <= 24*h*E + A3_eps.
+
+For 0<=eps<=2, the retained dissipation is nonnegative, so the actual
+unabsorbed rate is bounded by
+
+    U <= max(0, 24*h + A3_eps/E - 4422).
+
+Time-integrability of that signed, normalized positive remainder on one
+strict terminal H3 energy-class tail implies smooth continuation.
+Hypothetical nonextension forces nonintegrability on every later tail.
+
+Analytic limitation: The universal Young estimate is of order
+K^4*E0 ~ E0*E^2 and, after normalization, of order E0*E. It is too
+large to prove the required integrability by itself. Any continuation
+advance must exploit genuine favorable orientation, cancellation,
+frequency localization, or stronger PDE information about A3_eps.
+This theorem does not establish such an estimate or a singular solution.
