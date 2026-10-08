@@ -119,3 +119,7 @@ this alternative directly from the closed PDE transport estimate.
 The gradient dichotomy now has a universal strict-subtail form: either one
 continuation extension exists, or the exact adaptive coefficient is
 nonintegrable on every later tail inside the energy-class interval.
+
+The exact normalized coefficient is monotone in the anchored kinetic ceiling
+M. Combined with the closed antitone `E₀` estimate, moving the anchor later
+can only lower the exact coefficient on the remaining tail.

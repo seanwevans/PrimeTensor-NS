@@ -178,3 +178,7 @@ open PrimeTensor.Bridge.Euclidean
 -- Universal exact gradient dichotomy over every strict subtail.
 #check h3PathExactAdaptiveGradientContinuationOrObstruction_on_every_strictSubtail
 #print axioms h3PathExactAdaptiveGradientContinuationOrObstruction_on_every_strictSubtail
+
+-- Exact coefficient monotonicity in the kinetic anchor.
+#check exact_kinetic_quartic_coefficient_mono_mass
+#print axioms exact_kinetic_quartic_coefficient_mono_mass

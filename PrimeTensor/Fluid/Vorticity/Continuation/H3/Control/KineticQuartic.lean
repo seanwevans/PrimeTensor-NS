@@ -600,3 +600,23 @@ theorem h3PathExactAdaptiveGradientContinuationOrObstruction_on_every_strictSubt
 end Euclidean
 end Bridge
 end PrimeTensor
+
+namespace PrimeTensor
+namespace Bridge
+namespace Euclidean
+
+/-- The exact normalized coefficient is monotone in the anchored kinetic
+ceiling. -/
+theorem exact_kinetic_quartic_coefficient_mono_mass
+    {B M₁ M₂ E : ℝ} (hB : 0 ≤ B) (hMass : M₁ ≤ M₂) (hE : 0 < E) :
+    (B + (3 * B + (3 * B) ^ 4 / (2 : ℝ) ^ 3) * M₁) / E ≤
+      (B + (3 * B + (3 * B) ^ 4 / (2 : ℝ) ^ 3) * M₂) / E := by
+  have hCoefficient : 0 ≤ 3 * B + (3 * B) ^ 4 / (2 : ℝ) ^ 3 := by
+    positivity
+  have hNumerator :=
+    add_le_add_left (mul_le_mul_of_nonneg_left hMass hCoefficient) B
+  exact div_le_div_of_nonneg_right (by simpa [add_comm] using hNumerator) (le_of_lt hE)
+
+end Euclidean
+end Bridge
+end PrimeTensor
