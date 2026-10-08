@@ -476,3 +476,21 @@ This is a conditional quantitative dissipation/transport gap frontier, not
 a proof that the gap is integrable or that nonextension occurs. The genuine
 missing estimate must improve commutator control or show that enough of the
 full dissipation compensates the nonlinear term.
+
+## Unbounded normalized spectral transport shortfall
+
+Remove the finite 4422 constant baseline from the zero-margin spectral
+commutator/dissipation gap. The remaining normalized nonlinear *spectral*
+shortfall is S(t)=4422*C1*sqrt(E_H3(t))-2*D_H3(t)/E_H3(t), and the gap is
+max(0,4422+S(t)). Under hypothetical nonextension, existing all-envelope
+witnesses force S(t) to exceed every finite threshold on every strict
+terminal tail. At a positive kinetic anchor the witness can be chosen in
+the exact selected direct regime, with zero selected absorption. A single
+physical-clock sequence t_n in (T-1/(n+1),T) can be selected with S(t_n)>n,
+S(t_n)->+infinity, and exact direct selection at each sample.
+
+The shortfall is the overestimate from the established H3 commutator bound,
+not the actual signed nonlinear transport. None of these statements prove
+that the commutator bound is sharp, that shortfall integrability fails for
+an actual solution without the hypothetical no-extension premise, or that
+finite-time blowup occurs.
