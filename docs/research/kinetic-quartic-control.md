@@ -709,3 +709,30 @@ This refines an upper differential inequality only; it does not yet
 re-run the inverse-root Riccati comparison with the smaller coefficient,
 prove a stronger intrinsic terminal floor, force cancellation, prove
 smooth continuation, or construct a finite-time singularity.
+
+## Refined intrinsic inverse-root terminal Riccati clock
+
+Under hypothetical nonextension, for every eta>0 the previously
+proved exact Riccati-defect theorem provides a final H3 energy-class
+tail satisfying
+
+    E' <= (4422*C1+eta)*sqrt(E)*E.
+
+For F=1/sqrt(E), the corresponding derivative inequality is
+
+    F' >= -(4422*C1+eta)/2.
+
+The shifted inverse-root energy is monotone. Passing to the terminal
+energy-divergence sequence yields, at every sufficiently late time,
+
+    1/sqrt(E) <= ((4422*C1+eta)/2)*(T-t),
+    2 <= (4422*C1+eta)*(T-t)*sqrt(E),
+    4 <= (4422*C1+eta)^2*(T-t)^2*E.
+
+The terminal cutoff may depend on eta. No fixed-time zero-tolerance
+inequality is claimed. Recurrent strict violations for any fixed
+eta>0 force smooth continuation by contraposition.
+
+This improves an intrinsic necessary condition under hypothetical
+nonextension; it neither proves unconditional smooth continuation
+nor constructs a finite-time singularity.
