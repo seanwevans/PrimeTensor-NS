@@ -786,3 +786,26 @@ scalar remainder somewhere; taking constant remainders shows pointwise
 unboundedness of U there. The rate is a diagnostic of *unabsorbed*
 nonlinear transport, not a new lower bound for cancellation or dissipation.
 No unconditional smooth continuation or singular solution is asserted.
+
+## Synchronized unabsorbed Riccati growth on the fast terminal clock
+
+The full-dissipation actual positive transport excess is exactly
+q0=max(0,E'/E) at strict H3 energy-class times, while the unabsorbed
+nonlinear Riccati rate is U=max(0,E'/E-4422). Their positive-part forms give
+
+    0 <= q0-U <= 4422.
+
+Consequently q0 and U diverge to +infinity together on *any* sequence
+eventually in the same energy-class tail; no new selection or PDE hypothesis
+is needed to transfer one escape rate to the other. Under hypothetical
+nonextension, every prescribed strict terminal subtail contains a
+canonical direct-selected, zero-absorbed witness with both U and the
+spectral shortfall exceeding any real threshold (the actual excess
+threshold is shifted by 4422). The previously constructed quadratic
+terminal-window sequence and its compact cancellation-share subsequence
+therefore carry q0, U, and the spectral shortfall all diverging on one
+physical clock. That clock still has n*(T-t_n)->0 and retains the earlier
+intrinsic Riccati-derived quartic indexed-energy floor. Neither the
+bounded baseline comparison nor a freely chosen narrow window provides a
+new independent physical-time exponent or an analytic estimate making U
+integrable. This is a neutral necessary-condition synchronization only.
