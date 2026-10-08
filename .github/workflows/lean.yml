@@ -29,6 +29,20 @@ jobs:
         with:
           build: true
 
+      - name: Audit full source coverage and theorem contracts
+        shell: bash
+        run: bash tools/audit/baseline.sh --reuse-build
+
+      - name: Retain audit evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: audit-pr-linux-x86_64
+          path: .lake/audit/
+          include-hidden-files: true
+          if-no-files-found: warn
+          retention-days: 14
+
   build-binaries:
     name: Build / ${{ matrix.label }}
     if: github.event_name != 'pull_request'
@@ -54,6 +68,20 @@ jobs:
         uses: leanprover/lean-action@v1
         with:
           build: true
+
+      - name: Audit full source coverage and theorem contracts
+        shell: bash
+        run: bash tools/audit/baseline.sh --reuse-build
+
+      - name: Retain audit evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: audit-${{ matrix.target }}
+          path: .lake/audit/
+          include-hidden-files: true
+          if-no-files-found: warn
+          retention-days: 14
 
       - name: Package executable
         shell: bash

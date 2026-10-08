@@ -1,5 +1,46 @@
 # Consolidation checkpoint
 
+## Current status (base: 80b1aea3)
+
+User-confirmed local baselines have completed the source-coverage repairs,
+23-module clock/width path migration, and two limit-bundle refactorings:
+
+| Work | Confirmed commit |
+|---|---|
+| Reproducible build and contract baseline | `1c4104d6` |
+| Documentation source index | `8a0ecdb7` |
+| Historical primitive compatibility import | `0a9ce644` |
+| Weighted PDE-terms standalone repair | `4b8360c7` |
+| Physical L² Cauchy-frontier standalone coverage | `e6e3b9fd` |
+| Strict-time decay standalone coverage | `e091312a` |
+| Primitive aggregate repair and full source coverage | `70895056` |
+| Short clock/width paths with compatibility imports | `262b2e70` |
+| Interval-limit bundle | `570777b1` |
+| Forward-width limit bundle | `80b1aea3` |
+
+The current inventory is 2,407 project modules: 2,402 reachable from the root
+and five covered through standalone targets, with no uncovered modules or
+missing project imports. These counts describe the current source graph;
+the commits above record the user's successful local validation workflow.
+
+The next patch makes the same baseline a CI requirement for pull requests and
+both Linux binary builds. It reuses the initial build, then checks all standalone
+targets, compatibility imports, selected API/contracts and axiom reports,
+clock-path snapshots, the source index, and the 22 prose fragments. Audit reports
+are uploaded for 14 days even when the audit fails. A failure blocks packaging
+and the dependent rolling release. If the initial root build fails before the
+audit starts, the existing Actions build log remains the evidence; the upload
+step warns when no audit report exists.
+
+This completes the first bounded consolidation pilot once CI itself passes.
+Remaining work is separate: review the printed mathematical assumptions and
+trust dependencies, and choose further path migrations only where they improve
+navigation. The deeper dependency chain and remaining endpoint alternative are
+unchanged. The historical sections below record the state at each patch's
+preparation; earlier “pending” statements are superseded by the table above.
+
+## Historical baseline and implementation notes
+
 The build/contract baseline was committed as `1c4104d6` on 8 October 2026 UTC
 (7 October in America/New_York). The user supplied a successful local fresh
 project build: 22,161 jobs, successful root and contract elaboration, and a

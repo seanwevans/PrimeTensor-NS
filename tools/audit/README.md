@@ -33,8 +33,7 @@ static coverage alone is not compilation evidence.
 
 The primitive aggregate imports its 14 shared declarations and retains its six
 unique declarations. The exact map is in
-`docs/audit/primitive-declaration-map.json`. The final aggregate repair still
-requires the accompanying Lean baseline run before it can be called validated.
+`docs/audit/primitive-declaration-map.json`. The aggregate repair passed the user-reported baseline at `70895056`.
 
 A passing baseline covers every project module and the selected contract/API
 checks. It does not establish that a conditional endpoint alternative has
@@ -44,9 +43,9 @@ Lean axioms and native-evaluation dependencies must be interpreted explicitly,
 not treated as proof holes merely because they appear in this output.
 
 `Contracts.lean` imports the existing root solely for this audit. It is not
-imported back into the library. The first patch does not change CI or theorem
-statements. Once the baseline has succeeded, CI evidence retention can reuse
-these checks without forcing a second clean build.
+imported back into the library. CI invokes the same baseline with `--reuse-build` after its initial root build.
+Both pull requests and Linux binary builds require it to pass. This reuses
+compiled outputs without forcing a second clean build.
 
 The standalone roster now also includes the separated weighted PDE-terms
 module. `Standalone.lean` checks its unique theorem alongside the root and
@@ -68,7 +67,7 @@ near the endpoint. Detailed audit output remains enabled.
 The first aggregate build exposed an unavailable `MulRightStrictMono ℝ`
 instance in a retained cancellation step. The repair uses the existing positive
 coefficient hypothesis and `mul_le_mul_of_nonneg_left` by contradiction.
-The statement and assumptions are unchanged; Lean revalidation is pending.
+The statement and assumptions are unchanged; the repair passed at `70895056`.
 
 The clock/width migration is checked by `check_clock_paths.py` and
 `ClockPaths.lean`. The first verifies preserved implementation bodies and old
@@ -83,3 +82,26 @@ its conjunction equivalence/common-subsequence transport in `IntervalLimits`.
 module, the manifest retains the original hash and an explicit refactoring
 record; the checker requires its base revision and explanation before using
 the new hash. It does not silently reset the original migration record.
+
+## CI evidence and failure behavior
+
+The baseline also runs `proof/generate_index.py --check` and
+`proof/check_fragment.py --all` before its Lean build commands. Their output is
+saved in `source-index.log` and `prose-fragments.log`; no PDFs are rendered.
+A failed check propagates through `pipefail`, produces a failing result/exit-code
+report, and stops the remaining baseline commands.
+
+`.github/workflows/lean.yml` runs the baseline in the PR job and both existing
+Linux binary jobs. An `always()` upload retains `.lake/audit/` for 14 days,
+including reports from failed audits. Hidden-file inclusion is explicit because
+the report directory is under `.lake`. Artifact names distinguish PR, x86_64,
+and ARM64 reports. If the earlier root build fails, the audit is skipped and the
+upload warns that there is no report; the root build log is still in Actions.
+Packaging requires a successful audit, and the rolling release already depends
+on successful completion of both binary jobs. The release download pattern
+continues to select only `release-*` artifacts.
+
+The baseline prints selected axiom dependencies for review; it does not enforce
+an axiom allowlist or certify all project theorem assumptions. CI configuration
+and static source checks can be checked locally; actual Actions execution is
+pending the next push.

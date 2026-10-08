@@ -23,6 +23,8 @@ trap finish EXIT
 printf '%s\n' "$mode" > "$report/build-mode.txt"
 python3 tools/audit/inspect_source.py "$report"
 python3 tools/audit/check_clock_paths.py 2>&1 | tee "$report/clock-paths.log"
+python3 proof/generate_index.py --check 2>&1 | tee "$report/source-index.log"
+python3 proof/check_fragment.py --all 2>&1 | tee "$report/prose-fragments.log"
 cp lean-toolchain lake-manifest.json lakefile.toml "$report/"
 {
   date -u +%FT%TZ
