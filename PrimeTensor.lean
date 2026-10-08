@@ -2033,3 +2033,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.KineticQuarticCanonic
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.KineticQuarticCanonicalUnabsorbedEssentialBarrier
 
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.KineticQuarticCanonicalUnabsorbedSuperlevelTail
+
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.KineticQuarticCanonicalChannelOccupationBarrier

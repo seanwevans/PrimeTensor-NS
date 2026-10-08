@@ -847,3 +847,32 @@ The high-rate excess above each finite threshold must carry
 infinite L1 time cost. This is stronger than pointwise or essential
 unboundedness, but does not supply a quantitative occupation-time
 fraction or any new PDE coercivity estimate.
+
+## Essential simultaneous PDE-channel deficit
+
+Write A=4422*C1, E=canonical H3 energy, Delta=nonnegative
+commutator/transport cancellation gap, and D=full nonnegative H3
+dissipation. The effective PDE absorption is Q=Delta+2D/E, and the
+unabsorbed Riccati rate is U=max(0,A*sqrt(E)-Q).
+
+For every fixed nonnegative M, at every physical time U>M if and only
+if Q+M<A*sqrt(E). At strict H3 energy-class times, this is also equivalent
+to 4422+M<E'/E. Both nonnegative PDE channels must therefore individually
+fall short of A*sqrt(E) by the threshold M on any high-U time, although
+this condition alone does not characterize their summed shortfall.
+
+Because the earlier essential barrier prohibits almost-everywhere
+compensation of the leading coefficient A*sqrt(E) by Q plus any integrable
+remainder r on any strict terminal tail under hypothetical nonextension,
+the path also cannot have the property that *at almost every time* either
+Delta+r or 2D/E+r absorbs A*sqrt(E). Thus the *simultaneous failure* of
+both individual channel ceilings cannot be confined to a time-null set.
+Conversely, proving such almost-everywhere one-channel absorption with one
+integrable scalar allowance on some tail would force smooth continuation.
+Similarly, a hypothetical nonextension cannot possess any finite
+a.e. ceiling for the normalized physical energy slope E'/E on any tail.
+
+This is a repackaging of already-established PDE balance and essential
+nonintegrability, not an independently closed coercivity theorem, not a
+quantitative occupation-time bound, and not a proof of unconditional
+continuation or existence of finite-time singularities.
