@@ -258,3 +258,20 @@ the anchor-synchronized nonextension obstruction now use this local result,
 without demanding globally measurable energy or selected-share functions.
 Measurability of B is retained explicitly; the temporal integrability
 obstruction is not discharged by measurability alone.
+
+## Canonical square-root-gradient anchor synchronization
+
+The canonical H3 path supplies the spatial-gradient envelope
+h(t) = C1 sqrt(E_H3(t)), with C1 the spectral first-derivative
+constant. Closed energy derivative identities yield continuity of E_H3
+on each admissible terminal interval. Consequently the coefficient
+B(t) = 4422(1+|h(t)|) is continuous there and selected direct shares are
+almost everywhere strongly measurable for the restricted tail measure.
+
+Direct-share integrability thus transfers to later kinetic anchors
+without requiring global measurability of the energy or a separately
+measurable envelope. Under nonextension, either no anchored direct share
+is integrable on a later subtail, or one anchor has an integrable direct
+share and every later kinetic anchor has a persistently nonintegrable
+selected absorbed share. This is a conditional obstruction, not a proof
+of temporal integrability or unconditional continuation.
