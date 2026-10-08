@@ -638,3 +638,25 @@ independently of M; the width of the chosen terminal window is not fixed by
 the PDE. A positive chi is a conditional property of a particular witness
 selection, not a forced consequence of nonextension. No global regularity,
 finite-time singularity, or universal physical-time exponent is proved.
+
+## Arbitrarily fast terminal witness selection
+
+The preceding H3 physical-clock indexed-width theorem extracts a witness
+sequence with n<q0(t_n), n<S(t_n), and terminal localization. The witness
+selection result is in fact available on every strict terminal interval.
+For every positive gauge delta(n) with delta(n)->0 and n*delta(n)->0,
+choose direct-selected witnesses t_n in (T-delta(n), T) with both q0(t_n)
+and S(t_n) above n, and zero selected absorption. The actual normalized
+full-dissipation transport excess and spectral shortfall tend to +infinity,
+while t_n->T and n*(T-t_n)->0. Compactness gives a cofinal subsequence
+on which the cancellation share converges to a value theta in [0,1]
+without losing these properties. In particular the explicit gauge
+
+delta(n) = 1/(n+1)^2
+
+produces a **zero** indexed-width cluster for any hypothetical nonextension
+branch with a positive-mass kinetic anchor. This is a consequence of the
+freedom to choose late witnesses, not evidence of a new Navier--Stokes
+physical-time growth bound. The earlier possible positive width cluster
+was always conditional on witness selection. Neither the existence of a
+blowup solution nor unconditional smooth continuation is established.
