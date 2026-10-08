@@ -592,3 +592,26 @@ q0(t_n)<eta*(4422+S(t_n)), even though q0(t_n)->+infinity. The ratio
 conclusions are algebraic consequences of the established compact share
 cluster; neither endpoint is excluded and no new PDE transport estimate,
 unconditional regularity, or blowup result is asserted.
+
+## Physical energy and slope lower bounds on the synchronized direct clock
+
+The exact full-dissipation positive transport excess q0=max(0,(-T_H3-2D)/E)
+coincides on H3 energy-class times with max(0,E'/E). For any nonnegative M,
+M<q0 therefore implies M*E<E'. The nonnegative H3 dissipation also gives
+S=4422*C1*sqrt(E)-2D/E <= 4422*C1*sqrt(E), so M<S forces the physical
+quadratic lower bound M^2 < (4422*C1)^2 * E. In particular, conditional on
+hypothetical nonextension, positive kinetic anchor mass, and the previous
+synchronized direct terminal-clock sequence, both inequalities occur at the
+same arbitrarily late times. They also persist on the cofinal subsequence
+selected by compactness of the cancellation share: with indices k(n),
+
+    (k(n))^2 < (4422*C1)^2 * E(sigma(k(n)))
+    k(n) * E(sigma(k(n))) < E'(sigma(k(n))).
+
+The terminal physical times converge to T, actual normalized excess and
+spectral shortfall diverge, exact direct selection remains active and the
+cancellation share tends to theta in [0,1]. These are indexed necessary
+conditions only, not physical-time power-law blowup rates, new PDE coercive
+bounds, evidence for commutator saturation, or a proof of NS regularity or
+finite-time singularity. In particular k(n) has no prescribed relation to
+1/(T-sigma(k(n))) beyond the explicit localization upper width.
