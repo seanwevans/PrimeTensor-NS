@@ -152,3 +152,7 @@ open PrimeTensor.Bridge.Euclidean
 -- Exact absorbed/direct threshold.
 #check h3_exact_quartic_coefficient_lt_direct_iff
 #print axioms h3_exact_quartic_coefficient_lt_direct_iff
+
+-- Exact coefficient dominance over the sharp coarse coefficient.
+#check exact_kinetic_quartic_coefficient_le_sharp_coefficient
+#print axioms exact_kinetic_quartic_coefficient_le_sharp_coefficient

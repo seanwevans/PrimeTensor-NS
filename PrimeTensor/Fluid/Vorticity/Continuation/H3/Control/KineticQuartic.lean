@@ -385,3 +385,31 @@ theorem h3_exact_quartic_coefficient_lt_direct_iff
 end Euclidean
 end Bridge
 end PrimeTensor
+
+namespace PrimeTensor
+namespace Bridge
+namespace Euclidean
+
+/-- The exact anchored coefficient is bounded by the coarser 105/8 coefficient. -/
+theorem exact_kinetic_quartic_coefficient_le_sharp_coefficient
+    {B M E : ℝ} (hB : 1 ≤ B) (hM : 0 ≤ M) (hE : 0 < E) :
+    (B + (3 * B + (3 * B) ^ 4 / (2 : ℝ) ^ 3) * M) / E ≤
+      ((1 + (105 / 8 : ℝ) * M) * B ^ 4) / E := by
+  have hB0 : 0 ≤ B := le_trans zero_le_one hB
+  have hSquare : B ≤ B ^ 2 := by
+    nlinarith [mul_nonneg hB0 (sub_nonneg.mpr hB)]
+  have hFourth : B ≤ B ^ 4 := by
+    nlinarith [mul_nonneg (sq_nonneg B) (sub_nonneg.mpr (le_trans hB hSquare))]
+  have hThree : 3 * B ≤ 3 * B ^ 4 := by
+    exact mul_le_mul_of_nonneg_left hFourth (by norm_num)
+  have hThreeM := mul_le_mul_of_nonneg_right hThree hM
+  have hBM := mul_le_mul_of_nonneg_right hFourth hM
+  have hNumerator :
+      B + (3 * B + (3 * B) ^ 4 / (2 : ℝ) ^ 3) * M ≤
+        (1 + (105 / 8 : ℝ) * M) * B ^ 4 := by
+    nlinarith [hThreeM, hBM]
+  exact div_le_div_of_nonneg_right hNumerator (le_of_lt hE)
+
+end Euclidean
+end Bridge
+end PrimeTensor

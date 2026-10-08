@@ -92,3 +92,8 @@ its coefficient is strictly below direct B exactly when
 This threshold is stated independently of the PDE path and can be used to
 identify the absorbed region without replacing the exact coefficient by the
 coarser `(105/8)` bound.
+
+The exact coefficient is formally bounded by the simplified coefficient
+`((1 + (105/8) E₀(b)) B⁴)/E` whenever B≥1, E₀(b)≥0, and E>0. Thus the
+exact adaptive criterion is pointwise at least as strong as the sharpened
+coarse criterion.
