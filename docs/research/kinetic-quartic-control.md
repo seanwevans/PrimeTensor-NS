@@ -233,3 +233,16 @@ is offset by direct-share loss. In particular, when absorption newly
 activates at c, its coefficient is strictly smaller than the earlier
 direct coefficient B. This is pointwise, does not require temporal
 measurability, and does not yet transfer integrability between anchors.
+
+## Selected-share integrability transfer across anchors
+
+The selected direct coefficient is nonnegative and decreases when the kinetic
+anchor advances. With explicit measurability of the later selected direct
+coefficient, its integrability transfers from an earlier anchor on a fixed
+terminal subtail. Under nonextension, an earlier direct-integrable share then
+forces every later anchor's selected absorbed share to be nonintegrable on
+every terminal subtail. Thus either no direct share becomes integrable at
+any anchor or some direct-integrable anchor forces persistent absorbed
+obstructions at all later anchors. This is conditional on measurability;
+pointwise order alone does not prove it. No unconditional continuation or
+blowup is claimed.
