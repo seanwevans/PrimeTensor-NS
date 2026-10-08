@@ -353,3 +353,18 @@ every strict terminal subtail for every fixed cutoff L. This is a necessary
 conditional obstruction, not a demonstration of blowup or a universal
 regularity theorem. The remaining frontier is quantitative control of this
 high-energy residence-time-weighted square-root moment.
+
+## Terminal Riccati high-energy clock
+
+The previously closed Riccati lower bound under hypothetical nonextension,
+2 <= K (T-t) sqrt(E_H3(t)) with fixed K>0, forces every finite H3 energy
+cutoff to be exceeded throughout a sufficiently late final time interval.
+For each cutoff L, a positive window q satisfying K q sqrt(max(L,0))<2
+excludes E_H3(t)<=L whenever 0<T-t<q. On that final interval, the
+high-energy cutoff sqrt(E_H3) moment coincides pointwise with the full
+sqrt(E_H3) profile. The established Riccati nonintegrability theorem then
+forces nonintegrability of the high-energy moment on every strict terminal
+tail under nonextension, independently of positive kinetic mass at any
+anchor. These are conditional necessary conditions, not a construction of
+blowup or a proof of unconditional continuation. The direct-share route
+still requires positive kinetic anchor mass where indicated.
