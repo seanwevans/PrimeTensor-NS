@@ -335,3 +335,21 @@ hypothetical nonextension, the high-energy direct restriction must be
 nonintegrable on every strict subtail, for every fixed cutoff L. This is a
 conditional localization, not an assertion of blowup or of the integrability
 of the remaining high-energy share.
+
+## High-energy square-root H3 moment obstruction
+
+For any fixed energy cutoff L, the high-energy part of the canonical
+selected direct coefficient is bounded by 4422 times the sum of the
+high-energy time indicator and C1 times the high-energy indicator of
+sqrt(E_H3). The first term is integrable on each finite terminal interval,
+independently of regime switching. Both indicators are measurable relative
+to the restricted tail measure by continuity of canonical H3 energy.
+
+Consequently, integrability of the high-energy sqrt(E_H3) moment would imply
+integrability of the high-energy selected direct coefficient. At an anchor
+with E0(b)>0, hypothetical nonextension and the preceding localization
+therefore force the high-energy sqrt(E_H3) moment to be nonintegrable on
+every strict terminal subtail for every fixed cutoff L. This is a necessary
+conditional obstruction, not a demonstration of blowup or a universal
+regularity theorem. The remaining frontier is quantitative control of this
+high-energy residence-time-weighted square-root moment.
