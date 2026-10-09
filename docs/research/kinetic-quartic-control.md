@@ -1677,3 +1677,21 @@ ordered negative monomial ratio -2 Q(j,r)/E.
 Both alternatives retain the three physical critical clocks. Uniform
 terminal ceilings for both mechanisms suffice for continuation.
 Neither ceiling is asserted unconditionally.
+
+## Fixed directed H3 physical energy clock alternative
+
+The gradient-excess branch satisfies Lambda3^2 < 24 C1 sqrt(E), while the
+existing physical top-frequency clock enforces
+
+    1 <= 3 K^2 (E0(b)+1) (T-t)^2 Lambda3^6.
+
+Combining these inequalities gives the strict necessary physical clock
+
+    1 < 3 K^2 (E0(b)+1) (24 C1)^3 (T-t)^2 sqrt(E)^3.
+
+The energy exponent is E^(3/2), corresponding to an inverse-4/3 lower rate
+for E(t) on this branch. Along the same fixed signed-source sequence,
+nonextension alternatively forces one fixed ordered monomial -2 Q(j,r)/E
+to diverge. Both alternatives retain the three established critical clocks.
+A terminal energy-clock upper bound and signed-monomial ceiling jointly imply
+continuation, but neither estimate is asserted to be automatic.
