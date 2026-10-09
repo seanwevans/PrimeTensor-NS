@@ -1,0 +1,11 @@
+PrimeTensor-NS: Fixed seven-source H3 obstruction
+Parent checkpoint: a8d8a7fa
+
+The new module formalizes a fixed-index cofinal pigeonhole theorem for the
+seven joint obstruction scores (gradient excess and six symmetric signed
+first-monomial channels), and a converse continuation criterion from seven
+independent eventual ceilings.
+
+No PDE sign or absolute analytic estimates have been added. Lean validation
+must be performed in the user's project environment using the companion
+runner; the creation environment does not contain Lean/lake.

@@ -1479,3 +1479,26 @@ If all six channels have the lower bounds -R E on a strict terminal tail,
 nonextension forces a gradient excess larger than 9 R E. Conversely, an
 upper bound G - D <= 9 R E forces one adverse symmetric channel. Both
 upper and lower bounds together imply continuation, conditionally.
+
+## Fixed seven-source H3 terminal obstruction
+
+The joint signed obstruction offers seven possible adverse sources: one
+H3 gradient-excess term and six exchange-symmetric first-monomial velocity
+channels. The finite cofinal pigeonhole theorem fixes one index in
+{0,...,6} such that, under hypothetical nonextension, on every strict
+terminal subtail and for every nonnegative R, a time satisfies
+
+    9 R E(t) < S_index(t).
+
+Here S_0 = G-D, and S_1,...,S_6 are -9 times the three diagonal signed
+channel values and the three symmetric off-diagonal channel pairs.
+
+The selected index does not depend on either the subtail or R. The proof
+uses only the previous joint alternative and E(t) >= 1.
+
+Consequently, if each of the seven indexed sources individually admits
+an eventual normalized upper bound (with its own terminal starting time
+and its own nonnegative coefficient), continuation follows.
+
+This is an obstruction classification, not an unconditional PDE estimate,
+regularity result, or proof of finite-time singularity.
