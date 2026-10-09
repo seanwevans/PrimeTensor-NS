@@ -1573,3 +1573,16 @@ the same times satisfy, eventually,
 Consequently E3(τ(n)) -> +infinity on this *same* signed-source sequence.
 This is a conditional necessary obstruction, not an assertion of singularity,
 an unconditional continuation theorem, or an independent PDE estimate.
+
+## Directed H3 top-energy / square-root energy obstruction
+
+The fixed directed-source nonextension sequence has the sharper quantitative
+rate n * sqrt(E(tau(n))) < 324 C1 E3(tau(n)) for all large n. Since E >= 1,
+it follows along the same selected source sequence that
+
+    E3(tau(n)) / sqrt(E(tau(n))) -> +infinity.
+
+Consequently a uniform terminal estimate E3(t) <= K sqrt(E(t)) on any one
+strict energy-class tail, for any fixed real K, forces smooth continuation.
+This is a conditional H3 continuation criterion, not a proof of that bound,
+or a claim that a nonextendible Navier--Stokes path exists.

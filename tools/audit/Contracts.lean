@@ -1174,3 +1174,9 @@ open PrimeTensor.Bridge.Euclidean
 #print axioms h3PathCanonical_directedTenSource_le_landauThirdEnergy
 #check h3PathCanonical_fixedDirectedSource_thirdEnergyBlowup_sameSequence
 #print axioms h3PathCanonical_fixedDirectedSource_thirdEnergyBlowup_sameSequence
+
+-- Fixed directed-source terminal ratio: E3 / sqrt(E) is cofinally unbounded.
+#check h3PathCanonical_fixedDirectedSource_thirdEnergyOverRoot_diverges
+#print axioms h3PathCanonical_fixedDirectedSource_thirdEnergyOverRoot_diverges
+#check h3PathCanonical_extension_of_eventualThirdEnergyRootCeiling
+#print axioms h3PathCanonical_extension_of_eventualThirdEnergyRootCeiling
