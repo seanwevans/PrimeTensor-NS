@@ -2001,3 +2001,24 @@ The original source index, three physical critical clocks and the neutral
 full-gradient versus fixed adverse ordered-monomial alternatives are kept.
 These are necessary constraints under hypothetical H3 nonextension only;
 neither regularity nor actual finite-time blowup is established.
+
+## Sharp full H3 cubic terminal clock threshold
+
+The previous full-physical cubic floor is quantified for every epsilon>0:
+
+    1 <= (1+epsilon)^6 C_b (T-t)^2 (D/E)^3,
+    C_b = 3 K^2 (E0(b)+1).
+
+A continuity argument chooses epsilon small enough for ANY q<1 to deduce,
+on the COMPLETE sufficiently late left terminal neighborhood,
+
+    q <= C_b (T-t)^2 (D/E)^3.
+
+This is the sharp asymptotic lower threshold (liminf at least one), not
+an unjustified eventual inequality with q=1. Contrapositively, if a
+fixed q<1 is violated arbitrarily close to T (recurrently, on every
+strict subtail), the path admits a smooth continuation. The SAME fixed
+indexed directed ten-source witness inherits the universal subunit floor
+without changing its index, three physical clocks, or the gradient versus
+fixed ordered adverse-monomial branches. No transport sign is presumed and
+no unconditional Navier--Stokes regularity or blowup is asserted.
