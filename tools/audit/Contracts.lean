@@ -1156,3 +1156,7 @@ open PrimeTensor.Bridge.Euclidean
 #print axioms h3PathCanonical_fixedJointDirectedTenSource_on_every_subtail
 #check h3PathCanonical_extension_of_separateDirectedTenSourceCeilings
 #print axioms h3PathCanonical_extension_of_separateDirectedTenSourceCeilings
+
+-- Actual near-terminal sequence for a fixed normalized directed H3 source.
+#check h3PathCanonical_fixedDirectedTenSource_normalizedTerminalSequence
+#print axioms h3PathCanonical_fixedDirectedTenSource_normalizedTerminalSequence

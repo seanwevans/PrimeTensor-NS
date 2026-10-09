@@ -1521,3 +1521,19 @@ exceeds 9 R E arbitrarily late on every terminal subtail for every R>=0.
 Separate eventual normalized upper bounds on all ten directed sources
 imply continuation. This is an algebraic reduction, not an unconditional
 PDE sign estimate or regularity proof.
+
+## Fixed directed H3 normalized terminal sequence
+
+The cofinal ten-source obstruction has a sequential strengthening.
+For a hypothetical nonextendible H3 path, a single fixed index `i`
+(one gradient-excess or one of nine ordered velocity channels) admits
+actual times `tau(n)` with
+
+    T - 1/(n+1) < tau(n) < T,
+    n < S_i(tau(n)) / (9 E(tau(n))).
+
+Thus `tau(n) -> T`, the normalized signed source tends to +infinity,
+and the raw signed source tends to +infinity as well, since E >= 1.
+Neither a particular source index nor a PDE estimate is established.
+This is a conditional necessary asymptotic statement, not a proof of
+singularity or unconditional continuation.
