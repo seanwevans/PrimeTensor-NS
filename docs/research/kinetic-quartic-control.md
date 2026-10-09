@@ -1829,3 +1829,28 @@ The original index witness, three physical terminal clocks and the
 neutral gradient-versus-fixed-ordered-monomial alternative are retained.
 This does not prove limiting share one, exclude either branch, or imply
 unconditional Navier--Stokes regularity.
+
+## Fixed directed H3 top-order share converges to one
+
+The parameterized Fourier polynomial comparison for A >= 1 and q >= 0,
+
+    q + q^2 <= (A+A^2) + (2/A) q^3,
+
+integrates on real H3 path slices to
+
+    E1 + E2 <= (A+A^2) E0 + (2/A) E3.
+
+Kinetic monotonicity supplies E0(t) <= E0(b). Under hypothetical H3
+nonextension, the original fixed directed ten-source indexed sequence has
+E3(tau(n)) -> infinity; for each epsilon > 0 a sufficiently large fixed A
+makes 2/A arbitrarily small, while the anchored E0 cost is negligible
+relative to E3. Therefore on the SAME fixed-source terminal sequence,
+
+    E(tau(n)) <= (1+epsilon) E3(tau(n)) eventually,
+    E3(tau(n)) / E(tau(n)) -> 1.
+
+This is a genuine improvement over the fixed constants 3 and 2. The indexed
+source rate, three independent physical clocks and neutral exhaustive
+alternatives (gradient full-dissipation/top-share clock, or a fixed adverse
+ordered velocity monomial) are all retained unchanged. It neither excludes
+a branch nor proves unconditional Navier--Stokes regularity or blowup.
