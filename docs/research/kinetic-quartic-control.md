@@ -1537,3 +1537,22 @@ and the raw signed source tends to +infinity as well, since E >= 1.
 Neither a particular source index nor a PDE estimate is established.
 This is a conditional necessary asymptotic statement, not a proof of
 singularity or unconditional continuation.
+
+## Directed signed H3 source Landau energy-growth bridge
+
+The established H3 Landau/Hölder closure bounds every genuine type-0 signed
+interpolation monomial by 6 C1 sqrt(E) E3. Each ordered velocity component
+Q(j,r) contains 27 such terms, hence
+
+    |Q(j,r)| <= 162 C1 sqrt(E) E3.
+
+The largest weight among the ten directed physical obstruction sources is
+18, so each source satisfies
+
+    S_i <= 2916 C1 sqrt(E) E3 <= 2916 C1 sqrt(E) E.
+
+The fixed directed-source nonextension sequence therefore also satisfies,
+eventually, n < 324 C1 sqrt(E(tau_n)). It follows that the same times witness
+E(tau_n) -> +infinity. This synchronizes the signed-source obstruction with
+physical H3 energy blowup, using proved Landau estimates, but does not prove
+singularity or unconditional regularity.

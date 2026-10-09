@@ -1160,3 +1160,11 @@ open PrimeTensor.Bridge.Euclidean
 -- Actual near-terminal sequence for a fixed normalized directed H3 source.
 #check h3PathCanonical_fixedDirectedTenSource_normalizedTerminalSequence
 #print axioms h3PathCanonical_fixedDirectedTenSource_normalizedTerminalSequence
+
+-- Landau control of each signed directed channel and energy synchronization.
+#check h3PathCanonical_abs_directedComponent_le_landau
+#print axioms h3PathCanonical_abs_directedComponent_le_landau
+#check h3PathCanonical_directedTenSource_le_landauEnergy
+#print axioms h3PathCanonical_directedTenSource_le_landauEnergy
+#check h3PathCanonical_fixedDirectedSource_energyBlowup_sameSequence
+#print axioms h3PathCanonical_fixedDirectedSource_energyBlowup_sameSequence
