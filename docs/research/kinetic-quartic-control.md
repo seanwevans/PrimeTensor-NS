@@ -1695,3 +1695,24 @@ nonextension alternatively forces one fixed ordered monomial -2 Q(j,r)/E
 to diverge. Both alternatives retain the three established critical clocks.
 A terminal energy-clock upper bound and signed-monomial ceiling jointly imply
 continuation, but neither estimate is asserted to be automatic.
+
+## Fixed directed H3 shifted physical energy clocks
+
+For any fixed R >= 0, a normalized gradient-excess source larger than R
+forces the strict spectral inequality
+
+    Lambda3^2 < 24 C1 sqrt(E) - 9 R.
+
+Together with the established kinetic-anchored intrinsic frequency clock,
+this gives the shifted physical-time bound
+
+    1 < 3 K^2 (E0(b)+1) (T-t)^2 (24 C1 sqrt(E)-9 R)^3.
+
+On the fixed gradient-source nonextension sequence, the normalized signed
+source diverges. Consequently this shifted physical clock holds eventually
+for every fixed nonnegative R (the eventual time can depend on R). The
+neutral alternative is divergence of one fixed negative ordered monomial
+ratio -2 Q(j,r)/E on the same times. All three physical critical clocks are
+retained. A finite terminal-tail ceiling on one shifted clock plus ceilings
+on all signed ordered ratios forces continuation. None of these extra
+ceilings are claimed to follow automatically from the PDE.
