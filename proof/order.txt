@@ -1,5 +1,5 @@
-# Generated from revision: 7afc7d8e07561f4f29ea6f3eeb3b3e45ede96386
-# Source SHA-256: c4e578d83c9fca5a4c2b3bc421f25530359132493077f4c8a3f28645f9f6fada
+# Generated from revision: bd0b41b8620763f02a916d1e22dd895e3d7c03b3
+# Source SHA-256: cb2155b7de6819777e9dcc70e3a898d66232c3b3b422b227e7102be468cb46f8
 # Existing project import edges only; excluded/missing sources are tracked in tools/audit/known-source-gaps.json.
 Depth
 Prime
@@ -2117,6 +2117,7 @@ Fluid/Vorticity/Continuation/H3/Control/KineticQuarticCanonicalSecondOrderKineti
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Angular/Concentration
 Fluid/Vorticity/Continuation/H3/Control/KineticQuarticCanonicalAllLowerOrderAbsorption
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Single/Time/Concentration
+Fluid/Vorticity/Continuation/H3/Control/KineticQuarticCanonicalSignedTopSpectralCorridor
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Scalar/Lower/Bound
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Angular/Vanishing/Criterion
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Angular/Vanishing/From/Tightness/Equiintegrability

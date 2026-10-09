@@ -1167,3 +1167,37 @@ This excludes lower-order commutators as an independent obstruction
 at arbitrarily high normalized rates. It neither proves favorable
 third-order cancellation nor establishes regularity or singularity
 existence. The remaining frontier is signed third-order transport.
+
+## Signed third-order transport and the top Fourier frequency corridor
+
+The previous kinetic-Fourier reduction eliminates order-one and order-two
+transport as independent high-growth obstacles and proves that hypothetical
+nonextension produces arbitrarily late signed top-order witnesses
+
+    -T3(t) > D(t) + M E(t),  M >= 0.
+
+The established, concrete Landau commutator bound is
+
+    |T3(t)| <= 4398 C1 sqrt(E(t)) E3(t).
+
+Using D3 <= D gives a new necessary physical Fourier corridor
+
+    D3(t) + M E(t) < 4398 C1 sqrt(E(t)) E3(t).
+
+Consequently E3(t)>0 and
+
+    D3(t)/E3(t) + M E(t)/E3(t) < 4398 C1 sqrt(E(t)).
+
+The ratio D3/E3 is the effective q=|xi|^2 frequency of the top
+radial energy moment; it must lie strictly below the square-root H3
+gradient scale at all these high-adversity times. The inequality is
+necessary, not an automatic contradiction.
+
+Conversely, if on some strict terminal tail the physical top Fourier
+viscous block satisfies
+
+    4398 C1 sqrt(E(t)) E3(t) <= D3(t),
+
+then the required signed transport witness is impossible and the path
+has a smooth continuation. This is a conditional spectral-dissipation
+criterion; no proof that it holds on arbitrary solutions is claimed.
