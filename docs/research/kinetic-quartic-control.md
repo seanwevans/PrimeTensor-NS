@@ -1388,3 +1388,43 @@ late subtail slices for every R>=0. A uniform lower bound on only the type-0
 family, together with that gradient absorption, implies smooth continuation.
 This does not prove either additional bound for arbitrary solutions and does
 not settle global regularity.
+
+## Full signed H3 interpolation aggregate has multiplicity three
+
+The previous files proved exact signed mixed-partial identities for the
+second and third interpolation monomial types, each as a permutation
+of the first.
+
+Reindexing the complete finite derivative sums yields
+
+    I3(t) = 3 * A0(t),
+    A0(t) = sum_{j,r,i,k,l} P0(j,i,k,l,r;t).
+
+The original signed sum contains 729 monomial occurrences. The
+canonical type-0 family contains 243 ordered five-axis slots, with
+exact multiplicity three. No absolute values are taken.
+
+Thus actual third-order transport satisfies
+
+    T3 = G3 + 3*A0,
+    |G3| <= 24*C1*sqrt(E)*E3.
+
+At every physical signed witness D+M*E < -T3:
+
+    D+M*E < 24*C1*sqrt(E)*E3 - 3*A0.
+
+Hypothetical nonextension requires such aggregate deficits arbitrarily
+late on every strict terminal tail.
+
+A conditional continuation criterion is
+
+    24*C1*sqrt(E)*E3 <= D + 3*A0
+
+throughout one strict terminal tail.
+
+This is an exact rewriting of the previous signed-interpolation
+compensation criterion. It does not prove A0=0, favorable sign,
+automatic gradient absorption, or unconditional regularity.
+
+The outstanding PDE frontier is a substantive estimate or cancellation
+for the canonical signed type-0 aggregate.
