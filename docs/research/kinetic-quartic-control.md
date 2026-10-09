@@ -1502,3 +1502,22 @@ and its own nonnegative coefficient), continuation follows.
 
 This is an obstruction classification, not an unconditional PDE estimate,
 regularity result, or proof of finite-time singularity.
+
+## Fixed directed ten-source H3 obstruction
+
+The joint H3 nonextension obstruction can be refined from six symmetric
+velocity channels to nine *ordered* velocity-component channels. Write
+Q(j,r) for the complete signed first-monomial sum with velocity indices
+(j,r), and E, D, G for H3 energy, dissipation, and the third-order gradient
+bound respectively.
+
+The ten scalar sources are S0=G-D; S1,...,S3=-9 Qjj for diagonal axes;
+and S4,...,S9=-18 Qjr for the six off-diagonal ordered axis pairs.
+The factor 18 is exact: Qjr+Qrj < -R E forces at least one of Qjr or Qrj
+below -(R/2) E. Thus each alternative has the common threshold 9 R E.
+
+Under hypothetical nonextension, a *single* fixed source among these ten
+exceeds 9 R E arbitrarily late on every terminal subtail for every R>=0.
+Separate eventual normalized upper bounds on all ten directed sources
+imply continuation. This is an algebraic reduction, not an unconditional
+PDE sign estimate or regularity proof.
