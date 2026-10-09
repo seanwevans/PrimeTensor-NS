@@ -1335,3 +1335,27 @@ R>=0 throughout the tail, smooth continuation follows.
 Neither extra condition is proved universally. This is a localized
 necessary-condition and conditional criterion, not unconditional NS
 regularity, nor a singularity construction.
+
+## Signed H3 interpolation monomial mixed-partial symmetry
+
+The first two D3u*(D2u D2u) interpolation monomial families are not
+independent. Preterminal spatial C3 regularity supplies commutation of the
+outer partials of the differentiated velocity, while the underlying D2u
+product of the first monomial at (j,i,k,l,r) is definitionally identical
+to the second monomial at (j,k,i,l,r). Thus the actual signed spatial-energy
+pairings satisfy the exact identity
+
+    P_0(j,i,k,l,r) = P_1(j,k,i,l,r).
+
+The previously established adverse interpolation monomial witness can always
+be represented by type 0 or type 2 after reorienting the outer indices.
+Therefore no independent type-1 witness family is required. There are only
+two inequivalent monomial types (486 index slots), instead of 729 formal
+slots. The previous threshold of one 729th is retained, not strengthened.
+
+Under the additional stated terminal gradient absorption hypothesis,
+hypothetical nonextension forces arbitrarily adverse normalized type-0 or
+type-2 pairings. A uniform normalized lower bound on just these two
+families, together with gradient absorption, suffices for continuation.
+This is exact mixed-partial symmetry, not a signed cancellation or a proof
+of unconditional regularity.
