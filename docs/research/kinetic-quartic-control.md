@@ -1916,3 +1916,24 @@ and both exhaustive gradient/signed-monomial alternatives.
 The frequencies themselves need not differ by a bounded amount; this is
 only a relative ratio limit. No new transport sign, realized singularity,
 or unconditional continuation is asserted.
+
+## Full left-terminal physical H3 frequency amplitude equivalence
+
+The established full-tail squared-frequency comparison says
+
+    (D3/E3) / (D/E) -> 1  as t approaches T from below
+
+under hypothetical H3 nonextension. Its square root identifies the genuine
+physical square-root frequency amplitudes
+
+    Omega3 = sqrt(D3/E3),     Omega = sqrt(D/E),
+    Omega3 / Omega -> 1.
+
+On the entire left terminal tail, E3 and D3 are eventually positive, and
+Omega is strictly positive. The amplitude ratio thus has a direct physical
+meaning beyond the squared-frequency formulation. For every epsilon>0,
+eventually 1-epsilon < Omega3/Omega < 1+epsilon. The same limit is attached
+to the preselected fixed directed ten-source obstruction witness, preserving
+its index, three physical clocks and neutral gradient/ordered-monomial
+alternative. This is relative convergence, not convergence of Omega3-Omega
+or an exclusion of hypothetical Navier--Stokes nonextension.
