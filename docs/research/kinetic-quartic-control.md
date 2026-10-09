@@ -2022,3 +2022,26 @@ indexed directed ten-source witness inherits the universal subunit floor
 without changing its index, three physical clocks, or the gradient versus
 fixed ordered adverse-monomial branches. No transport sign is presumed and
 no unconditional Navier--Stokes regularity or blowup is asserted.
+
+## Full H3 cubic-rate ceiling and kinetic anchor optimization
+
+Write R(t)=(T-t)^2 (D(t)/E(t))^3 and define the kinetic coefficient
+C_b=3 K^2 (E0(b)+1). Earlier formalized results give, conditional on
+hypothetical nonextension, every strict subunit q<1 as an eventual lower
+bound on C_b R(t) throughout the physical left terminal tail.
+
+The direct contrapositive is a useful continuation criterion: if some finite
+upper ceiling R(t)<=B holds eventually and C_b B<1, then a smooth extension
+exists. The same result holds when the upper ceiling is known only along an
+arbitrarily chosen sequence approaching T from below, including the already
+fixed indexed ten-source directed obstruction witness; no new witness or sign
+branch is required. The proof needs no additional transport estimate.
+
+If the canonical H3 energy data hypothesis is available, kinetic energy E0
+is antitone on the strict tail, so C_c<=C_b for any later anchor b<=c<T.
+The associated cubic clock at the same physical time can only decrease with
+a later anchor. This monotonicity claim explicitly requires the canonical
+energy data hypothesis and is not asserted without it.
+
+These are conditional continuation criteria, not unconditional regularity
+or finite-time singularity results.
