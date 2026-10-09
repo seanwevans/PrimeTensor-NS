@@ -1,5 +1,1 @@
-PrimeTensor-NS: indexed directed source top-energy-share physical clock.
-
-Import new Lean module in PrimeTensor.lean using the provided runner.
-Continuation assumptions are explicit; no new axioms, sorry, admit.
-The local environment used to package this artifact does not have lake/lean.
+Universal top H3 energy share, synchronized with fixed indexed signed source. No Lean build was available in the producing container.

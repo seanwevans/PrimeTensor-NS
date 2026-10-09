@@ -1784,3 +1784,24 @@ An eventual zero-shift top-share clock ceiling and a signed-channel
 ceiling imply continuation, but neither assumption is automatic.
 These statements do not establish finite-time singularity or unconditional
 Navier--Stokes regularity.
+
+## Universal asymptotic top-energy share on fixed directed source
+
+The physical H3 endpoint interpolation and kinetic-energy monotonicity give,
+for every b<t<T in the admissible H3 energy-class tail,
+
+    E(t) <= 1 + 3 E0(b) + 3 E3(t).
+
+Under hypothetical H3 nonextension the already-selected, indexed, fixed
+signed-source sequence has E3(tau(n)) -> +infinity. Consequently, for every
+fixed epsilon > 0, on that very same sequence, eventually
+
+    E3(tau(n)) <= E(tau(n)) <= (3+epsilon) E3(tau(n)),
+    E3(tau(n))/E(tau(n)) >= 1/(3+epsilon).
+
+The leading factor three is independent of the chosen kinetic anchor, unlike
+the earlier (4+3 E0(b)) comparison. The original index inequality, all three
+critical physical clocks, and both alternatives (gradient full-dissipation
+and top-share clock; or one fixed adverse ordered velocity monomial) remain
+unchanged. This is a necessary feature of hypothetical nonextension and does
+not exclude either source branch or establish an NS regularity theorem.

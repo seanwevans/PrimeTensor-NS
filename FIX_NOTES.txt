@@ -1,8 +1,1 @@
-Fix for Lean application type mismatch on hDissipationClock.
-This is a set inclusion, so its only explicit argument is a proof of membership
-  τ n ∈ Set.Ioo cD T.
-Changed:
-  hDissipationClock (τ n) ⟨hnD, (hNear n).2⟩
-to:
-  hDissipationClock ⟨hnD, (hNear n).2⟩
-No axioms, sorry, or other source changes.
+Fix Lean proof failures at lines 47, 102, 125: correct kinetic monotonicity name, use add_le_add_left, and use le_div_iff₀ to prove lower quotient bound. No theorem statements changed.
