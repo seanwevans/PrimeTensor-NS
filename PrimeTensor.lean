@@ -2107,3 +2107,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.KineticQuarticCanonic
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.KineticQuarticCanonicalSignedFirstMonomialDirectedSourceTopShareClock
 
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.KineticQuarticCanonicalSignedFirstMonomialDirectedSourceUniversalTopShare
+
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.KineticQuarticCanonicalSignedFirstMonomialDirectedSourceSharperTopShare

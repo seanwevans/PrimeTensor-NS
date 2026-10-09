@@ -1805,3 +1805,27 @@ critical physical clocks, and both alternatives (gradient full-dissipation
 and top-share clock; or one fixed adverse ordered velocity monomial) remain
 unchanged. This is a necessary feature of hypothetical nonextension and does
 not exclude either source branch or establish an NS regularity theorem.
+
+## Sharp radial polynomial improves fixed directed H3 top share
+
+The elementary nonnegative Fourier-frequency identity
+
+    1+q^3-q-q^2 = (q-1)^2(q+1) >= 0
+
+integrates to the new physical endpoint inequality
+
+    E1(t)+E2(t) <= E0(t)+E3(t).
+
+Together with kinetic monotonicity, this gives the anchor-dependent
+pointwise energy estimate E(t) <= 1+2E0(b)+2E3(t) for b<t<T.
+On the SAME previously selected fixed directed signed-source witness,
+E3(tau(n)) -> infinity, hence for each fixed epsilon > 0 eventually
+
+    E3 <= E <= (2+epsilon) E3,
+    E3/E >= 1/(2+epsilon).
+
+The universal leading coefficient is improved from 3 to 2.
+The original index witness, three physical terminal clocks and the
+neutral gradient-versus-fixed-ordered-monomial alternative are retained.
+This does not prove limiting share one, exclude either branch, or imply
+unconditional Navier--Stokes regularity.
