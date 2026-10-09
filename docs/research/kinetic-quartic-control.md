@@ -1854,3 +1854,23 @@ source rate, three independent physical clocks and neutral exhaustive
 alternatives (gradient full-dissipation/top-share clock, or a fixed adverse
 ordered velocity monomial) are all retained unchanged. It neither excludes
 a branch nor proves unconditional Navier--Stokes regularity or blowup.
+
+## Universal left-terminal H3 top-energy concentration
+
+The fixed-source sequence theorem showed E3(tau(n))/E(tau(n)) -> 1.
+A stronger, previously established result gives E3(t) -> +infinity along
+THE ENTIRE left-terminal filter nhdsLT T under hypothetical nonextension.
+
+Combine that full-tail divergence with the parameterized physical Fourier
+interpolation and monotonicity of zeroth-order kinetic energy. For every
+fixed epsilon > 0, throughout some terminal subinterval,
+
+    E(t) <= (1+epsilon) E3(t),
+    E1(t) + E2(t) <= epsilon E3(t).
+
+It follows that the top-order fraction E3(t)/E(t) tends to 1 as t approaches
+T from the left, without choosing any special subsequence or source index.
+The result therefore holds on all the previously constructed selected
+terminal witnesses (gradient-excess OR fixed adverse signed monomial).
+Neither physical source branch is excluded, and no unconditional smooth
+continuation, finite-time blowup, or new PDE sign estimate is claimed.
