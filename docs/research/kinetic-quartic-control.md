@@ -1428,3 +1428,38 @@ automatic gradient absorption, or unconditional regularity.
 
 The outstanding PDE frontier is a substantive estimate or cancellation
 for the canonical signed type-0 aggregate.
+
+## Signed first-monomial six-channel exchange decomposition
+
+The exact interpolation identity I3=3*A0 reduces the complete
+third-order interpolation commutator to one monomial family.
+
+Group by the two velocity-component indices:
+
+    Q(j,r)=sum_{i,k,l} P0(j,i,k,l,r).
+
+The skew part W(j,r)=(Q(j,r)-Q(r,j))/2 cancels exactly
+under the complete exchange of velocity indices:
+
+    sum_{j,r} W(j,r)=0.
+
+The canonical signed aggregate is precisely six channels:
+
+    A0=Qxx+Qyy+Qzz
+       +(Qxy+Qyx)+(Qxz+Qzx)+(Qyz+Qzy).
+
+Each individual Q entry contains 27 actual triple-product pairings.
+
+Under the separate terminal gradient-absorption condition
+
+    24*C1*sqrt(E)*E3 <= D,
+
+hypothetical nonextension forces arbitrarily late times where at
+least one of these six channels is below -R*E for every R>=0.
+
+Uniform normalized lower bounds on all six channels, plus gradient
+absorption, imply continuation.
+
+This exchange-skew cancellation is algebraic. No favorable sign
+or automatic analytic estimate for the six surviving channels
+has been established.
