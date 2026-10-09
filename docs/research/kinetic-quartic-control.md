@@ -1716,3 +1716,22 @@ ratio -2 Q(j,r)/E on the same times. All three physical critical clocks are
 retained. A finite terminal-tail ceiling on one shifted clock plus ceilings
 on all signed ordered ratios forces continuation. None of these extra
 ceilings are claimed to follow automatically from the PDE.
+
+## Indexed directed H3 physical gradient gap
+
+The original fixed-ten-source witness has n < S_i(tau(n))/(9 E(tau(n)))
+for every natural n, not merely asymptotic divergence. Its very same
+selected times satisfy all three established terminal physical critical
+clocks eventually. This yields the exhaustive strengthened classification:
+
+* Gradient index zero: for EVERY n, the physical top-frequency gap obeys
+      9 n < 24 C1 sqrt(E(tau(n))) - Lambda3(tau(n))^2.
+  The moving shifted physical energy clock with shift R=n is consequently
+  satisfied eventually on precisely those terminal times.
+* A nonzero directed index: ONE fixed ordered velocity-component pair
+  (j,r) satisfies for EVERY n,
+      n < -2 Q(j,r)(tau(n))/E(tau(n)).
+
+This stronger indexed witness has no new PDE sign or regularity assumption.
+It is a necessary dichotomy for hypothetical nonextension, and neither
+branch is assumed excluded.
