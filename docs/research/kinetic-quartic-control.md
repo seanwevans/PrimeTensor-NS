@@ -1266,3 +1266,37 @@ smooth continuation follows. No universal sign of I3, automatic gradient
 absorption, or unconditional continuation is asserted. This isolates an
 explicit PDE cancellation target rather than extending the already weak
 fourth Fourier-moment envelope.
+
+## Individual signed third-order interpolation coordinate frontier
+
+The exact signed interpolation block I3 comprises 81 physical
+coordinate pairings P(j,i,k,l). No absolute values are taken.
+
+The finite pigeonhole theorem establishes:
+
+    I3 < 81*B
+       => exists j,i,k,l: P(j,i,k,l)<B.
+
+At a signed top-transport witness D+M*E<-T3, one obtains
+
+    exists j,i,k,l:
+      81*P(j,i,k,l) < 24*C1*sqrt(E)*E3-D-M*E.
+
+Hypothetical nonextension forces these deficits arbitrarily late
+on every strict terminal subtail.
+
+If the explicit additional condition
+
+    24*C1*sqrt(E)*E3 <= D
+
+holds throughout a strict tail, nonextension forces for every R>=0
+arbitrarily late coordinate pairings satisfying
+
+    P(j,i,k,l) < -R*E.
+
+Consequently a tail-wide lower bound P(j,i,k,l)>=-R*E
+for all coordinate pairings, together with gradient absorption,
+implies smooth continuation.
+
+Neither extra condition is established for arbitrary solutions.
+No unconditional continuation or existence of singularities is claimed.
