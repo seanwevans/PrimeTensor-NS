@@ -1,5 +1,5 @@
-# Generated from revision: 223010af3d8194a6aa3563f626b2acad1bf2c5d4
-# Source SHA-256: b4500e2d5d741e86249f4e9f54c25bf31100b58c8e397ef533d04faf0b8445de
+# Generated from revision: c339f6883924ee061e07c69b5442facf2df4868e
+# Source SHA-256: edd7c788dd62f91713d82c922cc21b6bb15c4c707842f59a6441843e50ca8645
 # Existing project import edges only; excluded/missing sources are tracked in tools/audit/known-source-gaps.json.
 Depth
 Prime
@@ -2193,6 +2193,7 @@ Fluid/Vorticity/Continuation/H3/Control/KineticQuarticCanonicalSignedFirstMonomi
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Integral/Majorant
 Fluid/Vorticity/Continuation/H3/Control/KineticQuarticCanonicalSignedFirstMonomialDirectedSourcePhysicalFrequencyCorridor
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Integral/Integrable
+Fluid/Vorticity/Continuation/H3/Control/KineticQuarticCanonicalSignedFirstMonomialDirectedSourcePhysicalLengthCorridor
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Derivative/Majorant
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/Integrable
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Derivative/Transfer

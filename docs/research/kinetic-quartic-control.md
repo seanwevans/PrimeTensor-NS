@@ -1937,3 +1937,23 @@ to the preselected fixed directed ten-source obstruction witness, preserving
 its index, three physical clocks and neutral gradient/ordered-monomial
 alternative. This is relative convergence, not convergence of Omega3-Omega
 or an exclusion of hypothetical Navier--Stokes nonextension.
+
+## Full left-terminal H3 characteristic-length equivalence
+
+The conditional full-tail intrinsic-frequency limits and the two established
+frequency amplitudes imply both canonical physical length scales tend to zero:
+
+    ell_top = 1/sqrt(D3/E3) -> 0,
+    ell_full = 1/sqrt(D/E) -> 0,
+
+as t increases toward T along the ENTIRE left terminal neighborhood.
+Whenever E3 and D3 are strictly positive, an exact algebraic identity gives
+
+    ell_full/ell_top = Omega_top/Omega_full,
+
+and hence ell_full/ell_top -> 1. A strict relative corridor of arbitrary
+positive tolerance eventually holds. The same two length limits and relative
+scale equivalence hold on the existing fixed directed-source witness, with
+its critical clocks and both gradient/ordered-signed-monomial alternatives.
+This does not establish an absolute length vs T-t rate, exclude either source
+branch, or claim unconditional finite-time singularity or smooth continuation.
