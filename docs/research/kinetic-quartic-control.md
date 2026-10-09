@@ -1556,3 +1556,20 @@ eventually, n < 324 C1 sqrt(E(tau_n)). It follows that the same times witness
 E(tau_n) -> +infinity. This synchronizes the signed-source obstruction with
 physical H3 energy blowup, using proved Landau estimates, but does not prove
 singularity or unconditional regularity.
+
+## Directed-source H3 top-derivative energy synchronization
+
+Retaining the physical third-order energy E3 (rather than replacing it by E)
+in the proved per-monomial Landau estimate yields the ten-channel upper bound
+
+    S_i(t) <= 2916 C1 sqrt(E(t)) E3(t).
+
+Hypothetical nonextension selects a fixed directed source i and actual times
+τ(n) -> T with 9n E(τ(n)) < S_i(τ(n)). Since E >= 1 and E = sqrt(E)^2,
+the same times satisfy, eventually,
+
+    n sqrt(E(τ(n))) < 324 C1 E3(τ(n)).
+
+Consequently E3(τ(n)) -> +infinity on this *same* signed-source sequence.
+This is a conditional necessary obstruction, not an assertion of singularity,
+an unconditional continuation theorem, or an independent PDE estimate.

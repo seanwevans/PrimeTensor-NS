@@ -1168,3 +1168,9 @@ open PrimeTensor.Bridge.Euclidean
 #print axioms h3PathCanonical_directedTenSource_le_landauEnergy
 #check h3PathCanonical_fixedDirectedSource_energyBlowup_sameSequence
 #print axioms h3PathCanonical_fixedDirectedSource_energyBlowup_sameSequence
+
+-- Retain third-derivative energy in the directed signed source bound.
+#check h3PathCanonical_directedTenSource_le_landauThirdEnergy
+#print axioms h3PathCanonical_directedTenSource_le_landauThirdEnergy
+#check h3PathCanonical_fixedDirectedSource_thirdEnergyBlowup_sameSequence
+#print axioms h3PathCanonical_fixedDirectedSource_thirdEnergyBlowup_sameSequence
