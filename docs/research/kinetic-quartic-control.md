@@ -1604,3 +1604,23 @@ on Lambda3 is consequently a conditional sufficient criterion for smooth
 continuation. Such a ceiling is not asserted automatically: the conclusion
 is a necessary condition of hypothetical nonextension and does not prove
 finite-time blowup or unconditional regularity.
+
+## Fixed directed H3 source and physical critical clocks
+
+Hypothetical H3 nonextension produces one fixed directed signed-source index
+and terminal times tau(n) -> T for which the normalized signed source and
+intrinsic top frequency both diverge. On these same exact times, all three
+already-established physical critical-time inequalities hold eventually:
+
+    1 <= 3 K^2 (E0(b)+1) (T-t)^2 Lambda3(t)^6,
+    1 <= A_b (T-t)^2 (D3(t)/E(t))^3,
+    8 <= A_b (T-t)^2 ((-T_H3(t)-E'(t))/E(t))^3,
+
+where A_b = 3 K^2 (E0(b)+1) (4+3 E0(b))^3. The normalized full
+balance gap is the exact physical PDE quantity 2 D(t)/E(t).
+
+If, additionally, the gradient cost 24 C1 sqrt(E) E3 is absorbed by full
+viscous dissipation on one terminal tail, the fixed source index is nonzero:
+it is a physical ordered first-monomial velocity channel rather than the
+gradient-excess source. This absorption premise is explicit and unproved in
+general. No regularity or finite-time singularity is concluded unconditionally.
