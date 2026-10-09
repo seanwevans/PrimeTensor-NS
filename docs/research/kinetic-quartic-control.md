@@ -1957,3 +1957,27 @@ scale equivalence hold on the existing fixed directed-source witness, with
 its critical clocks and both gradient/ordered-signed-monomial alternatives.
 This does not establish an absolute length vs T-t rate, exclude either source
 branch, or claim unconditional finite-time singularity or smooth continuation.
+
+## Full physical H3 sixth-power length rate on terminal tail
+
+The pre-existing conditional top characteristic-length estimate gives, on
+sufficiently late physical times,
+
+    ell_top(t)^6 <= 3 K^2 (E0(b)+1) (T-t)^2.
+
+The recently established physical full/top length equivalence implies,
+for every epsilon > 0, on a possibly later strict terminal interval,
+
+    ell_full(t)^6 <= (1+epsilon)^6 * 3 K^2 (E0(b)+1) (T-t)^2.
+
+Thus the full length inherits the top sixth-power (T-t)^2 terminal clock,
+with an arbitrarily small RELATIVE coefficient loss but not a new lower
+bound. On the SAME indexed directed ten-source obstruction witness,
+
+    (n+1)^2 * ell_full(tau(n))^6
+      <= (1+epsilon)^6 * 3 K^2 (E0(b)+1)
+
+eventually. The original source index, physical critical clocks, and neutral
+gradient versus fixed adverse ordered-monomial alternative are preserved.
+All results remain conditional necessary conditions of H3 nonextension;
+no unconditional regularity, singularity or transport-sign theorem is claimed.
