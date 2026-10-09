@@ -1735,3 +1735,27 @@ clocks eventually. This yields the exhaustive strengthened classification:
 This stronger indexed witness has no new PDE sign or regularity assumption.
 It is a necessary dichotomy for hypothetical nonextension, and neither
 branch is assumed excluded.
+
+## Indexed signed H3 full dissipative and exact balance budgets
+
+For the original fixed ten-source indexed nonextension witness
+n < S_i(tau(n))/(9 E(tau(n))), the index-zero gradient source obeys,
+at every selected time,
+
+    9 n + D(tau(n))/E(tau(n))
+      < 24 C1 sqrt(E(tau(n))) E3(tau(n))/E(tau(n)).
+
+Unlike the previous top-frequency corridor, this inequality keeps the
+actual full Navier--Stokes viscous dissipation D and the exact third-order
+energy fraction E3/E. On a sufficiently late part of the same sequence,
+the energy/transport balance identity G = (-T_H3-E')/E = 2 D/E gives
+
+    18 n + G(tau(n))
+      < 48 C1 sqrt(E(tau(n))) E3(tau(n))/E(tau(n)).
+
+The three previously proved critical terminal clocks remain synchronized.
+Alternatively one fixed ordered velocity-component monomial satisfies
+n < -2 Q(j,r)(tau(n))/E(tau(n)) for every index n.
+
+Both are necessary branches conditional on hypothetical nonextension; no
+new PDE sign, dissipation ceiling, global regularity or blowup is inferred.
