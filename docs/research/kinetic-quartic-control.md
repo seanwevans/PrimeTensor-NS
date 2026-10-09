@@ -1463,3 +1463,19 @@ absorption, imply continuation.
 This exchange-skew cancellation is algebraic. No favorable sign
 or automatic analytic estimate for the six surviving channels
 has been established.
+
+## Joint gradient-excess and signed six-channel obstruction
+
+Without assuming gradient absorption, the existing nonextension deficit at
+M = 27R (R >= 0) yields, on each strict terminal subtail, a time with
+
+either G - D > 9 R E or one of the six signed symmetric first-monomial
+channels below -R E. Here G = 24 C1 sqrt(E) E3 and D is physical H3
+dissipation. The proof combines the exact six-channel decomposition with
+a finite real inequality; it does not establish an analytic estimate for
+either side of the alternative.
+
+If all six channels have the lower bounds -R E on a strict terminal tail,
+nonextension forces a gradient excess larger than 9 R E. Conversely, an
+upper bound G - D <= 9 R E forces one adverse symmetric channel. Both
+upper and lower bounds together imply continuation, conditionally.
