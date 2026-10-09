@@ -2045,3 +2045,26 @@ energy data hypothesis and is not asserted without it.
 
 These are conditional continuation criteria, not unconditional regularity
 or finite-time singularity results.
+
+## Terminal kinetic-limit optimized H3 cubic clock
+
+An explicit additional terminal hypothesis E0(t) -> L >= 0 as t approaches T
+from below gives convergence of the anchored cubic clock coefficient
+
+    C_b = 3 K^2 (E0(b)+1) -> C_* = 3 K^2 (L+1) > 0.
+
+The previous anchored sharp threshold under hypothetical nonextension holds
+for EVERY fixed b in (a,T) and EVERY q<1. Choosing a sufficiently late but
+fixed anchor and adjusting q inside the proof yields the stronger limiting
+coefficient threshold, on the WHOLE physical left terminal tail,
+
+    q <= C_* (T-t)^2 (D(t)/E(t))^3,   for each q<1 eventually.
+
+This is a terminal liminf lower bound; it does not assert an eventual bound
+with q=1, and the kinetic limit itself is explicitly assumed, not inferred.
+A terminal cubic-rate ceiling R(t)<=B with C_* B<1 forces smooth extension.
+The same criterion holds along any preselected left-terminal sequence. The
+original fixed ten-source witness also inherits the limiting-coefficient
+sharp threshold with all physical clocks and both signed-source alternatives.
+The results are conditional; neither finite-time singularity existence nor
+unconditional smooth continuation is established.
