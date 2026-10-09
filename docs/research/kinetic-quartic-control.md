@@ -1201,3 +1201,31 @@ viscous block satisfies
 then the required signed transport witness is impossible and the path
 has a smooth continuation. This is a conditional spectral-dissipation
 criterion; no proof that it holds on arbitrary solutions is claimed.
+
+## Signed third-order Fourier fourth-moment corridor
+
+Combining the already-proved signed top-transport witness and the concrete
+Landau estimate yields at each high-growth witness, for M>=0,
+
+    D3(t) + M*E(t) < K(t)*E3(t),
+    K(t) = 4398*C1*sqrt(E(t)).
+
+The previously proved physical Cauchy--Schwarz Fourier moment estimate
+
+    E3(t)^4 <= E0(t)*D3(t)^3
+
+implies (because E3(t)>0 and D3(t)<K(t)*E3(t)) that
+
+    E3(t) < E0(t)*K(t)^3 <= E0(b)*K(t)^3
+
+for every earlier kinetic anchor b<t. Since E3<=E, the original signed
+corridor also implies M<K(t). Hypothetical nonextension forces these two
+strict spectral restrictions at arbitrarily late times for any M>=0.
+
+Conversely, if E3(t)>=E0(b)*K(t)^3 at every time on one strict terminal
+tail, no such witness exists and the H3 path has a smooth continuation.
+This is a *conditional* continuation criterion. The upper bound
+E0(b)*K(t)^3 grows like E(t)^(3/2), while E3<=E. Hence the new upper
+bound is generally weak at high energy; it is not a global regularity
+proof and does not construct singularities. The unresolved physical
+frontier remains signed third-order transport cancellation/localization.
