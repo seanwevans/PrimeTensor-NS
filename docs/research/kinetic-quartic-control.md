@@ -1359,3 +1359,32 @@ type-2 pairings. A uniform normalized lower bound on just these two
 families, together with gradient absorption, suffices for continuation.
 This is exact mixed-partial symmetry, not a signed cancellation or a proof
 of unconditional regularity.
+
+## Cyclic mixed-partial symmetry reduces interpolation to one monomial type
+
+Spatial C3 regularity of each velocity component implies the exact identity
+between the previously distinct signed spatial-energy pairings:
+
+    P_2(j,i,k,l,r) = P_0(j,l,i,k,r).
+
+The other proved identity is
+
+    P_1(j,i,k,l,r) = P_0(j,k,i,l,r).
+
+Both are signed equalities, based on commutation of second and third mixed
+partials; neither asserts a favorable sign or a cancellation estimate.
+Every signed monomial witness in the nine-term block is therefore equivalent
+to an actual type-0 pairing (243 formal ordered five-axis slots rather than
+729 three-type slots). The threshold 1/729 is retained, not improved.
+
+Whenever a physical signed top-transport witness satisfies D+M*E < -T3,
+there is a type-0 pairing P0 with
+
+    P0 < (24*C1*sqrt(E)*E3 - D - M*E)/729.
+
+With the *additional* terminal-tail assumption 24*C1*sqrt(E)*E3 <= D,
+hypothetical nonextension forces a type-0 pairing P0 < -R*E on arbitrarily
+late subtail slices for every R>=0. A uniform lower bound on only the type-0
+family, together with that gradient absorption, implies smooth continuation.
+This does not prove either additional bound for arbitrary solutions and does
+not settle global regularity.
