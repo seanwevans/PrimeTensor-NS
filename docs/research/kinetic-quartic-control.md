@@ -1624,3 +1624,21 @@ viscous dissipation on one terminal tail, the fixed source index is nonzero:
 it is a physical ordered first-monomial velocity channel rather than the
 gradient-excess source. This absorption premise is explicit and unproved in
 general. No regularity or finite-time singularity is concluded unconditionally.
+
+## Directed H3 physical signed-source dichotomy
+
+Hypothetical H3 nonextension fixes one of ten sources and a single sequence
+approaching the terminal time. This same sequence carries the three critical
+physical clocks and divergent top-order characteristic frequency.
+
+The source itself has an exhaustive physical signed classification:
+
+1. If its index is zero, the normalized gradient excess
+   (24 C1 sqrt(E) E3 - D)/(9 E) tends to +infinity.
+2. Otherwise, for one fixed ordered velocity-component pair (j,r), the
+   actual negative signed first-monomial ratio -2 Q(j,r)/E tends to +infinity.
+
+The factor two accommodates both diagonal and off-diagonal channel weights.
+The ordered pair does not vary with time or threshold. No gradient absorption,
+velocity sign, or contradiction is assumed. Both branches are retained as
+conditional necessary alternatives, not asserted to occur.

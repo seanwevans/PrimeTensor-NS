@@ -1,5 +1,5 @@
-# Generated from revision: 0045bb43ec0826c9fa8078644c1632503687e665
-# Source SHA-256: 015902f8562b0d2b24272400b0da551292b429a23182f968d2900f1a3dff68b1
+# Generated from revision: 279ce93df8bc6c889029171d931c0e59d0888fbc
+# Source SHA-256: 8571d23ee19ebb5827e3220b0876103aa547ba3bb32c54c4304570476d79fff1
 # Existing project import edges only; excluded/missing sources are tracked in tools/audit/known-source-gaps.json.
 Depth
 Prime
@@ -2162,6 +2162,7 @@ Fluid/Vorticity/Continuation/H3/Control/KineticQuarticCanonicalSignedFirstMonomi
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Order/Radial/Tail/Criterion
 Fluid/Vorticity/Continuation/H3/Control/KineticQuarticCanonicalSignedFirstMonomialDirectedSourceCriticalClocks
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Fifth/Radial/Moment/Criterion
+Fluid/Vorticity/Continuation/H3/Control/KineticQuarticCanonicalSignedFirstMonomialDirectedSourcePhysicalDichotomy
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Extended/Fifth/Radial/Moment/Cascade
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Extended/Higher/Radial/Moment/Cascade
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Extended/Exponential/Radial/Moment/Cascade

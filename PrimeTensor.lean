@@ -2089,3 +2089,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.KineticQuarticCanonic
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.KineticQuarticCanonicalSignedFirstMonomialDirectedSourceFrequency
 
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.KineticQuarticCanonicalSignedFirstMonomialDirectedSourceCriticalClocks
+
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.KineticQuarticCanonicalSignedFirstMonomialDirectedSourcePhysicalDichotomy

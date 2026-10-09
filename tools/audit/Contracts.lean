@@ -1193,3 +1193,7 @@ open PrimeTensor.Bridge.Euclidean
 #print axioms h3PathCanonical_fixedDirectedSource_criticalClocks_sameSequence
 #check h3PathCanonical_fixedVelocitySource_criticalClocks_of_gradientAbsorption
 #print axioms h3PathCanonical_fixedVelocitySource_criticalClocks_of_gradientAbsorption
+
+-- Exhaustive fixed H3 source dichotomy: gradient excess or one signed ordered monomial.
+#check h3PathCanonical_fixedDirectedSource_physicalDichotomy_criticalClocks
+#print axioms h3PathCanonical_fixedDirectedSource_physicalDichotomy_criticalClocks
