@@ -1981,3 +1981,23 @@ eventually. The original source index, physical critical clocks, and neutral
 gradient versus fixed adverse ordered-monomial alternative are preserved.
 All results remain conditional necessary conditions of H3 nonextension;
 no unconditional regularity, singularity or transport-sign theorem is claimed.
+
+## Full physical H3 dissipation cubic terminal clock
+
+From the conditional full-physical sixth-power characteristic-length bound,
+using ell_full = sqrt(E/D) and Omega_full = sqrt(D/E), one obtains for every
+fixed epsilon > 0 eventually along the ENTIRE left terminal interval,
+
+    1 <= (1+epsilon)^6 * 3 K^2 (E0(b)+1) * (T-t)^2 * (D/E)^3.
+
+The proof converts the already established length estimate using exact
+reciprocal-length duality and Omega_full^6 = (D/E)^3. No new transport-sign
+bound is introduced. On the SAME fixed directed ten-source sequence, its
+indexed sixth-power length rate gives
+
+    (n+1)^2 <= (1+epsilon)^6 * 3 K^2 (E0(b)+1) * (D/E)^3.
+
+The original source index, three physical critical clocks and the neutral
+full-gradient versus fixed adverse ordered-monomial alternatives are kept.
+These are necessary constraints under hypothetical H3 nonextension only;
+neither regularity nor actual finite-time blowup is established.
