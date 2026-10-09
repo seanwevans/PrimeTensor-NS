@@ -1586,3 +1586,21 @@ Consequently a uniform terminal estimate E3(t) <= K sqrt(E(t)) on any one
 strict energy-class tail, for any fixed real K, forces smooth continuation.
 This is a conditional H3 continuation criterion, not a proof of that bound,
 or a claim that a nonextendible Navier--Stokes path exists.
+
+## Fixed directed-source intrinsic top-frequency cascade
+
+The fixed signed first-monomial source index and terminal times previously
+satisfy E3(tau(n))/sqrt(E(tau(n))) -> +infinity. Because E >= 1, the same
+times have E3(tau(n)) -> +infinity. The established fourth Fourier moment
+inequality E3^4 <= E0 D3^3, kinetic antitonicity, and the existing
+characteristic-frequency coercivity theorem then force
+
+    Lambda3(tau(n)) = sqrt(D3(tau(n)) / E3(tau(n))) -> +infinity,
+    D3(tau(n)) / E3(tau(n)) -> +infinity.
+
+Both divergences occur on the very same selected signed-source sequence,
+not on an unrelated positive-derivative selection. A fixed late-time ceiling
+on Lambda3 is consequently a conditional sufficient criterion for smooth
+continuation. Such a ceiling is not asserted automatically: the conclusion
+is a necessary condition of hypothetical nonextension and does not prove
+finite-time blowup or unconditional regularity.
