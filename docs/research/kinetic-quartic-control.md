@@ -1662,3 +1662,18 @@ conditional lower bound -2 Q(j,r) <= K E for every ordered component on one
 strict terminal tail, excludes both nonextension alternatives and forces
 smooth continuation. Neither extra bound has been proved automatically.
 This theorem asserts neither finite-time blowup nor unconditional regularity.
+
+## Fixed directed H3 spectral-gap magnitude alternative
+
+If R >= 0 and the normalized physical gradient excess exceeds R,
+then E3 > 0 and top dissipation D3 <= D imply
+
+    9 R < 24 C1 sqrt(E) - Lambda3^2.
+
+Hypothetical nonextension therefore forces either divergence of this
+spectral gap on the fixed source sequence, or divergence of one fixed
+ordered negative monomial ratio -2 Q(j,r)/E.
+
+Both alternatives retain the three physical critical clocks. Uniform
+terminal ceilings for both mechanisms suffice for continuation.
+Neither ceiling is asserted unconditionally.
