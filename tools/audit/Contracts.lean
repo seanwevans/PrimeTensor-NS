@@ -1197,3 +1197,9 @@ open PrimeTensor.Bridge.Euclidean
 -- Exhaustive fixed H3 source dichotomy: gradient excess or one signed ordered monomial.
 #check h3PathCanonical_fixedDirectedSource_physicalDichotomy_criticalClocks
 #print axioms h3PathCanonical_fixedDirectedSource_physicalDichotomy_criticalClocks
+
+-- Gradient-excess strict spectral corridor versus fixed signed ordered monomial.
+#check h3PathCanonical_fixedDirectedSource_spectralCorridor_or_signedMonomial
+#print axioms h3PathCanonical_fixedDirectedSource_spectralCorridor_or_signedMonomial
+#check h3PathCanonical_extension_of_spectralBarrier_and_signedMonomialCeiling
+#print axioms h3PathCanonical_extension_of_spectralBarrier_and_signedMonomialCeiling

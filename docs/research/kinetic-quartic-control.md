@@ -1642,3 +1642,23 @@ The factor two accommodates both diagonal and off-diagonal channel weights.
 The ordered pair does not vary with time or threshold. No gradient absorption,
 velocity sign, or contradiction is assumed. Both branches are retained as
 conditional necessary alternatives, not asserted to occur.
+
+## Fixed signed source spectral corridor
+
+The fixed physical H3 directed-source dichotomy can be sharpened without
+assuming gradient absorption. Whenever its gradient-excess source is positive,
+top viscous dissipation D3 <= D and Lambda3^2 = D3/E3 give the strict
+physical inequality
+
+    Lambda3(t)^2 < 24 C1 sqrt(E(t)).
+
+Thus hypothetical nonextension selects one fixed signed source and one
+terminal sequence carrying all three critical clocks, on which either this
+spectral corridor eventually holds, or a single ordered first-monomial
+velocity component has -2 Q(j,r)/E -> +infinity.
+
+A spectral lower barrier Lambda3^2 >= 24 C1 sqrt(E), combined with the
+conditional lower bound -2 Q(j,r) <= K E for every ordered component on one
+strict terminal tail, excludes both nonextension alternatives and forces
+smooth continuation. Neither extra bound has been proved automatically.
+This theorem asserts neither finite-time blowup nor unconditional regularity.
