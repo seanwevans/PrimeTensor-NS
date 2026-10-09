@@ -1874,3 +1874,24 @@ The result therefore holds on all the previously constructed selected
 terminal witnesses (gradient-excess OR fixed adverse signed monomial).
 Neither physical source branch is excluded, and no unconditional smooth
 continuation, finite-time blowup, or new PDE sign estimate is claimed.
+
+## Full left-terminal H3 viscous dissipation concentration
+
+The exact physical dissipation-block identification gives
+
+    D = D0+D1+D2+D3 = E1+E2+E3+D3.
+
+The preceding full-tail theorem forces E1+E2 = o(E3) under hypothetical
+nonextension. Independently the previously established full characteristic
+frequency cascade forces D3/E3 -> +infinity on the ENTIRE left terminal
+neighborhood. Thus for every epsilon > 0, eventually
+
+    D <= (1+epsilon) D3,
+    D0+D1+D2 <= epsilon D3,
+    D3/D -> 1.
+
+This is an exact physical full-dissipation concentration statement. It
+requires no new Navier--Stokes nonlinear transport-sign bound or source
+selection and does not exclude either fixed directed-source alternative.
+The conclusions are conditional necessary properties of nonextension, not
+an unconditional regularity or finite-time singularity result.
