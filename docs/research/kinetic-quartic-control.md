@@ -1300,3 +1300,38 @@ implies smooth continuation.
 
 Neither extra condition is established for arbitrary solutions.
 No unconditional continuation or existence of singularities is claimed.
+
+## Signed individual third-order interpolation monomial frontier
+
+The physical third-order interpolation pairing I3 is an 81-slot sum of
+signed coordinate pairings P(j,i,k,l). Every P is itself the exact sum
+of nine signed spatial-energy pairings of D³u with a product of two
+D²u factors: three monomial types along each of the three velocity axes.
+Existing Landau analytic data supply genuine integrability of every term.
+No absolute values are taken when splitting the signed pairings.
+
+Whenever signed third-order adversity satisfies
+
+    D + M*E < -T3,
+
+one of these 729 actual triple-product pairings is strictly below
+
+    (24*C1*sqrt(E)*E3 - D - M*E)/729.
+
+Under the explicit additional gradient absorption assumption
+
+    24*C1*sqrt(E)*E3 <= D
+
+throughout one strict terminal tail, hypothetical nonextension forces,
+for every R>=0 on every later strict subtail, an actual spatial
+triple-product pairing P_mono satisfying
+
+    P_mono < -R*E.
+
+Conversely, if that gradient absorption hypothesis holds and all 729
+physical signed monomial pairings obey P_mono >= -R*E with a fixed
+R>=0 throughout the tail, smooth continuation follows.
+
+Neither extra condition is proved universally. This is a localized
+necessary-condition and conditional criterion, not unconditional NS
+regularity, nor a singularity construction.
