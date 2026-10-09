@@ -1229,3 +1229,40 @@ E0(b)*K(t)^3 grows like E(t)^(3/2), while E3<=E. Hence the new upper
 bound is generally weak at high energy; it is not a global regularity
 proof and does not construct singularities. The unresolved physical
 frontier remains signed third-order transport cancellation/localization.
+
+## Signed third-order interpolation frontier
+
+The exact third-order nonlinear PDE pairing splits into its genuine
+12-term gradient commutator block G3 and 9-term interpolation commutator
+block I3, after the already-established flux cancellation and pairing
+integrability have been instantiated on the H3 energy-class slice:
+
+    T3 = G3 + I3,
+    |G3| <= 24*C1*sqrt(E)*E3.
+
+The complete lower-order kinetic-Fourier absorption proved earlier that
+hypothetical nonextension forces, arbitrarily late for each M>=0,
+
+    D + M*E < -T3.
+
+The exact signed split therefore forces at those same times
+
+    D + M*E < 24*C1*sqrt(E)*E3 - I3.
+
+When D>=24*C1*sqrt(E)*E3 at such a time, this becomes
+
+    -I3 > M*E.
+
+In particular, if the gradient block is absorbed by viscosity throughout
+one strict terminal tail, hypothetical nonextension produces arbitrarily
+late times with a genuinely negative interpolation pairing of arbitrarily
+large normalized size. Conversely, if the actual interpolation pairing
+and full physical dissipation jointly satisfy
+
+    24*C1*sqrt(E)*E3 <= D + I3
+
+throughout some strict terminal tail, nonextension is impossible and
+smooth continuation follows. No universal sign of I3, automatic gradient
+absorption, or unconditional continuation is asserted. This isolates an
+explicit PDE cancellation target rather than extending the already weak
+fourth Fourier-moment envelope.
