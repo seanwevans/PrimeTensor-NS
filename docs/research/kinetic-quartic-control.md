@@ -1895,3 +1895,24 @@ requires no new Navier--Stokes nonlinear transport-sign bound or source
 selection and does not exclude either fixed directed-source alternative.
 The conclusions are conditional necessary properties of nonextension, not
 an unconditional regularity or finite-time singularity result.
+
+## Full left-terminal intrinsic H3 frequency equivalence
+
+The full-tail top-order energy and viscous dissipation share limits imply
+
+    E3/E -> 1,      D3/D -> 1   as t approaches T from below,
+
+under hypothetical nonextension of an admissible H3 path. Consequently
+
+    (D3/E3)/(D/E) = (D3/D)/(E3/E) -> 1.
+
+Thus the full physical squared-frequency scale D/E and top-order squared
+frequency D3/E3 become equivalent in RELATIVE ratio. For every epsilon>0
+that quotient eventually lies strictly between 1-epsilon and 1+epsilon.
+This comparison holds along the whole left terminal tail AND the original
+fixed indexed directed-source witness, preserving the three critical clocks
+and both exhaustive gradient/signed-monomial alternatives.
+
+The frequencies themselves need not differ by a bounded amount; this is
+only a relative ratio limit. No new transport sign, realized singularity,
+or unconditional continuation is asserted.
