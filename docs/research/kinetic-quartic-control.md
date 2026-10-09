@@ -1759,3 +1759,28 @@ n < -2 Q(j,r)(tau(n))/E(tau(n)) for every index n.
 
 Both are necessary branches conditional on hypothetical nonextension; no
 new PDE sign, dissipation ceiling, global regularity or blowup is inferred.
+
+## Fixed directed H3 top-energy-share critical clock
+
+On the fixed indexed H3 gradient-source sequence, the physical full
+viscous budget retains the actual third-order energy fraction E3/E:
+
+    9 n + D/E < 24 C1 sqrt(E) E3/E.
+
+The exact H3 PDE gap satisfies G = (-T_H3-E')/E = 2 D/E. Combining its
+existing third physical terminal clock
+
+    8 <= A_b (T-t)^2 G^3,
+    A_b = 3 K^2 (E0(b)+1) (4+3 E0(b))^3
+
+with the full gradient budget forces, eventually on the SAME sequence,
+
+    8 < A_b (T-t)^2 (2*(24 C1 sqrt(E) E3/E - 9*n))^3.
+
+The neutral alternative remains a single fixed ordered velocity-channel
+pair (j,r) with n < -2 Q(j,r)/E for every indexed time. The established
+three critical clocks and top-order energy divergence are retained.
+An eventual zero-shift top-share clock ceiling and a signed-channel
+ceiling imply continuation, but neither assumption is automatic.
+These statements do not establish finite-time singularity or unconditional
+Navier--Stokes regularity.
