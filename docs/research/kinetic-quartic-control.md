@@ -2087,3 +2087,29 @@ smooth continuation. The original fixed ten-source index and physical
 critical clocks, including both neutral PDE sign alternatives, are retained.
 Canonical H3 energy data are an EXPLICIT additional hypothesis; the formal
 result is not unconditional Navier--Stokes regularity or singularity.
+
+## Full physical fifth-power H3 dissipation escape
+
+The full physical H3 energy clock is known to diverge on the entire left
+terminal neighborhood under hypothetical nonextension:
+
+    (T-t) E(t) -> +infinity.
+
+With canonical H3 energy data, the sharp terminal kinetic-coefficient cubic
+clock also has an eventual positive floor, for example
+
+    (1/2) <= C_* (T-t)^2 (D(t)/E(t))^3,
+    C_* = 3 K^2 (L+1)>0, L=inf_{a<s<T} E0(s).
+
+The exact algebraic product of the cubic rate and the CUBE of the full
+physical energy clock is (T-t)^5 D(t)^3. Its value therefore tends to
++infinity along the ENTIRE left terminal neighborhood, not just a sequence.
+This is an exponent-free statement that D grows faster than the critical
+(T-t)^(-5/3) dissipation scale, conditional on hypothetical nonextension.
+Any eventual finite fifth-clock ceiling, including a ceiling along ONE
+preselected physical terminal sequence, forces smooth continuation. The
+same original fixed directed ten-source witness has fifth-clock escape
+while retaining its sharp kinetic clock, three critical clocks and both
+neutral gradient/ordered signed-monomial source branches. This statement
+assumes canonical H3 energy data and does not prove unconditional regularity
+or any realized finite-time singularity.
