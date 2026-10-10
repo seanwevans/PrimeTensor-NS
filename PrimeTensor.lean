@@ -2189,3 +2189,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialRigh
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialCanonicalMildOverlap
 
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialMildUniqueness
+
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialPhysicalMildNormalization
