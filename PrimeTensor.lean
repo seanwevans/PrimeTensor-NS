@@ -2217,3 +2217,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialSign
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialPositiveHighOrderCover
 
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialPathSmoothingClosure
+
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialContinuityCore
