@@ -2155,3 +2155,31 @@ retains both fifth-clock escapes, the exact ratio/defect limits, the strict
 relative corridor, the terminal kinetic cubic floor, three critical clocks,
 and the neutral gradient versus adverse ordered-monomial alternatives.
 No PDE sign is decided and no singularity is constructed.
+
+## Recurrent lower-order viscous share continuation
+
+On a hypothetical nonextendible H3 path, full-tail dissipation
+concentration gives D3/D -> 1. The exact physical identity
+
+    D(t) = D0(t) + D1(t) + D2(t) + D3(t)
+
+then implies, wherever D>0, that the complementary lower-block share
+
+    (D0(t)+D1(t)+D2(t))/D(t) = 1-D3(t)/D(t) -> 0
+
+on the entire left terminal neighborhood. In contrast to the fifth-power
+clock divergence theorems, this conclusion DOES NOT require the additional
+CanonicalH3EnergyDataOnTail assumption. A strictly positive fixed lower
+viscous fraction recurring arbitrarily late on every strict subtail thus
+forces smooth continuation. The same criterion holds if a positive lower
+fraction persists along any preselected sequence converging to T from below.
+These contrapositives assume only the logged H3 path and physical energy
+class, not an extra canonical energy-data hypothesis or transport sign.
+
+The original fixed directed ten-source witness also inherits convergence
+of the lower fraction to zero, with both divergent fifth-power clocks,
+relative equivalence of their values, critical physical clocks, the sharp
+terminal kinetic clock and both neutral gradient/signed-monomial branches.
+That JOINT witness package retains canonical energy data because its prior
+fifth-clock divergence statements require that extra hypothesis. Neither
+branch is excluded and no finite-time singularity is constructed.
