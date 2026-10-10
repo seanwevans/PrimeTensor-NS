@@ -2179,3 +2179,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentIntrinsicSo
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentWholePositiveTailSobolev
 
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentFullTimeSobolevInitialBound
+
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentFullTimeSobolevInitialContinuity
