@@ -2155,3 +2155,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.FrontierBoundary
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentEndpointBound
 
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentEndpointTimeIntegrability
+
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentHomogeneousSobolev

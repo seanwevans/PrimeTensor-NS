@@ -1,5 +1,5 @@
-# Generated from revision: 4188200bdfc8d0379e46195423fef4ff4ad77b58
-# Source SHA-256: e152c76d60915e752901669b1db891739d0264afe94ffdc995cf65c998647c66
+# Generated from revision: 7fc1a74c6cb4e8e4faedc3f0b69221481586c44a
+# Source SHA-256: 636daa47fbe3034684e6912c13284fe8d80a4053fbcc4d58b741afb4be4a2fff
 # Existing project import edges only; excluded/missing sources are tracked in tools/audit/known-source-gaps.json.
 Depth
 Prime
@@ -2088,6 +2088,7 @@ Fluid/Vorticity/Continuation/H3/Audit/OneComponentEndpointBound
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Strong/H3
 Fluid/Vorticity/Continuation/H3/Audit/OneComponentEndpointTimeIntegrability
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Divergence/Free/Obstruction
+Fluid/Vorticity/Continuation/H3/Audit/OneComponentHomogeneousSobolev
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Angular/Cone
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Angular/Cone/L2
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Angular/Cone/Cauchy
