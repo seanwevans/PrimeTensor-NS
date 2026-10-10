@@ -2219,3 +2219,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialPosi
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialPathSmoothingClosure
 
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialContinuityCore
+
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialPhysicalMildStrongTrace
