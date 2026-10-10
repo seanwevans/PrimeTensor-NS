@@ -2181,3 +2181,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentWholePositi
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentFullTimeSobolevInitialBound
 
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentFullTimeSobolevInitialContinuity
+
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentFullTimeSobolevInitialSpectralPath
