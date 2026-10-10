@@ -2171,3 +2171,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentPhysicalFou
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentPhysicalFractionalL2
 
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentRealFractionalL2
+
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentPhysicalHomogeneousSobolev
