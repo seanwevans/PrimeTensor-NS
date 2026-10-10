@@ -2225,3 +2225,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialPhys
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialMildZeroCompatibility
 
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialMildL2Identification
+
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialMildBochnerFTC
