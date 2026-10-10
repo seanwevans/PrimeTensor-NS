@@ -2161,3 +2161,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentHomogeneous
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentSobolevFunctionalContinuity
 
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentLocalTimeContinuity
+
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentGlobalTimeMeasurability
