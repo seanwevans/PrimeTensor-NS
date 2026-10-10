@@ -2191,3 +2191,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialCano
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialMildUniqueness
 
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialPhysicalMildNormalization
+
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialPhysicalEnergyMildData
