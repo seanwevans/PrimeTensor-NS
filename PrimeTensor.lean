@@ -2197,3 +2197,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialPhys
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialRightWeakNormTrace
 
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialRightTotalEnergyPairing
+
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialRightAggregatePairing
