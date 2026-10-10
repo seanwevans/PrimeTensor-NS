@@ -2205,3 +2205,22 @@ cubic floor, physical critical clocks, and the unchanged neutral source
 alternatives. This joint witness package retains canonical energy data only
 because the earlier fifth-clock divergence theorems required those data.
 No singularity or sign resolution is asserted.
+
+## Canonical terminal-kinetic top-order H3 cubic frequency threshold
+
+Under hypothetical nonextension and canonical H3 energy data, the limiting
+kinetic coefficient C*=3 K^2 (L+1) is positive, where L is the automatically
+existing terminal kinetic energy. The existing intrinsic-frequency ratio
+(D3/E3)/(D/E) tends to one on the entire left terminal tail. The exact
+cubic-rate identity therefore transfers every strict subunit threshold:
+
+    q <= C* (T-t)^2 (D3(t)/E3(t))^3  eventually for every q<1.
+
+No eventual exact q=1 bound is asserted. A finite eventual top cubic rate
+ceiling R3<=B with C*B<1 implies smooth extension, including when this
+ceiling holds only along a preselected terminal sequence. The unchanged
+fixed directed ten-source witness carries the sharp top rate, top fifth
+clock escape, lower/top viscous share vanishing, three critical clocks and
+both gradient and fixed ordered signed-monomial source alternatives.
+Canonical H3 energy data remain an explicit assumption for this optimized
+coefficient; no unconditional regularity or blowup claim is made.
