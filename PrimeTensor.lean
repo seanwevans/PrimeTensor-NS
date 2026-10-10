@@ -2187,3 +2187,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentFullTimeSob
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialRightSpectralTrace
 
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialCanonicalMildOverlap
+
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialMildUniqueness
