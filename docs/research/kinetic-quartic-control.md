@@ -2183,3 +2183,25 @@ terminal kinetic clock and both neutral gradient/signed-monomial branches.
 That JOINT witness package retains canonical energy data because its prior
 fifth-clock divergence statements require that extra hypothesis. Neither
 branch is excluded and no finite-time singularity is constructed.
+
+## Top-normalized lower viscous dissipation on the full H3 terminal tail
+
+The full-terminal dissipation concentration theorem supplies the quantitative
+estimate D0+D1+D2 <= epsilon D3 eventually for each epsilon>0, under
+hypothetical H3 nonextension. Since D3 tends to +infinity along that same
+left-terminal tail, the genuine lower/top physical ratio obeys
+
+    (D0(t)+D1(t)+D2(t))/D3(t) -> 0,  as t increases to T.
+
+This is stronger as a denominator normalization than the previously proved
+lower/full dissipation fraction limit. It needs the physical preterminal H3
+energy class but does NOT need a separate canonical H3 energy-data hypothesis
+or any additional signed transport estimate. A fixed positive lower/top
+viscous ratio recurring arbitrarily late, or persisting along any already
+chosen terminal sequence, forces smooth H3 continuation. The existing fixed
+ten-source witness carries the new zero ratio limit together with both
+fifth-power clock divergences, their relative equivalence, the sharp kinetic
+cubic floor, physical critical clocks, and the unchanged neutral source
+alternatives. This joint witness package retains canonical energy data only
+because the earlier fifth-clock divergence theorems required those data.
+No singularity or sign resolution is asserted.
