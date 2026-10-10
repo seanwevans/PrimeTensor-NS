@@ -165,8 +165,11 @@ First classical analytic link:
       + ∫₀ᵀ ||ω(t)||∞ dt < ∞
       -> uniform H³-type control on a terminal tail.
 
-This is a known-style continuation estimate, but it is not yet formalized in
-the project.
+This is the UNIVERSAL seeded-PDE version of the vorticity-to-H³
+control estimate. The H³-PATH BKM continuation criterion is already
+closed in Continuation/H3/BKM/Closure.lean; that path-specific result
+does not by itself discharge this distinct seeded interface. See
+docs/audit/frontier-boundary-2026-10-10.md for the exact boundary.
 -/
 def VorticityL1LinfProducesH3Control : Prop :=
   ∀

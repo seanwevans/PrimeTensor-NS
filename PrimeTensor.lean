@@ -2149,3 +2149,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.KineticQuarticCanonic
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.KineticQuarticCanonicalSignedFirstMonomialDirectedSourceFifthClockWithoutCanonicalData
 
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.KineticQuarticCanonicalSignedFirstMonomialDirectedSourceCubicClockWithoutCanonicalData
+
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.FrontierBoundary
