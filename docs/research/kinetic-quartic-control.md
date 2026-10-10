@@ -2068,3 +2068,22 @@ original fixed ten-source witness also inherits the limiting-coefficient
 sharp threshold with all physical clocks and both signed-source alternatives.
 The results are conditional; neither finite-time singularity existence nor
 unconditional smooth continuation is established.
+
+## Canonical kinetic monotonicity closes terminal cubic limit
+
+If canonical H3 energy data are present on (a,T), the exact kinetic energy
+identity and integration-by-parts argument prove E0(t) antitone there.
+Nonnegativity E0(t)>=0 and the monotone left-limit theorem then imply
+
+    E0(t) -> L := inf {E0(s) : a<s<T} >= 0,  as t increases to T.
+
+This automatically discharges the extra finite-limit hypothesis of the
+previous terminal-kinetic coefficient theorem. Moreover L<=E0(b) at every
+strict anchor. The limiting coefficient C*=3 K^2 (L+1) is <= each C_b.
+Under hypothetical nonextension, each q<1 remains an eventual lower bound
+on C* (T-t)^2 (D/E)^3 throughout the full physical left terminal tail.
+An eventual, or preselected-sequence, ceiling R<=B with C* B<1 implies
+smooth continuation. The original fixed ten-source index and physical
+critical clocks, including both neutral PDE sign alternatives, are retained.
+Canonical H3 energy data are an EXPLICIT additional hypothesis; the formal
+result is not unconditional Navier--Stokes regularity or singularity.

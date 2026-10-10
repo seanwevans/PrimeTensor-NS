@@ -1,5 +1,5 @@
-# Generated from revision: f68e135b19cae5b1dcb6fffecbbbb126282d86a0
-# Source SHA-256: 73335499ec8b3bb2063bf5057500f58801112830d5409e5a33b3ce7d2dba1c53
+# Generated from revision: daebf6bc3f86f3a0b5c4dc915750eaac363b83ce
+# Source SHA-256: 033c478497d1f83489df4ca8f9e5ed3484c5bccda8590de857b913b5e1755ff4
 # Existing project import edges only; excluded/missing sources are tracked in tools/audit/known-source-gaps.json.
 Depth
 Prime
@@ -2207,6 +2207,7 @@ Fluid/Vorticity/Continuation/H3/Control/KineticQuarticCanonicalSignedFirstMonomi
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Hilbert/Derivative
 Fluid/Vorticity/Continuation/H3/Control/KineticQuarticCanonicalSignedFirstMonomialDirectedSourceKineticLimitCubicClock
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Hilbert/Restriction
+Fluid/Vorticity/Continuation/H3/Control/KineticQuarticCanonicalSignedFirstMonomialDirectedSourceCanonicalKineticLimitClock
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Hilbert/Seventh/Bound
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Hilbert/Sixth/Continuity
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Hilbert/RHS/Continuity
