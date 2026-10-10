@@ -1591,3 +1591,12 @@ open PrimeTensor.Bridge.Euclidean
 #print axioms h3PathRealRestart_of_tailControl
 #check h3PathH3ControlProducesExtension
 #print axioms h3PathH3ControlProducesExtension
+
+-- First proved analytic bridge toward the published one-component H3 endpoint criterion.
+#check h3Audit_complementEndpoint_uniformTerminalSpectralNorm
+#print axioms h3Audit_complementEndpoint_uniformTerminalSpectralNorm
+#check h3Audit_onePhysicalEndpoint_uniformTwoTransverseSpectralNorms
+#print axioms h3Audit_onePhysicalEndpoint_uniformTwoTransverseSpectralNorms
+#check h3Audit_onePhysicalEndpoint_uniformTwoTransverseSpectralSquares
+#print axioms h3Audit_onePhysicalEndpoint_uniformTwoTransverseSpectralSquares
+#print H3AuditOnePhysicalEndpointLiteratureBridge
