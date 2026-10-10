@@ -2183,3 +2183,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentFullTimeSob
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentFullTimeSobolevInitialContinuity
 
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentFullTimeSobolevInitialSpectralPath
+
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialRightSpectralTrace
