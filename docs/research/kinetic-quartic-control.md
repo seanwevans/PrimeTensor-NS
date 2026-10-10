@@ -2245,3 +2245,33 @@ both divergent fifth clocks, the anchored sharp full cubic threshold, three
 physical critical clocks and the neutral gradient/ordered signed-monomial
 alternatives. The result is conditional; no actual singularity or unconditional
 regularity is claimed.
+
+## Terminal kinetic and cubic clocks without additional canonical energy data
+
+The exact zeroth-order kinetic derivative identities have already been
+closed from LoggedPreterminalH3PathAdmissible and PreterminalH3EnergyClass.
+They imply kinetic antitonicity on the strict terminal energy-class tail.
+Because E0 is nonnegative, its left-terminal limit automatically exists:
+
+    E0(t) -> L = inf {E0(s) : a < s < T} >= 0.
+
+No separate CanonicalH3EnergyDataOnTail hypothesis is necessary for this
+particular convergence statement. It therefore also discharges the kinetic
+limit assumption in the previously established optimized full cubic clock:
+
+    for every q < 1, eventually q <= C* (T-t)^2 (D/E)^3,
+    C* = 3 K^2 (L+1) > 0.
+
+The independent full-tail intrinsic-frequency comparison
+(D3/E3)/(D/E) -> 1 transfers this same family of strict subunit floors to
+
+    q <= C* (T-t)^2 (D3/E3)^3.
+
+Consequently an eventually bounded full or top cubic rate R<=B with C*B<1
+implies smooth continuation. Both rate tests also work along any
+preselected left-terminal sequence. The SAME indexed ten-source witness
+retains both top and full fifth-power dissipation escapes, optimized full
+and top cubic floors, three physical critical clocks, and the two neutral
+nonlinear source alternatives without assuming separate canonical H3 data.
+These are conditional necessary consequences and continuation criteria,
+not unconditional regularity or singularity existence claims.
