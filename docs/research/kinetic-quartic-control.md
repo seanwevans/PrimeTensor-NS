@@ -2113,3 +2113,22 @@ while retaining its sharp kinetic clock, three critical clocks and both
 neutral gradient/ordered signed-monomial source branches. This statement
 assumes canonical H3 energy data and does not prove unconditional regularity
 or any realized finite-time singularity.
+
+## Top-order fifth-power H3 dissipation escape
+
+On hypothetical nonextension and canonical H3 energy data, the full fifth
+physical dissipation clock (T-t)^5 D(t)^3 tends to +infinity throughout the
+entire strict left terminal tail. The independent physical dissipation
+concentration theorem guarantees D(t) <= 2 D3(t) sufficiently late. Hence
+
+    (T-t)^5 D(t)^3 <= 8 (T-t)^5 D3(t)^3,
+
+and the true top-order fourth-derivative clock (T-t)^5 D3(t)^3 also tends
+to +infinity along the ENTIRE physical tail. Any eventual finite bound on
+that top clock, including a bound along an arbitrary PRESELECTED sequence
+approaching T from below, forces smooth continuation under the same
+canonical analytic assumptions. The original fixed ten-source indexed
+witness retains BOTH fifth-clock divergences, the terminal-kinetic sharp
+cubic floor, its three critical clocks and its exhaustive gradient versus
+fixed ordered signed-monomial branches. All claims remain conditional;
+neither sign alternative is excluded and no singularity is constructed.
