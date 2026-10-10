@@ -2205,3 +2205,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialRigh
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialRawL2WeakH3Trace
 
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialPhysicalZeroJetL2
+
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialPhysicalTimeModulus
