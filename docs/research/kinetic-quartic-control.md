@@ -2224,3 +2224,24 @@ clock escape, lower/top viscous share vanishing, three critical clocks and
 both gradient and fixed ordered signed-monomial source alternatives.
 Canonical H3 energy data remain an explicit assumption for this optimized
 coefficient; no unconditional regularity or blowup claim is made.
+
+## Fifth-power H3 dissipation escape without canonical energy data
+
+The previously closed terminal top Fourier interpolation theorem, together
+with the inverse-square top H3 energy floor, already gives eventually
+
+    1 <= 81 K^8 E0(b) (T-t)^8 D3(t)^3
+
+under hypothetical nonextension, with only LoggedPreterminalH3PathAdmissible
+and PreterminalH3EnergyClass. No independent CanonicalH3EnergyDataOnTail
+premise is used in this underlying result. If (T-t)^5 D3(t)^3 remained
+bounded along the full terminal tail then multiplication by (T-t)^3 -> 0
+would contradict that eighth-clock floor. Thus both the top and full
+fifth-power physical dissipation clocks diverge over the ENTIRE left terminal
+neighborhood without the extra canonical H3 data. Eventual or PRESELECTED
+sequence ceilings on the top fifth clock imply smooth continuation under
+these weaker assumptions. The fixed directed ten-source witness retains
+both divergent fifth clocks, the anchored sharp full cubic threshold, three
+physical critical clocks and the neutral gradient/ordered signed-monomial
+alternatives. The result is conditional; no actual singularity or unconditional
+regularity is claimed.
