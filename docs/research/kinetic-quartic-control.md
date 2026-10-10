@@ -2132,3 +2132,26 @@ witness retains BOTH fifth-clock divergences, the terminal-kinetic sharp
 cubic floor, its three critical clocks and its exhaustive gradient versus
 fixed ordered signed-monomial branches. All claims remain conditional;
 neither sign alternative is excluded and no singularity is constructed.
+
+## Relative equivalence of full and top fifth-power H3 clocks
+
+Under hypothetical H3 nonextension, the exact top/full dissipation share
+D3/D tends to one along the entire physical left terminal neighborhood.
+Where t<T and D>0, the ratio of the two fifth-power viscous clocks equals
+
+    ((T-t)^5 D3(t)^3)/((T-t)^5 D(t)^3) = (D3(t)/D(t))^3.
+
+Hence this ratio tends to one on the ENTIRE terminal tail, and the relative
+lower-block defect 1-(top fifth clock)/(full fifth clock) tends to zero.
+For every positive epsilon, the full/top fifth clocks satisfy eventually
+
+    (1-epsilon) (T-t)^5 D(t)^3 < (T-t)^5 D3(t)^3
+      <= (T-t)^5 D(t)^3.
+
+This is a relative, not absolute, negligibility statement for the lower
+viscous blocks. Under the additional canonical H3 analytic data needed for
+fifth-clock divergence, the original fixed directed ten-source witness
+retains both fifth-clock escapes, the exact ratio/defect limits, the strict
+relative corridor, the terminal kinetic cubic floor, three critical clocks,
+and the neutral gradient versus adverse ordered-monomial alternatives.
+No PDE sign is decided and no singularity is constructed.
