@@ -2285,3 +2285,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialAuto
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialRightKineticTraceReduction
 
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialIntegratedKineticBudgetRelativeEnergy
+
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialCofinalKineticAnchorsRelativeEnergy
