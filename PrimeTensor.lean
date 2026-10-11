@@ -2297,3 +2297,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialWeak
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialPointwiseWeakPairingControl
 
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialBochnerDerivativeKineticControl
+
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialScalarWeakFTCControl
