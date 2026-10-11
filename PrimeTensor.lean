@@ -2239,3 +2239,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialMild
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialCanonicalCompactOverlap
 
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialCompactWeakFTC
+
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialScalarWeakSequenceDerivative
