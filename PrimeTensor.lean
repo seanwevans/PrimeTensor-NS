@@ -2253,3 +2253,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialScal
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialVanishingDefectRelativeEnergy
 
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialVariableResidualRelativeEnergy
+
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialIntegratedResidualRelativeEnergy
