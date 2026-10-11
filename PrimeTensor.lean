@@ -2247,3 +2247,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialCano
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialCanonicalWeakTestComparison
 
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialRelativeEnergyUniqueness
+
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialScalarRelativeEnergy
