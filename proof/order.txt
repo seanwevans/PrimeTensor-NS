@@ -1,5 +1,5 @@
-# Generated from revision: 584304e736cedadde7ef0d227882a6b12a6dbdee
-# Source SHA-256: 2e8ab639133889853eba791b398312aa7fa2ecb8698c6e22cdb1afbd442316b8
+# Generated from revision: cac8db710f037118f784e0641eed37b13fac1533
+# Source SHA-256: c56a34a097a1d5140f88f5e5a0fba609ad92bf0a3afa42b8f879d62589ee1938
 # Existing project import edges only; excluded/missing sources are tracked in tools/audit/known-source-gaps.json.
 Depth
 Prime
@@ -2249,6 +2249,7 @@ Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint
 Fluid/Vorticity/Continuation/H3/Audit/OneComponentInitialBoundedMeasurableRelativeEnergy
 Fluid/Vorticity/Continuation/H3/Control/KineticQuarticCanonicalSignedFirstMonomialDirectedSourceFullTailTopShareLimitOne
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Cutoff/Scale/Cofinality
+Fluid/Vorticity/Continuation/H3/Audit/OneComponentInitialOldKineticCeilingRelativeEnergy
 Fluid/Vorticity/Continuation/H3/Control/KineticQuarticCanonicalSignedFirstMonomialDirectedSourceFullTailDissipationShare
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Cauchy
 Fluid/Vorticity/Continuation/H3/Control/KineticQuarticCanonicalSignedFirstMonomialDirectedSourceIntrinsicFrequencyCorridor
