@@ -2235,3 +2235,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialPosi
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialMildWeakTraceClosure
 
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialMildCompactWeakTrace
+
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialCanonicalCompactOverlap
