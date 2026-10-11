@@ -2281,3 +2281,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialH3En
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialRightEnergyCeilingReduction
 
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialAutomaticOldTimeMeasurability
+
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialRightKineticTraceReduction
