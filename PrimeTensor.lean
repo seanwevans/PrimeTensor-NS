@@ -2229,3 +2229,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialMild
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialMildBochnerFTC
 
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialWeakBochnerIncrement
+
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialPositiveStrongDerivative
