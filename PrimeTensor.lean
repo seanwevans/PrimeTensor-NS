@@ -2277,3 +2277,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialBoun
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialOldKineticCeilingRelativeEnergy
 
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialH3EnergyCeilingRelativeEnergy
+
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialRightEnergyCeilingReduction
