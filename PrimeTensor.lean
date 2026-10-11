@@ -2233,3 +2233,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialWeak
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialPositiveStrongDerivative
 
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialMildWeakTraceClosure
+
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialMildCompactWeakTrace
