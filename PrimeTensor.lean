@@ -2241,3 +2241,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialCano
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialCompactWeakFTC
 
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialScalarWeakSequenceDerivative
+
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialCanonicalCompactSubsequence
