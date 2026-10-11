@@ -2255,3 +2255,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialVani
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialVariableResidualRelativeEnergy
 
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialIntegratedResidualRelativeEnergy
+
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialEpsilonResidualRelativeEnergy
