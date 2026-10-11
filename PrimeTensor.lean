@@ -2265,3 +2265,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialInte
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialPositiveTimeResidualRelativeEnergy
 
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialVariableTimeCoefficientRelativeEnergy
+
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialTimeIntegratedCoefficientRelativeEnergy
