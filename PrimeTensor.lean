@@ -2337,3 +2337,6 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialKine
 
 -- One-sequence initial kinetic/correlation criterion in default build.
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialSampledKineticSelfPairing
+
+-- Initial L1 kinetic budget and self-pair: default build and audit.
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialIntegrableBudgetSelfPairing
