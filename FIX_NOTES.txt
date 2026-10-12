@@ -1,1 +1,0 @@
-Fix Lean proof failures at lines 47, 102, 125: correct kinetic monotonicity name, use add_le_add_left, and use le_div_iff₀ to prove lower quotient bound. No theorem statements changed.
