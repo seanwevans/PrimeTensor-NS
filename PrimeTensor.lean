@@ -2317,3 +2317,14 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialActu
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialSolenoidalWeakFTCStrongDerivative
 
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialCanonicalWeakFTCAbsoluteTransfer
+
+-- Initial physical H3 audit: restored into the default library build.
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialPhysicalHilbertGlobalFTC
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialProjectedRHSKineticTrace
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialEnergyDominatedProjectedRHS
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialSubcriticalEnergyRate
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialSubcriticalMomentumModulus
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialSubcriticalKineticModulus
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialWeakIdentifiedQuantitativeTrace
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialAnchoredSchwartzProjectedRHS
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialAnchoredSchwartzWeakSequence
