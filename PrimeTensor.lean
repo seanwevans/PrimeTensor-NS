@@ -2328,3 +2328,6 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialSubc
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialWeakIdentifiedQuantitativeTrace
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialAnchoredSchwartzProjectedRHS
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialAnchoredSchwartzWeakSequence
+
+-- H3 initial-time mismatch: audit-checked, included in default build.
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialDefectDirectionObstruction
