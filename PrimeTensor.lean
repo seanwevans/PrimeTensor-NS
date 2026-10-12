@@ -2334,3 +2334,6 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialDefe
 
 -- Physical initial energy/correlation: default build and theorem audit.
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialKineticSelfPairingIdentification
+
+-- One-sequence initial kinetic/correlation criterion in default build.
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialSampledKineticSelfPairing
