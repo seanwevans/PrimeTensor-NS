@@ -1,5 +1,5 @@
-# Generated from revision: f8437fbeac99112045fd2b05f29d2402b6b19707
-# Source SHA-256: 38de9c578a6a46c8448f2d53b00fea1865d0c621ce0785fb6c396bcfa258ae56
+# Generated from revision: 67441a3a04baef642ba043feee9bacc0deced524
+# Source SHA-256: 002d79baa0aac68394b4c04da233e81265471db8587842ff6003073419ba8bc4
 # Existing project import edges only; excluded/missing sources are tracked in tools/audit/known-source-gaps.json.
 Depth
 Prime
@@ -2312,6 +2312,7 @@ Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint
 Fluid/Vorticity/Continuation/H3/Audit/OneComponentInitialSolenoidalWeakFTCStrongDerivative
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Hilbert/Weighted/Old/Bridge
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Hilbert/Weighted/Regularity
+Fluid/Vorticity/Continuation/H3/Audit/OneComponentInitialCanonicalWeakFTCAbsoluteTransfer
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Hilbert/Weighted/Old/Derivative/Closure
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Hilbert/Weighted/Old/Derivative/Representative
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Hilbert/Weighted/Old/Regularity
