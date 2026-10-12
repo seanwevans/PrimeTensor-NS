@@ -1,5 +1,5 @@
-# Generated from revision: 90e3998688dc15cc6439d6d68415f652b28d0d3f
-# Source SHA-256: 2a9543aea10e1a0e62a74fcd90a277b7b1e5b7a50334a3605f6d4b6bba73215b
+# Generated from revision: f8437fbeac99112045fd2b05f29d2402b6b19707
+# Source SHA-256: 38de9c578a6a46c8448f2d53b00fea1865d0c621ce0785fb6c396bcfa258ae56
 # Existing project import edges only; excluded/missing sources are tracked in tools/audit/known-source-gaps.json.
 Depth
 Prime
@@ -2309,6 +2309,7 @@ Fluid/Vorticity/Continuation/H3/Audit/OneComponentInitialActualPhysicalSourceMea
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Hilbert/Weighted/Evolution
 Fluid/Vorticity/Continuation/H3/Audit/OneComponentInitialActualPhysicalSourceIdentification
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Hilbert/Weighted/Derivative
+Fluid/Vorticity/Continuation/H3/Audit/OneComponentInitialSolenoidalWeakFTCStrongDerivative
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Hilbert/Weighted/Old/Bridge
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Hilbert/Weighted/Regularity
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Hilbert/Weighted/Old/Derivative/Closure
