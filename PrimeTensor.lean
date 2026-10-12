@@ -2305,3 +2305,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialSchw
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialProjectedRHSWeakFTCControl
 
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialDiffusionLerayProjectedRHS
+
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialH3EnergyMajorizedProjectedRHS
