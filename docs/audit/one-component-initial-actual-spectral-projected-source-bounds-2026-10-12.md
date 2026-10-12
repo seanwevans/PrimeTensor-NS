@@ -18,3 +18,15 @@ The actual spectral state satisfies `‖U(t)‖² ≤ E₃(t)` and `E₃(t) ≥ 
 These `D` and `N` are explicitly constructed **spectral physical candidates**. This module does not silently assert their a.e. equality with the literal actual PDE Laplacian and Leray nonlinear term, nor that their weak momentum derivative is automatically the old velocity derivative. Those identities, strong time-measurability of the two paths, and initial `L¹_t E₃` remain analytically separate. The old/selected vanishing residual and terminal actual-vorticity strong-H³ endpoint are also unchanged.
 
 No use of `sorry`, `admit`, `axiom`, or `unsafe`. Compile via `lake env lean` and full `lake build`; these are **not available in the assistant environment**.
+
+## 2026-10-12 reconstruction correction
+
+The previous version treated frequency-space Fourier amplitudes as physical space by direct real-part carrier transport. This is **not** inverse Fourier reconstruction. This checkpoint corrects both Laplacian and Leray sources to apply `Lp.fourierTransformₗᵢ.symm` first. Plancherel preserves both existing norm estimates, with a new explicit `norm_fourierInv_h3FourierComplexL2` step. The corrected sources can now be interpreted as real spatial reconstructions, subject to the separate identification with the literal PDE Laplacian and projected transport.
+
+## Lean Fourier-carrier instance correction
+
+This file must itself introduce a local `Fintype (PrimeTensor.Axis d)`
+instance when using `Lp.fourierTransformₗᵢ H3FourierPoint3 ℂ`. Instances
+marked `local` in the original Fourier module are not inherited by imports.
+The repair adds that instance and a file-local elaboration heartbeat budget;
+no mathematical hypotheses or theorem types change.

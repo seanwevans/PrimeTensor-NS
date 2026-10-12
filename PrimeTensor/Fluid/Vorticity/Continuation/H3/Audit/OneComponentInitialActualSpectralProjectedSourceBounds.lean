@@ -7,7 +7,7 @@ import PrimeTensor.Fluid.Vorticity.Continuation.Restart.Endpoint.Third.Selected.
 
 The preceding initial-energy criterion assumed two source-to-energy inequalities.
 Here concrete physical real L² diffusion and Leray source candidates are
-constructed from the ACTUAL strict-time weighted H³ spectral state, using the
+constructed via INVERSE FOURIER TRANSFORM from the ACTUAL strict-time weighted H³ spectral state, using the
 already-proved raw Fourier Laplacian and quadratic Leray-forcing estimates.
 
 At positive times their physical Hilbert norms obey
@@ -41,6 +41,17 @@ open scoped BigOperators Topology ENNReal NNReal Interval InnerProductSpace
 
 noncomputable section
 
+noncomputable local instance axisFintypeInitialInverseFourierSources
+    (d : Depth) : Fintype (PrimeTensor.Axis d) :=
+  Fintype.ofFinite (PrimeTensor.Axis d)
+
+-- The Fourier carrier is `EuclideanSpace ℝ (Axis Depth.three)`.
+-- Its normed group and Fourier-transform instances depend on a finite axis
+-- index. A similarly named instance in an imported module is `local`, so
+-- it does not propagate to this file.
+set_option maxHeartbeats 800000
+
+
 /-- The exact coefficient in the physical `L²` Leray forcing bound. -/
 noncomputable def h3AuditInitialLerayEnergyCoefficient : ℝ :=
   3 * (576 * Real.pi * h3SobolevDeweightingConstant)
@@ -50,7 +61,7 @@ theorem h3AuditInitialLerayEnergyCoefficient_nonneg :
   unfold h3AuditInitialLerayEnergyCoefficient
   positivity [h3SobolevDeweightingConstant_nonneg]
 
-/-- Real physical Hilbert reconstruction of the raw Fourier Laplacian of
+/-- Genuine inverse-Fourier real physical reconstruction of the raw Laplacian of
 an arbitrary weighted H³ spectral velocity state. -/
 noncomputable def h3AuditSpectralPhysicalLaplacian
     (U : H3SpectralVelocityState) :
@@ -58,9 +69,10 @@ noncomputable def h3AuditSpectralPhysicalLaplacian
   WithLp.toLp 2 (fun j : Fin 3 =>
     h3FromFourierRealL2
       (h3RealPartFourierL2
-        (h3SpectralScalarLaplacianRawFourierL2 (U j))))
+        ((MeasureTheory.Lp.fourierTransformₗᵢ H3FourierPoint3 ℂ).symm
+          (h3SpectralScalarLaplacianRawFourierL2 (U j)))))
 
-/-- Real physical Hilbert reconstruction of the quadratic Leray forcing
+/-- Genuine inverse-Fourier real physical reconstruction of the quadratic Leray forcing
 of the same weighted H³ spectral velocity state. -/
 noncomputable def h3AuditSpectralPhysicalLerayForcing
     (U : H3SpectralVelocityState) :
@@ -68,7 +80,8 @@ noncomputable def h3AuditSpectralPhysicalLerayForcing
   WithLp.toLp 2 (fun j : Fin 3 =>
     h3FromFourierRealL2
       (h3RealPartFourierL2
-        (h3RawFinLerayOuterProductDivergenceFourierL2 U U j)))
+        ((MeasureTheory.Lp.fourierTransformₗᵢ H3FourierPoint3 ℂ).symm
+          (h3RawFinLerayOuterProductDivergenceFourierL2 U U j))))
 
 /-- The physical Laplacian norm is bounded by three times the spectral H³
 norm. The only inputs are Plancherel-carrier norm preservation, real-part
@@ -82,16 +95,22 @@ theorem h3AuditSpectralPhysicalLaplacian_norm_le
   change
     ‖h3FromFourierRealL2
       (h3RealPartFourierL2
-        (h3SpectralScalarLaplacianRawFourierL2 (U j)))‖ ≤ ‖U‖
+        ((MeasureTheory.Lp.fourierTransformₗᵢ H3FourierPoint3 ℂ).symm
+          (h3SpectralScalarLaplacianRawFourierL2 (U j))))‖ ≤ ‖U‖
   calc
     ‖h3FromFourierRealL2
         (h3RealPartFourierL2
-          (h3SpectralScalarLaplacianRawFourierL2 (U j)))‖ =
+          ((MeasureTheory.Lp.fourierTransformₗᵢ H3FourierPoint3 ℂ).symm
+            (h3SpectralScalarLaplacianRawFourierL2 (U j))))‖ =
       ‖h3RealPartFourierL2
-        (h3SpectralScalarLaplacianRawFourierL2 (U j))‖ :=
+        ((MeasureTheory.Lp.fourierTransformₗᵢ H3FourierPoint3 ℂ).symm
+          (h3SpectralScalarLaplacianRawFourierL2 (U j)))‖ :=
         norm_h3FromFourierRealL2 _
-    _ ≤ ‖h3SpectralScalarLaplacianRawFourierL2 (U j)‖ :=
+    _ ≤ ‖(MeasureTheory.Lp.fourierTransformₗᵢ H3FourierPoint3 ℂ).symm
+          (h3SpectralScalarLaplacianRawFourierL2 (U j))‖ :=
       norm_h3RealPartFourierL2_le _
+    _ = ‖h3SpectralScalarLaplacianRawFourierL2 (U j)‖ :=
+      norm_fourierInv_h3FourierComplexL2 _
     _ ≤ ‖U j‖ := norm_h3SpectralScalarLaplacianRawFourierL2_le _
     _ ≤ ‖U‖ := h3SpectralVelocity_coordinate_norm_le U j
 
@@ -114,17 +133,23 @@ theorem h3AuditSpectralPhysicalLerayForcing_norm_le
     change
       ‖h3FromFourierRealL2
         (h3RealPartFourierL2
-          (h3RawFinLerayOuterProductDivergenceFourierL2 U U j))‖ ≤
+          ((MeasureTheory.Lp.fourierTransformₗᵢ H3FourierPoint3 ℂ).symm
+          (h3RawFinLerayOuterProductDivergenceFourierL2 U U j)))‖ ≤
         C * ‖U‖ * ‖U‖
     calc
       ‖h3FromFourierRealL2
           (h3RealPartFourierL2
-            (h3RawFinLerayOuterProductDivergenceFourierL2 U U j))‖ =
+            ((MeasureTheory.Lp.fourierTransformₗᵢ H3FourierPoint3 ℂ).symm
+              (h3RawFinLerayOuterProductDivergenceFourierL2 U U j)))‖ =
         ‖h3RealPartFourierL2
-          (h3RawFinLerayOuterProductDivergenceFourierL2 U U j)‖ :=
+          ((MeasureTheory.Lp.fourierTransformₗᵢ H3FourierPoint3 ℂ).symm
+            (h3RawFinLerayOuterProductDivergenceFourierL2 U U j))‖ :=
           norm_h3FromFourierRealL2 _
-      _ ≤ ‖h3RawFinLerayOuterProductDivergenceFourierL2 U U j‖ :=
+      _ ≤ ‖(MeasureTheory.Lp.fourierTransformₗᵢ H3FourierPoint3 ℂ).symm
+            (h3RawFinLerayOuterProductDivergenceFourierL2 U U j)‖ :=
         norm_h3RealPartFourierL2_le _
+      _ = ‖h3RawFinLerayOuterProductDivergenceFourierL2 U U j‖ :=
+        norm_fourierInv_h3FourierComplexL2 _
       _ ≤ C * ‖U‖ * ‖U‖ := by
         dsimp only [C]
         exact norm_h3RawFinLerayOuterProductDivergenceFourierL2_le U U j
