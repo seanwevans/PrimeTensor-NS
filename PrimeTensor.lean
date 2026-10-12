@@ -2307,3 +2307,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialProj
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialDiffusionLerayProjectedRHS
 
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialH3EnergyMajorizedProjectedRHS
+
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialActualSpectralProjectedSourceBounds
