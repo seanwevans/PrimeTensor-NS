@@ -2331,3 +2331,6 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialAnch
 
 -- H3 initial-time mismatch: audit-checked, included in default build.
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialDefectDirectionObstruction
+
+-- Physical initial energy/correlation: default build and theorem audit.
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialKineticSelfPairingIdentification
