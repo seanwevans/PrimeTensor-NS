@@ -2301,3 +2301,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialBoch
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialScalarWeakFTCControl
 
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialSchwartzDualL1KineticControl
+
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialProjectedRHSWeakFTCControl
