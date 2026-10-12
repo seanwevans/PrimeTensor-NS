@@ -2340,3 +2340,6 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialSamp
 
 -- Initial L1 kinetic budget and self-pair: default build and audit.
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialIntegrableBudgetSelfPairing
+
+-- Exact positive kinetic ceiling from an initial L1 budget.
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialIntegrableBudgetExactKineticCeiling
