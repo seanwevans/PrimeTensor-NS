@@ -2343,3 +2343,6 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialInte
 
 -- Exact positive kinetic ceiling from an initial L1 budget.
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialIntegrableBudgetExactKineticCeiling
+
+-- Direct initial physical strong L2 trace from kinetic budget and self pairing.
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialEnergySelfPairingStrongTrace
