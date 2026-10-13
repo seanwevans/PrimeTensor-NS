@@ -1,4 +1,4 @@
-import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadReconstruction
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadCollinear
 
 #check PrimeTensor.FirstMonomialTriad.derivativeContraction_eq_coefficient
 #check PrimeTensor.FirstMonomialTriad.exchanged_coefficient
@@ -255,3 +255,21 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadRec
 
 #check PrimeTensor.FirstMonomialTriad.sixOrderTriadCoefficient_frame_planar_zero_of_incompressible
 #print axioms PrimeTensor.FirstMonomialTriad.sixOrderTriadCoefficient_frame_planar_zero_of_incompressible
+
+#check PrimeTensor.FirstMonomialTriad.dot_line_frequencies
+#print axioms PrimeTensor.FirstMonomialTriad.dot_line_frequencies
+
+#check PrimeTensor.FirstMonomialTriad.mixedDot_line_frequency
+#print axioms PrimeTensor.FirstMonomialTriad.mixedDot_line_frequency
+
+#check PrimeTensor.FirstMonomialTriad.complexCoefficient_collinear
+#print axioms PrimeTensor.FirstMonomialTriad.complexCoefficient_collinear
+
+#check PrimeTensor.FirstMonomialTriad.sixOrderTriadCoefficient_collinear
+#print axioms PrimeTensor.FirstMonomialTriad.sixOrderTriadCoefficient_collinear
+
+#check PrimeTensor.FirstMonomialTriad.sixOrderTriadCoefficient_zero_frequency
+#print axioms PrimeTensor.FirstMonomialTriad.sixOrderTriadCoefficient_zero_frequency
+
+#check PrimeTensor.FirstMonomialTriad.sixOrderTriadCoefficient_zero_of_first_frequency_zero
+#print axioms PrimeTensor.FirstMonomialTriad.sixOrderTriadCoefficient_zero_of_first_frequency_zero

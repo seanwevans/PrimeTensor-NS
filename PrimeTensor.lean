@@ -2389,3 +2389,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadSig
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadPlaneGeometry
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadOrthogonal
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadReconstruction
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadCollinear
