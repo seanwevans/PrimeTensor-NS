@@ -1,5 +1,5 @@
-# Generated from revision: 7831e4e5ae19fdfd6e94b9a3e4e29f17fcaf7d9a
-# Source SHA-256: 0050cfcf01c1a97fe4ce34318f7207addb83378dd8e64687e26070595340f305
+# Generated from revision: c816e0ac89abc3539ddbb9e08863393ac94486e9
+# Source SHA-256: b4fe47af80052c89a9c934d35e92621ab972396d4c87cb029da1d96af73b6157
 # Existing project import edges only; excluded/missing sources are tracked in tools/audit/known-source-gaps.json.
 Depth
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadCancellation
@@ -2197,6 +2197,7 @@ Fluid/Vorticity/Continuation/H3/Control/KineticQuarticCanonicalSignedFirstMonomi
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Frequency/Amplitude/Dichotomy
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Transverse/Two/Scale/Dichotomy
 Fluid/Vorticity/Continuation/H3/Audit/OneComponentInitialCanonicalCompactOverlap
+Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadPolarizationBound
 Fluid/Vorticity/Continuation/H3/Control/KineticQuarticCanonicalSignedFirstMonomialFixedDirectedTenSource
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Bounded/Frequency/Fixed/Spectral/Component
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Transverse/Aspect/Ratio/Dichotomy
