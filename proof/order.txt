@@ -1,5 +1,5 @@
-# Generated from revision: bfaf663f0b41b12c0a9cacf0788ecb1c7b068aa5
-# Source SHA-256: 1ff94677884e6a85e5db9243f3dc150b2acc38c7095bddb0221537383639862b
+# Generated from revision: 8579810394029ef5c898af7657822ffd44e3f5b2
+# Source SHA-256: f5698159c328f4e770aa2ca924978f06640f9bc6dee6317d8afaa94db606c2e9
 # Existing project import edges only; excluded/missing sources are tracked in tools/audit/known-source-gaps.json.
 Depth
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadCancellation
@@ -2207,6 +2207,7 @@ Fluid/Vorticity/Continuation/H3/Control/KineticQuarticCanonicalSignedFirstMonomi
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Bounded/Radial/Weighted/Cauchy
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Transverse/Aspect/Ratio/Limit
 Fluid/Vorticity/Continuation/H3/Audit/OneComponentInitialScalarWeakSequenceDerivative
+Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadSchwartzMoments
 Fluid/Vorticity/Continuation/H3/Control/KineticQuarticCanonicalSignedFirstMonomialDirectedSourceEnergyGrowth
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Bounded/Radial/Uniform/Absolute/Continuity
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Actual/Frequency/Aspect/Ratio/Limit
