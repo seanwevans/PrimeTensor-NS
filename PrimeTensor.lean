@@ -2358,3 +2358,6 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialSchw
 
 -- Initial Schwartz physical L2 trace from one approximate kinetic sequence.
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialCofinalKineticSchwartzTrace
+
+-- Joint sampled kinetic and Schwartz weak initial trace via positive-time increments.
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialJointKineticSchwartzIncrements
