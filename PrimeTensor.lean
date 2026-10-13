@@ -2364,3 +2364,6 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialJoin
 
 -- Frequent kinetic samples and independently sampled Schwartz initial tests.
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialFrequentKineticTestwiseSchwartzIncrements
+
+-- One initial-data scalar direction with frequent kinetic samples.
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialFrequentKineticOneDirectionIncrements
