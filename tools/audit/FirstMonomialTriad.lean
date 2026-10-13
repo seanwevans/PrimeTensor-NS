@@ -1,4 +1,4 @@
-import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLowRealityPhase
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLowPhysicalPhase
 
 #check PrimeTensor.FirstMonomialTriad.derivativeContraction_eq_coefficient
 #check PrimeTensor.FirstMonomialTriad.exchanged_coefficient
@@ -417,3 +417,18 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLow
 
 #check PrimeTensor.FirstMonomialTriad.lowNormalAudit_no_uniform_quadratic_reality_phase_bound
 #print axioms PrimeTensor.FirstMonomialTriad.lowNormalAudit_no_uniform_quadratic_reality_phase_bound
+
+#check PrimeTensor.FirstMonomialTriad.lowNormalAuditPhysicalPhasePair_re
+#print axioms PrimeTensor.FirstMonomialTriad.lowNormalAuditPhysicalPhasePair_re
+
+#check PrimeTensor.FirstMonomialTriad.lowNormalAuditPhysicalPhasePair_nonpos
+#print axioms PrimeTensor.FirstMonomialTriad.lowNormalAuditPhysicalPhasePair_nonpos
+
+#check PrimeTensor.FirstMonomialTriad.lowNormalAuditPhysicalPhasePair_abs_lower
+#print axioms PrimeTensor.FirstMonomialTriad.lowNormalAuditPhysicalPhasePair_abs_lower
+
+#check PrimeTensor.FirstMonomialTriad.lowNormalAudit_no_uniform_physical_phase_quadratic_bound
+#print axioms PrimeTensor.FirstMonomialTriad.lowNormalAudit_no_uniform_physical_phase_quadratic_bound
+
+#check PrimeTensor.FirstMonomialTriad.shellKernel_three_cyclic_eq_sixOrder
+#print axioms PrimeTensor.FirstMonomialTriad.shellKernel_three_cyclic_eq_sixOrder
