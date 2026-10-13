@@ -1,4 +1,4 @@
-import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadSignAudit
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadPlaneGeometry
 
 #check PrimeTensor.FirstMonomialTriad.derivativeContraction_eq_coefficient
 #check PrimeTensor.FirstMonomialTriad.exchanged_coefficient
@@ -195,3 +195,24 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadSig
 
 #check PrimeTensor.FirstMonomialTriad.signAudit_reflected_sixOrder
 #print axioms PrimeTensor.FirstMonomialTriad.signAudit_reflected_sixOrder
+
+#check PrimeTensor.FirstMonomialTriad.planePolarization_incompressible
+#print axioms PrimeTensor.FirstMonomialTriad.planePolarization_incompressible
+
+#check PrimeTensor.FirstMonomialTriad.planeFrequency_momentum
+#print axioms PrimeTensor.FirstMonomialTriad.planeFrequency_momentum
+
+#check PrimeTensor.FirstMonomialTriad.sixOrderTriadCoefficient_plane_geometry
+#print axioms PrimeTensor.FirstMonomialTriad.sixOrderTriadCoefficient_plane_geometry
+
+#check PrimeTensor.FirstMonomialTriad.sixOrderTriadCoefficient_planar_zero
+#print axioms PrimeTensor.FirstMonomialTriad.sixOrderTriadCoefficient_planar_zero
+
+#check PrimeTensor.FirstMonomialTriad.sixOrderTriadCoefficient_normal_zero
+#print axioms PrimeTensor.FirstMonomialTriad.sixOrderTriadCoefficient_normal_zero
+
+#check PrimeTensor.FirstMonomialTriad.sixOrderTriadCoefficient_zero_of_normal_products_zero
+#print axioms PrimeTensor.FirstMonomialTriad.sixOrderTriadCoefficient_zero_of_normal_products_zero
+
+#check PrimeTensor.FirstMonomialTriad.sixOrderTriadCoefficient_zero_of_plane_area_zero
+#print axioms PrimeTensor.FirstMonomialTriad.sixOrderTriadCoefficient_zero_of_plane_area_zero
