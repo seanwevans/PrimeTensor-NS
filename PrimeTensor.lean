@@ -2372,3 +2372,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialFreq
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialSchwartzBochnerOneDirectionTransfer
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadCancellation
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadIntegral
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadSchwartz

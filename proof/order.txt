@@ -1,11 +1,12 @@
-# Generated from revision: ef448a53a71a084858a385c1158b42644df24a4b
-# Source SHA-256: c7b23c683255f8a1c56154ae6d9e3193935b46a35aa049a7775655009b75c5ab
+# Generated from revision: e5775bd193bc4534c7b4517dbf52a94a8b311a2b
+# Source SHA-256: 9ac56277f4835e20cc4c06532080d674e83b92c20f7824118dfe0a2bacdeba9a
 # Existing project import edges only; excluded/missing sources are tracked in tools/audit/known-source-gaps.json.
 Depth
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadCancellation
 Prime
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadIntegral
 Ratio
+Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadSchwartz
 Mul/Rat
 Tensor/Basic
 Order
