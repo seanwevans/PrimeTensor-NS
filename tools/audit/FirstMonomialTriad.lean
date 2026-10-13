@@ -1,4 +1,4 @@
-import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadSchwartz
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadFourier
 
 #check PrimeTensor.FirstMonomialTriad.derivativeContraction_eq_coefficient
 #check PrimeTensor.FirstMonomialTriad.exchanged_coefficient
@@ -26,3 +26,13 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadSch
 #check PrimeTensor.FirstMonomialTriad.integral_shellKernel_eq_twice_schwartz
 #print axioms PrimeTensor.FirstMonomialTriad.amplitudeKernel_integrable_schwartz
 #print axioms PrimeTensor.FirstMonomialTriad.integral_shellKernel_eq_twice_schwartz
+
+#check PrimeTensor.Bridge.Euclidean.h3Schwartz_triple_integral_eq_triad
+#check PrimeTensor.Bridge.Euclidean.h3FirstMonomialSchwartzKernel_integrable
+#check PrimeTensor.Bridge.Euclidean.h3Schwartz_firstMonomial_integral_eq_triad
+#check PrimeTensor.Bridge.Euclidean.h3FirstMonomial_fourier_phase
+#check PrimeTensor.Bridge.Euclidean.h3Schwartz_firstMonomial_twice_re_eq_triad_im
+#print axioms PrimeTensor.Bridge.Euclidean.h3Schwartz_triple_integral_eq_triad
+#print axioms PrimeTensor.Bridge.Euclidean.h3FirstMonomialSchwartzKernel_integrable
+#print axioms PrimeTensor.Bridge.Euclidean.h3Schwartz_firstMonomial_integral_eq_triad
+#print axioms PrimeTensor.Bridge.Euclidean.h3Schwartz_firstMonomial_twice_re_eq_triad_im
