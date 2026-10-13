@@ -2346,3 +2346,6 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialInte
 
 -- Direct initial physical strong L2 trace from kinetic budget and self pairing.
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialEnergySelfPairingStrongTrace
+
+-- Physical strong initial trace from dense Schwartz weak initial data.
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialSchwartzWeakEnergyStrongTrace
