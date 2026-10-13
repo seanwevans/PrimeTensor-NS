@@ -1,4 +1,4 @@
-import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadAggregate
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadDivergence
 
 #check PrimeTensor.FirstMonomialTriad.derivativeContraction_eq_coefficient
 #check PrimeTensor.FirstMonomialTriad.exchanged_coefficient
@@ -46,3 +46,11 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadAgg
 #print axioms PrimeTensor.Bridge.Euclidean.h3SchwartzFirstMonomialAggregate_eq_triad
 #print axioms PrimeTensor.Bridge.Euclidean.h3SchwartzFirstMonomialAggregate_twice_eq_shell
 #print axioms PrimeTensor.Bridge.Euclidean.h3SchwartzFirstMonomialAggregate_twice_re_eq_shell_im
+
+#check PrimeTensor.Bridge.Euclidean.h3SchwartzDivergence_fourier
+#check PrimeTensor.Bridge.Euclidean.h3SchwartzTriadPolarization_divergence_zero
+#check PrimeTensor.Bridge.Euclidean.h3SchwartzFirstMonomialAggregate_twice_eq_shell_of_physical_divergence
+#check PrimeTensor.Bridge.Euclidean.h3SchwartzFirstMonomialAggregate_twice_re_eq_shell_im_of_physical_divergence
+#print axioms PrimeTensor.Bridge.Euclidean.h3SchwartzDivergence_fourier
+#print axioms PrimeTensor.Bridge.Euclidean.h3SchwartzTriadPolarization_divergence_zero
+#print axioms PrimeTensor.Bridge.Euclidean.h3SchwartzFirstMonomialAggregate_twice_re_eq_shell_im_of_physical_divergence
