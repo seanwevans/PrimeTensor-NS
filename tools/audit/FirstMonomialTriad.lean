@@ -1,4 +1,4 @@
-import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLowPhysicalPhase
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadCyclicIntegral
 
 #check PrimeTensor.FirstMonomialTriad.derivativeContraction_eq_coefficient
 #check PrimeTensor.FirstMonomialTriad.exchanged_coefficient
@@ -432,3 +432,24 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLow
 
 #check PrimeTensor.FirstMonomialTriad.shellKernel_three_cyclic_eq_sixOrder
 #print axioms PrimeTensor.FirstMonomialTriad.shellKernel_three_cyclic_eq_sixOrder
+
+#check PrimeTensor.FirstMonomialTriad.shellKernel_three_cyclic_eq_sixOrder_generic
+#print axioms PrimeTensor.FirstMonomialTriad.shellKernel_three_cyclic_eq_sixOrder_generic
+
+#check PrimeTensor.Bridge.Euclidean.h3TriadCyclicRightEquiv_preserving
+#print axioms PrimeTensor.Bridge.Euclidean.h3TriadCyclicRightEquiv_preserving
+
+#check PrimeTensor.Bridge.Euclidean.h3SchwartzTriadCyclicShellSum_eq_sixOrder
+#print axioms PrimeTensor.Bridge.Euclidean.h3SchwartzTriadCyclicShellSum_eq_sixOrder
+
+#check PrimeTensor.Bridge.Euclidean.h3SchwartzTriadCyclicShellSum_integral
+#print axioms PrimeTensor.Bridge.Euclidean.h3SchwartzTriadCyclicShellSum_integral
+
+#check PrimeTensor.Bridge.Euclidean.h3SchwartzTriadSixOrderKernel_integrable
+#print axioms PrimeTensor.Bridge.Euclidean.h3SchwartzTriadSixOrderKernel_integrable
+
+#check PrimeTensor.Bridge.Euclidean.h3SchwartzTriadSixOrderKernel_integral
+#print axioms PrimeTensor.Bridge.Euclidean.h3SchwartzTriadSixOrderKernel_integral
+
+#check PrimeTensor.Bridge.Euclidean.h3PathCanonicalFirstMonomialAggregate_three_eq_sixOrder_of_realSchwartz
+#print axioms PrimeTensor.Bridge.Euclidean.h3PathCanonicalFirstMonomialAggregate_three_eq_sixOrder_of_realSchwartz
