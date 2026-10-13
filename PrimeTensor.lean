@@ -2349,3 +2349,6 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialEner
 
 -- Physical strong initial trace from dense Schwartz weak initial data.
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialSchwartzWeakEnergyStrongTrace
+
+-- Test-dependent initial Schwartz scalar FTC and strong physical trace.
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialSchwartzScalarFTCStrongTrace
