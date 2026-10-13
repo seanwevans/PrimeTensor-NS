@@ -2352,3 +2352,6 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialSchw
 
 -- Test-dependent initial Schwartz scalar FTC and strong physical trace.
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialSchwartzScalarFTCStrongTrace
+
+-- Quantitative initial Schwartz scalar FTC/kinetic physical L2 errors.
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialSchwartzScalarEnergyQuantitativeRate
