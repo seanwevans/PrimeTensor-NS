@@ -1,4 +1,4 @@
-import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadFrame
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadNormalShell
 
 #check PrimeTensor.FirstMonomialTriad.derivativeContraction_eq_coefficient
 #check PrimeTensor.FirstMonomialTriad.exchanged_coefficient
@@ -285,3 +285,24 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadFra
 
 #check PrimeTensor.FirstMonomialTriad.exists_plane_frame_coefficient
 #print axioms PrimeTensor.FirstMonomialTriad.exists_plane_frame_coefficient
+
+#check PrimeTensor.FirstMonomialTriad.complexShellCoefficient_orthogonal
+#print axioms PrimeTensor.FirstMonomialTriad.complexShellCoefficient_orthogonal
+
+#check PrimeTensor.FirstMonomialTriad.normalShellSum_orthogonal
+#print axioms PrimeTensor.FirstMonomialTriad.normalShellSum_orthogonal
+
+#check PrimeTensor.FirstMonomialTriad.sixOrderTriadCoefficient_eq_normalShellSum_of_zero
+#print axioms PrimeTensor.FirstMonomialTriad.sixOrderTriadCoefficient_eq_normalShellSum_of_zero
+
+#check PrimeTensor.FirstMonomialTriad.sixOrderTriadCoefficient_plane_normal_shells
+#print axioms PrimeTensor.FirstMonomialTriad.sixOrderTriadCoefficient_plane_normal_shells
+
+#check PrimeTensor.FirstMonomialTriad.sixOrderTriadCoefficient_plane_normal_shells_of_incompressible
+#print axioms PrimeTensor.FirstMonomialTriad.sixOrderTriadCoefficient_plane_normal_shells_of_incompressible
+
+#check PrimeTensor.FirstMonomialTriad.mixedDot_frame_normal
+#print axioms PrimeTensor.FirstMonomialTriad.mixedDot_frame_normal
+
+#check PrimeTensor.FirstMonomialTriad.exists_unit_normal_shell_decomposition
+#print axioms PrimeTensor.FirstMonomialTriad.exists_unit_normal_shell_decomposition
