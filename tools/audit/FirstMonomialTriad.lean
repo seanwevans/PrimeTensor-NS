@@ -1,4 +1,4 @@
-import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadCollinear
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadFrame
 
 #check PrimeTensor.FirstMonomialTriad.derivativeContraction_eq_coefficient
 #check PrimeTensor.FirstMonomialTriad.exchanged_coefficient
@@ -273,3 +273,15 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadCol
 
 #check PrimeTensor.FirstMonomialTriad.sixOrderTriadCoefficient_zero_of_first_frequency_zero
 #print axioms PrimeTensor.FirstMonomialTriad.sixOrderTriadCoefficient_zero_of_first_frequency_zero
+
+#check PrimeTensor.FirstMonomialTriad.exists_unit_common_normal
+#print axioms PrimeTensor.FirstMonomialTriad.exists_unit_common_normal
+
+#check PrimeTensor.FirstMonomialTriad.exists_orthogonal_flatten_pair
+#print axioms PrimeTensor.FirstMonomialTriad.exists_orthogonal_flatten_pair
+
+#check PrimeTensor.FirstMonomialTriad.exists_common_plane_frame
+#print axioms PrimeTensor.FirstMonomialTriad.exists_common_plane_frame
+
+#check PrimeTensor.FirstMonomialTriad.exists_plane_frame_coefficient
+#print axioms PrimeTensor.FirstMonomialTriad.exists_plane_frame_coefficient
