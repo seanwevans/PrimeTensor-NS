@@ -1,4 +1,4 @@
-import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLowPolarizationGerm
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLowPacketAlgebra
 
 #check PrimeTensor.FirstMonomialTriad.derivativeContraction_eq_coefficient
 #check PrimeTensor.FirstMonomialTriad.exchanged_coefficient
@@ -507,3 +507,36 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLow
 
 #check PrimeTensor.FirstMonomialTriad.lowNormalSharpPolarizationGerms_at_centers
 #print axioms PrimeTensor.FirstMonomialTriad.lowNormalSharpPolarizationGerms_at_centers
+
+#check PrimeTensor.FirstMonomialTriad.lowNormalScalarPacket_divergence
+#print axioms PrimeTensor.FirstMonomialTriad.lowNormalScalarPacket_divergence
+
+#check PrimeTensor.FirstMonomialTriad.lowNormalScalarPacket_zero_of_cutoff_zero
+#print axioms PrimeTensor.FirstMonomialTriad.lowNormalScalarPacket_zero_of_cutoff_zero
+
+#check PrimeTensor.FirstMonomialTriad.lowNormalPositiveThreePacketSum_divergence
+#print axioms PrimeTensor.FirstMonomialTriad.lowNormalPositiveThreePacketSum_divergence
+
+#check PrimeTensor.FirstMonomialTriad.lowNormalHermitianize_reality
+#print axioms PrimeTensor.FirstMonomialTriad.lowNormalHermitianize_reality
+
+#check PrimeTensor.FirstMonomialTriad.lowNormalHermitianize_divergence
+#print axioms PrimeTensor.FirstMonomialTriad.lowNormalHermitianize_divergence
+
+#check PrimeTensor.FirstMonomialTriad.lowNormalSixPacketFourier_divergence
+#print axioms PrimeTensor.FirstMonomialTriad.lowNormalSixPacketFourier_divergence
+
+#check PrimeTensor.FirstMonomialTriad.lowNormalSixPacketFourier_reality
+#print axioms PrimeTensor.FirstMonomialTriad.lowNormalSixPacketFourier_reality
+
+#check PrimeTensor.FirstMonomialTriad.lowNormalSixPacketFourier_zero_of_cutoffs_zero
+#print axioms PrimeTensor.FirstMonomialTriad.lowNormalSixPacketFourier_zero_of_cutoffs_zero
+
+#check PrimeTensor.FirstMonomialTriad.lowNormalPositiveThreePacketSum_at_P
+#print axioms PrimeTensor.FirstMonomialTriad.lowNormalPositiveThreePacketSum_at_P
+
+#check PrimeTensor.FirstMonomialTriad.lowNormalPositiveThreePacketSum_at_Q
+#print axioms PrimeTensor.FirstMonomialTriad.lowNormalPositiveThreePacketSum_at_Q
+
+#check PrimeTensor.FirstMonomialTriad.lowNormalPositiveThreePacketSum_at_R
+#print axioms PrimeTensor.FirstMonomialTriad.lowNormalPositiveThreePacketSum_at_R
