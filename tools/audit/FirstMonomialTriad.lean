@@ -1,0 +1,11 @@
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadCancellation
+
+#check PrimeTensor.FirstMonomialTriad.derivativeContraction_eq_coefficient
+#check PrimeTensor.FirstMonomialTriad.exchanged_coefficient
+#check PrimeTensor.FirstMonomialTriad.symmetrized_coefficient
+#check PrimeTensor.FirstMonomialTriad.equal_shell_cancellation
+#check PrimeTensor.FirstMonomialTriad.abs_symmetrized_coefficient
+
+#print axioms PrimeTensor.FirstMonomialTriad.derivativeContraction_eq_coefficient
+#print axioms PrimeTensor.FirstMonomialTriad.exchanged_coefficient
+#print axioms PrimeTensor.FirstMonomialTriad.equal_shell_cancellation

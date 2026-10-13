@@ -2370,3 +2370,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialFreq
 
 -- Transfer Schwartz-tested Bochner momentum to initial physical vector.
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialSchwartzBochnerOneDirectionTransfer
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadCancellation
