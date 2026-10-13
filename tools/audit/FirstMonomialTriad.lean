@@ -1,4 +1,4 @@
-import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadNormalFrequency
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLowNormal
 
 #check PrimeTensor.FirstMonomialTriad.derivativeContraction_eq_coefficient
 #check PrimeTensor.FirstMonomialTriad.exchanged_coefficient
@@ -354,3 +354,24 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadNor
 
 #check PrimeTensor.FirstMonomialTriad.exists_unit_normal_separated_geometry_bound
 #print axioms PrimeTensor.FirstMonomialTriad.exists_unit_normal_separated_geometry_bound
+
+#check PrimeTensor.FirstMonomialTriad.separatedNormalShellWeight_le_product
+#print axioms PrimeTensor.FirstMonomialTriad.separatedNormalShellWeight_le_product
+
+#check PrimeTensor.FirstMonomialTriad.separatedNormalShellWeight_le_low_right
+#print axioms PrimeTensor.FirstMonomialTriad.separatedNormalShellWeight_le_low_right
+
+#check PrimeTensor.FirstMonomialTriad.separatedNormalGeometryMajorant_le_low_middle
+#print axioms PrimeTensor.FirstMonomialTriad.separatedNormalGeometryMajorant_le_low_middle
+
+#check PrimeTensor.FirstMonomialTriad.lowMiddleNormalMajorant_of_low_planar
+#print axioms PrimeTensor.FirstMonomialTriad.lowMiddleNormalMajorant_of_low_planar
+
+#check PrimeTensor.FirstMonomialTriad.normalAmplitude_norm_le
+#print axioms PrimeTensor.FirstMonomialTriad.normalAmplitude_norm_le
+
+#check PrimeTensor.FirstMonomialTriad.lowMiddleNormalMajorant_le_quadratic_of_low_normal_small
+#print axioms PrimeTensor.FirstMonomialTriad.lowMiddleNormalMajorant_le_quadratic_of_low_normal_small
+
+#check PrimeTensor.FirstMonomialTriad.exists_unit_normal_low_middle_bound
+#print axioms PrimeTensor.FirstMonomialTriad.exists_unit_normal_low_middle_bound
