@@ -2393,3 +2393,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadCol
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadFrame
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadNormalShell
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadNormalBound
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadNormalFrequency

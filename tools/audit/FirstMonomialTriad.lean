@@ -1,4 +1,4 @@
-import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadNormalBound
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadNormalFrequency
 
 #check PrimeTensor.FirstMonomialTriad.derivativeContraction_eq_coefficient
 #check PrimeTensor.FirstMonomialTriad.exchanged_coefficient
@@ -330,3 +330,27 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadNor
 
 #check PrimeTensor.FirstMonomialTriad.exists_unit_normal_geometry_bound
 #print axioms PrimeTensor.FirstMonomialTriad.exists_unit_normal_geometry_bound
+
+#check PrimeTensor.FirstMonomialTriad.mixedDot_outer_eq_neg
+#print axioms PrimeTensor.FirstMonomialTriad.mixedDot_outer_eq_neg
+
+#check PrimeTensor.FirstMonomialTriad.mixedDot_norm_le_min_tangential
+#print axioms PrimeTensor.FirstMonomialTriad.mixedDot_norm_le_min_tangential
+
+#check PrimeTensor.FirstMonomialTriad.shell_gap_le_frequencyNorm
+#print axioms PrimeTensor.FirstMonomialTriad.shell_gap_le_frequencyNorm
+
+#check PrimeTensor.FirstMonomialTriad.complexShellCoefficient_norm_le_separated_tangential
+#print axioms PrimeTensor.FirstMonomialTriad.complexShellCoefficient_norm_le_separated_tangential
+
+#check PrimeTensor.FirstMonomialTriad.normalShellSum_norm_le_separated_geometry
+#print axioms PrimeTensor.FirstMonomialTriad.normalShellSum_norm_le_separated_geometry
+
+#check PrimeTensor.FirstMonomialTriad.separatedNormalShellWeight_le_low_middle
+#print axioms PrimeTensor.FirstMonomialTriad.separatedNormalShellWeight_le_low_middle
+
+#check PrimeTensor.FirstMonomialTriad.normalShellChannel_norm_le_low_middle
+#print axioms PrimeTensor.FirstMonomialTriad.normalShellChannel_norm_le_low_middle
+
+#check PrimeTensor.FirstMonomialTriad.exists_unit_normal_separated_geometry_bound
+#print axioms PrimeTensor.FirstMonomialTriad.exists_unit_normal_separated_geometry_bound
