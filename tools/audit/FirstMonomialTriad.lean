@@ -1,4 +1,4 @@
-import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadCyclicIntegral
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLowResonance
 
 #check PrimeTensor.FirstMonomialTriad.derivativeContraction_eq_coefficient
 #check PrimeTensor.FirstMonomialTriad.exchanged_coefficient
@@ -453,3 +453,24 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadCyc
 
 #check PrimeTensor.Bridge.Euclidean.h3PathCanonicalFirstMonomialAggregate_three_eq_sixOrder_of_realSchwartz
 #print axioms PrimeTensor.Bridge.Euclidean.h3PathCanonicalFirstMonomialAggregate_three_eq_sixOrder_of_realSchwartz
+
+#check PrimeTensor.FirstMonomialTriad.lowNormalSignedLatticeCenter_zero_iff
+#print axioms PrimeTensor.FirstMonomialTriad.lowNormalSignedLatticeCenter_zero_iff
+
+#check PrimeTensor.FirstMonomialTriad.lowNormalSignedLatticeCenter_noncoherent
+#print axioms PrimeTensor.FirstMonomialTriad.lowNormalSignedLatticeCenter_noncoherent
+
+#check PrimeTensor.FirstMonomialTriad.lowNormalLatticeEmbedding_three_zero_iff
+#print axioms PrimeTensor.FirstMonomialTriad.lowNormalLatticeEmbedding_three_zero_iff
+
+#check PrimeTensor.FirstMonomialTriad.lowNormalSixCenter_primary
+#print axioms PrimeTensor.FirstMonomialTriad.lowNormalSixCenter_primary
+
+#check PrimeTensor.FirstMonomialTriad.lowNormalSixCenter_reflected
+#print axioms PrimeTensor.FirstMonomialTriad.lowNormalSixCenter_reflected
+
+#check PrimeTensor.FirstMonomialTriad.lowNormalSixCenter_zero_iff_coherent
+#print axioms PrimeTensor.FirstMonomialTriad.lowNormalSixCenter_zero_iff_coherent
+
+#check PrimeTensor.FirstMonomialTriad.lowNormalSixCenter_noncoherent
+#print axioms PrimeTensor.FirstMonomialTriad.lowNormalSixCenter_noncoherent
