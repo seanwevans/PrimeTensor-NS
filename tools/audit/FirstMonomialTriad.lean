@@ -1,4 +1,4 @@
-import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadPhysicalShell
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadShellBound
 
 #check PrimeTensor.FirstMonomialTriad.derivativeContraction_eq_coefficient
 #check PrimeTensor.FirstMonomialTriad.exchanged_coefficient
@@ -72,3 +72,15 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadPhy
 #print axioms PrimeTensor.Bridge.Euclidean.h3TriadComplexify_physical_divergence
 #print axioms PrimeTensor.Bridge.Euclidean.h3PathCanonicalFirstMonomialAggregate_eq_shell_of_realSchwartz
 #print axioms PrimeTensor.Bridge.Euclidean.h3PathCanonicalInterpolation_eq_shell_of_realSchwartz
+
+#check PrimeTensor.Bridge.Euclidean.h3Triad_shell_gap_bound
+#print axioms PrimeTensor.Bridge.Euclidean.h3Triad_shell_gap_bound
+
+#check PrimeTensor.Bridge.Euclidean.h3Triad_shell_gap_bound_on_scales
+#print axioms PrimeTensor.Bridge.Euclidean.h3Triad_shell_gap_bound_on_scales
+
+#check PrimeTensor.Bridge.Euclidean.h3Triad_complexShellCoefficient_norm_le
+#print axioms PrimeTensor.Bridge.Euclidean.h3Triad_complexShellCoefficient_norm_le
+
+#check PrimeTensor.Bridge.Euclidean.h3SchwartzTriadShellKernel_norm_le
+#print axioms PrimeTensor.Bridge.Euclidean.h3SchwartzTriadShellKernel_norm_le
