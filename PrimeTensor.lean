@@ -2355,3 +2355,6 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialSchw
 
 -- Quantitative initial Schwartz scalar FTC/kinetic physical L2 errors.
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialSchwartzScalarEnergyQuantitativeRate
+
+-- Initial Schwartz physical L2 trace from one approximate kinetic sequence.
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialCofinalKineticSchwartzTrace
