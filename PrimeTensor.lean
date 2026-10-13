@@ -2361,3 +2361,6 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialCofi
 
 -- Joint sampled kinetic and Schwartz weak initial trace via positive-time increments.
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialJointKineticSchwartzIncrements
+
+-- Frequent kinetic samples and independently sampled Schwartz initial tests.
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialFrequentKineticTestwiseSchwartzIncrements
