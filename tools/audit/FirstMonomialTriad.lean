@@ -1,4 +1,4 @@
-import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadPolarizationBound
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadIntegralBound
 
 #check PrimeTensor.FirstMonomialTriad.derivativeContraction_eq_coefficient
 #check PrimeTensor.FirstMonomialTriad.exchanged_coefficient
@@ -96,3 +96,18 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadPol
 
 #check PrimeTensor.Bridge.Euclidean.h3SchwartzTriadShellKernel_norm_le_polarization
 #print axioms PrimeTensor.Bridge.Euclidean.h3SchwartzTriadShellKernel_norm_le_polarization
+
+#check PrimeTensor.Bridge.Euclidean.h3Triad_square_middle_integrable
+#print axioms PrimeTensor.Bridge.Euclidean.h3Triad_square_middle_integrable
+
+#check PrimeTensor.Bridge.Euclidean.h3Triad_square_middle_integral
+#print axioms PrimeTensor.Bridge.Euclidean.h3Triad_square_middle_integral
+
+#check PrimeTensor.Bridge.Euclidean.h3Triad_integral_norm_le_L2_L1
+#print axioms PrimeTensor.Bridge.Euclidean.h3Triad_integral_norm_le_L2_L1
+
+#check PrimeTensor.Bridge.Euclidean.h3SchwartzTriadShellKernel_norm_le_separated
+#print axioms PrimeTensor.Bridge.Euclidean.h3SchwartzTriadShellKernel_norm_le_separated
+
+#check PrimeTensor.Bridge.Euclidean.h3SchwartzTriadShellKernel_integral_norm_le
+#print axioms PrimeTensor.Bridge.Euclidean.h3SchwartzTriadShellKernel_integral_norm_le
