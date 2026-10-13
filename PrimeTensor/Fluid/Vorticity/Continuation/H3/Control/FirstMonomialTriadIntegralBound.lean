@@ -22,7 +22,7 @@ noncomputable local instance axisFintypeH3TriadIntegralBound (d : Depth) :
 local notation "A3" => PrimeTensor.Axis Depth.three
 local notation "V3" => H3FourierPoint3
 
-private def h3TriadMiddleEquiv : V3 × V3 ≃ᵐ V3 × V3 where
+def h3TriadMiddleEquiv : V3 × V3 ≃ᵐ V3 × V3 where
   toFun z := (z.1, -(z.1 + z.2))
   invFun z := (z.1, -(z.1 + z.2))
   left_inv z := by
@@ -42,7 +42,7 @@ private def h3TriadMiddleEquiv : V3 × V3 ≃ᵐ V3 × V3 where
     change Measurable (fun z : V3 × V3 => (z.1, -(z.1 + z.2)))
     exact measurable_fst.prodMk ((measurable_fst.add measurable_snd).neg)
 
-private theorem h3TriadMiddleEquiv_preserving :
+theorem h3TriadMiddleEquiv_preserving :
     MeasurePreserving h3TriadMiddleEquiv (volume.prod volume) (volume.prod volume) := by
   exact ((MeasurePreserving.id (volume : Measure V3)).prod
     (Measure.measurePreserving_neg (volume : Measure V3))).comp

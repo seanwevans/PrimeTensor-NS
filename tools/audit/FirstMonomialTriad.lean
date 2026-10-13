@@ -1,4 +1,4 @@
-import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLowMiddle
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLowOuter
 
 #check PrimeTensor.FirstMonomialTriad.derivativeContraction_eq_coefficient
 #check PrimeTensor.FirstMonomialTriad.exchanged_coefficient
@@ -141,3 +141,18 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLow
 
 #check PrimeTensor.Bridge.Euclidean.h3SchwartzTriadLowMiddleKernel_integral_norm_le
 #print axioms PrimeTensor.Bridge.Euclidean.h3SchwartzTriadLowMiddleKernel_integral_norm_le
+
+#check PrimeTensor.Bridge.Euclidean.h3TriadMiddleEquiv_preserving
+#print axioms PrimeTensor.Bridge.Euclidean.h3TriadMiddleEquiv_preserving
+
+#check PrimeTensor.Bridge.Euclidean.h3Triad_integral_norm_le_outer_L1
+#print axioms PrimeTensor.Bridge.Euclidean.h3Triad_integral_norm_le_outer_L1
+
+#check PrimeTensor.Bridge.Euclidean.h3SchwartzTriadLowLeftKernel_integral_norm_le
+#print axioms PrimeTensor.Bridge.Euclidean.h3SchwartzTriadLowLeftKernel_integral_norm_le
+
+#check PrimeTensor.Bridge.Euclidean.h3SchwartzTriadShellKernel_swap
+#print axioms PrimeTensor.Bridge.Euclidean.h3SchwartzTriadShellKernel_swap
+
+#check PrimeTensor.Bridge.Euclidean.h3SchwartzTriadLowRightKernel_integral_norm_le
+#print axioms PrimeTensor.Bridge.Euclidean.h3SchwartzTriadLowRightKernel_integral_norm_le
