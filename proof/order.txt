@@ -1,5 +1,5 @@
-# Generated from revision: 42f82aee2c2c2d147bc345676e2e81640c0878e1
-# Source SHA-256: 3e9650bce46749add19e09f7adb39e605ee1844b88d6c5fa048c7f654ba94d6e
+# Generated from revision: a6c20f9ef16a5562fe00aa8f24ad28353e75f124
+# Source SHA-256: 8a2c12321297a88e3921333e2ea4df1fe34b7c87aae75ddba5745a2e12c1c911
 # Existing project import edges only; excluded/missing sources are tracked in tools/audit/known-source-gaps.json.
 Depth
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadCancellation
@@ -337,6 +337,7 @@ Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadFourier
 Fluid/Vorticity/Continuation/Restart/Mild/Sobolev/Schwartz/Product/Convolution/Kernel
 Fluid/Vorticity/Continuation/Restart/Mild/Sobolev/Fin/Leray/Encoded/Incompressibility/Duhamel
 Fluid/Vorticity/Continuation/Restart/Mild/Sobolev/Fin/Heat/Leray/Spectral/Realizability/Bridge
+Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadAggregate
 Fluid/Vorticity/Continuation/Restart/Mild/Sobolev/Schwartz/Spectral/Density
 Fluid/Vorticity/Continuation/Restart/Mild/Sobolev/Fin/Leray/Encoded/Incompressibility/Mild
 Fluid/Vorticity/Continuation/Restart/Mild/Sobolev/Fin/Heat/Leray/Restart/Radius
