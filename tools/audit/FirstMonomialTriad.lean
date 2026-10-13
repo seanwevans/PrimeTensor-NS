@@ -1,4 +1,4 @@
-import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLowOuter
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadGlobalBound
 
 #check PrimeTensor.FirstMonomialTriad.derivativeContraction_eq_coefficient
 #check PrimeTensor.FirstMonomialTriad.exchanged_coefficient
@@ -156,3 +156,18 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLow
 
 #check PrimeTensor.Bridge.Euclidean.h3SchwartzTriadLowRightKernel_integral_norm_le
 #print axioms PrimeTensor.Bridge.Euclidean.h3SchwartzTriadLowRightKernel_integral_norm_le
+
+#check PrimeTensor.Bridge.Euclidean.h3SchwartzTriadShellKernel_eq_zero_of_norm_eq
+#print axioms PrimeTensor.Bridge.Euclidean.h3SchwartzTriadShellKernel_eq_zero_of_norm_eq
+
+#check PrimeTensor.Bridge.Euclidean.h3SchwartzTriadShellKernel_eq_ordered_sum
+#print axioms PrimeTensor.Bridge.Euclidean.h3SchwartzTriadShellKernel_eq_ordered_sum
+
+#check PrimeTensor.Bridge.Euclidean.h3SchwartzTriadShellKernel_integral_norm_le_energy_moment
+#print axioms PrimeTensor.Bridge.Euclidean.h3SchwartzTriadShellKernel_integral_norm_le_energy_moment
+
+#check PrimeTensor.Bridge.Euclidean.h3PathCanonicalFirstMonomialAggregate_abs_le_energy_moment
+#print axioms PrimeTensor.Bridge.Euclidean.h3PathCanonicalFirstMonomialAggregate_abs_le_energy_moment
+
+#check PrimeTensor.Bridge.Euclidean.h3PathCanonicalInterpolation_abs_le_energy_moment
+#print axioms PrimeTensor.Bridge.Euclidean.h3PathCanonicalInterpolation_abs_le_energy_moment
