@@ -1,4 +1,4 @@
-import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadOrthogonal
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadReconstruction
 
 #check PrimeTensor.FirstMonomialTriad.derivativeContraction_eq_coefficient
 #check PrimeTensor.FirstMonomialTriad.exchanged_coefficient
@@ -237,3 +237,21 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadOrt
 
 #check PrimeTensor.FirstMonomialTriad.sixOrderTriadCoefficient_rotated_planar_zero
 #print axioms PrimeTensor.FirstMonomialTriad.sixOrderTriadCoefficient_rotated_planar_zero
+
+#check PrimeTensor.FirstMonomialTriad.planePolarization_reconstruct
+#print axioms PrimeTensor.FirstMonomialTriad.planePolarization_reconstruct
+
+#check PrimeTensor.FirstMonomialTriad.orthogonalPolarization_apply_symm
+#print axioms PrimeTensor.FirstMonomialTriad.orthogonalPolarization_apply_symm
+
+#check PrimeTensor.FirstMonomialTriad.mixedDot_inverse_frame
+#print axioms PrimeTensor.FirstMonomialTriad.mixedDot_inverse_frame
+
+#check PrimeTensor.FirstMonomialTriad.orthogonal_planePolarization_reconstruct
+#print axioms PrimeTensor.FirstMonomialTriad.orthogonal_planePolarization_reconstruct
+
+#check PrimeTensor.FirstMonomialTriad.sixOrderTriadCoefficient_planar_zero_of_incompressible
+#print axioms PrimeTensor.FirstMonomialTriad.sixOrderTriadCoefficient_planar_zero_of_incompressible
+
+#check PrimeTensor.FirstMonomialTriad.sixOrderTriadCoefficient_frame_planar_zero_of_incompressible
+#print axioms PrimeTensor.FirstMonomialTriad.sixOrderTriadCoefficient_frame_planar_zero_of_incompressible
