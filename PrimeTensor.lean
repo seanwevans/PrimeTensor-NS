@@ -2377,3 +2377,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadFou
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadAggregate
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadDivergence
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadPhysicalTransport
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadPhysicalShell

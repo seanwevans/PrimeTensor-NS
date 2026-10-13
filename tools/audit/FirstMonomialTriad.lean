@@ -1,4 +1,4 @@
-import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadPhysicalTransport
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadPhysicalShell
 
 #check PrimeTensor.FirstMonomialTriad.derivativeContraction_eq_coefficient
 #check PrimeTensor.FirstMonomialTriad.exchanged_coefficient
@@ -62,3 +62,13 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadPhy
 #print axioms PrimeTensor.Bridge.Euclidean.h3SchwartzPoint3Scalar_spatial_d
 #print axioms PrimeTensor.Bridge.Euclidean.h3Point3ToFourier_integral
 #print axioms PrimeTensor.Bridge.Euclidean.h3PathCanonicalFirstMonomialAggregate_eq_realSchwartz
+
+#check PrimeTensor.Bridge.Euclidean.h3SchwartzFirstMonomialSlot_complexify
+#check PrimeTensor.Bridge.Euclidean.h3PathCanonicalFirstMonomialAggregate_eq_complexSchwartz
+#check PrimeTensor.Bridge.Euclidean.h3TriadComplexify_physical_divergence
+#check PrimeTensor.Bridge.Euclidean.h3PathCanonicalFirstMonomialAggregate_eq_shell_of_realSchwartz
+#check PrimeTensor.Bridge.Euclidean.h3PathCanonicalInterpolation_eq_shell_of_realSchwartz
+#print axioms PrimeTensor.Bridge.Euclidean.h3PathCanonicalFirstMonomialAggregate_eq_complexSchwartz
+#print axioms PrimeTensor.Bridge.Euclidean.h3TriadComplexify_physical_divergence
+#print axioms PrimeTensor.Bridge.Euclidean.h3PathCanonicalFirstMonomialAggregate_eq_shell_of_realSchwartz
+#print axioms PrimeTensor.Bridge.Euclidean.h3PathCanonicalInterpolation_eq_shell_of_realSchwartz
