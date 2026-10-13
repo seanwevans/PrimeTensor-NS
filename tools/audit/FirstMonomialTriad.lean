@@ -1,4 +1,4 @@
-import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLowResonance
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLowSeparation
 
 #check PrimeTensor.FirstMonomialTriad.derivativeContraction_eq_coefficient
 #check PrimeTensor.FirstMonomialTriad.exchanged_coefficient
@@ -474,3 +474,18 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLow
 
 #check PrimeTensor.FirstMonomialTriad.lowNormalSixCenter_noncoherent
 #print axioms PrimeTensor.FirstMonomialTriad.lowNormalSixCenter_noncoherent
+
+#check PrimeTensor.FirstMonomialTriad.lowNormalSixCenter_sum_zero_coordinate
+#print axioms PrimeTensor.FirstMonomialTriad.lowNormalSixCenter_sum_zero_coordinate
+
+#check PrimeTensor.FirstMonomialTriad.lowNormalSixCenter_sum_one_coordinate
+#print axioms PrimeTensor.FirstMonomialTriad.lowNormalSixCenter_sum_one_coordinate
+
+#check PrimeTensor.FirstMonomialTriad.lowNormalSixCenter_noncoherent_coordinate_gap
+#print axioms PrimeTensor.FirstMonomialTriad.lowNormalSixCenter_noncoherent_coordinate_gap
+
+#check PrimeTensor.FirstMonomialTriad.lowNormalSixCenterSeparationRadius_pos
+#print axioms PrimeTensor.FirstMonomialTriad.lowNormalSixCenterSeparationRadius_pos
+
+#check PrimeTensor.FirstMonomialTriad.lowNormalSixCenterCoordinateBall_zero_sum_coherent
+#print axioms PrimeTensor.FirstMonomialTriad.lowNormalSixCenterCoordinateBall_zero_sum_coherent

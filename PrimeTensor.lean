@@ -2400,3 +2400,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLow
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLowPhysicalPhase
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadCyclicIntegral
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLowResonance
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLowSeparation
