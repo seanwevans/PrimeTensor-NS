@@ -2367,3 +2367,6 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialFreq
 
 -- One initial-data scalar direction with frequent kinetic samples.
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialFrequentKineticOneDirectionIncrements
+
+-- Transfer Schwartz-tested Bochner momentum to initial physical vector.
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Audit.OneComponentInitialSchwartzBochnerOneDirectionTransfer
