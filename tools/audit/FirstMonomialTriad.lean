@@ -1,4 +1,4 @@
-import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadNormalShell
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadNormalBound
 
 #check PrimeTensor.FirstMonomialTriad.derivativeContraction_eq_coefficient
 #check PrimeTensor.FirstMonomialTriad.exchanged_coefficient
@@ -306,3 +306,27 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadNor
 
 #check PrimeTensor.FirstMonomialTriad.exists_unit_normal_shell_decomposition
 #print axioms PrimeTensor.FirstMonomialTriad.exists_unit_normal_shell_decomposition
+
+#check PrimeTensor.FirstMonomialTriad.mixedDot_tangentialPolarization
+#print axioms PrimeTensor.FirstMonomialTriad.mixedDot_tangentialPolarization
+
+#check PrimeTensor.FirstMonomialTriad.polarizationNorm_tangential_sq
+#print axioms PrimeTensor.FirstMonomialTriad.polarizationNorm_tangential_sq
+
+#check PrimeTensor.FirstMonomialTriad.polarizationNorm_tangential_le
+#print axioms PrimeTensor.FirstMonomialTriad.polarizationNorm_tangential_le
+
+#check PrimeTensor.FirstMonomialTriad.mixedDot_norm_le_tangential
+#print axioms PrimeTensor.FirstMonomialTriad.mixedDot_norm_le_tangential
+
+#check PrimeTensor.FirstMonomialTriad.complexShellCoefficient_norm_le_tangential
+#print axioms PrimeTensor.FirstMonomialTriad.complexShellCoefficient_norm_le_tangential
+
+#check PrimeTensor.FirstMonomialTriad.normalShellSum_norm_le_geometry
+#print axioms PrimeTensor.FirstMonomialTriad.normalShellSum_norm_le_geometry
+
+#check PrimeTensor.FirstMonomialTriad.normalGeometryMajorant_le_of_normal_small
+#print axioms PrimeTensor.FirstMonomialTriad.normalGeometryMajorant_le_of_normal_small
+
+#check PrimeTensor.FirstMonomialTriad.exists_unit_normal_geometry_bound
+#print axioms PrimeTensor.FirstMonomialTriad.exists_unit_normal_geometry_bound
