@@ -1,4 +1,4 @@
-import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadGlobalBound
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadSignAudit
 
 #check PrimeTensor.FirstMonomialTriad.derivativeContraction_eq_coefficient
 #check PrimeTensor.FirstMonomialTriad.exchanged_coefficient
@@ -171,3 +171,27 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadGlo
 
 #check PrimeTensor.Bridge.Euclidean.h3PathCanonicalInterpolation_abs_le_energy_moment
 #print axioms PrimeTensor.Bridge.Euclidean.h3PathCanonicalInterpolation_abs_le_energy_moment
+
+#check PrimeTensor.FirstMonomialTriad.sixOrderTriadCoefficient_eq_shells
+#print axioms PrimeTensor.FirstMonomialTriad.sixOrderTriadCoefficient_eq_shells
+
+#check PrimeTensor.FirstMonomialTriad.signAudit_momentum
+#print axioms PrimeTensor.FirstMonomialTriad.signAudit_momentum
+
+#check PrimeTensor.FirstMonomialTriad.signAudit_squared_radii
+#print axioms PrimeTensor.FirstMonomialTriad.signAudit_squared_radii
+
+#check PrimeTensor.FirstMonomialTriad.signAudit_incompressible
+#print axioms PrimeTensor.FirstMonomialTriad.signAudit_incompressible
+
+#check PrimeTensor.FirstMonomialTriad.signAudit_sixOrder
+#print axioms PrimeTensor.FirstMonomialTriad.signAudit_sixOrder
+
+#check PrimeTensor.FirstMonomialTriad.signAudit_positive
+#print axioms PrimeTensor.FirstMonomialTriad.signAudit_positive
+
+#check PrimeTensor.FirstMonomialTriad.signAudit_negative
+#print axioms PrimeTensor.FirstMonomialTriad.signAudit_negative
+
+#check PrimeTensor.FirstMonomialTriad.signAudit_reflected_sixOrder
+#print axioms PrimeTensor.FirstMonomialTriad.signAudit_reflected_sixOrder
