@@ -1,4 +1,4 @@
-import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLowNormal
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLowSharpness
 
 #check PrimeTensor.FirstMonomialTriad.derivativeContraction_eq_coefficient
 #check PrimeTensor.FirstMonomialTriad.exchanged_coefficient
@@ -375,3 +375,30 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLow
 
 #check PrimeTensor.FirstMonomialTriad.exists_unit_normal_low_middle_bound
 #print axioms PrimeTensor.FirstMonomialTriad.exists_unit_normal_low_middle_bound
+
+#check PrimeTensor.FirstMonomialTriad.lowNormalAudit_momentum
+#print axioms PrimeTensor.FirstMonomialTriad.lowNormalAudit_momentum
+
+#check PrimeTensor.FirstMonomialTriad.lowNormalAudit_incompressible
+#print axioms PrimeTensor.FirstMonomialTriad.lowNormalAudit_incompressible
+
+#check PrimeTensor.FirstMonomialTriad.lowNormalAudit_amplitude_norms
+#print axioms PrimeTensor.FirstMonomialTriad.lowNormalAudit_amplitude_norms
+
+#check PrimeTensor.FirstMonomialTriad.lowNormalAudit_sixOrder
+#print axioms PrimeTensor.FirstMonomialTriad.lowNormalAudit_sixOrder
+
+#check PrimeTensor.FirstMonomialTriad.lowNormalAudit_reflected_sixOrder
+#print axioms PrimeTensor.FirstMonomialTriad.lowNormalAudit_reflected_sixOrder
+
+#check PrimeTensor.FirstMonomialTriad.lowNormalAudit_coefficient_norm
+#print axioms PrimeTensor.FirstMonomialTriad.lowNormalAudit_coefficient_norm
+
+#check PrimeTensor.FirstMonomialTriad.lowNormalAudit_low_middle
+#print axioms PrimeTensor.FirstMonomialTriad.lowNormalAudit_low_middle
+
+#check PrimeTensor.FirstMonomialTriad.lowNormalAudit_quadratic_weight_upper
+#print axioms PrimeTensor.FirstMonomialTriad.lowNormalAudit_quadratic_weight_upper
+
+#check PrimeTensor.FirstMonomialTriad.lowNormalAudit_no_uniform_quadratic_bound
+#print axioms PrimeTensor.FirstMonomialTriad.lowNormalAudit_no_uniform_quadratic_bound
