@@ -1,4 +1,4 @@
-import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLowVectorSchwartz
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLowQuarterCenter
 
 #check PrimeTensor.FirstMonomialTriad.derivativeContraction_eq_coefficient
 #check PrimeTensor.FirstMonomialTriad.exchanged_coefficient
@@ -612,3 +612,27 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLow
 
 #check PrimeTensor.FirstMonomialTriad.lowNormalSmoothSixPacketSchwartz_reality
 #print axioms PrimeTensor.FirstMonomialTriad.lowNormalSmoothSixPacketSchwartz_reality
+
+#check PrimeTensor.FirstMonomialTriad.lowNormalQuarter_cutoff_off_center
+#print axioms PrimeTensor.FirstMonomialTriad.lowNormalQuarter_cutoff_off_center
+
+#check PrimeTensor.FirstMonomialTriad.lowNormalQuarter_cutoff_at_center
+#print axioms PrimeTensor.FirstMonomialTriad.lowNormalQuarter_cutoff_at_center
+
+#check PrimeTensor.FirstMonomialTriad.lowNormalQuarterSchwartz
+#print axioms PrimeTensor.FirstMonomialTriad.lowNormalQuarterSchwartz
+
+#check PrimeTensor.FirstMonomialTriad.lowNormalQuarterSchwartz_at_P
+#print axioms PrimeTensor.FirstMonomialTriad.lowNormalQuarterSchwartz_at_P
+
+#check PrimeTensor.FirstMonomialTriad.lowNormalQuarterSchwartz_at_Q
+#print axioms PrimeTensor.FirstMonomialTriad.lowNormalQuarterSchwartz_at_Q
+
+#check PrimeTensor.FirstMonomialTriad.lowNormalQuarterSchwartz_at_R
+#print axioms PrimeTensor.FirstMonomialTriad.lowNormalQuarterSchwartz_at_R
+
+#check PrimeTensor.FirstMonomialTriad.lowNormalQuarterSchwartz_sixOrder
+#print axioms PrimeTensor.FirstMonomialTriad.lowNormalQuarterSchwartz_sixOrder
+
+#check PrimeTensor.FirstMonomialTriad.lowNormalQuarterSchwartz_sixOrder_ne_zero
+#print axioms PrimeTensor.FirstMonomialTriad.lowNormalQuarterSchwartz_sixOrder_ne_zero
