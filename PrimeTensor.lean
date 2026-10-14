@@ -2415,3 +2415,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLow
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLowQuarterCoherentOrbitBridge
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLowQuarterWeightedKernel
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLowQuarterEvenWindow
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLowQuarterGlobalIntegral
