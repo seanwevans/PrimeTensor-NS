@@ -1,4 +1,4 @@
-import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLowQuarterCenter
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLowQuarterLocalSign
 
 #check PrimeTensor.FirstMonomialTriad.derivativeContraction_eq_coefficient
 #check PrimeTensor.FirstMonomialTriad.exchanged_coefficient
@@ -636,3 +636,15 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLow
 
 #check PrimeTensor.FirstMonomialTriad.lowNormalQuarterSchwartz_sixOrder_ne_zero
 #print axioms PrimeTensor.FirstMonomialTriad.lowNormalQuarterSchwartz_sixOrder_ne_zero
+
+#check PrimeTensor.FirstMonomialTriad.lowNormalQuarterSignedKernel
+#print axioms PrimeTensor.FirstMonomialTriad.lowNormalQuarterSignedKernel
+
+#check PrimeTensor.FirstMonomialTriad.lowNormalQuarterSignedKernel_continuous
+#print axioms PrimeTensor.FirstMonomialTriad.lowNormalQuarterSignedKernel_continuous
+
+#check PrimeTensor.FirstMonomialTriad.lowNormalQuarterSignedKernel_at_center
+#print axioms PrimeTensor.FirstMonomialTriad.lowNormalQuarterSignedKernel_at_center
+
+#check PrimeTensor.FirstMonomialTriad.lowNormalQuarterSignedKernel_eventually_positive
+#print axioms PrimeTensor.FirstMonomialTriad.lowNormalQuarterSignedKernel_eventually_positive
