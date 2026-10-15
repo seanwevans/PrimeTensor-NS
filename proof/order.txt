@@ -1,5 +1,5 @@
-# Generated from revision: de52f6a5498da34e5b289b6e4d4cdb78496318ed
-# Source SHA-256: 22418d0c29c2233886a6978401c47fd85ff41d46a1bd022173bbe166ead82d32
+# Generated from revision: 5d7b5cf217d7e37821ff24a2554cdfcc3e45efdb
+# Source SHA-256: b08c87ccc5a02d6655de5b07f95c32fde96a8ac6d4ee2b9f19dffb65e3705d95
 # Existing project import edges only; excluded/missing sources are tracked in tools/audit/known-source-gaps.json.
 Depth
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadCancellation
@@ -2390,6 +2390,7 @@ Fluid/Vorticity/Continuation/H3/Audit/OneComponentInitialSubcriticalKineticModul
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3CriticalHalfThreshold
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/Transfer/Absorption/Integral
 Fluid/Vorticity/Continuation/H3/Audit/OneComponentInitialWeakIdentifiedQuantitativeTrace
+Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3CriticalHalfDilationScalar
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/Transfer/Absorption/Criterion
 Fluid/Vorticity/Continuation/H3/Audit/OneComponentInitialAnchoredSchwartzProjectedRHS
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/Transfer/Absorption/State
