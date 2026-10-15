@@ -2426,3 +2426,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLow
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLowQuarterPoint3AmplitudeScaling
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLowQuarterPoint3FullEnergyBarrier
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadSixIntegral
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLowQuarterPoint3CriticalEnergyExponent
