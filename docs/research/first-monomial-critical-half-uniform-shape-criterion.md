@@ -37,13 +37,9 @@ project's physical coordinate derivatives; its proof first establishes
 that real amplitude scaling preserves Point3 solenoidality. That step is
 required because the necessity direction examines arbitrarily large positive
 amplitudes of the same admissible profile. Thus the solenoidal version is an
-exact characterization of the remaining user-facing mathematical frontier.
+exact **logical criterion for a proposed coefficient**, not an unresolved mathematical question about whether any finite coefficient exists.
 
-**Open:** It is not proved that one universal C exists, that X_C(f)>0 occurs
-for arbitrarily large C, or that the Navier--Stokes PDE continues or blows up.
-The next mathematical task is a genuine uniform *shape* estimate or a
-counterexample across varying Schwartz profiles, not another fixed dilation
-identity.
+**Correction (2026-10-15):** Existence of **some finite universal C** is a standard analytical consequence of Hölder, `Ḣ^{3/4}(ℝ³) → L⁴`, interpolation between `Ḣ^{1/2}` and `Ḣ⁴`, and the energy bound on `Ḣ^{1/2}`. The exact project-specific inequality is **not yet a Lean theorem**. A positive `X_C` witness can disprove an individual too-small C, but not every finite C. The unresolved hard-mathematics issue is stronger structure or dynamical control sufficient for unconditional Navier--Stokes continuation; simply formalizing the standard critical-half estimate does not close that gap. See `docs/audit/critical-half-roadmap-correction-2026-10-15.md`.
 
 This archive's Python registration and ZIP structure can be verified without
 Lean. The actual Lean proof must be checked with `lake env lean`, `lake build`

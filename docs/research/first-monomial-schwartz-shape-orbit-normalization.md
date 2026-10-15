@@ -26,3 +26,7 @@ When also `D > 0`, `R(f) > (2 C)^12` is a sign-free conditional obstruction
 to the proposed uniform solenoidal critical-half coefficient `C >= 0`.
 The module does not prove `E3 > 0` from nontriviality, compactness of the
 unit-endpoint class, or existence of a strict-excess witness.
+
+## Mathematical-status correction (2026-10-15)
+
+The orbit reduction does not leave mathematical existence of a finite shape-ratio bound open: that existence follows from standard homogeneous Sobolev `L⁴` and critical-half interpolation estimates for Schwartz profiles. Their exact project-specific Lean realization remains pending. A strict-excess witness may refute a *proposed* constant but cannot produce unbounded ratio in this class. See `docs/audit/critical-half-roadmap-correction-2026-10-15.md`.

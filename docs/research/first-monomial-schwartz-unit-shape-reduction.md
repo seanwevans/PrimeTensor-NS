@@ -9,3 +9,7 @@ This module establishes an **if and only if** between bounding `R` on *all* sole
 The exact coefficient-one adjacent interpolation implies on the unit-endpoint class `E1<=1`, `E2<=1`, and `E0+E1+E2+E3<=4`. For positive `D`, the ratio inequality `R<=K` is literally `M^12<=K*D^12`; if `D=0`, the division convention gives `R=0`.
 
 A proposed universal solenoidal critical-half coefficient `C>=0` forces the normalized ratio threshold `R<=(2*C)^12`. Strict excess on a normalized solenoidal Schwartz witness rules it out. These statements do **not** prove the converse to the uniform endpoint estimate, the existence of a universal coefficient, nondegeneracy of E3, or existence of a strict-excess witness. The remaining substantial analytic question is the behavior of the signed first monomial on the normalized class, particularly its interaction with the full top-order dissipation.
+
+## Mathematical-status correction (2026-10-15)
+
+The exact ratio equivalence remains valid and useful as a formalization. Its **mathematical boundedness is already known**, however: physical Hölder `L²·L⁴·L⁴`, Sobolev `Ḣ^{3/4}→L⁴`, and `Ḣ^{1/2}`–`Ḣ⁴` interpolation give `|M| ≤ C ||u||_{Ḣ^{1/2}}D`. On `E0=E3=1`, `E1≤1`, hence `||u||_{Ḣ^{1/2}}` is uniformly bounded and so is `R`. This particular boundedness theorem is not yet present in Lean. The genuine PDE challenge remains absorption or improved structural control at large critical norm. See `docs/audit/critical-half-roadmap-correction-2026-10-15.md`.

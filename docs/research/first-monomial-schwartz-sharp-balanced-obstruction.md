@@ -24,7 +24,6 @@ would rule out that coefficient. Importantly, **no assumption on the sign of
 and the degree-36 balanced excess is unchanged. Hence either the witness or
 its negative supplies a positive-monomial violation.
 
-These theorems do **not** claim that a strict-excess witness exists, or that
-a uniform coefficient exists. The next hard-mathematics task is a decisive
+These theorems do **not** assert a strict-excess witness or formally prove a finite uniform coefficient in Lean. Standard Sobolev analysis nevertheless guarantees **some finite universal coefficient exists mathematically**, so a strict-excess witness can only refute a particular too-small proposed coefficient. The next hard-mathematics task is a decisive
 analysis of the actual signed 243-slot nonlinear monomial relative to these
 fixed endpoint masses.

@@ -32,12 +32,7 @@ remains available.
 
 ## Scope and open issue
 
-The results require no solenoidality or PDE evolution. They do **not**
-control the signed first-monomial term `M`, establish a universal
-critical-half constant, or imply finite-time Navier–Stokes regularity.
-The next nontrivial input is a bound on the actual nonlinear product,
-likely through physical Sobolev/L4 estimates and the signed monomial's
-cancellations, not another scale transformation.
+The results require no solenoidality or PDE evolution. They do **not by themselves** control the signed first-monomial term `M` or imply finite-time Navier–Stokes regularity. A finite universal critical-half constant **does exist mathematically**, by standard physical homogeneous Sobolev `L⁴` embedding and fractional interpolation; a proof for the project's exact Schwartz definitions, normalization, and aggregate is still a **Lean formalization target**. That bound alone is insufficient to absorb the nonlinear dissipation term at arbitrary critical norm. See `docs/audit/critical-half-roadmap-correction-2026-10-15.md`.
 
 Public Lean module:
 `PrimeTensor/Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3SchwartzFiveOrderInterpolation.lean`.
