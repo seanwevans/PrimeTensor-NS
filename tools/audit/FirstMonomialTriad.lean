@@ -30,6 +30,7 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLow
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLowQuarterPoint3IntegerCriticalHalfBridge
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLowQuarterPoint3SchwartzQuarticL2L6
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLowQuarterPoint3QuantitativeCutoffSobolev
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLowQuarterPoint3QuantitativeSplitSobolev
 
 #check PrimeTensor.FirstMonomialTriad.derivativeContraction_eq_coefficient
 #check PrimeTensor.FirstMonomialTriad.exchanged_coefficient
@@ -1476,3 +1477,7 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLow
 #print axioms PrimeTensor.Bridge.Euclidean.exists_uniform_radius_cutoff_fderiv_majorant
 #check PrimeTensor.Bridge.Euclidean.exists_uniform_radius_cutoff_quantitative_L6
 #print axioms PrimeTensor.Bridge.Euclidean.exists_uniform_radius_cutoff_quantitative_L6
+#check PrimeTensor.Bridge.Euclidean.radius_cutoff_majorant_eLpNorm_le_split
+#print axioms PrimeTensor.Bridge.Euclidean.radius_cutoff_majorant_eLpNorm_le_split
+#check PrimeTensor.Bridge.Euclidean.exists_uniform_radius_cutoff_quantitative_split_L6
+#print axioms PrimeTensor.Bridge.Euclidean.exists_uniform_radius_cutoff_quantitative_split_L6
