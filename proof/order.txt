@@ -1,5 +1,5 @@
-# Generated from revision: 92c94eccc1de6701ef751ac1626b4a421c57e55d
-# Source SHA-256: 104ded19f2c8838b05f2401620b8616265a5ec75e092da1202f28a42ce5e283d
+# Generated from revision: e94b93e645b34abb2ee7197c59060f810456afb2
+# Source SHA-256: 3d52cdb3b78ea25d9052d923f02c100b0ffc2c6782b09618d97b49f4426a9847
 # Existing project import edges only; excluded/missing sources are tracked in tools/audit/known-source-gaps.json.
 Depth
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadCancellation
@@ -2476,6 +2476,7 @@ Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3Second
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/LowerDerivative/Closure/Channel/Envelope/Steepness/Derivative/Hilbert/Radial/Bound
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3SecondJetFrechetFullEnergy
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/LowerDerivative/Closure/Channel/Envelope/Steepness/Derivative/Hilbert/Radial/Continuity
+Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3SecondJetL6SquareAggregate
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/LowerDerivative/Closure/Channel/Envelope/Steepness/Derivative/Hilbert/Radial/PDE
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/LowerDerivative/Closure/Channel/Envelope/Steepness/Derivative/Hilbert/Radial/PDE/Truncation
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/LowerDerivative/Closure/Channel/Envelope/Steepness/Derivative/Hilbert/Radial/PDE/Evolution
