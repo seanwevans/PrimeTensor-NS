@@ -1,5 +1,5 @@
-# Generated from revision: d1b44bb05f66a1ba1637bbca165ae7e76f1bbb5a
-# Source SHA-256: 6b24f928264f1a25c99274348ca0edcf3105b64213c2a7b4990b9d4871d48798
+# Generated from revision: d92110e8ff056990be550e2ebc72cfc218a75fd5
+# Source SHA-256: 67ec74fdcb4342207f38b636622ec5be1885bf2bcb096ab03e37f7b56c7ffb5e
 # Existing project import edges only; excluded/missing sources are tracked in tools/audit/known-source-gaps.json.
 Depth
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadCancellation
@@ -2549,6 +2549,7 @@ Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3SchwartzMatchedSecondDerivative244
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Fourth
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Second/Representative
+Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3SchwartzMatchedSecondFamily244
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Fourth/Collapse
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Second/Bound
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Fourth/Collapse/Pairing
