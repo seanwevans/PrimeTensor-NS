@@ -210,13 +210,30 @@ private theorem matched_third_difference_energy_eq_pi244
 
 /-- The concrete matched compact-frequency real Schwartz sequence satisfies
 the project's original integrated E₂/E₃ difference-energy Cauchy criterion. -/
-theorem exists_h3SmoothCompactWeighted_SchwartzH3EnergyCauchy244
+theorem exists_h3SmoothCompactWeighted_SchwartzH3EnergyCauchy_matched244
     (U : H3SpectralVelocityState) :
     ∃ V : ℕ → H3SpectralVelocityState,
     ∃ Ψ : ℕ → Fin 3 → SchwartzMap V3 ℝ,
       Tendsto V atTop (𝓝 U) ∧
       SchwartzH3DifferenceEnergyCauchy244
-        (fun n j => Ψ n (h3ClassicalizationFinOfAxis j)) := by
+        (fun n j => Ψ n (h3ClassicalizationFinOfAxis j)) ∧
+      (∀ n j a b,
+        (∂_{h3FourierAxisDirection a}
+          (∂_{h3FourierAxisDirection b}
+            (Ψ n (h3ClassicalizationFinOfAxis j)))).toLp
+              2 (volume : Measure V3) =
+          h3ToFourierRealL2
+            (h3SpectralVelocitySecondPhysicalJetFamily244 (V n)
+              (h3ClassicalizationFinOfAxis j) a b)) ∧
+      (∀ n j a b c,
+        (∂_{h3FourierAxisDirection a}
+          (∂_{h3FourierAxisDirection b}
+            (∂_{h3FourierAxisDirection c}
+              (Ψ n (h3ClassicalizationFinOfAxis j))))).toLp
+                2 (volume : Measure V3) =
+          h3ToFourierRealL2
+            (h3SpectralVelocityThirdPhysicalJetFamily244 (V n)
+              (h3ClassicalizationFinOfAxis j) a b c)) := by
   classical
   obtain ⟨V, Ψ, hWeighted, _, hSecondExact, hThirdExact,
     hSecond, hThird⟩ :=
@@ -302,6 +319,23 @@ theorem exists_h3SmoothCompactWeighted_SchwartzH3EnergyCauchy244
       exact (hN2 m hm2 n hn2).trans (by linarith)
     · rw [hE3 m n]
       exact (hN3 m hm3 n hn3).trans (by linarith)
+  refine ⟨V, Ψ, hWeighted, hEnergy, ?_, ?_⟩
+  · intro n j a b
+    simpa only [f, F2] using hMatch2 n j a b
+  · intro n j a b c
+    simpa only [f, F3] using hMatch3 n j a b c
+
+/-- Retain the existing public existence API unchanged, forgetting only the
+newly exported exact quadratic and cubic Schwartz/Fourier jet witnesses. -/
+theorem exists_h3SmoothCompactWeighted_SchwartzH3EnergyCauchy244
+    (U : H3SpectralVelocityState) :
+    ∃ V : ℕ → H3SpectralVelocityState,
+    ∃ Ψ : ℕ → Fin 3 → SchwartzMap V3 ℝ,
+      Tendsto V atTop (𝓝 U) ∧
+      SchwartzH3DifferenceEnergyCauchy244
+        (fun n j => Ψ n (h3ClassicalizationFinOfAxis j)) := by
+  obtain ⟨V, Ψ, hWeighted, hEnergy, _, _⟩ :=
+    exists_h3SmoothCompactWeighted_SchwartzH3EnergyCauchy_matched244 U
   exact ⟨V, Ψ, hWeighted, hEnergy⟩
 
 /-- Every weighted H³ spectral velocity admits a genuinely real Schwartz
