@@ -1,5 +1,5 @@
-# Generated from revision: 85562c240bda2d339649e65ca5c54a83508def61
-# Source SHA-256: 07c9771135c57872d3870b6a30476792a7bf215b8541eda88eeb30930f33a4d1
+# Generated from revision: 7aa2b4e3c5ef708b0a7a7edae856e0fd2413d112
+# Source SHA-256: df705d33c6f8196cd7eb3a5a35f49d1671f6dea3ade0f02dbb979861adcb7716
 # Existing project import edges only; excluded/missing sources are tracked in tools/audit/known-source-gaps.json.
 Depth
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadCancellation
@@ -2500,6 +2500,7 @@ Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3Second
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdRealSixSectorPairing244
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/LowerDerivative/Closure/Channel/Envelope/Steepness/Derivative/Hilbert/Radial/Bound
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3SecondJetFrechetFullEnergy
+Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdRealSectorGeometry244
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/LowerDerivative/Closure/Channel/Envelope/Steepness/Derivative/Hilbert/Radial/Continuity
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3SecondJetL6SquareAggregate
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/LowerDerivative/Closure/Channel/Envelope/Steepness/Derivative/Hilbert/Radial/PDE
