@@ -1,5 +1,5 @@
-# Generated from revision: 87628bb93a5846a08ce8e77cb5fb8cb7c54b7f35
-# Source SHA-256: e71bcee0d349997f32d75391b94d3281e6e2c02f28985575d66b39dc8d79cf32
+# Generated from revision: 044110e8ea8723dae752f52bfaac3a70a8ee961a
+# Source SHA-256: 85139ec48fcd41cbbe3108242a15630bd287ce3a5bc96569dbb7ae8f75b99c71
 # Existing project import edges only; excluded/missing sources are tracked in tools/audit/known-source-gaps.json.
 Depth
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadCancellation
@@ -2509,6 +2509,7 @@ Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3Second
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdRealSingleWindowIsolation244
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/LowerDerivative/Closure/Channel/Envelope/Steepness/Derivative/Hilbert/Radial/PDE/Truncation
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3SecondJetSixthMassBound
+Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdRealPositiveSectorSpectra244
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/LowerDerivative/Closure/Channel/Envelope/Steepness/Derivative/Hilbert/Radial/PDE/Evolution
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3SecondJetQuarticGN
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/LowerDerivative/Closure/Channel/Envelope/Steepness/Derivative/Hilbert/Radial/PDE/Closure
