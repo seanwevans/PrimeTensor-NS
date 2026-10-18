@@ -1,5 +1,5 @@
-# Generated from revision: 8f4e627bd2bb0df1d7360ff75ab85a63a4213c87
-# Source SHA-256: 669ff1d28946fb493414e3d109999301f2ebedf1bf352fdcbac7c84c363caefa
+# Generated from revision: 8c64a0e7b95356e7093a4162fe23db18e01b0a30
+# Source SHA-256: b733d06330fd1db50fb0762d9d6bd4aa4ecc635b8dec1e57d4e9f8b5729aa6f8
 # Existing project import edges only; excluded/missing sources are tracked in tools/audit/known-source-gaps.json.
 Depth
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadCancellation
@@ -2488,6 +2488,7 @@ Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3Quanti
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdRealGradientHermitianReflection244
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/LowerDerivative/Closure/Channel/Envelope/Steepness/Derivative
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3HomogeneousSobolevLimit
+Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdRealInterpolationReflection244
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/LowerDerivative/Closure/Channel/Envelope/Steepness/Derivative/TopDissipation
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3SecondJetHomogeneousSobolev
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/LowerDerivative/Closure/Channel/Envelope/Steepness/Derivative/Hilbert
