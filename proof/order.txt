@@ -1,5 +1,5 @@
-# Generated from revision: c252128d72ab84e52d12790d9e2ff8d8f349fdf1
-# Source SHA-256: 5d74fadf7718710c7c567cc486d467839a523c087bc704dd580b18c46e6bff76
+# Generated from revision: 0e7d5b722858b9ed68215e641c468206b9b5c463
+# Source SHA-256: 49031328592012314d68f4fa92adfca96fe39791f2e9b7c5bd7f55ebefb03075
 # Existing project import edges only; excluded/missing sources are tracked in tools/audit/known-source-gaps.json.
 Depth
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadCancellation
@@ -2588,6 +2588,7 @@ Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3Schwar
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdSchwartzCanonicalOrderwise244
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Spectral/Moment/Limit/Convolution/L2/Leray/Selected/Homogeneity/Quotient/Self/Remainder/Concrete
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3SchwartzSpectralRealPhysicalDensity244
+Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdSchwartzReservedEnergy244
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Spectral/Moment/Limit/Convolution/L2/Leray/Selected/Homogeneity/Quotient/Self/Remainder/Concrete/Representative
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3SchwartzPhysicalRealDensity244
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Spectral/Moment/Limit/Convolution/L2/Leray/Selected/Homogeneity/Quotient/Self/Remainder/Concrete/Representative/Closure
