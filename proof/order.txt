@@ -1,5 +1,5 @@
-# Generated from revision: 021aa34ce075a62f9216c3234d4beef0e8f37915
-# Source SHA-256: 196810c3f4c599438748be2a8cae54c4d7985b2605709034dcd3bacc23b43a89
+# Generated from revision: 3becf6ca81e479376c88c249eecc6c80175798ee
+# Source SHA-256: 6dab19c5ee3f8708f138ff04f870658c34e7a0153122a78d0053e71f17ae7d4a
 # Existing project import edges only; excluded/missing sources are tracked in tools/audit/known-source-gaps.json.
 Depth
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadCancellation
@@ -2582,6 +2582,7 @@ Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3Schwar
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdSchwartzDissipationBalance244
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Spectral/Moment/Limit/Convolution/L2/Leray/Selected/Homogeneity/Quotient/Self
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3SchwartzSpectralVelocityDensity244
+Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdSchwartzLowerTransportBudget244
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Spectral/Moment/Limit/Convolution/L2/Leray/Selected/Homogeneity/Quotient/Self/Remainder
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3SchwartzSpectralDecodeDensity244
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Spectral/Moment/Limit/Convolution/L2/Leray/Selected/Homogeneity/Quotient/Self/Remainder/Concrete
