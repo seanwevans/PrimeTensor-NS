@@ -1,5 +1,5 @@
-# Generated from revision: 5e9152328814aff3c80640d5d93b5836c80bf6cc
-# Source SHA-256: e26119f6e4017def384c14426a8e0dcfd2e5e764a52e0bfb0b53708b231eaf8b
+# Generated from revision: 402a4395fcc2054125e8a88afe4256ac503e92ce
+# Source SHA-256: 25da44bc2627dd0822f1dd67cffc5804315692a1baae69626a4c1cb13b6a9e3c
 # Existing project import edges only; excluded/missing sources are tracked in tools/audit/known-source-gaps.json.
 Depth
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadCancellation
@@ -2623,6 +2623,7 @@ Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Second/StateMass
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3SchwartzWeightedCanonicalCompletion244
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Fourth/Collapse/Pairing/Derivative/Orientation
+Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdSchwartzMatchedSobolevJets244
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3WeightedCanonicalQuarticBound244
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Fourth/Collapse/Pairing/Derivative/Orientation/Sequence
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3WeightedCanonicalCrossEnergy244
