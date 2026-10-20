@@ -1,0 +1,9 @@
+Patch on master 516d4ac3; overlays the previously extracted and currently uncommitted canonical second L4 package.
+
+- Provide local Fact (1 ≤ (4 : ENNReal)) so mathlib installs the NormedAddCommGroup,
+  PseudoMetricSpace, UniformSpace, TopologicalSpace and CompleteSpace instances for Lp ℝ 4 volume.
+- Expose the L4 distance -> Schwartz L4 difference-root identity in a calc chain.
+- Avoid brittle rewriting of the Cauchy bound at the second-jet slot; apply the
+  exact distance equality and the finite mixed-graph inequality in a calc chain.
+
+No declarations or hypothesis types changed. Lean compilation is not available in this environment.
