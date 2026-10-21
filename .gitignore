@@ -12,3 +12,6 @@ out.txt
 *.toc
 proof/main.pdf
 proof/modules.tex
+
+# Keep one-off run wrappers out of the project root.
+/*.sh
