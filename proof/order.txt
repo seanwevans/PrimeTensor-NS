@@ -1,5 +1,5 @@
-# Generated from revision: f410df62662731ba3dc64299c47e9c2c249724b9
-# Source SHA-256: a8b3687197bda6b6f40ec207a0500426418f434ecc21526354df54940ccf4ee5
+# Generated from revision: 8a3fd6d84a8f132d17ec77a0f5725dd6db469d4c
+# Source SHA-256: e231ba1f63f1e12da4336b4b9cbac8026ee4cf833092efe769e6e303658e1fdf
 # Existing project import edges only; excluded/missing sources are tracked in tools/audit/known-source-gaps.json.
 Depth
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadCancellation
@@ -2753,6 +2753,7 @@ Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullTh
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Second/LowerTemporal/Amplitude/Forcing/Escape/Pair/Bound/Group/Factor/Primitive/Low
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdPhysicalTopLogReplenishment244
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Second/LowerTemporal/Amplitude/Forcing/Escape/Pair/Bound/Group/Factor/Primitive/Low/Classify
+Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdPhysicalTopCubicReplenishment244
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Second/LowerTemporal/Amplitude/Forcing/Escape/Pair/Bound/Group/Factor/Primitive/Low/Classify/Radial
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Second/LowerTemporal/Amplitude/Forcing/Escape/Pair/Bound/Group/Factor/Primitive/Low/Classify/Radial/Higher
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Second/LowerTemporal/Amplitude/Forcing/Escape/Pair/Bound/Group/Factor/Primitive/Low/Classify/Radial/Higher/Collapse
