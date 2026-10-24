@@ -1,5 +1,5 @@
-# Generated from revision: eb1402df9da8f9ae96dd67e222d86430c27875d8
-# Source SHA-256: 2ff8ec07d7d02de91d92d40edb3fd40e12ed0ad8bce9891133f27ef2c64eb37d
+# Generated from revision: 8517aac54ef106218b0b673bc319b53d19ff9b93
+# Source SHA-256: a578713605ad12a143ab87e9e1e6fdebf8560c952b05e26621cba1d209dec496
 # Existing project import edges only; excluded/missing sources are tracked in tools/audit/known-source-gaps.json.
 Depth
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadCancellation
@@ -2936,6 +2936,7 @@ Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdPhysicalKineticAngularPersistentObstruction244
 Fluid/Vorticity/Continuation/H3/Terminal/Clock/CriticalAlternative
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Second/LowerTemporal/Amplitude/Forcing/Escape/Pair/Bound/Group/Factor/Primitive/Low/Classify/Radial/Higher/Collapse/Subtail/LowerTemporal/Subtail/Factor/Fourth/Top/Amplitude/Lower/Final/Longitudinal/Concentration/NormalizedCurl/Vorticity/Radial/High/Dissipation/Physical/Geometry/Compactness/Radial/Temporal/Integral/Forcing/Pointwise/Component/Representative/Adjacent/Envelope/Pair/StateMass/Primitive/Rate/Classify/Radial/Resolve/Package/NoExtension/Higher/Rate/Branch/Higher/Direct/Branch/Scale/Width/InverseSqrt/Package/Normalized/Package/PhysicalClock/Sample/Collapse/Synchronized/Geometry/Width/Critical
+Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdPhysicalKineticAngularPointwiseEscape244
 Fluid/Vorticity/Continuation/H3/Terminal/Clock/CriticalNoExtension
 Fluid/Vorticity/Continuation/H3/Terminal/Clock/QuantitativeAlternative
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Second/LowerTemporal/Amplitude/Forcing/Escape/Pair/Bound/Group/Factor/Primitive/Low/Classify/Radial/Higher/Collapse/Subtail/LowerTemporal/Subtail/Factor/Fourth/Top/Amplitude/Lower/Final/Longitudinal/Concentration/NormalizedCurl/Vorticity/Radial/High/Dissipation/Physical/Geometry/Compactness/Radial/Temporal/Integral/Forcing/Pointwise/Component/Representative/Adjacent/Envelope/Pair/StateMass/Primitive/Rate/Classify/Radial/Resolve/Package/NoExtension/Higher/Rate/Branch/Higher/Direct/Branch/Scale/Width/InverseSqrt/Package/Normalized/Package/PhysicalClock/Sample/Collapse/Synchronized/Geometry/Width/Critical/Alternative
