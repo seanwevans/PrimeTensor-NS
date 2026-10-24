@@ -1,5 +1,5 @@
-# Generated from revision: 896e421928bbd88dd0ec225407148621b5024914
-# Source SHA-256: 67a6c0ce6ced76886d270ba194e1087d1d0224a508cff95c69c3466117452704
+# Generated from revision: 710bb1442316e4212cab5895d7a35bd488ca94fc
+# Source SHA-256: d85ba1c83ee9bdfcf516751124b17ff081cad65c0a0d2272313936f6ec92ade2
 # Existing project import edges only; excluded/missing sources are tracked in tools/audit/known-source-gaps.json.
 Depth
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadCancellation
@@ -2927,6 +2927,7 @@ Fluid/Vorticity/Continuation/H3/Terminal/Clock/IntervalLimits
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Second/LowerTemporal/Amplitude/Forcing/Escape/Pair/Bound/Group/Factor/Primitive/Low/Classify/Radial/Higher/Collapse/Subtail/LowerTemporal/Subtail/Factor/Fourth/Top/Amplitude/Lower/Final/Longitudinal/Concentration/NormalizedCurl/Vorticity/Radial/High/Dissipation/Physical/Geometry/Compactness/Radial/Temporal/Integral/Forcing/Pointwise/Component/Representative/Adjacent/Envelope/Pair/StateMass/Primitive/Rate/Classify/Radial/Resolve/Package/NoExtension/Higher/Rate/Branch/Higher/Direct/Branch/Scale/Width/InverseSqrt/Package/Normalized/Package/PhysicalClock/Sample/Collapse/Synchronized
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdPhysicalKineticAngularGramDefect244
 Fluid/Vorticity/Continuation/H3/Terminal/Clock/Geometry
+Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdPhysicalKineticGramTerminalAction244
 Fluid/Vorticity/Continuation/H3/Terminal/Clock/ForwardWidth
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Second/LowerTemporal/Amplitude/Forcing/Escape/Pair/Bound/Group/Factor/Primitive/Low/Classify/Radial/Higher/Collapse/Subtail/LowerTemporal/Subtail/Factor/Fourth/Top/Amplitude/Lower/Final/Longitudinal/Concentration/NormalizedCurl/Vorticity/Radial/High/Dissipation/Physical/Geometry/Compactness/Radial/Temporal/Integral/Forcing/Pointwise/Component/Representative/Adjacent/Envelope/Pair/StateMass/Primitive/Rate/Classify/Radial/Resolve/Package/NoExtension/Higher/Rate/Branch/Higher/Direct/Branch/Scale/Width/InverseSqrt/Package/Normalized/Package/PhysicalClock/Sample/Collapse/Synchronized/Geometry
 Fluid/Vorticity/Continuation/H3/Terminal/Clock/CriticalWidth
