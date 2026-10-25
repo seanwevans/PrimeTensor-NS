@@ -1,5 +1,5 @@
-# Generated from revision: fe9345b05588f4ce026b95bae14ffd32bcdf7679
-# Source SHA-256: 3ca557ed8b9c3521837c90c0011a5c1a66242f0c87b86fea917b6c50e0e88b15
+# Generated from revision: c8d70e91942d34fdbb15b82031f46d16ab675039
+# Source SHA-256: 5f15f5f080551158c8edf735f25454259d418c435ab1fba03d52a846ef866dc0
 # Existing project import edges only; excluded/missing sources are tracked in tools/audit/known-source-gaps.json.
 Depth
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadCancellation
@@ -2962,3 +2962,4 @@ Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullTh
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdPhysicalKineticProjectedSourceSpectralSignedTransportClock244
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdPhysicalKineticProjectedSourceSpectralSignedCofinalBranch244
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdPhysicalKineticProjectedSourceSpectralSignedCanonicalSequence244
+Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdPhysicalKineticProjectedSourceSpectralSignedCubicBarrier244
