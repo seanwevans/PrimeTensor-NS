@@ -127,8 +127,20 @@ theorem h3Path_cubicHighSnapshot_has_exactAnchorCanonicalClock244
       ‖h3AuditActualSpectralVelocityTotal hH3 t‖ ^ 2 ≤
         velocityH3EnergyAt u t ∧
       (‖h3AuditActualSpectralVelocityTotal hH3 t‖ * C) ^ 2 ≤
-        velocityH3EnergyAt u t * C ^ 2 := by
-  obtain ⟨N, hnN, hHeight, _hMinimal⟩ :=
+        velocityH3EnergyAt u t * C ^ 2 ∧
+      ((n : ℝ) + 1) ^ 3 / 4 <
+        (h3PathActualLowRadialDissipation244 ((N : ℝ) + 1)
+            (h3AuditActualSpectralVelocityTotal hH3 t) -
+          h3PathActualLowRadialDissipation244 ((n : ℝ) + 1)
+            (h3AuditActualSpectralVelocityTotal hH3 t)) -
+          ((n : ℝ) + 1) ^ 3 / 2 ∧
+      (∀ m : ℕ, n ≤ m → m < N →
+        h3PathActualLowRadialDissipation244 ((m : ℝ) + 1)
+            (h3AuditActualSpectralVelocityTotal hH3 t) -
+          h3PathActualLowRadialDissipation244 ((n : ℝ) + 1)
+            (h3AuditActualSpectralVelocityTotal hH3 t) ≤
+          3 * (((n : ℝ) + 1) ^ 3) / 4) := by
+  obtain ⟨N, hnN, hHeight, hMinimal⟩ :=
     h3Path_cubicHighSnapshot_has_minimalOuterAnnulus244
       hH3 hClass t ht n hCube
   let R : ℝ := (n : ℝ) + 1
@@ -203,13 +215,15 @@ theorem h3Path_cubicHighSnapshot_has_exactAnchorCanonicalClock244
   have hKCenergy : (K * C) ^ 2 ≤ velocityH3EnergyAt u t * C ^ 2 :=
     h3Path_exactAnchor_productSquare_le_physicalEnergySource244
       K C (velocityH3EnergyAt u t) hK hC hKenergy
-  refine ⟨N, C, δ, hnN, hC, rfl, ?_, hδ, hEnd, ?_, hFinal.1, ?_, ?_⟩
+  refine ⟨N, C, δ, hnN, hC, rfl, ?_, hδ, hEnd, ?_, hFinal.1, ?_, ?_, ?_, ?_⟩
   · refine ⟨sMax, hsMax, ?_⟩
     exact hMaxEq.symm
   · change δ = h3PathCubicAnnulusQuadraticSharpPDEWidth244 b (B - A) Λ Ξ
     exact hExact
   · simpa only [K, G] using hKenergy
   · simpa only [K, G] using hKCenergy
+  · simpa only [R, Q, G, A, B] using hQuarter
+  · simpa only [R, Q, G] using hMinimal
 
 end
 end PrimeTensor.FirstMonomialTriad
