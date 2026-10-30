@@ -1,0 +1,42 @@
+{
+  "base_revision": "bac9c73da8d2b918f7069a1729add6d41c2e0275",
+  "scope": "Mechanical relocation preserving every non-import proof line",
+  "modules": [
+    {
+      "old_path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdPhysicalKineticProjectedSourceSpectralFiniteAnnulusPDECanonicalExactAnchorHigherBudgetSpectralEnergyGate244.lean",
+      "new_path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Critical/Spectral/EnergyGate.lean",
+      "source_sha256": "6fc75cb1146801147ad05c6b555ef094425810781dd60b7297e9e3476a2afb68",
+      "implementation_body_sha256": "97f7449e8ffe9b2a481a0856b2fb31c85e5740889b7eb9ac1bebbd32322d8c10",
+      "canonical_imports": [
+        "PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLowQuarterPoint3FullThirdPhysicalKineticProjectedSourceSpectralFiniteAnnulusPDECanonicalExactAnchorHigherBudgetAllOrdersSharpEnergy244",
+        "PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLowQuarterPoint3FullThirdPhysicalKineticProjectedSourceSpectralFiniteAnnulusPDECanonicalExactAnchorCriticalWidthEscape244",
+        "Mathlib.Tactic"
+      ],
+      "rewritten_imports": 0
+    },
+    {
+      "old_path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdPhysicalKineticProjectedSourceSpectralFiniteAnnulusPDECanonicalExactAnchorHigherBudgetSignedGrowthGate244.lean",
+      "new_path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Critical/Transport/SignedGrowthGate.lean",
+      "source_sha256": "070324103b6c3a731900bb2aca61cc00b7c8e0bf4b440e54538bd44294fd9c19",
+      "implementation_body_sha256": "c70f326798af5095ade4f45302fb38999699d035c9597794f1f10bf555e88228",
+      "canonical_imports": [
+        "PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Spectral.EnergyGate",
+        "PrimeTensor.Fluid.Vorticity.Continuation.H3.Transport.Excess.Full",
+        "PrimeTensor.Fluid.Vorticity.Continuation.Restart.Selected.Old.Seed.Tail.Control",
+        "Mathlib.Tactic"
+      ],
+      "rewritten_imports": 1
+    },
+    {
+      "old_path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdPhysicalKineticProjectedSourceSpectralFiniteAnnulusPDECanonicalExactAnchorHigherBudgetPointwiseSignedTransport244.lean",
+      "new_path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Critical/Transport/PointwiseSignedTransport.lean",
+      "source_sha256": "375963b0d4ec413f197ed6a69bc5d8192b0f6af3f01b4798d64ae7ac6070e3c0",
+      "implementation_body_sha256": "c84bdc286f83d097f75d0c5e94f2fe771bfb0ee722f8f9957654cac7394b836f",
+      "canonical_imports": [
+        "PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.SignedGrowthGate",
+        "Mathlib.Tactic"
+      ],
+      "rewritten_imports": 1
+    }
+  ]
+}
