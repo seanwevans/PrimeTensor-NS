@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # Rebuild project outputs and retain build/contract evidence under .lake/audit.
 set -euo pipefail
+# Keep audit-helper imports from mutating the source inventory mid-baseline.
+export PYTHONDONTWRITEBYTECODE=1
 cd "$(dirname "${BASH_SOURCE[0]}")/../.."
 mode="${1:---fresh}"
 case "$mode" in
