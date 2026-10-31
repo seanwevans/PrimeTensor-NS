@@ -2545,3 +2545,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Energy.FiniteDissipa
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Energy.FiniteDissipationTerminalTrace
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Energy.TerminalDissipationObstruction
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Energy.TerminalCofinalSourceDissipationSplit
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Energy.TerminalFixedPhysicalSourceChannel
