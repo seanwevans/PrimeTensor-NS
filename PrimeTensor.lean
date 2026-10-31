@@ -2552,3 +2552,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Energy.TerminalFixed
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Energy.TerminalFixedRadialHighDissipation
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Energy.TerminalLowRadialQuadraticKineticBound
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Energy.TerminalLowRadialLerayKineticBound
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Energy.TerminalLowRadialLerayPhysicalL2Bound
