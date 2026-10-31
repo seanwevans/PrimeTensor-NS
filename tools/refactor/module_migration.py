@@ -86,6 +86,40 @@ def ensure_targets(root, pairs):
             raise ValueError(f'Prose source mapping needs separate migration: {old}')
 
 
+def inspect_consumer_rewrites(root, cfg):
+    """Validate canonical import moves, preserving the prior proof-body seal."""
+    rewrites = []
+    for item in cfg.get('consumer_rewrites', []):
+        path, prior = item['path'], item['previous_manifest']
+        old, new = item['legacy_module'], item['canonical_module']
+        source = (root / path).read_text()
+        prior_data = json.loads((root / prior).read_text())
+        row = next((r for r in prior_data['modules'] if r['new_path'] == path), None)
+        if row is None:
+            raise ValueError(f'Consumer not recorded in existing manifest: {path}')
+        if sha(body(source)) != row['implementation_body_sha256']:
+            raise ValueError(f'Consumer proof body changed before migration: {path}')
+        original_imports = imports(source)
+        if original_imports != row['canonical_imports']:
+            raise ValueError(f'Previous manifest import list inconsistent: {path}')
+        if original_imports.count(old) != 1 or new in original_imports:
+            raise ValueError(f'Expected one legacy edge and no new edge: {path}')
+        if new not in {module_of(y) for _, y in cfg['pairs']}:
+            raise ValueError(f'Rewrite target is not a selected new implementation: {new}')
+        rewritten = migrate_imports(source, {old: new})
+        rewrites.append({
+            'path': path, 'previous_manifest': prior,
+            'legacy_module': old, 'canonical_module': new,
+            'source_sha256': sha(source),
+            'implementation_body_sha256': sha(body(source)),
+            'prior_canonical_imports': original_imports,
+            'canonical_imports': imports(rewritten),
+        })
+    if len({x['path'] for x in rewrites}) != len(rewrites):
+        raise ValueError('Duplicate consumer paths in rewrite plan')
+    return rewrites
+
+
 def verify(root, cfg):
     manifest = json.loads((root / cfg['manifest']).read_text())
     pairs = cfg['pairs']
@@ -105,6 +139,38 @@ def verify(root, cfg):
             raise ValueError(f'Import list mismatch: {new}')
         if old_modules.intersection(imports(code)):
             raise ValueError(f'Canonical source imports migrated legacy path: {new}')
+    consumers = manifest.get('consumer_import_updates', [])
+    declared = cfg.get('consumer_rewrites', [])
+    if len(consumers) != len(declared):
+        raise ValueError('Consumer import updates missing from manifest')
+    for item in declared:
+        matches = [r for r in consumers if r['path'] == item['path']]
+        if len(matches) != 1:
+            raise ValueError(f'Missing or duplicate canonical consumer update: {item["path"]}')
+        row = matches[0]
+        for field in ('path', 'previous_manifest', 'legacy_module', 'canonical_module'):
+            if row[field] != item[field]:
+                raise ValueError(f'Consumer rewrite metadata mismatch: {item["path"]}, {field}')
+        source = (root / row['path']).read_text()
+        if sha(body(source)) != row['implementation_body_sha256']:
+            raise ValueError(f'Canonical consumer proof body hash mismatch: {row["path"]}')
+        if imports(source) != row['canonical_imports']:
+            raise ValueError(f'Canonical consumer imports mismatch: {row["path"]}')
+        if row['legacy_module'] in imports(source) or row['canonical_module'] not in imports(source):
+            raise ValueError(f'Canonical consumer still uses legacy path: {row["path"]}')
+        previous = json.loads((root / row['previous_manifest']).read_text())
+        prev_row = next((r for r in previous['modules'] if r['new_path'] == row['path']), None)
+        if prev_row is None or prev_row['canonical_imports'] != row['canonical_imports']:
+            raise ValueError(f'Prior migration manifest not updated: {row["path"]}')
+        if prev_row['implementation_body_sha256'] != row['implementation_body_sha256']:
+            raise ValueError(f'Prior proof-body hash was altered: {row["path"]}')
+        history = prev_row.get('import_refactorings', [])
+        if not any(h.get('migration_manifest') == cfg['manifest']
+                   and h.get('old_import') == row['legacy_module']
+                   and h.get('new_import') == row['canonical_module']
+                   and h.get('previous_imports') == row['prior_canonical_imports']
+                   for h in history):
+            raise ValueError(f'Prior manifest missing import-rewrite provenance: {row["path"]}')
     baseline = (root / 'tools/audit/baseline.sh').read_text()
     if cfg['check_line'] not in baseline:
         raise ValueError('New checker is not wired into baseline.sh')
@@ -154,6 +220,10 @@ def prepare(root, cfg):
         print(f'  {row["old_path"]}\n    -> {row["new_path"]}\n'
               f'       {consumers} direct importers; '
               f'{row["rewritten_imports"]} canonical import rewrites')
+    for consumer in inspect_consumer_rewrites(root, cfg):
+        print(f'  DIRECT CANONICAL CONSUMER: {consumer["path"]}\n'
+              f'    {consumer["legacy_module"]}\n'
+              f'    -> {consumer["canonical_module"]} (imports only)')
     if state['uncovered']:
         print(f'WARNING: {len(state["uncovered"])} previously uncovered modules; '
               'apply is blocked unless --allow-existing-uncovered')
@@ -170,6 +240,9 @@ def apply(root, cfg, rows, originals, before, args):
         raise ValueError(f'Expected checkpoint {cfg["expected_head"]}, found {head}')
     guarded = [old for old, _ in cfg['pairs']] + [
         'tools/audit/baseline.sh', 'proof/order.txt']
+    for item in cfg.get('consumer_rewrites', []):
+        guarded.extend([item['path'], item['previous_manifest']])
+    guarded = list(dict.fromkeys(guarded))
     for path in guarded:
         run(root, 'git', 'ls-files', '--error-unmatch', '--', path)
         result = subprocess.run(['git', 'diff', '--quiet', 'HEAD', '--', path], cwd=root)
@@ -196,12 +269,35 @@ def apply(root, cfg, rows, originals, before, args):
             (root / old).write_text(shim(new))
         target = root / cfg['manifest']
         target.parent.mkdir(parents=True, exist_ok=True)
+        consumers = inspect_consumer_rewrites(root, cfg)
         target.write_text(json.dumps({
             'base_revision': run(root, 'git', 'rev-parse', 'HEAD').stdout.strip(),
             'scope': 'Mechanical relocation preserving every non-import proof line',
             'modules': rows,
+            'consumer_import_updates': consumers,
         }, indent=2) + '\n')
         created_files.append(target)
+        for item in consumers:
+            path = root / item['path']
+            original = path.read_text()
+            altered = migrate_imports(original,
+                                      {item['legacy_module']: item['canonical_module']})
+            if sha(body(altered)) != item['implementation_body_sha256']:
+                raise ValueError(f'Consumer body changed during import rewrite: {item["path"]}')
+            path.write_text(altered)
+            prior_file = root / item['previous_manifest']
+            prior = json.loads(prior_file.read_text())
+            prior_row = next(r for r in prior['modules'] if r['new_path'] == item['path'])
+            if prior_row['canonical_imports'] != item['prior_canonical_imports']:
+                raise ValueError('Existing consumer manifest changed during apply')
+            prior_row['canonical_imports'] = item['canonical_imports']
+            prior_row.setdefault('import_refactorings', []).append({
+                'migration_manifest': cfg['manifest'],
+                'old_import': item['legacy_module'],
+                'new_import': item['canonical_module'],
+                'previous_imports': item['prior_canonical_imports'],
+            })
+            prior_file.write_text(json.dumps(prior, indent=2) + '\n')
         baseline = snapshots['tools/audit/baseline.sh'].decode()
         needle = cfg['predecessor_line']
         if baseline.count(needle) != 1:
