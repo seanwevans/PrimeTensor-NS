@@ -2556,3 +2556,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Energy.TerminalLowRa
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Energy.TerminalLowRadialLerayTimeL1
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Energy.TerminalLowRadialLaplacianTimeL1
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Energy.TerminalActualPhysicalLowpassHighpassEscape
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Energy.TerminalActualHighpassFourierMassEscape
