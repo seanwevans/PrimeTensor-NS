@@ -2544,3 +2544,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLow
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Energy.FiniteDissipationPointwise
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Energy.FiniteDissipationTerminalTrace
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Energy.TerminalDissipationObstruction
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Energy.TerminalCofinalSourceDissipationSplit
