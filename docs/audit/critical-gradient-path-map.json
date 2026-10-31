@@ -1,0 +1,51 @@
+{
+  "base_revision": "6fd6004a8dfec76a9ddd058f7b6efb6a415d259b",
+  "scope": "Mechanical migration: implementation bodies preserved; old paths forward to canonical modules",
+  "modules": [
+    {
+      "old_path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdPhysicalKineticProjectedSourceSpectralFiniteAnnulusPDECanonicalExactAnchorHigherBudgetSignedLogarithmicRateBarrier244.lean",
+      "new_path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Critical/Transport/LogRateBarrier.lean",
+      "source_sha256": "9eccb16e23e1ec1587abec1d89d827e9e075581efff2c95bb255e89e94e7453a",
+      "implementation_body_sha256": "baa31872a5517e9202f6ba98dfdb83c9b2750a7bce59dda5d6ba20ee6473c541",
+      "canonical_imports": [
+        "PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLowQuarterPoint3FullThirdPhysicalKineticProjectedSourceSpectralFiniteAnnulusPDECanonicalExactAnchorHigherBudgetSignedLogarithmicRadiusGate244",
+        "Mathlib.Tactic"
+      ],
+      "rewritten_imports": 0
+    },
+    {
+      "old_path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdPhysicalKineticProjectedSourceSpectralFiniteAnnulusPDECanonicalExactAnchorHigherBudgetPhysicalRiccatiLogBarrier244.lean",
+      "new_path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Critical/Energy/RiccatiBarrier.lean",
+      "source_sha256": "ea7bc882c2fa12fbc5a4b6fb1cf3ab634c388b3340bc2dddbd30815a77b3b52f",
+      "implementation_body_sha256": "5336a4ff860c912ef27b85147a25832444ec6df2e59305d2254b68212b77bd9e",
+      "canonical_imports": [
+        "PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.LogRateBarrier",
+        "PrimeTensor.Fluid.Vorticity.Continuation.H3.Energy.Growth.Sqrt",
+        "Mathlib.Tactic"
+      ],
+      "rewritten_imports": 1
+    },
+    {
+      "old_path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdPhysicalKineticProjectedSourceSpectralFiniteAnnulusPDECanonicalExactAnchorHigherBudgetPhysicalViscousGradientBudget244.lean",
+      "new_path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Critical/PhysicalGradient/ViscousBudget.lean",
+      "source_sha256": "bc76728ca214b99f6655d724f34d93932c078f5a40405a235721abd0ec1ac5e4",
+      "implementation_body_sha256": "6372f5f698fbb544009885c4a77e7c1d7072db994a6b545fbbd4b620d272d551",
+      "canonical_imports": [
+        "PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Energy.RiccatiBarrier",
+        "Mathlib.Tactic"
+      ],
+      "rewritten_imports": 1
+    },
+    {
+      "old_path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdPhysicalKineticProjectedSourceSpectralFiniteAnnulusPDECanonicalExactAnchorHigherBudgetActualGradientSpike244.lean",
+      "new_path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Critical/PhysicalGradient/ActualSpike.lean",
+      "source_sha256": "57462fca805929eec05c35bb5baccbfde2331c0751d79811bea253b4e9615704",
+      "implementation_body_sha256": "b6c9ac0bcda2c31323d32d7a7d0c7ecc28092b4a2f5c0410392fc5cee4b6ed78",
+      "canonical_imports": [
+        "PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.PhysicalGradient.ViscousBudget",
+        "Mathlib.Tactic"
+      ],
+      "rewritten_imports": 1
+    }
+  ]
+}

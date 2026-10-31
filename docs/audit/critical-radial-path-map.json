@@ -1,0 +1,71 @@
+{
+  "base_revision": "6b95cba1af7552b1da9f2dd89635ae0c3b1e5f0a",
+  "scope": "Mechanical relocation preserving every non-import proof line",
+  "modules": [
+    {
+      "old_path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdPhysicalKineticProjectedSourceSpectralFiniteAnnulusPDECanonicalExactAnchorHigherBudgetEnergyOuterGeometry244.lean",
+      "new_path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Critical/AnnularGeometry/EnergyOuter.lean",
+      "source_sha256": "dae3bf0916bc0d3dc1f6c6eb77197a4a83290283cbc31c939e25ffafc31f2138",
+      "implementation_body_sha256": "18c9036caeb3d33c6f575991bbae37c4c390680ca0e79d6514d46011d148478c",
+      "canonical_imports": [
+        "PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLowQuarterPoint3FullThirdPhysicalKineticProjectedSourceSpectralFiniteAnnulusPDECanonicalExactAnchorHigherBudgetPhysicalSourceGain244",
+        "PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLowQuarterPoint3FullThirdPhysicalKineticProjectedSourceSpectralFiniteAnnulusPDEQuadraticEighthCutoff244",
+        "Mathlib.Tactic"
+      ],
+      "rewritten_imports": 0
+    },
+    {
+      "old_path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdPhysicalKineticProjectedSourceSpectralFiniteAnnulusPDECanonicalExactAnchorHigherBudgetSecondMomentCriticalEnergy244.lean",
+      "new_path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Critical/RadialMoments/SecondMomentEnergy.lean",
+      "source_sha256": "e7bc6b9c3a82ae6952ff19ce16ead11d157031e52170284c11a8baa9cf785de1",
+      "implementation_body_sha256": "36fe32022bc4112bfbd9da2fa64e3bb21fe8dd9b198d7fe545f42b1fc5ec0925",
+      "canonical_imports": [
+        "PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.AnnularGeometry.EnergyOuter",
+        "Mathlib.Tactic"
+      ],
+      "rewritten_imports": 1
+    },
+    {
+      "old_path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdPhysicalKineticProjectedSourceSpectralFiniteAnnulusPDECanonicalExactAnchorHigherBudgetSharpFourthEnergy244.lean",
+      "new_path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Critical/RadialMoments/SharpFourthEnergy.lean",
+      "source_sha256": "5cd4c60f8f92ae5f6c4920e8b4d03a85757d07ae63c1a91c3f63da8565a35c0b",
+      "implementation_body_sha256": "b6c9c26c242ccc01959cfd015c1d60cb0b227654d2ef72ed5d1cd527d1fd14ac",
+      "canonical_imports": [
+        "PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.RadialMoments.SecondMomentEnergy",
+        "Mathlib.Tactic"
+      ],
+      "rewritten_imports": 1
+    },
+    {
+      "old_path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdPhysicalKineticProjectedSourceSpectralFiniteAnnulusPDECanonicalExactAnchorHigherBudgetAllOrdersSharpEnergy244.lean",
+      "new_path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Critical/RadialMoments/AllOrdersSharpEnergy.lean",
+      "source_sha256": "d6f423abce0440cffcc829d27c8f4f4c373a6159baf85bc57a5fe66cd9c0a1ea",
+      "implementation_body_sha256": "7eab8102da4e8315fde346fbfdec1610eb162ce995341db726dfa08f3ae53188",
+      "canonical_imports": [
+        "PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.RadialMoments.SharpFourthEnergy",
+        "Mathlib.Tactic"
+      ],
+      "rewritten_imports": 1
+    }
+  ],
+  "consumer_import_updates": [
+    {
+      "path": "PrimeTensor/Fluid/Vorticity/Continuation/H3/Critical/Spectral/EnergyGate.lean",
+      "previous_manifest": "docs/audit/critical-transport-path-map.json",
+      "legacy_module": "PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLowQuarterPoint3FullThirdPhysicalKineticProjectedSourceSpectralFiniteAnnulusPDECanonicalExactAnchorHigherBudgetAllOrdersSharpEnergy244",
+      "canonical_module": "PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.RadialMoments.AllOrdersSharpEnergy",
+      "source_sha256": "6fc75cb1146801147ad05c6b555ef094425810781dd60b7297e9e3476a2afb68",
+      "implementation_body_sha256": "97f7449e8ffe9b2a481a0856b2fb31c85e5740889b7eb9ac1bebbd32322d8c10",
+      "prior_canonical_imports": [
+        "PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLowQuarterPoint3FullThirdPhysicalKineticProjectedSourceSpectralFiniteAnnulusPDECanonicalExactAnchorHigherBudgetAllOrdersSharpEnergy244",
+        "PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLowQuarterPoint3FullThirdPhysicalKineticProjectedSourceSpectralFiniteAnnulusPDECanonicalExactAnchorCriticalWidthEscape244",
+        "Mathlib.Tactic"
+      ],
+      "canonical_imports": [
+        "PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.RadialMoments.AllOrdersSharpEnergy",
+        "PrimeTensor.Fluid.Vorticity.Continuation.H3.Control.FirstMonomialTriadLowQuarterPoint3FullThirdPhysicalKineticProjectedSourceSpectralFiniteAnnulusPDECanonicalExactAnchorCriticalWidthEscape244",
+        "Mathlib.Tactic"
+      ]
+    }
+  ]
+}
