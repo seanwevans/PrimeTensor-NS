@@ -2548,3 +2548,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Energy.TerminalCofin
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Energy.TerminalFixedPhysicalSourceChannel
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Energy.TerminalFixedSpatialComponentSpikes
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Energy.TerminalFixedSpatialComponentNonintegrability
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Energy.TerminalFixedComponentResidualEscape
