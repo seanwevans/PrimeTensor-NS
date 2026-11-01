@@ -2597,3 +2597,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Energy.TerminalActua
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Energy.TerminalActualSourceExcessPhysicalSourceViscousFactorGate
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Energy.TerminalActualSourceExcessAttainedPhysicalPDEFactorGate
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Energy.TerminalActualSourceExcessAnchoredTemporalExcursionGate
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Energy.TerminalActualSourceExcessAnchorExcursionContinuityRadius
