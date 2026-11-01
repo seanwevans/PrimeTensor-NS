@@ -1,5 +1,5 @@
-# Generated from revision: c722fb2baa31744bd08548e4210ac29159b73bd6
-# Source SHA-256: 1fdf9286361c6caf4ab842d8015cbcb6928f604780682bbafc5b864df919dc24
+# Generated from revision: 370c03d39763625885e9a0ad4fbe1da4c776183c
+# Source SHA-256: 5a11b5beddce102c6df659c221837110768df3032877b94a835f2da2fd4ebfa4
 # Existing project import edges only; excluded/missing sources are tracked in tools/audit/known-source-gaps.json.
 Depth
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadCancellation
@@ -3126,3 +3126,4 @@ Fluid/Vorticity/Continuation/H3/Critical/PhysicalGradient/ActualSpike
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdPhysicalKineticProjectedSourceSpectralFiniteAnnulusPDECanonicalExactAnchorHigherBudgetActualGradientSpike244
 Fluid/Vorticity/Continuation/H3/Critical/Energy/TerminalActualSourceDropPhysicalGradientAlternative
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdPhysicalKineticProjectedSourceSpectralFiniteAnnulusPDECanonicalExactAnchorHigherBudgetActualGradientTerminalTail244
+Fluid/Vorticity/Continuation/H3/Critical/Energy/TerminalActualSourceDropCofinalGradientEnergyGate

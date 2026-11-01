@@ -2572,3 +2572,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Energy.TerminalActua
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Energy.TerminalActualSourceDropEndpointDissipationTransport
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Energy.TerminalActualSourceDropSignedEndpointRates
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Energy.TerminalActualSourceDropPhysicalGradientAlternative
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Energy.TerminalActualSourceDropCofinalGradientEnergyGate
