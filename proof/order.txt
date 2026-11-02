@@ -1,5 +1,5 @@
-# Generated from revision: 4db150c6ad6e40785ac2fd94f42421214ef39aa0
-# Source SHA-256: cbb347a18813fb4064fa84488996881228cde3158c6f46f7218043eda51abf6e
+# Generated from revision: 862a31e4e6d9cdc0d50d7e4bf49f7ef0a88bdc36
+# Source SHA-256: 5844289a5f5db5d595f61c2666f3c3e2d65a25549b7e6e597c4c1cfe0f02ad66
 # Existing project import edges only; excluded/missing sources are tracked in tools/audit/known-source-gaps.json.
 Depth
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadCancellation
@@ -3164,6 +3164,7 @@ Fluid/Vorticity/Continuation/H3/Critical/Energy/TerminalActualSourceExcessMinima
 Fluid/Vorticity/Continuation/H3/Critical/Energy/TerminalActualSourceExcessGradientEnergyGapSpike
 Fluid/Vorticity/Continuation/H3/Critical/Energy/TerminalActualSourceExcessMinimalShellEveryTailSignedReplenishment
 Fluid/Vorticity/Continuation/H3/Critical/Energy/TerminalActualSourceExcessEndpointEnergyQuarticGate
+Fluid/Vorticity/Continuation/H3/Critical/Energy/TerminalActualSourceExcessMinimalShellRiccatiQuadraticEnergy
 Fluid/Vorticity/Continuation/H3/Critical/Energy/TerminalActualSourceExcessEndpointQuarticPDECostGate
 Fluid/Vorticity/Continuation/H3/Critical/Energy/TerminalActualSourceExcessQuarticPDEFactorEscape
 Fluid/Vorticity/Continuation/H3/Critical/Energy/TerminalActualSourceExcessExplicitPhysicalPDEFactorGate
