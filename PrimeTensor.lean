@@ -2631,3 +2631,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Energy.TerminalActua
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Energy.TerminalActualSourceExcessMinimalShellEnergyRates
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Energy.TerminalActualSourceExcessMinimalShellOvershootEscape
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Energy.TerminalActualSourceExcessMinimalShellAveragedKineticRates
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Energy.TerminalActualSourceExcessMinimalShellSublinearEnergyWidthEscape
