@@ -1,5 +1,5 @@
-# Generated from revision: 9da439ba497a1a62df0411016a1edf9576a12b26
-# Source SHA-256: aecf8a978866b71c964a9e89dc562d9d9919baa7d386e293d60797eb4001bea9
+# Generated from revision: 95295cdbb7e60969870f7cce2449471ab5a651ec
+# Source SHA-256: 6428b2f2dd53d82e9969dfe52b2ceef3b5af678a58566707b5553a3b21abc2cd
 # Existing project import edges only; excluded/missing sources are tracked in tools/audit/known-source-gaps.json.
 Depth
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadCancellation
@@ -2457,6 +2457,7 @@ Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullTh
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/Transfer/Absorption/Profile/Component/Representative/Interpolation/Branch/PDE/Escape/Cofinal/Hilbert/LowerBalance
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3SchwartzCanonicalBalanceScale
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdAxisWindowSupport244
+Fluid/Vorticity/Continuation/H3/Critical/Transport/FullThirdProjectedRadialIntegral
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/Transfer/Absorption/Profile/Component/Representative/Interpolation/Branch/PDE/Escape/Cofinal/Hilbert/LowerBalance/Resolve
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3SchwartzShapeOrbitNormalization
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdCoherentHermitianPhase244

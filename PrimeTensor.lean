@@ -2647,3 +2647,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Energy.TerminalActua
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Energy.TerminalActualSourceExcessMinimalShellRiccatiSourceHorizonClock
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Energy.TerminalActualSourceExcessMinimalShellRiccatiCubicChargeRigidity
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdRadialDefect
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdProjectedRadialIntegral
