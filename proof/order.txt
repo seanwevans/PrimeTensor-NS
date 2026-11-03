@@ -1,5 +1,5 @@
-# Generated from revision: c53f8a7484077a3ff6c3bee386e1fef7cd8ab18d
-# Source SHA-256: 05570af6eae0a6074381908f5552ad399cb13ce3abd43f14d390b2c3edf19d29
+# Generated from revision: 6355d6433bf3d6b69d96126fe87aad2f1c803cf5
+# Source SHA-256: d2ad806c20c56d9ae21b46932db7e1af82e5ea56372e356d9968375fe4b15481
 # Existing project import edges only; excluded/missing sources are tracked in tools/audit/known-source-gaps.json.
 Depth
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadCancellation
@@ -3178,6 +3178,7 @@ Fluid/Vorticity/Continuation/H3/Critical/Energy/TerminalActualSourceExcessMinima
 Fluid/Vorticity/Continuation/H3/Critical/Energy/TerminalActualSourceExcessAnchoredTemporalExcursionGate
 Fluid/Vorticity/Continuation/H3/Critical/Energy/TerminalActualSourceExcessMinimalShellRiccatiPhysicalCarrierOrSourcePeak
 Fluid/Vorticity/Continuation/H3/Critical/Energy/TerminalActualSourceExcessAnchorExcursionContinuityRadius
+Fluid/Vorticity/Continuation/H3/Critical/Energy/TerminalActualSourceExcessMinimalShellRiccatiCarrierPDEExcursion
 Fluid/Vorticity/Continuation/H3/Critical/Energy/TerminalActualSourceExcessSpectralExcursionPDEClock
 Fluid/Vorticity/Continuation/H3/Critical/Energy/TerminalActualSourceExcessSpectralExcursionEndpointViscousGate
 Fluid/Vorticity/Continuation/H3/Critical/Energy/TerminalActualSourceExcessEndpointViscousFiniteBandPersistence
