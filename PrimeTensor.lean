@@ -2673,3 +2673,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdR
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdRealSolenoidalSchwartzMatchedH3Jets
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdRealSolenoidalSchwartzCanonicalEnergyLimit
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdRealSolenoidalSchwartzPhysicalPDETransportLimit
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdPhysicalJetEnergyQuarticBridge
