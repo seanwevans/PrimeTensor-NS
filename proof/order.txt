@@ -1,5 +1,5 @@
-# Generated from revision: ad10507c11fdea3b0694ed1ccf2e175620041041
-# Source SHA-256: 61b82aaa5313daa0d2eebbb3f049e52bf017001cf4a86cef189d5830eb2ed901
+# Generated from revision: 15dc58599d48006a13111d4436953e5798ad767a
+# Source SHA-256: c771fc29fa53b1a7c707ef7ac75634f03f01686dc8c7ba3089a2adbb1040f47e
 # Existing project import edges only; excluded/missing sources are tracked in tools/audit/known-source-gaps.json.
 Depth
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadCancellation
@@ -2733,6 +2733,7 @@ Fluid/Vorticity/Continuation/H3/Critical/Transport/FullThirdPhysicalSignedQuarti
 Fluid/Vorticity/Continuation/H3/Critical/Transport/FullThirdSolenoidalRadialShellFluxGain
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Fourth/Raw/Higher/Subtail/StateMass/Group/Factor
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdNormalizedVarianceEvolution244
+Fluid/Vorticity/Continuation/H3/Critical/Transport/FullThirdSolenoidalAnnularFluxDecomposition
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Fourth/Raw/Higher/Subtail/StateMass/Group/Factor/Primitive
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdSignedExcessComparison244
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Fourth/Raw/Higher/Subtail/StateMass/Group/Factor/Primitive/Origin

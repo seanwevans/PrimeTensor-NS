@@ -2677,3 +2677,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdP
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdPhysicalSignedQuarticGrowthGate
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdSolenoidalPureSixthPowerFluxLimit
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdSolenoidalRadialShellFluxGain
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdSolenoidalAnnularFluxDecomposition
