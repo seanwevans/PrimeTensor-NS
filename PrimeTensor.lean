@@ -2668,3 +2668,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdR
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdCompactHermitianSupportFlatCutoff
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdRegularizedHermitianNumeratorRecovery
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdFiniteAxisRegularizedLerayNumerator
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdRegularizedPhysicalLerayWeightedL2Bridge
