@@ -2665,3 +2665,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdR
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdRegularizedRadialStrongH3Convergence
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdRegularizedSolenoidalDiagonalDensity
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdRegularizedPhysicalWeightedFourierBridge
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdCompactHermitianSupportFlatCutoff
