@@ -1,5 +1,5 @@
-# Generated from revision: fc4d630dd8fda10308fe282a2742e9ea798538d5
-# Source SHA-256: 2c794f838d765bbd5d0cd5c3681f81b529beb4452a740c5bb7b3c172de447c0d
+# Generated from revision: 7df9085ebc6ae6b88d83f0fe59b4abca377ec003
+# Source SHA-256: 8c8c0df3836f17bc75c88baf3f434e5059fedebd01a1c5fbbe6d06c1ae66a5b0
 # Existing project import edges only; excluded/missing sources are tracked in tools/audit/known-source-gaps.json.
 Depth
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadCancellation
@@ -2586,6 +2586,7 @@ Fluid/Vorticity/Continuation/H3/Critical/Transport/FullThirdSchwartzOrderedInteg
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Spectral/Moment/Limit/Convolution/L2/Leray/Selected/Homogeneity/Quotient
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3SchwartzH3CrossEnergyInvariant244
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdSchwartzDissipationBalance244
+Fluid/Vorticity/Continuation/H3/Critical/Transport/FullThirdSchwartzPhysicalSevenBridge
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Spectral/Moment/Limit/Convolution/L2/Leray/Selected/Homogeneity/Quotient/Self
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3SchwartzSpectralVelocityDensity244
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdSchwartzLowerTransportBudget244
