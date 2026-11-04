@@ -1,5 +1,5 @@
-# Generated from revision: 140b9fac0256e24d08393d74a73ccf8f3eaa5b9b
-# Source SHA-256: 7a581aea0a47f8ecc95cb12f2e53a58772fd6cdd52042f5826d2b3912c88ce7d
+# Generated from revision: 12d951292a8833e9275b32e30c3390e1ecdf540b
+# Source SHA-256: b5665ac8e239a81abc86b1598b0cd530e4ddb0cd7321dd3b2aa7586159af9cde
 # Existing project import edges only; excluded/missing sources are tracked in tools/audit/known-source-gaps.json.
 Depth
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadCancellation
@@ -2680,6 +2680,7 @@ Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullTh
 Fluid/Vorticity/Continuation/H3/Critical/Transport/FullThirdSolenoidalWeightedSpectralDensity
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Fourth/Raw/Mass/Higher/Moment/Forcing/Escape/Pair
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdIntegrableMajorantObstruction244
+Fluid/Vorticity/Continuation/H3/Critical/Transport/FullThirdHermitianTransverseCutoff
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Fourth/Raw/Mass/Higher/Moment/Forcing/Escape/Pair/Bound
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdActualLowerOrderSlack244
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Fourth/Raw/Mass/Higher/Moment/Forcing/Escape/Pair/Bound/Group
