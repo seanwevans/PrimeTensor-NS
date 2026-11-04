@@ -1,5 +1,5 @@
-# Generated from revision: ad13c12074d1ead86685da23d1e0c6b5fce2fc79
-# Source SHA-256: 80e343b84a23930bdcf2e53b8ea4a64df797fd19155ea3bee79b0efe9c5984e2
+# Generated from revision: aa8a09b37a21ff0320428d8105ae79b8f8a4074d
+# Source SHA-256: c77b70381fe8867a224dad9d1601670f67c230598ac4bf524332f2682a1daa3e
 # Existing project import edges only; excluded/missing sources are tracked in tools/audit/known-source-gaps.json.
 Depth
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadCancellation
@@ -2713,6 +2713,7 @@ Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullTh
 Fluid/Vorticity/Continuation/H3/Critical/Transport/FullThirdRegularizedPhysicalLerayWeightedL2Bridge
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Fourth/Raw/Higher/Collapse/Subtail/Fourth
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdRadialVarianceStrict244
+Fluid/Vorticity/Continuation/H3/Critical/Transport/FullThirdRealSolenoidalSchwartzH3Density
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Fourth/Raw/Higher/Collapse/Subtail/Fourth/Forcing
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdTwoBandRadialVariance244
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Fourth/Raw/Higher/Collapse/Subtail/Fourth/Forcing/Bound
