@@ -2651,3 +2651,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdP
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdSixthPowerFlux
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdComplexSixthPowerFlux
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdSchwartzSixOrbitIntegral
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdSchwartzOrderedIntegrability
