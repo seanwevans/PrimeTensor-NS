@@ -1,5 +1,5 @@
-# Generated from revision: aa8a09b37a21ff0320428d8105ae79b8f8a4074d
-# Source SHA-256: c77b70381fe8867a224dad9d1601670f67c230598ac4bf524332f2682a1daa3e
+# Generated from revision: 0f61007ca2ea596cd9e6a84ede20bf022fd293df
+# Source SHA-256: 288401be9f5c0199a28d709a359a86439a945e5b7fd39de89e8519bcb6b5bb57
 # Existing project import edges only; excluded/missing sources are tracked in tools/audit/known-source-gaps.json.
 Depth
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadCancellation
@@ -2716,6 +2716,7 @@ Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullTh
 Fluid/Vorticity/Continuation/H3/Critical/Transport/FullThirdRealSolenoidalSchwartzH3Density
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Fourth/Raw/Higher/Collapse/Subtail/Fourth/Forcing
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdTwoBandRadialVariance244
+Fluid/Vorticity/Continuation/H3/Critical/Transport/FullThirdRealSolenoidalSchwartzMatchedH3Jets
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Fourth/Raw/Higher/Collapse/Subtail/Fourth/Forcing/Bound
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdTwoBandYoungSaturation244
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Fourth/Raw/Higher/Collapse/Subtail/Fourth/Forcing/Bound/Escape

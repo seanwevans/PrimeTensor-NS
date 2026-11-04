@@ -2670,3 +2670,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdR
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdFiniteAxisRegularizedLerayNumerator
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdRegularizedPhysicalLerayWeightedL2Bridge
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdRealSolenoidalSchwartzH3Density
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdRealSolenoidalSchwartzMatchedH3Jets
