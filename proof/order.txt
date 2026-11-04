@@ -1,5 +1,5 @@
-# Generated from revision: c42634442bbe799aa4d96f3d26425b1a6becd836
-# Source SHA-256: 6a1212f315366a6f1627d18c793aa301da30cc599b70a5337bc5b615d8faca73
+# Generated from revision: bfdd95ddc4d598a2481cbe2c0770bb999bdc1325
+# Source SHA-256: e0436449306f7e93952d945248cfbdf69f98a5f7bc85edc05af6bfa22b1ceff0
 # Existing project import edges only; excluded/missing sources are tracked in tools/audit/known-source-gaps.json.
 Depth
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadCancellation
@@ -2726,6 +2726,7 @@ Fluid/Vorticity/Continuation/H3/Critical/Transport/FullThirdRealSolenoidalSchwar
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Fourth/Raw/Higher/Subtail/StateMass
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdRelativeFourierCorridor244
 Fluid/Vorticity/Continuation/H3/Critical/Transport/FullThirdPhysicalJetEnergyQuarticBridge
+Fluid/Vorticity/Continuation/H3/Critical/Transport/FullThirdSolenoidalPureSixthPowerFluxLimit
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Fourth/Raw/Higher/Subtail/StateMass/Group
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdNormalizedFourierMomentRigidity244
 Fluid/Vorticity/Continuation/H3/Critical/Transport/FullThirdPhysicalSignedQuarticGrowthGate
