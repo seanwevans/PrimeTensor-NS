@@ -2657,3 +2657,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdS
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdSchwartzLongitudinalFluxDefect
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdSchwartzLongitudinalFluxControl
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdComplexTransverseProjection
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdSolenoidalWeightedSpectralDensity
