@@ -1,5 +1,5 @@
-# Generated from revision: b6cbef2d2b7a7e1ca7a4fed102b3dda166e20134
-# Source SHA-256: 67f8c6f444f4c0416431363b0546c07a8cf75c4129c51790901d238740d8ac7a
+# Generated from revision: c42634442bbe799aa4d96f3d26425b1a6becd836
+# Source SHA-256: 6a1212f315366a6f1627d18c793aa301da30cc599b70a5337bc5b615d8faca73
 # Existing project import edges only; excluded/missing sources are tracked in tools/audit/known-source-gaps.json.
 Depth
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadCancellation
@@ -2728,6 +2728,7 @@ Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullTh
 Fluid/Vorticity/Continuation/H3/Critical/Transport/FullThirdPhysicalJetEnergyQuarticBridge
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Fourth/Raw/Higher/Subtail/StateMass/Group
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdNormalizedFourierMomentRigidity244
+Fluid/Vorticity/Continuation/H3/Critical/Transport/FullThirdPhysicalSignedQuarticGrowthGate
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Fourth/Raw/Higher/Subtail/StateMass/Group/Factor
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdNormalizedVarianceEvolution244
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Fourth/Raw/Higher/Subtail/StateMass/Group/Factor/Primitive
