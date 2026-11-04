@@ -2660,3 +2660,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdC
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdSolenoidalWeightedSpectralDensity
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdHermitianTransverseCutoff
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdCompactHermitianSolenoidalSchwartz
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdHermitianSmoothCompactSpectralDensity
