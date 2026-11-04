@@ -2663,3 +2663,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdC
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdHermitianSmoothCompactSpectralDensity
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdRegularizedHermitianTransverseRecovery
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdRegularizedRadialStrongH3Convergence
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdRegularizedSolenoidalDiagonalDensity
