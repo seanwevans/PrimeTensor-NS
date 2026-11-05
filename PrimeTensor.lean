@@ -2685,3 +2685,4 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdS
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdSolenoidalMiddleFrequencyFactor
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdSolenoidalHighHighLowH3Budget
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdSolenoidalPhysicalHighHighLowH3Bridge
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdSolenoidalOuterMinimumH3Budget
