@@ -1,5 +1,5 @@
-# Generated from revision: 5e9dcc2006f8138e1826d6de8cdc50ba8ac721d1
-# Source SHA-256: 5626f05ab71d202befd00f7b0d744997bd648f59f2b8fe4836999ad9c1b4d0e2
+# Generated from revision: c21747f911344c49054f8e216f3393955c027fe8
+# Source SHA-256: 95f36fb7345c104a22f2bb12f5ade456a03975063c01a1261c3cb5fffd6da59b
 # Existing project import edges only; excluded/missing sources are tracked in tools/audit/known-source-gaps.json.
 Depth
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadCancellation
@@ -2791,8 +2791,10 @@ Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullTh
 Fluid/Vorticity/Continuation/H3/Critical/Transport/FullThirdSolenoidalPhysicalTerminalHighRadialEscape
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Second/LowerTemporal/Amplitude/Forcing/Escape/Pair
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdVariableBandHeatIntegratedAction244
+Fluid/Vorticity/Continuation/H3/Critical/Transport/FullThirdSolenoidalFiniteBandKineticTransfer
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Second/LowerTemporal/Amplitude/Forcing/Escape/Pair/Bound
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdPhysicalIntegratedSignedBudget244
+Fluid/Vorticity/Continuation/H3/Critical/Transport/FullThirdSolenoidalTerminalKineticLowBandCauchy
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Second/LowerTemporal/Amplitude/Forcing/Escape/Pair/Bound/Group
 Fluid/Vorticity/Continuation/H3/Terminal/Derivative/Positive/Complement/Endpoint/Factor/BKM/Native/Full/Tail/Balance/Amplitude/Minimal/Vorticity/Physical/Longitudinal/Equatorial/Vorticity/Physical/Dissipation/Top/Radial/Tail/Temporal/Forward/PDE/TopDissipation/Forcing/Product/Quotient/Terminal/Second/LowerTemporal/Amplitude/Forcing/Primitive
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadLowQuarterPoint3FullThirdPhysicalIntegratedOrderTwoGradientBudget244
