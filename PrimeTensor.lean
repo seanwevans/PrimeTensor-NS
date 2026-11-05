@@ -2700,3 +2700,5 @@ import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdS
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdSolenoidalTerminalKineticLowBandCauchy
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdSolenoidalFiniteBandPhysicalLowpass
 import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdSolenoidalTerminalLowBandBochnerFTC
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdSolenoidalUnconditionalTerminalLowBandFTC
+import PrimeTensor.Fluid.Vorticity.Continuation.H3.Critical.Transport.FullThirdSolenoidalTerminalRadialTightnessEquivalence
