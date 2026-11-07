@@ -1,5 +1,5 @@
-# Generated from revision: ddd18790298cd2d7345dd12fedd7f833872ba80a
-# Source SHA-256: 65cd3e41eb78afec2cc80f404ef22352f7065502a9fbe7e7d810b51837449ec5
+# Generated from revision: eeb6d979f047bbe9d4da943a62e199f67cddd46f
+# Source SHA-256: 64dd1ed1b3306d1a34acdaab15ebb684e1ceac906c1354bf20cc0e1eaab953a4
 # Existing project import edges only; excluded/missing sources are tracked in tools/audit/known-source-gaps.json.
 Depth
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadCancellation
@@ -3333,3 +3333,4 @@ Fluid/Vorticity/Continuation/H3/Critical/Transport/FullThirdSolenoidalTerminalPr
 Fluid/Vorticity/Continuation/H3/Critical/Transport/FullThirdSolenoidalTerminalProfileKineticCompactGapLowMaxFlux
 Fluid/Vorticity/Continuation/H3/Critical/Transport/FullThirdSolenoidalTerminalProfileKineticArbitraryRadialFluxTradeoff
 Fluid/Vorticity/Continuation/H3/Critical/Transport/FullThirdSolenoidalTerminalProfileKineticGapLowBandPDEFreezing
+Fluid/Vorticity/Continuation/H3/Critical/Transport/FullThirdSolenoidalTerminalProfileKineticMovingRadialGapPDECost
