@@ -1,5 +1,5 @@
-# Generated from revision: 58942f9bd73e3fa738034d6f1d70c7575a0ecc47
-# Source SHA-256: 14e2a8613c0fda242857249cdc34f416ed78c624c492942281467d9086670584
+# Generated from revision: b78c67a4cb5ccb4bdfb52557d4fce1c8e4b403bd
+# Source SHA-256: 93d7d14449a742678db48ce92b401622630437fde1eae6d636ab419c8ae85ef7
 # Existing project import edges only; excluded/missing sources are tracked in tools/audit/known-source-gaps.json.
 Depth
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadCancellation
@@ -3340,3 +3340,4 @@ Fluid/Vorticity/Continuation/H3/Critical/Transport/FullThirdSolenoidalTerminalPr
 Fluid/Vorticity/Continuation/H3/Critical/Transport/FullThirdSolenoidalTerminalProfileKineticMixedWeightedSpectralBridge
 Fluid/Vorticity/Continuation/H3/Critical/Transport/FullThirdSolenoidalTerminalProfileKineticMixedSchwartzIntegrability
 Fluid/Vorticity/Continuation/H3/Critical/Transport/FullThirdSolenoidalTerminalProfileKineticSignedTwoSnapshotFlux
+Fluid/Vorticity/Continuation/H3/Critical/Transport/FullThirdSolenoidalTerminalProfileKineticSignedLowMaxLipschitz
