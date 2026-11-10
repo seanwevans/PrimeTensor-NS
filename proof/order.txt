@@ -1,5 +1,5 @@
-# Generated from revision: d0f570cedc30cc8efacda9a49a06b9392901c1fd
-# Source SHA-256: 88ed2f20074b46222351610a8390df16fbf5d6409018522aced4efd7fb25071d
+# Generated from revision: 7a09243738748d776ceac4848f501428821ab230
+# Source SHA-256: 8ad008279fd6284d0edda7f063df47a1a997454810a8868f55cd0568f2bfbdb5
 # Existing project import edges only; excluded/missing sources are tracked in tools/audit/known-source-gaps.json.
 Depth
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadCancellation
@@ -3385,3 +3385,4 @@ Fluid/Vorticity/Continuation/H3/Critical/Transport/FullThirdSolenoidalTerminalPr
 Fluid/Vorticity/Continuation/H3/Critical/Transport/FullThirdSolenoidalTerminalProfileKineticSignedLowMaxCriticalDyadicPhysicalSourcePeak
 Fluid/Vorticity/Continuation/H3/Critical/Transport/FullThirdSolenoidalTerminalProfileKineticSignedLowMaxCriticalDyadicKineticHighpassForcing
 Fluid/Vorticity/Continuation/H3/Critical/Transport/FullThirdSolenoidalTerminalProfileKineticSignedLowMaxCriticalDyadicVelocityConvolutionGate
+Fluid/Vorticity/Continuation/H3/Critical/Transport/FullThirdSolenoidalTerminalProfileKineticSignedLowMaxCriticalDyadicAdaptiveHighpassGate
