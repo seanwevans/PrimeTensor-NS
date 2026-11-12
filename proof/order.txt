@@ -1,5 +1,5 @@
-# Generated from revision: 44e655f0ba66fc4b139b9f4f099b69efd8e56731
-# Source SHA-256: abf707c28fa895f29c19ab48e1426f03be8ad248a2ef949a4ce18663bcd0ecc1
+# Generated from revision: 926f5b01ca97de77424323591fd34bfb91d15be7
+# Source SHA-256: 4f4593baa5fef5d931711fca80ce15aefefc57314ce485a832dd11f5381baab8
 # Existing project import edges only; excluded/missing sources are tracked in tools/audit/known-source-gaps.json.
 Depth
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadCancellation
@@ -3417,3 +3417,4 @@ Fluid/Vorticity/Continuation/H3/Critical/Transport/FullThirdSolenoidalTerminalPr
 Fluid/Vorticity/Continuation/H3/Critical/Transport/FullThirdSolenoidalTerminalProfileKineticSignedLowMaxCriticalAnnularDeficitTwoTimeLedger
 Fluid/Vorticity/Continuation/H3/Critical/Transport/FullThirdSolenoidalTerminalProfileKineticSignedLowMaxCriticalAnnularDeficitUniformSlope
 Fluid/Vorticity/Continuation/H3/Critical/Transport/FullThirdSolenoidalTerminalProfileKineticSignedLowMaxCriticalAnnularCofinalUniformClockExtraction
+Fluid/Vorticity/Continuation/H3/Critical/Transport/FullThirdSolenoidalTerminalProfileKineticSignedLowMaxCriticalAnnularCofinalOptimalInnerClock
