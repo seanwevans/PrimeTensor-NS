@@ -1,5 +1,5 @@
-# Generated from revision: 3277b04bc81c9dc98ca1d3d8d4f3db67e63436ab
-# Source SHA-256: 165e8df4280d868c505429a03893a1d2004f1af0ab3922ffae6757fe7ec3da96
+# Generated from revision: fc128140c57a4c4f1211059ae6720f26e7d230f6
+# Source SHA-256: 79218f23295b50e066daf773739a7929ed4dd30847f5449e98e2992f7073e748
 # Existing project import edges only; excluded/missing sources are tracked in tools/audit/known-source-gaps.json.
 Depth
 Fluid/Vorticity/Continuation/H3/Control/FirstMonomialTriadCancellation
@@ -3443,3 +3443,4 @@ Fluid/Vorticity/Continuation/H3/Critical/Transport/FullThirdSolenoidalTerminalPr
 Fluid/Vorticity/Continuation/H3/Critical/Transport/FullThirdSolenoidalTerminalProfileKineticSignedLowMaxCriticalAnnularOuterCarrierFrozenDiffusionCommutator
 Fluid/Vorticity/Continuation/H3/Critical/Transport/FullThirdSolenoidalTerminalProfileKineticSignedLowMaxCriticalAnnularOuterCarrierFrozenFourierDiffusionSign
 Fluid/Vorticity/Continuation/H3/Critical/Transport/FullThirdSolenoidalTerminalProfileKineticSignedLowMaxCriticalAnnularOuterCarrierQuadraticLerayPayment
+Fluid/Vorticity/Continuation/H3/Critical/Transport/FullThirdSolenoidalTerminalProfileKineticSignedLowMaxCriticalAnnularOuterCarrierUniformDiffusionCommutator
